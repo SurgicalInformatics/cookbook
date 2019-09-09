@@ -230,6 +230,9 @@ We describe our methods in this chapter.
 \hypertarget{pulling-images-from-redcap-directly-to-argodeep}{%
 \subsection{Pulling images from REDCap directly to argodeep}\label{pulling-images-from-redcap-directly-to-argodeep}}
 
+\hypertarget{original-file-names}{%
+\subsubsection{Original file names}\label{original-file-names}}
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(REDCapR)}
@@ -255,6 +258,43 @@ We describe our methods in this chapter.
             \DataTypeTok{event         =}\NormalTok{ event,}
             \DataTypeTok{overwrite     =} \OtherTok{TRUE}\NormalTok{,}
             \DataTypeTok{directory     =}\NormalTok{ directory}
+\NormalTok{          )}
+\NormalTok{        \}, }\DataTypeTok{error=}\ControlFlowTok{function}\NormalTok{(e)\{\})}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{named-from-redcap-record-id-and-event}{%
+\subsubsection{Named from REDCap record ID and event}\label{named-from-redcap-record-id-and-event}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(REDCapR)}
+\NormalTok{uri =}\StringTok{ "https://redcap.cir.ed.ac.uk/api/"}
+\NormalTok{token =}\StringTok{ ""} \CommentTok{# API token here}
+\NormalTok{record_list =}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{318}
+\NormalTok{field_list =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"photo"}\NormalTok{, }\StringTok{"photo_2"}\NormalTok{, }\StringTok{"photo_3"}\NormalTok{, }\StringTok{"photo_4"}\NormalTok{)}
+\NormalTok{event_list =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"wound_concerns_arm_2"}\NormalTok{, }\StringTok{"questionnaire_1_arm_2"}\NormalTok{,}
+               \StringTok{"questionnaire_2_arm_2"}\NormalTok{, }\StringTok{"questionnaire_3_arm_2"}\NormalTok{)}
+\NormalTok{directory =}\StringTok{ "wound_named"} \CommentTok{# destination directory must exist already}
+
+\ControlFlowTok{for}\NormalTok{(record }\ControlFlowTok{in}\NormalTok{ record_list)\{}
+  \ControlFlowTok{for}\NormalTok{(field }\ControlFlowTok{in}\NormalTok{ field_list)\{}
+    \ControlFlowTok{for}\NormalTok{(event }\ControlFlowTok{in}\NormalTok{ event_list)\{}
+\NormalTok{      file_name =}\StringTok{ }\KeywordTok{paste0}\NormalTok{(record, }\StringTok{"_"}\NormalTok{, field, }\StringTok{"_"}\NormalTok{, event, }\StringTok{".jpg"}\NormalTok{)}
+\NormalTok{      result =}\StringTok{ }
+\StringTok{        }\KeywordTok{tryCatch}\NormalTok{(\{}
+          \KeywordTok{redcap_download_file_oneshot}\NormalTok{(}
+            \DataTypeTok{record        =}\NormalTok{ record,}
+            \DataTypeTok{field         =}\NormalTok{ field,}
+            \DataTypeTok{redcap_uri    =}\NormalTok{ uri,}
+            \DataTypeTok{token         =}\NormalTok{ token,}
+            \DataTypeTok{event         =}\NormalTok{ event,}
+            \DataTypeTok{overwrite     =} \OtherTok{TRUE}\NormalTok{,}
+            \DataTypeTok{directory     =}\NormalTok{ directory,}
+            \DataTypeTok{file_name     =}\NormalTok{ file_name}
 \NormalTok{          )}
 \NormalTok{        \}, }\DataTypeTok{error=}\ControlFlowTok{function}\NormalTok{(e)\{\})}
 \NormalTok{    \}}
