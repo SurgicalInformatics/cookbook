@@ -1,0 +1,42 @@
+# Plotting
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+### GGHighlight Example
+
+Plotting with gghighlight is pretty awesome allowing you to filter on any variable. It seems that gghighlight overwrites any 'colour' variable you put in the main aes. To get round this and have labels, save as a plot and add geom_label_repel separately. 
+
+
+
+```{r libraries, include=FALSE}
+library(knitr)
+library(boot)
+library(tidyverse)
+library(gapminder)
+
+```
+
+
+```{r gghighlight, echo=TRUE}
+library(gghighlight)
+library(ggrepel)
+
+mydata=gapminder
+
+
+plot = mydata %>% 
+  filter(year == "2002") %>% 
+  ggplot(aes(x = gdpPercap, y = lifeExp, colour=continent)) +
+  geom_point()+
+  gghighlight(lifeExp > 75 & gdpPercap < mean(gdpPercap), label_key = country, use_direct_label = FALSE)+ 
+  theme_classic()+ 
+  labs(title= "gghighlight: Filter for countries with Life Expectancy >75 and GDP < mean" )  
+
+plot + geom_label_repel(aes(label= country), show.legend = FALSE) #only needed if you use  use_direct_label = FALSE. This allows you to have a colour legend as well. 
+
+```
+
