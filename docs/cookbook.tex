@@ -124,7 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-08-26}
+    \date{2019-09-09}
 
 \usepackage{booktabs}
 
@@ -221,16 +221,47 @@ Here is a review of existing methods.
 
 We describe our methods in this chapter.
 
-\hypertarget{applications}{%
-\chapter{Applications}\label{applications}}
+\hypertarget{machine-learning}{%
+\chapter{Machine learning}\label{machine-learning}}
 
-Some \emph{significant} applications are demonstrated in this chapter.
+\hypertarget{deep-learning}{%
+\section{Deep learning}\label{deep-learning}}
 
-\hypertarget{example-one}{%
-\section{Example one}\label{example-one}}
+\hypertarget{pulling-images-from-redcap-directly-to-argodeep}{%
+\subsection{Pulling images from REDCap directly to argodeep}\label{pulling-images-from-redcap-directly-to-argodeep}}
 
-\hypertarget{example-two}{%
-\section{Example two}\label{example-two}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(REDCapR)}
+\NormalTok{uri =}\StringTok{ "https://redcap.cir.ed.ac.uk/api/"}
+\NormalTok{token =}\StringTok{ ""} \CommentTok{# API token here}
+\NormalTok{record_list =}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{318}
+\NormalTok{field_list =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"photo"}\NormalTok{, }\StringTok{"photo_2"}\NormalTok{, }\StringTok{"photo_3"}\NormalTok{, }\StringTok{"photo_4"}\NormalTok{)}
+\NormalTok{event_list =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"wound_concerns_arm_2"}\NormalTok{, }\StringTok{"questionnaire_1_arm_2"}\NormalTok{,}
+               \StringTok{"questionnaire_2_arm_2"}\NormalTok{, }\StringTok{"questionnaire_3_arm_2"}\NormalTok{)}
+\NormalTok{directory =}\StringTok{ "wound_raw"} \CommentTok{# destination directory must exist already}
+
+
+\ControlFlowTok{for}\NormalTok{(record }\ControlFlowTok{in}\NormalTok{ record_list)\{}
+  \ControlFlowTok{for}\NormalTok{(field }\ControlFlowTok{in}\NormalTok{ field_list)\{}
+    \ControlFlowTok{for}\NormalTok{(event }\ControlFlowTok{in}\NormalTok{ event_list)\{}
+\NormalTok{      result =}\StringTok{ }
+\StringTok{        }\KeywordTok{tryCatch}\NormalTok{(\{      }\CommentTok{# suppress breaking error when no image in slot}
+          \KeywordTok{redcap_download_file_oneshot}\NormalTok{(}
+            \DataTypeTok{record        =}\NormalTok{ record,}
+            \DataTypeTok{field         =}\NormalTok{ field,}
+            \DataTypeTok{redcap_uri    =}\NormalTok{ uri,}
+            \DataTypeTok{token         =}\NormalTok{ token,}
+            \DataTypeTok{event         =}\NormalTok{ event,}
+            \DataTypeTok{overwrite     =} \OtherTok{TRUE}\NormalTok{,}
+            \DataTypeTok{directory     =}\NormalTok{ directory}
+\NormalTok{          )}
+\NormalTok{        \}, }\DataTypeTok{error=}\ControlFlowTok{function}\NormalTok{(e)\{\})}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{final-words}{%
 \chapter{Final Words}\label{final-words}}
