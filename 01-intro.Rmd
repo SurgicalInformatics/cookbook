@@ -16,17 +16,17 @@ https://github.com/SurgicalInformatics
 
 5. Look at the Files tab - a new folder called `cookbook` should have appeared at the bottom. Click on it and open the cookbook.Rproj file.
 
-6. Add your thing by editing the appropriate .Rmd file - there's one for each chapter. Use the Built tab to Built your changes into a book.
+6. Add your thing by editing the appropriate .Rmd file - there's one for each chapter. Use the Build tab to Build your changes into a book.
 
 7. If anyone has pushed since you cloned/last pulled (hopefully they've not been working on the exact same chapter): click on More - Clean All. Then Pull from the Git tab. This only cleans the output files - html and PDF, it will not touch the changes you've made in the .Rmd file.
 
 8. Then Build Book again - this will include the new changes you pulled as well as your changes.
 
-9. Git tab - commit everything, push quickly before anyone else does or you'll have to go back to step 7. You can check for new pushed commits here: https://github.com/SurgicalInformatics/cookbook/commits/master Alternatively there's no harm in clicking the Pull button again - it should then say "Already up-to-date".
+9. Git tab - commit everything, Push quickly before anyone else does or you'll have to go back to step 7. You can check for new pushed commits here: https://github.com/SurgicalInformatics/cookbook/commits/master Alternatively there's no harm in clicking the Pull button again - it should then say "Already up-to-date".
 
 > Pro tip: instead of clicking on every single file in the Git tab, go to the terminal, `cd cookbook` to go to the project folder if still home, and do `git add -A` which is the same thing. Still need to Commit though!
 
-10. Have fun!
+**10. Have fun!**
 
 
 ## Rules of posting
