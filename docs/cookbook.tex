@@ -235,10 +235,40 @@ Sepal.Length & Sepal.Width & Petal.Length & Petal.Width & Species\\
 
 You can write citations, too. For example, we are using the \textbf{bookdown} package \citep{R-bookdown} in this sample book, which was built on top of R Markdown and \textbf{knitr} \citep{xie2015}.
 
-\hypertarget{literature}{%
-\chapter{Literature}\label{literature}}
+\hypertarget{snippets}{%
+\chapter{Snippets}\label{snippets}}
 
-Here is a review of existing methods.
+Randon useful snippets that do not fit anywhere else.
+
+\hypertarget{extract-dob-and-gender-from-chi}{%
+\section{Extract dob and gender from chi}\label{extract-dob-and-gender-from-chi}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\KeywordTok{library}\NormalTok{(lubridate)}
+\NormalTok{x =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}
+  \DataTypeTok{chi =} \KeywordTok{c}\NormalTok{(}\StringTok{"1009761234"}\NormalTok{, }\StringTok{"1009762345"}\NormalTok{)}
+\NormalTok{  )}
+
+\NormalTok{x }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
+    \DataTypeTok{dob =} \KeywordTok{str_extract}\NormalTok{(chi, }\StringTok{".\{6\}"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{dmy}\NormalTok{(),}
+    \DataTypeTok{gender =} \KeywordTok{str_sub}\NormalTok{(chi, }\DecValTok{9}\NormalTok{, }\DecValTok{9}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{as.numeric}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\NormalTok{\{}\KeywordTok{ifelse}\NormalTok{(. }\OperatorTok{%%}\StringTok{ }\DecValTok{2} \OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{, }\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{)\}}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 3
+##   chi        dob        gender
+##   <chr>      <date>     <chr> 
+## 1 1009761234 1976-09-10 Male  
+## 2 1009762345 1976-09-10 Female
+\end{verbatim}
 
 \hypertarget{methods}{%
 \chapter{Methods}\label{methods}}

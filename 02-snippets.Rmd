@@ -1,0 +1,23 @@
+# Snippets
+
+Randon useful snippets that do not fit anywhere else. 
+
+## Extract dob and gender from chi
+
+```{r message=FALSE}
+library(tidyverse)
+library(lubridate)
+x = tibble(
+  chi = c("1009761234", "1009762345")
+  )
+
+x %>%
+  mutate(
+    dob = str_extract(chi, ".{6}") %>% 
+      dmy(),
+    gender = str_sub(chi, 9, 9) %>% 
+      as.numeric() %>% 
+      {ifelse(. %% 2 == 0, "Female", "Male")}
+  )
+```
+

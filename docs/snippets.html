@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | The Surgical Informatics Cookbook</title>
+  <title>Chapter 2 Snippets | The Surgical Informatics Cookbook</title>
   <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | The Surgical Informatics Cookbook" />
+  <meta property="og:title" content="Chapter 2 Snippets | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | The Surgical Informatics Cookbook" />
+  <meta name="twitter:title" content="Chapter 2 Snippets | The Surgical Informatics Cookbook" />
   
   <meta name="twitter:description" content="All the brilliant bits of code we don’t want to forget." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="final-words.html">
-<link rel="next" href="plotting.html">
+<link rel="prev" href="intro.html">
+<link rel="next" href="methods.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -171,17 +171,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
+<div id="snippets" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Snippets</h1>
+<p>Randon useful snippets that do not fit anywhere else.</p>
+<div id="extract-dob-and-gender-from-chi" class="section level2">
+<h2><span class="header-section-number">2.1</span> Extract dob and gender from chi</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">library</span>(lubridate)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">x =<span class="st"> </span><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">  <span class="dt">chi =</span> <span class="kw">c</span>(<span class="st">&quot;1009761234&quot;</span>, <span class="st">&quot;1009762345&quot;</span>)</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">  )</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">x <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">    <span class="dt">dob =</span> <span class="kw">str_extract</span>(chi, <span class="st">&quot;.{6}&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="st">      </span><span class="kw">dmy</span>(),</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">    <span class="dt">gender =</span> <span class="kw">str_sub</span>(chi, <span class="dv">9</span>, <span class="dv">9</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="st">      </span><span class="kw">as.numeric</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="st">      </span>{<span class="kw">ifelse</span>(. <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>)}</a>
+<a class="sourceLine" id="cb3-14" data-line-number="14">  )</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   chi        dob        gender
+##   &lt;chr&gt;      &lt;date&gt;     &lt;chr&gt; 
+## 1 1009761234 1976-09-10 Male  
+## 2 1009762345 1976-09-10 Female</code></pre>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="final-words.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="plotting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
