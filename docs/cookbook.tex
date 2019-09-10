@@ -128,6 +128,20 @@
 
 \usepackage{booktabs}
 
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[chapter]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
 \begin{document}
 \maketitle
 
@@ -137,6 +151,70 @@
 }
 \hypertarget{intro}{%
 \chapter{Introduction}\label{intro}}
+
+\hypertarget{how-to-contribute}{%
+\section{How to contribute}\label{how-to-contribute}}
+
+(Steps 1. to 5. only need to be done once - to set-up.)
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Connect your RStudio and GitHub using these instructions, only up to
+  ``Create new project'' is necessary here (the repository/project
+  already exists):
+  \url{https://www.datasurg.net/2015/07/13/rstudio-and-github/}
+\item
+  Get your GitHub account added to the surgicalinformatics organisation
+  on GitHub (ask Riinu/Ewen):
+  \url{https://github.com/SurgicalInformatics}
+\item
+  Open the terminal on argonaut, go to your home folder (just
+  \texttt{cd} will default to taking you home). If the prompt says
+  \texttt{username@argonaut:\textasciitilde{}\$} that means you're home
+  - \texttt{\textasciitilde{}} means user's home.
+\item
+  In the terminal, do
+  \texttt{git\ clone\ git@github.com:SurgicalInformatics/cookbook.git}.
+\item
+  Look at the Files tab - a new folder called \texttt{cookbook} should
+  have appeared at the bottom. Click on it and open the cookbook.Rproj
+  file.
+\item
+  Add your thing by editing the appropriate .Rmd file - there's one for
+  each chapter. Use the Built tab to Built your changes into a book.
+\item
+  If anyone has pushed since you cloned/last pulled (hopefully they've
+  not been working on the exact same chapter): click on More - Clean
+  All. Then Pull from the Git tab. This only cleans the output files -
+  html and PDF, it will not touch the changes you've made in the .Rmd
+  file.
+\item
+  Then Build Book again - this will include the new changes you pulled
+  as well as your changes.
+\item
+  Git tab - commit everything, push quickly before anyone else does or
+  you'll have to go back to step 7. You can check for new pushed commits
+  here:
+  \url{https://github.com/SurgicalInformatics/cookbook/commits/master}
+  Alternatively there's no harm in clicking the Pull button again - it
+  should then say ``Already up-to-date''.
+\end{enumerate}
+
+\begin{quote}
+Pro tip: instead of clicking on every single file in the Git tab, go to
+the terminal, \texttt{cd\ cookbook} to go to the project folder if still
+home, and do \texttt{git\ add\ -A} which is the same thing. Still need
+to Commit though!
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{9}
+\tightlist
+\item
+  Have fun!
+\end{enumerate}
 
 \hypertarget{rules-of-posting}{%
 \section{Rules of posting}\label{rules-of-posting}}
@@ -150,7 +228,8 @@ Rules of how to post here.
 \subsection{Index}\label{index}}
 
 Bold index headings:\\
-\texttt{\textbackslash{}index\{linear\ regression@\textbackslash{}textbf\{linear\ regression\}\}} (ticks in .Rmd file are excluded when actually using)
+\texttt{\textbackslash{}index\{linear\ regression@\textbackslash{}textbf\{linear\ regression\}\}}
+(ticks in .Rmd file are excluded when actually using)
 
 Sub-entries of bold headings:\\
 \texttt{\textbackslash{}index\{linear\ regression@\textbackslash{}textbf\{linear\ regression\}!diagnostics\}}
@@ -159,14 +238,22 @@ Stand-alone entries:\\
 \texttt{\textbackslash{}index\{linear\ regression\}}
 
 \hypertarget{chapter-and-section-references}{%
-\subsection{Chapter and section references}\label{chapter-and-section-references}}
+\subsection{Chapter and section
+references}\label{chapter-and-section-references}}
 
-You can label chapter and section titles using \texttt{\{\#label\}} after them, e.g., we can reference Chapter \texttt{\textbackslash{}@ref(intro)} (ticks in .Rmd are excluded when actually using). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \texttt{\textbackslash{}@ref(methods)}.
+You can label chapter and section titles using \texttt{\{\#label\}}
+after them, e.g., we can reference Chapter
+\texttt{\textbackslash{}@ref(intro)} (ticks in .Rmd are excluded when
+actually using). If you do not manually label them, there will be
+automatic labels anyway, e.g., Chapter
+\texttt{\textbackslash{}@ref(methods)}.
 
 \hypertarget{figure-and-table-references}{%
-\subsection{Figure and table references}\label{figure-and-table-references}}
+\subsection{Figure and table
+references}\label{figure-and-table-references}}
 
-Figures and tables with captions will be placed in \texttt{figure} and \texttt{table} environments, respectively.
+Figures and tables with captions will be placed in \texttt{figure} and
+\texttt{table} environments, respectively.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -184,7 +271,11 @@ Figures and tables with captions will be placed in \texttt{figure} and \texttt{t
 \caption{Here is a nice figure!}\label{fig:nice-fig}
 \end{figure}
 
-Reference a figure by its code chunk label with the \texttt{fig:} prefix, e.g., see Figure \texttt{\textbackslash{}@ref(fig:nice-fig)}. Similarly, you can reference tables generated from \texttt{knitr::kable()}, e.g., see Table \texttt{\textbackslash{}@ref(tab:nice-tab)}.
+Reference a figure by its code chunk label with the \texttt{fig:}
+prefix, e.g., see Figure \texttt{\textbackslash{}@ref(fig:nice-fig)}.
+Similarly, you can reference tables generated from
+\texttt{knitr::kable()}, e.g., see Table
+\texttt{\textbackslash{}@ref(tab:nice-tab)}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -233,7 +324,9 @@ Sepal.Length & Sepal.Width & Petal.Length & Petal.Width & Species\\
 \hypertarget{citations}{%
 \subsection{Citations}\label{citations}}
 
-You can write citations, too. For example, we are using the \textbf{bookdown} package \citep{R-bookdown} in this sample book, which was built on top of R Markdown and \textbf{knitr} \citep{xie2015}.
+You can write citations, too. For example, we are using the
+\textbf{bookdown} package \citep{R-bookdown} in this sample book, which
+was built on top of R Markdown and \textbf{knitr} \citep{xie2015}.
 
 \hypertarget{literature}{%
 \chapter{Literature}\label{literature}}
@@ -252,7 +345,8 @@ We describe our methods in this chapter.
 \section{Deep learning}\label{deep-learning}}
 
 \hypertarget{pulling-images-from-redcap-directly-to-argodeep}{%
-\subsection{Pulling images from REDCap directly to argodeep}\label{pulling-images-from-redcap-directly-to-argodeep}}
+\subsection{Pulling images from REDCap directly to
+argodeep}\label{pulling-images-from-redcap-directly-to-argodeep}}
 
 \hypertarget{original-file-names}{%
 \subsubsection{Original file names}\label{original-file-names}}
@@ -291,7 +385,8 @@ We describe our methods in this chapter.
 \end{Shaded}
 
 \hypertarget{named-from-redcap-record-id-and-event}{%
-\subsubsection{Named from REDCap record ID and event}\label{named-from-redcap-record-id-and-event}}
+\subsubsection{Named from REDCap record ID and
+event}\label{named-from-redcap-record-id-and-event}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -338,7 +433,10 @@ We have finished a nice book.
 \hypertarget{gghighlight-example}{%
 \section{GGHighlight Example}\label{gghighlight-example}}
 
-Plotting with gghighlight is pretty awesome allowing you to filter on any variable. It seems that gghighlight overwrites any `colour' variable you put in the main aes. To get round this and have labels, save as a plot and add geom\_label\_repel separately.
+Plotting with gghighlight is pretty awesome allowing you to filter on
+any variable. It seems that gghighlight overwrites any `colour' variable
+you put in the main aes. To get round this and have labels, save as a
+plot and add geom\_label\_repel separately.
 
 \begin{Shaded}
 \begin{Highlighting}[]
