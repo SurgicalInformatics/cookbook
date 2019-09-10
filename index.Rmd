@@ -9,14 +9,3 @@ biblio-style: apalike
 link-citations: yes
 description: "All the brilliant bits of code we don't want to forget."
 ---
-
-# Rules of posting
-
-Rules of how to post here. 
-
-```{r include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
-```

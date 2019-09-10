@@ -124,24 +124,10 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-09-09}
+    \date{2019-09-10}
 
 \usepackage{booktabs}
 
-\usepackage{amsthm}
-\newtheorem{theorem}{Theorem}[chapter]
-\newtheorem{lemma}{Lemma}[chapter]
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[chapter]
-\newtheorem{corollary}{Corollary}[chapter]
-\newtheorem{proposition}{Proposition}[chapter]
-\theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
-\theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[chapter]
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-\newtheorem*{solution}{Solution}
 \begin{document}
 \maketitle
 
@@ -149,21 +135,38 @@
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
-\hypertarget{rules-of-posting}{%
-\chapter{Rules of posting}\label{rules-of-posting}}
-
-Rules of how to post here.
-
 \hypertarget{intro}{%
 \chapter{Introduction}\label{intro}}
 
-You can label chapter and section titles using \texttt{\{\#label\}}
-after them, e.g., we can reference Chapter \ref{intro}. If you do not
-manually label them, there will be automatic labels anyway, e.g.,
-Chapter \ref{methods}.
+\hypertarget{rules-of-posting}{%
+\section{Rules of posting}\label{rules-of-posting}}
 
-Figures and tables with captions will be placed in \texttt{figure} and
-\texttt{table} environments, respectively.
+Rules of how to post here.
+
+\hypertarget{indexing}{%
+\section{Indexing}\label{indexing}}
+
+\hypertarget{index}{%
+\subsection{Index}\label{index}}
+
+Bold index headings:\\
+\texttt{\textbackslash{}index\{linear\ regression@\textbackslash{}textbf\{linear\ regression\}\}} (ticks in .Rmd file are excluded when actually using)
+
+Sub-entries of bold headings:\\
+\texttt{\textbackslash{}index\{linear\ regression@\textbackslash{}textbf\{linear\ regression\}!diagnostics\}}
+
+Stand-alone entries:\\
+\texttt{\textbackslash{}index\{linear\ regression\}}
+
+\hypertarget{chapter-and-section-references}{%
+\subsection{Chapter and section references}\label{chapter-and-section-references}}
+
+You can label chapter and section titles using \texttt{\{\#label\}} after them, e.g., we can reference Chapter \texttt{\textbackslash{}@ref(intro)} (ticks in .Rmd are excluded when actually using). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \texttt{\textbackslash{}@ref(methods)}.
+
+\hypertarget{figure-and-table-references}{%
+\subsection{Figure and table references}\label{figure-and-table-references}}
+
+Figures and tables with captions will be placed in \texttt{figure} and \texttt{table} environments, respectively.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -181,10 +184,7 @@ Figures and tables with captions will be placed in \texttt{figure} and
 \caption{Here is a nice figure!}\label{fig:nice-fig}
 \end{figure}
 
-Reference a figure by its code chunk label with the \texttt{fig:}
-prefix, e.g., see Figure \ref{fig:nice-fig}. Similarly, you can
-reference tables generated from \texttt{knitr::kable()}, e.g., see Table
-\ref{tab:nice-tab}.
+Reference a figure by its code chunk label with the \texttt{fig:} prefix, e.g., see Figure \texttt{\textbackslash{}@ref(fig:nice-fig)}. Similarly, you can reference tables generated from \texttt{knitr::kable()}, e.g., see Table \texttt{\textbackslash{}@ref(tab:nice-tab)}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -230,9 +230,10 @@ Sepal.Length & Sepal.Width & Petal.Length & Petal.Width & Species\\
 \end{tabular}
 \end{table}
 
-You can write citations, too. For example, we are using the
-\textbf{bookdown} package \citep{R-bookdown} in this sample book, which
-was built on top of R Markdown and \textbf{knitr} \citep{xie2015}.
+\hypertarget{citations}{%
+\subsection{Citations}\label{citations}}
+
+You can write citations, too. For example, we are using the \textbf{bookdown} package \citep{R-bookdown} in this sample book, which was built on top of R Markdown and \textbf{knitr} \citep{xie2015}.
 
 \hypertarget{literature}{%
 \chapter{Literature}\label{literature}}
@@ -251,8 +252,7 @@ We describe our methods in this chapter.
 \section{Deep learning}\label{deep-learning}}
 
 \hypertarget{pulling-images-from-redcap-directly-to-argodeep}{%
-\subsection{Pulling images from REDCap directly to
-argodeep}\label{pulling-images-from-redcap-directly-to-argodeep}}
+\subsection{Pulling images from REDCap directly to argodeep}\label{pulling-images-from-redcap-directly-to-argodeep}}
 
 \hypertarget{original-file-names}{%
 \subsubsection{Original file names}\label{original-file-names}}
@@ -291,8 +291,7 @@ argodeep}\label{pulling-images-from-redcap-directly-to-argodeep}}
 \end{Shaded}
 
 \hypertarget{named-from-redcap-record-id-and-event}{%
-\subsubsection{Named from REDCap record ID and
-event}\label{named-from-redcap-record-id-and-event}}
+\subsubsection{Named from REDCap record ID and event}\label{named-from-redcap-record-id-and-event}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -337,12 +336,9 @@ We have finished a nice book.
 \chapter{Plotting}\label{plotting}}
 
 \hypertarget{gghighlight-example}{%
-\subsection{GGHighlight Example}\label{gghighlight-example}}
+\section{GGHighlight Example}\label{gghighlight-example}}
 
-Plotting with gghighlight is pretty awesome allowing you to filter on
-any variable. It seems that gghighlight overwrites any `colour' variable
-you put in the main aes. To get round this and have labels, save as a
-plot and add geom\_label\_repel separately.
+Plotting with gghighlight is pretty awesome allowing you to filter on any variable. It seems that gghighlight overwrites any `colour' variable you put in the main aes. To get round this and have labels, save as a plot and add geom\_label\_repel separately.
 
 \begin{Shaded}
 \begin{Highlighting}[]
