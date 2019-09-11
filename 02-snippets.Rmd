@@ -125,3 +125,20 @@ tibble(chi = chi) %>%
     chi_valid = chi_valid(chi)
   )
 ```
+
+## Working with dates
+
+### Difference between two dates
+
+I always forget how to do this neatly. 
+I often want days as a numeric, not a lubridate type object. 
+
+```{r}
+library(lubridate)
+date1 = dmy("12/03/2018", "14/05/2017")
+date2 = dmy("11/09/2019", "11/04/2019")
+
+interval(date1, date2) %>% 
+  as.numeric("days")
+```
+

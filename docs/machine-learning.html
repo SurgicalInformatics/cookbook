@@ -145,6 +145,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.3" data-path="snippets.html"><a href="snippets.html#chi_age---extract-age-from-chi"><i class="fa fa-check"></i><b>2.1.3</b> <code>chi_age()</code> - Extract age from CHI</a></li>
 <li class="chapter" data-level="2.1.4" data-path="snippets.html"><a href="snippets.html#chi_valid---logical-test-for-valid-chi"><i class="fa fa-check"></i><b>2.1.4</b> <code>chi_valid()</code> - Logical test for valid CHI</a></li>
 </ul></li>
+<li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.2</b> Working with dates</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.2.1</b> Difference between two dates</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a></li>
 <li class="chapter" data-level="4" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>4</b> Machine learning</a><ul>
@@ -185,66 +188,66 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">4.1.1</span> Pulling images from REDCap directly to argodeep</h3>
 <div id="original-file-names" class="section level4">
 <h4><span class="header-section-number">4.1.1.1</span> Original file names</h4>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">library</span>(REDCapR)</a>
-<a class="sourceLine" id="cb23-2" data-line-number="2">uri =<span class="st"> &quot;https://redcap.cir.ed.ac.uk/api/&quot;</span></a>
-<a class="sourceLine" id="cb23-3" data-line-number="3">token =<span class="st"> &quot;&quot;</span> <span class="co"># API token here</span></a>
-<a class="sourceLine" id="cb23-4" data-line-number="4">record_list =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">318</span></a>
-<a class="sourceLine" id="cb23-5" data-line-number="5">field_list =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;photo&quot;</span>, <span class="st">&quot;photo_2&quot;</span>, <span class="st">&quot;photo_3&quot;</span>, <span class="st">&quot;photo_4&quot;</span>)</a>
-<a class="sourceLine" id="cb23-6" data-line-number="6">event_list =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;wound_concerns_arm_2&quot;</span>, <span class="st">&quot;questionnaire_1_arm_2&quot;</span>,</a>
-<a class="sourceLine" id="cb23-7" data-line-number="7">               <span class="st">&quot;questionnaire_2_arm_2&quot;</span>, <span class="st">&quot;questionnaire_3_arm_2&quot;</span>)</a>
-<a class="sourceLine" id="cb23-8" data-line-number="8">directory =<span class="st"> &quot;wound_raw&quot;</span> <span class="co"># destination directory must exist already</span></a>
-<a class="sourceLine" id="cb23-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb23-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb23-11" data-line-number="11"><span class="cf">for</span>(record <span class="cf">in</span> record_list){</a>
-<a class="sourceLine" id="cb23-12" data-line-number="12">  <span class="cf">for</span>(field <span class="cf">in</span> field_list){</a>
-<a class="sourceLine" id="cb23-13" data-line-number="13">    <span class="cf">for</span>(event <span class="cf">in</span> event_list){</a>
-<a class="sourceLine" id="cb23-14" data-line-number="14">      result =<span class="st"> </span></a>
-<a class="sourceLine" id="cb23-15" data-line-number="15"><span class="st">        </span><span class="kw">tryCatch</span>({      <span class="co"># suppress breaking error when no image in slot</span></a>
-<a class="sourceLine" id="cb23-16" data-line-number="16">          <span class="kw">redcap_download_file_oneshot</span>(</a>
-<a class="sourceLine" id="cb23-17" data-line-number="17">            <span class="dt">record        =</span> record,</a>
-<a class="sourceLine" id="cb23-18" data-line-number="18">            <span class="dt">field         =</span> field,</a>
-<a class="sourceLine" id="cb23-19" data-line-number="19">            <span class="dt">redcap_uri    =</span> uri,</a>
-<a class="sourceLine" id="cb23-20" data-line-number="20">            <span class="dt">token         =</span> token,</a>
-<a class="sourceLine" id="cb23-21" data-line-number="21">            <span class="dt">event         =</span> event,</a>
-<a class="sourceLine" id="cb23-22" data-line-number="22">            <span class="dt">overwrite     =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb23-23" data-line-number="23">            <span class="dt">directory     =</span> directory</a>
-<a class="sourceLine" id="cb23-24" data-line-number="24">          )</a>
-<a class="sourceLine" id="cb23-25" data-line-number="25">        }, <span class="dt">error=</span><span class="cf">function</span>(e){})</a>
-<a class="sourceLine" id="cb23-26" data-line-number="26">    }</a>
-<a class="sourceLine" id="cb23-27" data-line-number="27">  }</a>
-<a class="sourceLine" id="cb23-28" data-line-number="28">}</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">library</span>(REDCapR)</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2">uri =<span class="st"> &quot;https://redcap.cir.ed.ac.uk/api/&quot;</span></a>
+<a class="sourceLine" id="cb25-3" data-line-number="3">token =<span class="st"> &quot;&quot;</span> <span class="co"># API token here</span></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4">record_list =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">318</span></a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">field_list =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;photo&quot;</span>, <span class="st">&quot;photo_2&quot;</span>, <span class="st">&quot;photo_3&quot;</span>, <span class="st">&quot;photo_4&quot;</span>)</a>
+<a class="sourceLine" id="cb25-6" data-line-number="6">event_list =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;wound_concerns_arm_2&quot;</span>, <span class="st">&quot;questionnaire_1_arm_2&quot;</span>,</a>
+<a class="sourceLine" id="cb25-7" data-line-number="7">               <span class="st">&quot;questionnaire_2_arm_2&quot;</span>, <span class="st">&quot;questionnaire_3_arm_2&quot;</span>)</a>
+<a class="sourceLine" id="cb25-8" data-line-number="8">directory =<span class="st"> &quot;wound_raw&quot;</span> <span class="co"># destination directory must exist already</span></a>
+<a class="sourceLine" id="cb25-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb25-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="cf">for</span>(record <span class="cf">in</span> record_list){</a>
+<a class="sourceLine" id="cb25-12" data-line-number="12">  <span class="cf">for</span>(field <span class="cf">in</span> field_list){</a>
+<a class="sourceLine" id="cb25-13" data-line-number="13">    <span class="cf">for</span>(event <span class="cf">in</span> event_list){</a>
+<a class="sourceLine" id="cb25-14" data-line-number="14">      result =<span class="st"> </span></a>
+<a class="sourceLine" id="cb25-15" data-line-number="15"><span class="st">        </span><span class="kw">tryCatch</span>({      <span class="co"># suppress breaking error when no image in slot</span></a>
+<a class="sourceLine" id="cb25-16" data-line-number="16">          <span class="kw">redcap_download_file_oneshot</span>(</a>
+<a class="sourceLine" id="cb25-17" data-line-number="17">            <span class="dt">record        =</span> record,</a>
+<a class="sourceLine" id="cb25-18" data-line-number="18">            <span class="dt">field         =</span> field,</a>
+<a class="sourceLine" id="cb25-19" data-line-number="19">            <span class="dt">redcap_uri    =</span> uri,</a>
+<a class="sourceLine" id="cb25-20" data-line-number="20">            <span class="dt">token         =</span> token,</a>
+<a class="sourceLine" id="cb25-21" data-line-number="21">            <span class="dt">event         =</span> event,</a>
+<a class="sourceLine" id="cb25-22" data-line-number="22">            <span class="dt">overwrite     =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb25-23" data-line-number="23">            <span class="dt">directory     =</span> directory</a>
+<a class="sourceLine" id="cb25-24" data-line-number="24">          )</a>
+<a class="sourceLine" id="cb25-25" data-line-number="25">        }, <span class="dt">error=</span><span class="cf">function</span>(e){})</a>
+<a class="sourceLine" id="cb25-26" data-line-number="26">    }</a>
+<a class="sourceLine" id="cb25-27" data-line-number="27">  }</a>
+<a class="sourceLine" id="cb25-28" data-line-number="28">}</a></code></pre></div>
 </div>
 <div id="named-from-redcap-record-id-and-event" class="section level4">
 <h4><span class="header-section-number">4.1.1.2</span> Named from REDCap record ID and event</h4>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">library</span>(REDCapR)</a>
-<a class="sourceLine" id="cb24-2" data-line-number="2">uri =<span class="st"> &quot;https://redcap.cir.ed.ac.uk/api/&quot;</span></a>
-<a class="sourceLine" id="cb24-3" data-line-number="3">token =<span class="st"> &quot;&quot;</span> <span class="co"># API token here</span></a>
-<a class="sourceLine" id="cb24-4" data-line-number="4">record_list =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">318</span></a>
-<a class="sourceLine" id="cb24-5" data-line-number="5">field_list =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;photo&quot;</span>, <span class="st">&quot;photo_2&quot;</span>, <span class="st">&quot;photo_3&quot;</span>, <span class="st">&quot;photo_4&quot;</span>)</a>
-<a class="sourceLine" id="cb24-6" data-line-number="6">event_list =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;wound_concerns_arm_2&quot;</span>, <span class="st">&quot;questionnaire_1_arm_2&quot;</span>,</a>
-<a class="sourceLine" id="cb24-7" data-line-number="7">               <span class="st">&quot;questionnaire_2_arm_2&quot;</span>, <span class="st">&quot;questionnaire_3_arm_2&quot;</span>)</a>
-<a class="sourceLine" id="cb24-8" data-line-number="8">directory =<span class="st"> &quot;wound_named&quot;</span> <span class="co"># destination directory must exist already</span></a>
-<a class="sourceLine" id="cb24-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb24-10" data-line-number="10"><span class="cf">for</span>(record <span class="cf">in</span> record_list){</a>
-<a class="sourceLine" id="cb24-11" data-line-number="11">  <span class="cf">for</span>(field <span class="cf">in</span> field_list){</a>
-<a class="sourceLine" id="cb24-12" data-line-number="12">    <span class="cf">for</span>(event <span class="cf">in</span> event_list){</a>
-<a class="sourceLine" id="cb24-13" data-line-number="13">      file_name =<span class="st"> </span><span class="kw">paste0</span>(record, <span class="st">&quot;_&quot;</span>, field, <span class="st">&quot;_&quot;</span>, event, <span class="st">&quot;.jpg&quot;</span>)</a>
-<a class="sourceLine" id="cb24-14" data-line-number="14">      result =<span class="st"> </span></a>
-<a class="sourceLine" id="cb24-15" data-line-number="15"><span class="st">        </span><span class="kw">tryCatch</span>({</a>
-<a class="sourceLine" id="cb24-16" data-line-number="16">          <span class="kw">redcap_download_file_oneshot</span>(</a>
-<a class="sourceLine" id="cb24-17" data-line-number="17">            <span class="dt">record        =</span> record,</a>
-<a class="sourceLine" id="cb24-18" data-line-number="18">            <span class="dt">field         =</span> field,</a>
-<a class="sourceLine" id="cb24-19" data-line-number="19">            <span class="dt">redcap_uri    =</span> uri,</a>
-<a class="sourceLine" id="cb24-20" data-line-number="20">            <span class="dt">token         =</span> token,</a>
-<a class="sourceLine" id="cb24-21" data-line-number="21">            <span class="dt">event         =</span> event,</a>
-<a class="sourceLine" id="cb24-22" data-line-number="22">            <span class="dt">overwrite     =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb24-23" data-line-number="23">            <span class="dt">directory     =</span> directory,</a>
-<a class="sourceLine" id="cb24-24" data-line-number="24">            <span class="dt">file_name     =</span> file_name</a>
-<a class="sourceLine" id="cb24-25" data-line-number="25">          )</a>
-<a class="sourceLine" id="cb24-26" data-line-number="26">        }, <span class="dt">error=</span><span class="cf">function</span>(e){})</a>
-<a class="sourceLine" id="cb24-27" data-line-number="27">    }</a>
-<a class="sourceLine" id="cb24-28" data-line-number="28">  }</a>
-<a class="sourceLine" id="cb24-29" data-line-number="29">}</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">library</span>(REDCapR)</a>
+<a class="sourceLine" id="cb26-2" data-line-number="2">uri =<span class="st"> &quot;https://redcap.cir.ed.ac.uk/api/&quot;</span></a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">token =<span class="st"> &quot;&quot;</span> <span class="co"># API token here</span></a>
+<a class="sourceLine" id="cb26-4" data-line-number="4">record_list =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">318</span></a>
+<a class="sourceLine" id="cb26-5" data-line-number="5">field_list =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;photo&quot;</span>, <span class="st">&quot;photo_2&quot;</span>, <span class="st">&quot;photo_3&quot;</span>, <span class="st">&quot;photo_4&quot;</span>)</a>
+<a class="sourceLine" id="cb26-6" data-line-number="6">event_list =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;wound_concerns_arm_2&quot;</span>, <span class="st">&quot;questionnaire_1_arm_2&quot;</span>,</a>
+<a class="sourceLine" id="cb26-7" data-line-number="7">               <span class="st">&quot;questionnaire_2_arm_2&quot;</span>, <span class="st">&quot;questionnaire_3_arm_2&quot;</span>)</a>
+<a class="sourceLine" id="cb26-8" data-line-number="8">directory =<span class="st"> &quot;wound_named&quot;</span> <span class="co"># destination directory must exist already</span></a>
+<a class="sourceLine" id="cb26-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb26-10" data-line-number="10"><span class="cf">for</span>(record <span class="cf">in</span> record_list){</a>
+<a class="sourceLine" id="cb26-11" data-line-number="11">  <span class="cf">for</span>(field <span class="cf">in</span> field_list){</a>
+<a class="sourceLine" id="cb26-12" data-line-number="12">    <span class="cf">for</span>(event <span class="cf">in</span> event_list){</a>
+<a class="sourceLine" id="cb26-13" data-line-number="13">      file_name =<span class="st"> </span><span class="kw">paste0</span>(record, <span class="st">&quot;_&quot;</span>, field, <span class="st">&quot;_&quot;</span>, event, <span class="st">&quot;.jpg&quot;</span>)</a>
+<a class="sourceLine" id="cb26-14" data-line-number="14">      result =<span class="st"> </span></a>
+<a class="sourceLine" id="cb26-15" data-line-number="15"><span class="st">        </span><span class="kw">tryCatch</span>({</a>
+<a class="sourceLine" id="cb26-16" data-line-number="16">          <span class="kw">redcap_download_file_oneshot</span>(</a>
+<a class="sourceLine" id="cb26-17" data-line-number="17">            <span class="dt">record        =</span> record,</a>
+<a class="sourceLine" id="cb26-18" data-line-number="18">            <span class="dt">field         =</span> field,</a>
+<a class="sourceLine" id="cb26-19" data-line-number="19">            <span class="dt">redcap_uri    =</span> uri,</a>
+<a class="sourceLine" id="cb26-20" data-line-number="20">            <span class="dt">token         =</span> token,</a>
+<a class="sourceLine" id="cb26-21" data-line-number="21">            <span class="dt">event         =</span> event,</a>
+<a class="sourceLine" id="cb26-22" data-line-number="22">            <span class="dt">overwrite     =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb26-23" data-line-number="23">            <span class="dt">directory     =</span> directory,</a>
+<a class="sourceLine" id="cb26-24" data-line-number="24">            <span class="dt">file_name     =</span> file_name</a>
+<a class="sourceLine" id="cb26-25" data-line-number="25">          )</a>
+<a class="sourceLine" id="cb26-26" data-line-number="26">        }, <span class="dt">error=</span><span class="cf">function</span>(e){})</a>
+<a class="sourceLine" id="cb26-27" data-line-number="27">    }</a>
+<a class="sourceLine" id="cb26-28" data-line-number="28">  }</a>
+<a class="sourceLine" id="cb26-29" data-line-number="29">}</a></code></pre></div>
 
 </div>
 </div>

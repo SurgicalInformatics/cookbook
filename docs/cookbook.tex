@@ -383,7 +383,7 @@ Works for a single date or a vector of dates.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{chi_age =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(.data, ref_date, }\DataTypeTok{cutoff_2000 =} \DecValTok{20}\NormalTok{)\{}
-\NormalTok{  dob =}\StringTok{ }\KeywordTok{chi_dob}\NormalTok{(.data)}
+\NormalTok{  dob =}\StringTok{ }\KeywordTok{chi_dob}\NormalTok{(.data, }\DataTypeTok{cutoff_2000 =}\NormalTok{ cutoff_}\DecValTok{2000}\NormalTok{)}
 \NormalTok{  lubridate}\OperatorTok{::}\KeywordTok{interval}\NormalTok{(dob, ref_date) }\OperatorTok{%>%}\StringTok{ }
 \StringTok{    }\KeywordTok{as.numeric}\NormalTok{(}\StringTok{"years"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
 \StringTok{    }\KeywordTok{floor}\NormalTok{()}
@@ -494,6 +494,30 @@ The final digit of the CHI can be used to test that the number is correct via th
 ## 1 1009701234 1970-09-10 Male      49 FALSE    
 ## 2 1811431232 1943-11-18 Male      75 TRUE     
 ## 3 1304496368 1949-04-13 Female    70 TRUE
+\end{verbatim}
+
+\hypertarget{working-with-dates}{%
+\section{Working with dates}\label{working-with-dates}}
+
+\hypertarget{difference-between-two-dates}{%
+\subsection{Difference between two dates}\label{difference-between-two-dates}}
+
+I always forget how to do this neatly.
+I often want days as a numeric, not a lubridate type object.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(lubridate)}
+\NormalTok{date1 =}\StringTok{ }\KeywordTok{dmy}\NormalTok{(}\StringTok{"12/03/2018"}\NormalTok{, }\StringTok{"14/05/2017"}\NormalTok{)}
+\NormalTok{date2 =}\StringTok{ }\KeywordTok{dmy}\NormalTok{(}\StringTok{"11/09/2019"}\NormalTok{, }\StringTok{"11/04/2019"}\NormalTok{)}
+
+\KeywordTok{interval}\NormalTok{(date1, date2) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{as.numeric}\NormalTok{(}\StringTok{"days"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 548 697
 \end{verbatim}
 
 \hypertarget{methods}{%
