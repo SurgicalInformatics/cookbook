@@ -67,7 +67,7 @@ Works for a single date or a vector of dates.
 
 ```{r message=FALSE}
 chi_age = function(.data, ref_date, cutoff_2000 = 20){
-  dob = chi_dob(.data)
+  dob = chi_dob(.data, cutoff_2000 = cutoff_2000)
   lubridate::interval(dob, ref_date) %>% 
     as.numeric("years") %>% 
     floor()
