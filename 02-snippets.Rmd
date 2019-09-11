@@ -2,22 +2,126 @@
 
 Randon useful snippets that do not fit anywhere else. 
 
-## Extract dob and gender from chi
+## Working with CHIs
+
+Here are 4 functions for CHIs that could even be put in a small package. 
+The Community Health Index (CHI) is a population register, which is used in Scotland for health care purposes. 
+The CHI number uniquely identifies a person on the index.
+
+### `chi_dob()` - Extract date of birth from CHI
+
+Note `cutoff_2000`. 
+As CHI has only a two digit year, need to decide whether year is 1900s or 2000s. 
+I don't think there is a formal way of determining this. 
 
 ```{r message=FALSE}
-library(tidyverse)
-library(lubridate)
-x = tibble(
-  chi = c("1009761234", "1009762345")
-  )
+library(dplyr)
+chi = c("1009701234", "1811431232", "1304496368")
+# These CHIs are not real. 
+# The first is invalid, two and three are valid. 
 
-x %>%
+# Cut-off any thing before that number is considered 2000s
+# i.e. at cutoff_2000 = 20, "18" is considered 2018, rather than 1918. 
+chi_dob = function(.data, cutoff_2000 = 20){
+  .data %>% 
+    stringr::str_extract(".{6}") %>% 
+    lubridate::parse_date_time2("dmy", cutoff_2000 = cutoff_2000) %>% 
+    lubridate::as_date() # Make Date object, rather than POSIXct
+}
+
+chi_dob(chi)
+
+# From tibble
+tibble(chi = chi) %>% 
   mutate(
-    dob = str_extract(chi, ".{6}") %>% 
-      dmy(),
-    gender = str_sub(chi, 9, 9) %>% 
-      as.numeric() %>% 
-      {ifelse(. %% 2 == 0, "Female", "Male")}
+    dob = chi_dob(chi)
   )
 ```
 
+### `chi_gender()` - Extract gender from CHI
+
+Ninth digit is odd for men and even for women. 
+A test for even is `x modulus 2 == 0`.
+
+```{r}
+chi_gender = function(.data){
+  .data %>% 
+    stringr::str_sub(9, 9) %>% 
+    as.numeric() %>% 
+    {ifelse(. %% 2 == 0, "Female", "Male")}
+}
+
+chi_gender(chi)
+
+# From tibble
+tibble(chi = chi) %>% 
+  mutate(
+    dob = chi_dob(chi),
+    gender = chi_gender(chi)
+  )
+```
+
+### `chi_age()` - Extract age from CHI
+
+Works for a single date or a vector of dates.
+
+```{r message=FALSE}
+chi_age = function(.data, ref_date, cutoff_2000 = 20){
+  dob = chi_dob(.data)
+  lubridate::interval(dob, ref_date) %>% 
+    as.numeric("years") %>% 
+    floor()
+}
+
+# Today
+chi_age(chi, Sys.time())
+
+# Single date
+library(lubridate)
+chi_age(chi, dmy("11/09/2018"))
+
+# Vector
+dates = dmy("11/09/2018",
+            "09/05/2015",
+            "10/03/2014")
+chi_age(chi, dates)
+
+# From tibble
+tibble(chi = chi) %>% 
+  mutate(
+    dob = chi_dob(chi),
+    gender = chi_gender(chi),
+    age = chi_age(chi, Sys.time())
+  )
+```
+
+### `chi_valid()` - Logical test for valid CHI
+
+The final digit of the CHI can be used to test that the number is correct via the modulus 11 algorithm. 
+
+```{r}
+chi_valid = function(.data){
+  .data %>% 
+    stringr::str_split("", simplify = TRUE) %>% 
+    .[, -10] %>%              # Working with matrices hence brackets
+    apply(1, as.numeric) %>%  # Convert from string
+    {seq(10, 2) %*% .} %>%    # Multiply and sum step
+    {. %% 11} %>%             # Modulus 11
+    {11 - .} %>%              # Substract from 11
+    dplyr::near(              # Compare result with 10th digit. 
+      {stringr::str_sub(chi, 10) %>% as.numeric()}
+    ) %>% 
+    as.vector()
+}
+
+chi_valid(chi)
+
+# From tibble
+tibble(chi = chi) %>% 
+  mutate(
+    dob = chi_dob(chi),
+    gender = chi_gender(chi),
+    age = chi_age(chi, Sys.time()),
+    chi_valid = chi_valid(chi)
+  )
+```

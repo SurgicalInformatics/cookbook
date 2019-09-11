@@ -124,24 +124,10 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-09-10}
+    \date{2019-09-11}
 
 \usepackage{booktabs}
 
-\usepackage{amsthm}
-\newtheorem{theorem}{Theorem}[chapter]
-\newtheorem{lemma}{Lemma}[chapter]
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[chapter]
-\newtheorem{corollary}{Corollary}[chapter]
-\newtheorem{proposition}{Proposition}[chapter]
-\theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
-\theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[chapter]
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-\newtheorem*{solution}{Solution}
 \begin{document}
 \maketitle
 
@@ -160,52 +146,29 @@
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Connect your RStudio and GitHub using these instructions, only up to
-  ``Create new project'' is necessary here (the repository/project
-  already exists):
+  Connect your RStudio and GitHub using these instructions, only up to ``Create new project'' is necessary here (the repository/project already exists):
   \url{https://www.datasurg.net/2015/07/13/rstudio-and-github/}
 \item
-  Get your GitHub account added to the surgicalinformatics organisation
-  on GitHub (ask Riinu/Ewen):
+  Get your GitHub account added to the surgicalinformatics organisation on GitHub (ask Riinu/Ewen):
   \url{https://github.com/SurgicalInformatics}
 \item
-  Open the terminal on argonaut, go to your home folder (just
-  \texttt{cd} will default to taking you home). If the prompt says
-  \texttt{username@argonaut:\textasciitilde{}\$} that means you're home
-  - \texttt{\textasciitilde{}} means user's home.
+  Open the terminal on argonaut, go to your home folder (just \texttt{cd} will default to taking you home). If the prompt says \texttt{username@argonaut:\textasciitilde{}\$} that means you're home - \texttt{\textasciitilde{}} means user's home.
 \item
-  In the terminal, do
-  \texttt{git\ clone\ git@github.com:SurgicalInformatics/cookbook.git}.
+  In the terminal, do \texttt{git\ clone\ git@github.com:SurgicalInformatics/cookbook.git}.
 \item
-  Look at the Files tab - a new folder called \texttt{cookbook} should
-  have appeared at the bottom. Click on it and open the cookbook.Rproj
-  file.
+  Look at the Files tab - a new folder called \texttt{cookbook} should have appeared at the bottom. Click on it and open the cookbook.Rproj file.
 \item
-  Add your thing by editing the appropriate .Rmd file - there's one for
-  each chapter. Use the Build tab to Build your changes into a book.
+  Add your thing by editing the appropriate .Rmd file - there's one for each chapter. Use the Build tab to Build your changes into a book.
 \item
-  If anyone has pushed since you cloned/last pulled (hopefully they've
-  not been working on the exact same chapter): click on More - Clean
-  All. Then Pull from the Git tab. This only cleans the output files -
-  html and PDF, it will not touch the changes you've made in the .Rmd
-  file.
+  If anyone has pushed since you cloned/last pulled (hopefully they've not been working on the exact same chapter): click on More - Clean All. Then Pull from the Git tab. This only cleans the output files - html and PDF, it will not touch the changes you've made in the .Rmd file.
 \item
-  Then Build Book again - this will include the new changes you pulled
-  as well as your changes.
+  Then Build Book again - this will include the new changes you pulled as well as your changes.
 \item
-  Git tab - commit everything, Push quickly before anyone else does or
-  you'll have to go back to step 7. You can check for new pushed commits
-  here:
-  \url{https://github.com/SurgicalInformatics/cookbook/commits/master}
-  Alternatively there's no harm in clicking the Pull button again - it
-  should then say ``Already up-to-date''.
+  Git tab - commit everything, Push quickly before anyone else does or you'll have to go back to step 7. You can check for new pushed commits here: \url{https://github.com/SurgicalInformatics/cookbook/commits/master} Alternatively there's no harm in clicking the Pull button again - it should then say ``Already up-to-date''.
 \end{enumerate}
 
 \begin{quote}
-Pro tip: instead of clicking on every single file in the Git tab, go to
-the terminal, \texttt{cd\ cookbook} to go to the project folder if still
-home, and do \texttt{git\ add\ -A} which is the same thing. Still need
-to Commit though!
+Pro tip: instead of clicking on every single file in the Git tab, go to the terminal, \texttt{cd\ cookbook} to go to the project folder if still home, and do \texttt{git\ add\ -A} which is the same thing. Still need to Commit though!
 \end{quote}
 
 \textbf{10. Have fun!}
@@ -222,8 +185,7 @@ Rules of how to post here.
 \subsection{Index}\label{index}}
 
 Bold index headings:\\
-\texttt{\textbackslash{}index\{linear\ regression@\textbackslash{}textbf\{linear\ regression\}\}}
-(ticks in .Rmd file are excluded when actually using)
+\texttt{\textbackslash{}index\{linear\ regression@\textbackslash{}textbf\{linear\ regression\}\}} (ticks in .Rmd file are excluded when actually using)
 
 Sub-entries of bold headings:\\
 \texttt{\textbackslash{}index\{linear\ regression@\textbackslash{}textbf\{linear\ regression\}!diagnostics\}}
@@ -232,22 +194,14 @@ Stand-alone entries:\\
 \texttt{\textbackslash{}index\{linear\ regression\}}
 
 \hypertarget{chapter-and-section-references}{%
-\subsection{Chapter and section
-references}\label{chapter-and-section-references}}
+\subsection{Chapter and section references}\label{chapter-and-section-references}}
 
-You can label chapter and section titles using \texttt{\{\#label\}}
-after them, e.g., we can reference Chapter
-\texttt{\textbackslash{}@ref(intro)} (ticks in .Rmd are excluded when
-actually using). If you do not manually label them, there will be
-automatic labels anyway, e.g., Chapter
-\texttt{\textbackslash{}@ref(methods)}.
+You can label chapter and section titles using \texttt{\{\#label\}} after them, e.g., we can reference Chapter \texttt{\textbackslash{}@ref(intro)} (ticks in .Rmd are excluded when actually using). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \texttt{\textbackslash{}@ref(methods)}.
 
 \hypertarget{figure-and-table-references}{%
-\subsection{Figure and table
-references}\label{figure-and-table-references}}
+\subsection{Figure and table references}\label{figure-and-table-references}}
 
-Figures and tables with captions will be placed in \texttt{figure} and
-\texttt{table} environments, respectively.
+Figures and tables with captions will be placed in \texttt{figure} and \texttt{table} environments, respectively.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -265,11 +219,7 @@ Figures and tables with captions will be placed in \texttt{figure} and
 \caption{Here is a nice figure!}\label{fig:nice-fig}
 \end{figure}
 
-Reference a figure by its code chunk label with the \texttt{fig:}
-prefix, e.g., see Figure \texttt{\textbackslash{}@ref(fig:nice-fig)}.
-Similarly, you can reference tables generated from
-\texttt{knitr::kable()}, e.g., see Table
-\texttt{\textbackslash{}@ref(tab:nice-tab)}.
+Reference a figure by its code chunk label with the \texttt{fig:} prefix, e.g., see Figure \texttt{\textbackslash{}@ref(fig:nice-fig)}. Similarly, you can reference tables generated from \texttt{knitr::kable()}, e.g., see Table \texttt{\textbackslash{}@ref(tab:nice-tab)}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -318,43 +268,232 @@ Sepal.Length & Sepal.Width & Petal.Length & Petal.Width & Species\\
 \hypertarget{citations}{%
 \subsection{Citations}\label{citations}}
 
-You can write citations, too. For example, we are using the
-\textbf{bookdown} package \citep{R-bookdown} in this sample book, which
-was built on top of R Markdown and \textbf{knitr} \citep{xie2015}.
+You can write citations, too. For example, we are using the \textbf{bookdown} package \citep{R-bookdown} in this sample book, which was built on top of R Markdown and \textbf{knitr} \citep{xie2015}.
 
 \hypertarget{snippets}{%
 \chapter{Snippets}\label{snippets}}
 
 Randon useful snippets that do not fit anywhere else.
 
-\hypertarget{extract-dob-and-gender-from-chi}{%
-\section{Extract dob and gender from chi}\label{extract-dob-and-gender-from-chi}}
+\hypertarget{working-with-chis}{%
+\section{Working with CHIs}\label{working-with-chis}}
+
+Here are 4 functions for CHIs that could even be put in a small package.
+The Community Health Index (CHI) is a population register, which is used in Scotland for health care purposes.
+The CHI number uniquely identifies a person on the index.
+
+\hypertarget{chi_dob---extract-date-of-birth-from-chi}{%
+\subsection{\texorpdfstring{\texttt{chi\_dob()} - Extract date of birth from CHI}{chi\_dob() - Extract date of birth from CHI}}\label{chi_dob---extract-date-of-birth-from-chi}}
+
+Note \texttt{cutoff\_2000}.
+As CHI has only a two digit year, need to decide whether year is 1900s or 2000s.
+I don't think there is a formal way of determining this.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(tidyverse)}
-\KeywordTok{library}\NormalTok{(lubridate)}
-\NormalTok{x =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}
-  \DataTypeTok{chi =} \KeywordTok{c}\NormalTok{(}\StringTok{"1009761234"}\NormalTok{, }\StringTok{"1009762345"}\NormalTok{)}
-\NormalTok{  )}
+\KeywordTok{library}\NormalTok{(dplyr)}
+\NormalTok{chi =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"1009701234"}\NormalTok{, }\StringTok{"1811431232"}\NormalTok{, }\StringTok{"1304496368"}\NormalTok{)}
+\CommentTok{# These CHIs are not real. }
+\CommentTok{# The first is invalid, two and three are valid. }
 
-\NormalTok{x }\OperatorTok{%>%}
+\CommentTok{# Cut-off any thing before that number is considered 2000s}
+\CommentTok{# i.e. at cutoff_2000 = 20, "18" is considered 2018, rather than 1918. }
+\NormalTok{chi_dob =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(.data, }\DataTypeTok{cutoff_2000 =} \DecValTok{20}\NormalTok{)\{}
+\NormalTok{  .data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\NormalTok{stringr}\OperatorTok{::}\KeywordTok{str_extract}\NormalTok{(}\StringTok{".\{6\}"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\NormalTok{lubridate}\OperatorTok{::}\KeywordTok{parse_date_time2}\NormalTok{(}\StringTok{"dmy"}\NormalTok{, }\DataTypeTok{cutoff_2000 =}\NormalTok{ cutoff_}\DecValTok{2000}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\NormalTok{lubridate}\OperatorTok{::}\KeywordTok{as_date}\NormalTok{() }\CommentTok{# Make Date object, rather than POSIXct}
+\NormalTok{\}}
+
+\KeywordTok{chi_dob}\NormalTok{(chi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "1970-09-10" "1943-11-18" "1949-04-13"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# From tibble}
+\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{chi =}\NormalTok{ chi) }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}
-    \DataTypeTok{dob =} \KeywordTok{str_extract}\NormalTok{(chi, }\StringTok{".\{6\}"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{      }\KeywordTok{dmy}\NormalTok{(),}
-    \DataTypeTok{gender =} \KeywordTok{str_sub}\NormalTok{(chi, }\DecValTok{9}\NormalTok{, }\DecValTok{9}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{      }\KeywordTok{as.numeric}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
-\StringTok{      }\NormalTok{\{}\KeywordTok{ifelse}\NormalTok{(. }\OperatorTok{%%}\StringTok{ }\DecValTok{2} \OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{, }\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{)\}}
+    \DataTypeTok{dob =} \KeywordTok{chi_dob}\NormalTok{(chi)}
 \NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 2 x 3
+## # A tibble: 3 x 2
+##   chi        dob       
+##   <chr>      <date>    
+## 1 1009701234 1970-09-10
+## 2 1811431232 1943-11-18
+## 3 1304496368 1949-04-13
+\end{verbatim}
+
+\hypertarget{chi_gender---extract-gender-from-chi}{%
+\subsection{\texorpdfstring{\texttt{chi\_gender()} - Extract gender from CHI}{chi\_gender() - Extract gender from CHI}}\label{chi_gender---extract-gender-from-chi}}
+
+Ninth digit is odd for men and even for women.
+A test for even is \texttt{x\ modulus\ 2\ ==\ 0}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{chi_gender =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(.data)\{}
+\NormalTok{  .data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\NormalTok{stringr}\OperatorTok{::}\KeywordTok{str_sub}\NormalTok{(}\DecValTok{9}\NormalTok{, }\DecValTok{9}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{as.numeric}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\NormalTok{\{}\KeywordTok{ifelse}\NormalTok{(. }\OperatorTok{%%}\StringTok{ }\DecValTok{2} \OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{, }\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{)\}}
+\NormalTok{\}}
+
+\KeywordTok{chi_gender}\NormalTok{(chi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Male"   "Male"   "Female"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# From tibble}
+\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{chi =}\NormalTok{ chi) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
+    \DataTypeTok{dob =} \KeywordTok{chi_dob}\NormalTok{(chi),}
+    \DataTypeTok{gender =} \KeywordTok{chi_gender}\NormalTok{(chi)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 3
 ##   chi        dob        gender
 ##   <chr>      <date>     <chr> 
-## 1 1009761234 1976-09-10 Male  
-## 2 1009762345 1976-09-10 Female
+## 1 1009701234 1970-09-10 Male  
+## 2 1811431232 1943-11-18 Male  
+## 3 1304496368 1949-04-13 Female
+\end{verbatim}
+
+\hypertarget{chi_age---extract-age-from-chi}{%
+\subsection{\texorpdfstring{\texttt{chi\_age()} - Extract age from CHI}{chi\_age() - Extract age from CHI}}\label{chi_age---extract-age-from-chi}}
+
+Works for a single date or a vector of dates.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{chi_age =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(.data, ref_date, }\DataTypeTok{cutoff_2000 =} \DecValTok{20}\NormalTok{)\{}
+\NormalTok{  dob =}\StringTok{ }\KeywordTok{chi_dob}\NormalTok{(.data)}
+\NormalTok{  lubridate}\OperatorTok{::}\KeywordTok{interval}\NormalTok{(dob, ref_date) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{as.numeric}\NormalTok{(}\StringTok{"years"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{floor}\NormalTok{()}
+\NormalTok{\}}
+
+\CommentTok{# Today}
+\KeywordTok{chi_age}\NormalTok{(chi, }\KeywordTok{Sys.time}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 49 75 70
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Single date}
+\KeywordTok{library}\NormalTok{(lubridate)}
+\KeywordTok{chi_age}\NormalTok{(chi, }\KeywordTok{dmy}\NormalTok{(}\StringTok{"11/09/2018"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 48 74 69
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Vector}
+\NormalTok{dates =}\StringTok{ }\KeywordTok{dmy}\NormalTok{(}\StringTok{"11/09/2018"}\NormalTok{,}
+            \StringTok{"09/05/2015"}\NormalTok{,}
+            \StringTok{"10/03/2014"}\NormalTok{)}
+\KeywordTok{chi_age}\NormalTok{(chi, dates)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 48 71 64
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# From tibble}
+\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{chi =}\NormalTok{ chi) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
+    \DataTypeTok{dob =} \KeywordTok{chi_dob}\NormalTok{(chi),}
+    \DataTypeTok{gender =} \KeywordTok{chi_gender}\NormalTok{(chi),}
+    \DataTypeTok{age =} \KeywordTok{chi_age}\NormalTok{(chi, }\KeywordTok{Sys.time}\NormalTok{())}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 4
+##   chi        dob        gender   age
+##   <chr>      <date>     <chr>  <dbl>
+## 1 1009701234 1970-09-10 Male      49
+## 2 1811431232 1943-11-18 Male      75
+## 3 1304496368 1949-04-13 Female    70
+\end{verbatim}
+
+\hypertarget{chi_valid---logical-test-for-valid-chi}{%
+\subsection{\texorpdfstring{\texttt{chi\_valid()} - Logical test for valid CHI}{chi\_valid() - Logical test for valid CHI}}\label{chi_valid---logical-test-for-valid-chi}}
+
+The final digit of the CHI can be used to test that the number is correct via the modulus 11 algorithm.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{chi_valid =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(.data)\{}
+\NormalTok{  .data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\NormalTok{stringr}\OperatorTok{::}\KeywordTok{str_split}\NormalTok{(}\StringTok{""}\NormalTok{, }\DataTypeTok{simplify =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\NormalTok{.[, }\DecValTok{-10}\NormalTok{] }\OperatorTok{%>%}\StringTok{              }\CommentTok{# Working with matrices hence brackets}
+\StringTok{    }\KeywordTok{apply}\NormalTok{(}\DecValTok{1}\NormalTok{, as.numeric) }\OperatorTok{%>%}\StringTok{  }\CommentTok{# Convert from string}
+\StringTok{    }\NormalTok{\{}\KeywordTok{seq}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{2}\NormalTok{) }\OperatorTok{%*%}\StringTok{ }\NormalTok{.\} }\OperatorTok{%>%}\StringTok{    }\CommentTok{# Multiply and sum step}
+\StringTok{    }\NormalTok{\{. }\OperatorTok{%%}\StringTok{ }\DecValTok{11}\NormalTok{\} }\OperatorTok{%>%}\StringTok{             }\CommentTok{# Modulus 11}
+\StringTok{    }\NormalTok{\{}\DecValTok{11} \OperatorTok{-}\StringTok{ }\NormalTok{.\} }\OperatorTok{%>%}\StringTok{              }\CommentTok{# Substract from 11}
+\StringTok{    }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{near}\NormalTok{(              }\CommentTok{# Compare result with 10th digit. }
+\NormalTok{      \{stringr}\OperatorTok{::}\KeywordTok{str_sub}\NormalTok{(chi, }\DecValTok{10}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{()\}}
+\NormalTok{    ) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{as.vector}\NormalTok{()}
+\NormalTok{\}}
+
+\KeywordTok{chi_valid}\NormalTok{(chi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE  TRUE  TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# From tibble}
+\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{chi =}\NormalTok{ chi) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
+    \DataTypeTok{dob =} \KeywordTok{chi_dob}\NormalTok{(chi),}
+    \DataTypeTok{gender =} \KeywordTok{chi_gender}\NormalTok{(chi),}
+    \DataTypeTok{age =} \KeywordTok{chi_age}\NormalTok{(chi, }\KeywordTok{Sys.time}\NormalTok{()),}
+    \DataTypeTok{chi_valid =} \KeywordTok{chi_valid}\NormalTok{(chi)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 5
+##   chi        dob        gender   age chi_valid
+##   <chr>      <date>     <chr>  <dbl> <lgl>    
+## 1 1009701234 1970-09-10 Male      49 FALSE    
+## 2 1811431232 1943-11-18 Male      75 TRUE     
+## 3 1304496368 1949-04-13 Female    70 TRUE
 \end{verbatim}
 
 \hypertarget{methods}{%
@@ -369,8 +508,7 @@ We describe our methods in this chapter.
 \section{Deep learning}\label{deep-learning}}
 
 \hypertarget{pulling-images-from-redcap-directly-to-argodeep}{%
-\subsection{Pulling images from REDCap directly to
-argodeep}\label{pulling-images-from-redcap-directly-to-argodeep}}
+\subsection{Pulling images from REDCap directly to argodeep}\label{pulling-images-from-redcap-directly-to-argodeep}}
 
 \hypertarget{original-file-names}{%
 \subsubsection{Original file names}\label{original-file-names}}
@@ -409,8 +547,7 @@ argodeep}\label{pulling-images-from-redcap-directly-to-argodeep}}
 \end{Shaded}
 
 \hypertarget{named-from-redcap-record-id-and-event}{%
-\subsubsection{Named from REDCap record ID and
-event}\label{named-from-redcap-record-id-and-event}}
+\subsubsection{Named from REDCap record ID and event}\label{named-from-redcap-record-id-and-event}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -457,10 +594,7 @@ We have finished a nice book.
 \hypertarget{gghighlight-example}{%
 \section{GGHighlight Example}\label{gghighlight-example}}
 
-Plotting with gghighlight is pretty awesome allowing you to filter on
-any variable. It seems that gghighlight overwrites any `colour' variable
-you put in the main aes. To get round this and have labels, save as a
-plot and add geom\_label\_repel separately.
+Plotting with gghighlight is pretty awesome allowing you to filter on any variable. It seems that gghighlight overwrites any `colour' variable you put in the main aes. To get round this and have labels, save as a plot and add geom\_label\_repel separately.
 
 \begin{Shaded}
 \begin{Highlighting}[]
