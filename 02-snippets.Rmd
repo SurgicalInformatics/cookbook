@@ -1,6 +1,6 @@
 # Snippets
 
-Randon useful snippets that do not fit anywhere else. 
+Random useful snippets that do not fit anywhere else. 
 
 ## Working with CHIs
 
