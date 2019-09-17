@@ -124,7 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-09-11}
+    \date{2019-09-17}
 
 \usepackage{booktabs}
 
@@ -273,7 +273,7 @@ You can write citations, too. For example, we are using the \textbf{bookdown} pa
 \hypertarget{snippets}{%
 \chapter{Snippets}\label{snippets}}
 
-Randon useful snippets that do not fit anywhere else.
+Random useful snippets that do not fit anywhere else.
 
 \hypertarget{working-with-chis}{%
 \section{Working with CHIs}\label{working-with-chis}}
@@ -518,6 +518,62 @@ I often want days as a numeric, not a lubridate type object.
 
 \begin{verbatim}
 ## [1] 548 697
+\end{verbatim}
+
+\hypertarget{lags}{%
+\subsection{Lags}\label{lags}}
+
+This is useful for calculating, for instance, the period off medications. Lags are much better than long to wide solutions for this.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\KeywordTok{library}\NormalTok{(lubridate)}
+\NormalTok{id =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{) }
+\NormalTok{medication =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"aspirin"}\NormalTok{, }\StringTok{"aspirin"}\NormalTok{, }\StringTok{"aspirin"}\NormalTok{, }\StringTok{"tylenol"}\NormalTok{, }\StringTok{"lipitor"}\NormalTok{, }\StringTok{"advil"}\NormalTok{) }
+\NormalTok{start.date =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"05/01/2017"}\NormalTok{, }\StringTok{"05/30/2017"}\NormalTok{, }\StringTok{"07/15/2017"}\NormalTok{, }\StringTok{"05/01/2017"}\NormalTok{, }\StringTok{"05/06/2017"}\NormalTok{, }\StringTok{"05/28/2017"}\NormalTok{)}
+\NormalTok{stop.date =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"05/04/2017"}\NormalTok{, }\StringTok{"06/10/2017"}\NormalTok{, }\StringTok{"07/27/2017"}\NormalTok{, }\StringTok{"05/15/2017"}\NormalTok{, }\StringTok{"05/12/2017"}\NormalTok{, }\StringTok{"06/13/2017"}\NormalTok{)}
+\NormalTok{df =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(id, medication, start.date, stop.date)}
+\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 4
+##      id medication start.date stop.date 
+##   <dbl> <chr>      <chr>      <chr>     
+## 1     2 aspirin    05/01/2017 05/04/2017
+## 2     2 aspirin    05/30/2017 06/10/2017
+## 3     2 aspirin    07/15/2017 07/27/2017
+## 4     2 tylenol    05/01/2017 05/15/2017
+## 5     3 lipitor    05/06/2017 05/12/2017
+## 6     5 advil      05/28/2017 06/13/2017
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate_at}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"start.date"}\NormalTok{, }\StringTok{"stop.date"}\NormalTok{), lubridate}\OperatorTok{::}\NormalTok{mdy) }\OperatorTok{%>%}\StringTok{ }\CommentTok{# make a date}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(id, medication, start.date) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(id, medication) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
+    \DataTypeTok{start_date_diff =}\NormalTok{ start.date }\OperatorTok{-}\StringTok{ }\KeywordTok{lag}\NormalTok{(start.date),}
+    \DataTypeTok{medication_period =}\NormalTok{ stop.date}\OperatorTok{-}\NormalTok{start.date}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 6
+## # Groups:   id, medication [4]
+##      id medication start.date stop.date  start_date_diff medication_period
+##   <dbl> <chr>      <date>     <date>     <drtn>          <drtn>           
+## 1     2 aspirin    2017-05-01 2017-05-04 NA days          3 days          
+## 2     2 aspirin    2017-05-30 2017-06-10 29 days         11 days          
+## 3     2 aspirin    2017-07-15 2017-07-27 46 days         12 days          
+## 4     2 tylenol    2017-05-01 2017-05-15 NA days         14 days          
+## 5     3 lipitor    2017-05-06 2017-05-12 NA days          6 days          
+## 6     5 advil      2017-05-28 2017-06-13 NA days         16 days
 \end{verbatim}
 
 \hypertarget{methods}{%

@@ -142,3 +142,29 @@ interval(date1, date2) %>%
   as.numeric("days")
 ```
 
+### Lags
+
+This is useful for calculating, for instance, the period off medications. Lags are much better than long to wide solutions for this. 
+
+```{r}
+library(tidyverse)
+library(lubridate)
+id = c(2, 2, 2, 2, 3, 5) 
+medication = c("aspirin", "aspirin", "aspirin", "tylenol", "lipitor", "advil") 
+start.date = c("05/01/2017", "05/30/2017", "07/15/2017", "05/01/2017", "05/06/2017", "05/28/2017")
+stop.date = c("05/04/2017", "06/10/2017", "07/27/2017", "05/15/2017", "05/12/2017", "06/13/2017")
+df = tibble(id, medication, start.date, stop.date)
+df
+
+df %>%
+  mutate_at(c("start.date", "stop.date"), lubridate::mdy) %>% # make a date
+  arrange(id, medication, start.date) %>% 
+  group_by(id, medication) %>% 
+  mutate(
+    start_date_diff = start.date - lag(start.date),
+    medication_period = stop.date-start.date
+  )
+```
+
+
+
