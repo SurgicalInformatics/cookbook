@@ -2,6 +2,64 @@
 
 Random useful snippets that do not fit anywhere else. 
 
+
+## Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)
+
+When asking for help with R code having a reproducible example is crucial (some mock data that others can use along with your code to reproduce your error). Often this can be done easily with creation of a small tibble and posting of the code on slack but sometimes it requires more complex data or the error is due to something in the Linux system in which RStudio server is hosted. For example if the `cairo` package for Linux isn't installed then plots don't work. The `holepunch` package helps to reproduce examples like these (not suitable for projects with confidential data).
+
+### Create Basic Reproducible Examples
+
+The three main parts of the reproducible example (reprex) in Surgical Informatics are 1. packages, 2. small dataset and 3. code. Other things like R version and Linux version can be assumed as we all use one of only a few servers.
+
+If you have a small (and confidential) set of data in a tibble or data frame called `my_data` and want it to be easily copied run: `dput(droplevels(my_data))`. This will print out code in the console that can be copy-pasted to reproduce the data frame. Alternatively use the `tibble` or `tribble` functions to create it from scratch (this is preferable for simple datasets). Then copy in the packages and finally the code (ideally the least amount possible to generate the error) and share with the group e.g.:
+
+```{r}
+library(tidyverse)
+
+# Output generated from dput(droplevels(my_data))
+data = structure(list(a = c(1, 2, 3), b = c("a", "b", "c"), c = 10:12), .Names = c("a", 
+"b", "c"), row.names = c(NA, -3L), class = c("tbl_df", "tbl", 
+"data.frame"))
+
+data %>% 
+  mutate(newvar = a /b)
+```
+
+
+### `holepunch` - Complex Reproducible Examples
+
+From your project with data you are happy to make public make sure you are backed up to `git` and `GitHub`. See the relevant chapter on how to do this. Then run the following:
+
+```{r, eval = FALSE}
+# Holepunch testing
+
+remotes::install_github("karthik/holepunch")
+
+library(holepunch)
+write_compendium_description(package = "Title of my project", 
+                             description = "Rough description of project or issue")
+
+write_dockerfile(maintainer = "SurgicalInformatics")
+
+generate_badge()
+
+build_binder()
+
+```
+
+The file will generate some text to copy into the top of a `README.md` file. It will look like:
+```{r, eval = FALSE}
+<!-- badges: start -->
+[![Launch Rstudio Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/SurgicalInformatics/<project>/master?urlpath=rstudio)
+<!-- badges: end -->
+```
+
+Now, whenever somebody clicks on the badge in the `README` on `GitHub` they will be taken to an RStudio server instance with all your files (excluding files listed in `.gitignore`), all the current versions of your package, all the current Linux packages and the current R version. They can then test your code in an near-identical environment to help identify the source of the error, their session will time out after 10 minutes of inactivity or 12 hours since starting and will not save anything so should only be used for bug-testing or quick examples.
+
+As this is a free version of RStudio server there is a limit to what is supported and it shouldn't be used for computationally-intensive processes. 
+
+And, as mentioned: **No confidential data.**
+
 ## Working with CHIs
 
 Here are 4 functions for CHIs that could even be put in a small package. 
