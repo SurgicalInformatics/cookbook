@@ -12,7 +12,7 @@ https://github.com/SurgicalInformatics
 
 3. Open the terminal on argonaut, go to your home folder (just `cd` will default to taking you home). If the prompt says `username@argonaut:~$` that means you're home - `~` means user's home.
 
-4. In the terminal, do `git clone git@github.com:SurgicalInformatics/cookbook.git`.
+4. In the terminal, do `git clone https://github.com/SurgicalInformatics/cookbook.git`
 
 5. Look at the Files tab - a new folder called `cookbook` should have appeared at the bottom. Click on it and open the cookbook.Rproj file.
 
