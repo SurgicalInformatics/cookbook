@@ -13,7 +13,7 @@ The three main parts of the reproducible example (reprex) in Surgical Informatic
 
 If you have a small (and confidential) set of data in a tibble or data frame called `my_data` and want it to be easily copied run: `dput(droplevels(my_data))`. This will print out code in the console that can be copy-pasted to reproduce the data frame. Alternatively use the `tibble` or `tribble` functions to create it from scratch (this is preferable for simple datasets). Then copy in the packages and finally the code (ideally the least amount possible to generate the error) and share with the group e.g.:
 
-```{r}
+```{r, error=TRUE, message=FALSE}
 library(tidyverse)
 
 # Output generated from dput(droplevels(my_data))
