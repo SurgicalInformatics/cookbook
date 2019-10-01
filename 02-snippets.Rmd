@@ -166,5 +166,60 @@ df %>%
   )
 ```
 
+### Pulling out "change in status" data
 
+If you have a number of episodes per patient, each with a status and a time, then you need to do this as a starting point for CPH analysis. 
 
+#### Example data
+
+```{r message=FALSE, warning=FALSE}
+library(dplyr)
+library(lubridate)
+library(finalfit)
+mydata = tibble(
+  id = c(1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5),
+  status = c(0,0,0,1,0,0,1,1,0,0,0,0,0,1,1,1,0,0,1,1),
+  group = c(rep(0, 8), rep(1, 12)) %>% factor(),
+  opdate = rep("2010/01/01", 20) %>% ymd(),
+  status_date = c(
+    "2010/02/01", "2010/03/01", "2010/04/01", "2010/05/01",
+    "2010/02/02", "2010/03/02", "2010/04/02", "2010/05/02",
+    "2010/02/03", "2010/03/03", "2010/04/03", "2010/05/03",
+    "2010/02/04", "2010/03/04", "2010/04/04", "2010/05/04",
+    "2010/02/05", "2010/03/05", "2010/04/05", "2010/05/05"
+  ) %>% ymd()
+)
+mydata
+```
+
+#### Compute time from op date to current review
+... if necessary
+
+```{r}
+mydata = mydata %>% 
+  arrange(id, status_date) %>% 
+  mutate(
+    time = interval(opdate, status_date) %>% as.numeric("days")
+  )
+mydata
+```
+
+#### Pull out "change of status"
+```{r}
+mydata = mydata %>% 
+  group_by(id) %>% 
+  mutate(
+    status_change = status - lag(status) == 1,                          # Mark TRUE if goes from 0 to 1
+    status_nochange = sum(status) == 0,                                 # Mark if no change from 0
+    status_nochange_keep = !duplicated(status_nochange, fromLast= TRUE) # Mark most recent "no change" episode
+  ) %>% 
+  filter(status_change | (status_nochange & status_nochange_keep)) %>%  # Filter out other episodes
+  select(-c(status_change, status_nochange, status_nochange_keep))      # Remove columns not needed
+mydata
+```
+
+#### Run CPH
+```{r}
+mydata %>% 
+  finalfit("Surv(time, status)", "group")
+```

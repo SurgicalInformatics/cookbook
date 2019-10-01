@@ -24,7 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2019-09-17" />
+<meta name="date" content="2019-10-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -148,6 +148,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.2</b> Working with dates</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.2.1</b> Difference between two dates</a></li>
 <li class="chapter" data-level="2.2.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.2.2</b> Lags</a></li>
+<li class="chapter" data-level="2.2.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.2.3</b> Pulling out “change in status” data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a></li>
@@ -186,21 +187,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="gghighlight-example" class="section level2">
 <h2><span class="header-section-number">6.1</span> GGHighlight Example</h2>
 <p>Plotting with gghighlight is pretty awesome allowing you to filter on any variable. It seems that gghighlight overwrites any ‘colour’ variable you put in the main aes. To get round this and have labels, save as a plot and add geom_label_repel separately.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">library</span>(gghighlight)</a>
-<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="kw">library</span>(ggrepel)</a>
-<a class="sourceLine" id="cb35-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb35-4" data-line-number="4">mydata=gapminder</a>
-<a class="sourceLine" id="cb35-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb35-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb35-7" data-line-number="7">plot =<span class="st"> </span>mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb35-8" data-line-number="8"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> &quot;2002&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb35-9" data-line-number="9"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, <span class="dt">y =</span> lifeExp, <span class="dt">colour=</span>continent)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></a>
-<a class="sourceLine" id="cb35-11" data-line-number="11"><span class="st">  </span><span class="kw">gghighlight</span>(lifeExp <span class="op">&gt;</span><span class="st"> </span><span class="dv">75</span> <span class="op">&amp;</span><span class="st"> </span>gdpPercap <span class="op">&lt;</span><span class="st"> </span><span class="kw">mean</span>(gdpPercap), <span class="dt">label_key =</span> country, <span class="dt">use_direct_label =</span> <span class="ot">FALSE</span>)<span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb35-12" data-line-number="12"><span class="st">  </span><span class="kw">theme_classic</span>()<span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb35-13" data-line-number="13"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span> <span class="st">&quot;gghighlight: Filter for countries with Life Expectancy &gt;75 and GDP &lt; mean&quot;</span> )  </a>
-<a class="sourceLine" id="cb35-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb35-15" data-line-number="15">plot <span class="op">+</span><span class="st"> </span><span class="kw">geom_label_repel</span>(<span class="kw">aes</span>(<span class="dt">label=</span> country), <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="co">#only needed if you use  use_direct_label = FALSE. This allows you to have a colour legend as well. </span></a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">library</span>(gghighlight)</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="kw">library</span>(ggrepel)</a>
+<a class="sourceLine" id="cb43-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb43-4" data-line-number="4">mydata=gapminder</a>
+<a class="sourceLine" id="cb43-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb43-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb43-7" data-line-number="7">plot =<span class="st"> </span>mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-8" data-line-number="8"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> &quot;2002&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-9" data-line-number="9"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, <span class="dt">y =</span> lifeExp, <span class="dt">colour=</span>continent)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb43-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb43-11" data-line-number="11"><span class="st">  </span><span class="kw">gghighlight</span>(lifeExp <span class="op">&gt;</span><span class="st"> </span><span class="dv">75</span> <span class="op">&amp;</span><span class="st"> </span>gdpPercap <span class="op">&lt;</span><span class="st"> </span><span class="kw">mean</span>(gdpPercap), <span class="dt">label_key =</span> country, <span class="dt">use_direct_label =</span> <span class="ot">FALSE</span>)<span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-12" data-line-number="12"><span class="st">  </span><span class="kw">theme_classic</span>()<span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-13" data-line-number="13"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span> <span class="st">&quot;gghighlight: Filter for countries with Life Expectancy &gt;75 and GDP &lt; mean&quot;</span> )  </a>
+<a class="sourceLine" id="cb43-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb43-15" data-line-number="15">plot <span class="op">+</span><span class="st"> </span><span class="kw">geom_label_repel</span>(<span class="kw">aes</span>(<span class="dt">label=</span> country), <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="co">#only needed if you use  use_direct_label = FALSE. This allows you to have a colour legend as well. </span></a></code></pre></div>
 <p><img src="cookbook_files/figure-html/gghighlight-1.png" width="672" /></p>
 
 <div id="refs" class="references">

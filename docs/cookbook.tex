@@ -124,7 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-09-17}
+    \date{2019-10-01}
 
 \usepackage{booktabs}
 
@@ -230,11 +230,11 @@ Reference a figure by its code chunk label with the \texttt{fig:} prefix, e.g., 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}[t]
+\begin{table}
 
 \caption{\label{tab:nice-tab}Here is a nice table!}
 \centering
-\begin{tabular}{rrrrl}
+\begin{tabular}[t]{rrrrl}
 \toprule
 Sepal.Length & Sepal.Width & Petal.Length & Petal.Width & Species\\
 \midrule
@@ -574,6 +574,153 @@ This is useful for calculating, for instance, the period off medications. Lags a
 ## 4     2 tylenol    2017-05-01 2017-05-15 NA days         14 days          
 ## 5     3 lipitor    2017-05-06 2017-05-12 NA days          6 days          
 ## 6     5 advil      2017-05-28 2017-06-13 NA days         16 days
+\end{verbatim}
+
+\hypertarget{pulling-out-change-in-status-data}{%
+\subsection{Pulling out ``change in status'' data}\label{pulling-out-change-in-status-data}}
+
+If you have a number of episodes per patient, each with a status and a time, then you need to do this as a starting point for CPH analysis.
+
+\hypertarget{example-data}{%
+\subsubsection{Example data}\label{example-data}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(dplyr)}
+\KeywordTok{library}\NormalTok{(lubridate)}
+\KeywordTok{library}\NormalTok{(finalfit)}
+\NormalTok{mydata =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}
+  \DataTypeTok{id =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{),}
+  \DataTypeTok{status =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+  \DataTypeTok{group =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{8}\NormalTok{), }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{12}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{factor}\NormalTok{(),}
+  \DataTypeTok{opdate =} \KeywordTok{rep}\NormalTok{(}\StringTok{"2010/01/01"}\NormalTok{, }\DecValTok{20}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{ymd}\NormalTok{(),}
+  \DataTypeTok{status_date =} \KeywordTok{c}\NormalTok{(}
+    \StringTok{"2010/02/01"}\NormalTok{, }\StringTok{"2010/03/01"}\NormalTok{, }\StringTok{"2010/04/01"}\NormalTok{, }\StringTok{"2010/05/01"}\NormalTok{,}
+    \StringTok{"2010/02/02"}\NormalTok{, }\StringTok{"2010/03/02"}\NormalTok{, }\StringTok{"2010/04/02"}\NormalTok{, }\StringTok{"2010/05/02"}\NormalTok{,}
+    \StringTok{"2010/02/03"}\NormalTok{, }\StringTok{"2010/03/03"}\NormalTok{, }\StringTok{"2010/04/03"}\NormalTok{, }\StringTok{"2010/05/03"}\NormalTok{,}
+    \StringTok{"2010/02/04"}\NormalTok{, }\StringTok{"2010/03/04"}\NormalTok{, }\StringTok{"2010/04/04"}\NormalTok{, }\StringTok{"2010/05/04"}\NormalTok{,}
+    \StringTok{"2010/02/05"}\NormalTok{, }\StringTok{"2010/03/05"}\NormalTok{, }\StringTok{"2010/04/05"}\NormalTok{, }\StringTok{"2010/05/05"}
+\NormalTok{  ) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{ymd}\NormalTok{()}
+\NormalTok{)}
+\NormalTok{mydata}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 5
+##       id status group opdate     status_date
+##    <dbl>  <dbl> <fct> <date>     <date>     
+##  1     1      0 0     2010-01-01 2010-02-01 
+##  2     1      0 0     2010-01-01 2010-03-01 
+##  3     1      0 0     2010-01-01 2010-04-01 
+##  4     1      1 0     2010-01-01 2010-05-01 
+##  5     2      0 0     2010-01-01 2010-02-02 
+##  6     2      0 0     2010-01-01 2010-03-02 
+##  7     2      1 0     2010-01-01 2010-04-02 
+##  8     2      1 0     2010-01-01 2010-05-02 
+##  9     3      0 1     2010-01-01 2010-02-03 
+## 10     3      0 1     2010-01-01 2010-03-03 
+## 11     3      0 1     2010-01-01 2010-04-03 
+## 12     3      0 1     2010-01-01 2010-05-03 
+## 13     4      0 1     2010-01-01 2010-02-04 
+## 14     4      1 1     2010-01-01 2010-03-04 
+## 15     4      1 1     2010-01-01 2010-04-04 
+## 16     4      1 1     2010-01-01 2010-05-04 
+## 17     5      0 1     2010-01-01 2010-02-05 
+## 18     5      0 1     2010-01-01 2010-03-05 
+## 19     5      1 1     2010-01-01 2010-04-05 
+## 20     5      1 1     2010-01-01 2010-05-05
+\end{verbatim}
+
+\hypertarget{compute-time-from-op-date-to-current-review}{%
+\subsubsection{Compute time from op date to current review}\label{compute-time-from-op-date-to-current-review}}
+
+\ldots{} if necessary
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydata =}\StringTok{ }\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(id, status_date) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
+    \DataTypeTok{time =} \KeywordTok{interval}\NormalTok{(opdate, status_date) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(}\StringTok{"days"}\NormalTok{)}
+\NormalTok{  )}
+\NormalTok{mydata}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 6
+##       id status group opdate     status_date  time
+##    <dbl>  <dbl> <fct> <date>     <date>      <dbl>
+##  1     1      0 0     2010-01-01 2010-02-01     31
+##  2     1      0 0     2010-01-01 2010-03-01     59
+##  3     1      0 0     2010-01-01 2010-04-01     90
+##  4     1      1 0     2010-01-01 2010-05-01    120
+##  5     2      0 0     2010-01-01 2010-02-02     32
+##  6     2      0 0     2010-01-01 2010-03-02     60
+##  7     2      1 0     2010-01-01 2010-04-02     91
+##  8     2      1 0     2010-01-01 2010-05-02    121
+##  9     3      0 1     2010-01-01 2010-02-03     33
+## 10     3      0 1     2010-01-01 2010-03-03     61
+## 11     3      0 1     2010-01-01 2010-04-03     92
+## 12     3      0 1     2010-01-01 2010-05-03    122
+## 13     4      0 1     2010-01-01 2010-02-04     34
+## 14     4      1 1     2010-01-01 2010-03-04     62
+## 15     4      1 1     2010-01-01 2010-04-04     93
+## 16     4      1 1     2010-01-01 2010-05-04    123
+## 17     5      0 1     2010-01-01 2010-02-05     35
+## 18     5      0 1     2010-01-01 2010-03-05     63
+## 19     5      1 1     2010-01-01 2010-04-05     94
+## 20     5      1 1     2010-01-01 2010-05-05    124
+\end{verbatim}
+
+\hypertarget{pull-out-change-of-status}{%
+\subsubsection{Pull out ``change of status''}\label{pull-out-change-of-status}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydata =}\StringTok{ }\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(id) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
+    \DataTypeTok{status_change =}\NormalTok{ status }\OperatorTok{-}\StringTok{ }\KeywordTok{lag}\NormalTok{(status) }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{,                          }\CommentTok{# Mark TRUE if goes from 0 to 1}
+    \DataTypeTok{status_nochange =} \KeywordTok{sum}\NormalTok{(status) }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{,                                 }\CommentTok{# Mark if no change from 0}
+    \DataTypeTok{status_nochange_keep =} \OperatorTok{!}\KeywordTok{duplicated}\NormalTok{(status_nochange, }\DataTypeTok{fromLast=} \OtherTok{TRUE}\NormalTok{) }\CommentTok{# Mark most recent "no change" episode}
+\NormalTok{  ) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(status_change }\OperatorTok{|}\StringTok{ }\NormalTok{(status_nochange }\OperatorTok{&}\StringTok{ }\NormalTok{status_nochange_keep)) }\OperatorTok{%>%}\StringTok{  }\CommentTok{# Filter out other episodes}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{(status_change, status_nochange, status_nochange_keep))      }\CommentTok{# Remove columns not needed}
+\NormalTok{mydata}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 6
+## # Groups:   id [5]
+##      id status group opdate     status_date  time
+##   <dbl>  <dbl> <fct> <date>     <date>      <dbl>
+## 1     1      1 0     2010-01-01 2010-05-01    120
+## 2     2      1 0     2010-01-01 2010-04-02     91
+## 3     3      0 1     2010-01-01 2010-05-03    122
+## 4     4      1 1     2010-01-01 2010-03-04     62
+## 5     5      1 1     2010-01-01 2010-04-05     94
+\end{verbatim}
+
+\hypertarget{run-cph}{%
+\subsubsection{Run CPH}\label{run-cph}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{finalfit}\NormalTok{(}\StringTok{"Surv(time, status)"}\NormalTok{, }\StringTok{"group"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Dependent: Surv(time, status)        all          HR (univariable)
+## 1                         group 0 2 (40.0)                         -
+## 2                               1 3 (60.0) 0.76 (0.10-5.51, p=0.786)
+##          HR (multivariable)
+## 1                         -
+## 2 0.76 (0.10-5.51, p=0.786)
 \end{verbatim}
 
 \hypertarget{methods}{%
