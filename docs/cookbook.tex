@@ -124,7 +124,11 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
+<<<<<<< HEAD
     \date{2019-10-01}
+=======
+    \date{2019-09-27}
+>>>>>>> 53fed6c4bd90f16b9073d273affa7b28fb8e39a2
 
 \usepackage{booktabs}
 
@@ -135,6 +139,10 @@
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
+\hypertarget{section}{%
+\chapter*{}\label{section}}
+\addcontentsline{toc}{chapter}{}
+
 \hypertarget{intro}{%
 \chapter{Introduction}\label{intro}}
 
@@ -154,13 +162,13 @@
 \item
   Open the terminal on argonaut, go to your home folder (just \texttt{cd} will default to taking you home). If the prompt says \texttt{username@argonaut:\textasciitilde{}\$} that means you're home - \texttt{\textasciitilde{}} means user's home.
 \item
-  In the terminal, do \texttt{git\ clone\ git@github.com:SurgicalInformatics/cookbook.git}.
+  In the terminal, do \texttt{git\ clone\ https://github.com/SurgicalInformatics/cookbook.git}
 \item
   Look at the Files tab - a new folder called \texttt{cookbook} should have appeared at the bottom. Click on it and open the cookbook.Rproj file.
 \item
-  Add your thing by editing the appropriate .Rmd file - there's one for each chapter. Use the Build tab to Build your changes into a book.
+  Add your thing by editing the appropriate .Rmd file - there's one for each chapter. \textbf{click on More - Clean All} (if you don't do this you may be able to compile the book with code that won't work at a subsequent clean build which can be trickier to debug). Use the Build tab to Build your changes into a book.
 \item
-  If anyone has pushed since you cloned/last pulled (hopefully they've not been working on the exact same chapter): click on More - Clean All. Then Pull from the Git tab. This only cleans the output files - html and PDF, it will not touch the changes you've made in the .Rmd file.
+  If anyone has pushed since you cloned/last pulled (hopefully they've not been working on the exact same chapter): Make sure you \textbf{click on More - Clean All} (as above). Then Pull from the Git tab. This only cleans the output files - html and PDF, it will not touch the changes you've made in the .Rmd file.
 \item
   Then Build Book again - this will include the new changes you pulled as well as your changes.
 \item
@@ -274,6 +282,75 @@ You can write citations, too. For example, we are using the \textbf{bookdown} pa
 \chapter{Snippets}\label{snippets}}
 
 Random useful snippets that do not fit anywhere else.
+
+\hypertarget{creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker}{%
+\section{Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)}\label{creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker}}
+
+When asking for help with R code having a reproducible example is crucial (some mock data that others can use along with your code to reproduce your error). Often this can be done easily with creation of a small tibble and posting of the code on slack but sometimes it requires more complex data or the error is due to something in the Linux system in which RStudio server is hosted. For example if the \texttt{cairo} package for Linux isn't installed then plots don't work. The \texttt{holepunch} package helps to reproduce examples like these (not suitable for projects with confidential data).
+
+\hypertarget{create-basic-reproducible-examples}{%
+\subsection{Create Basic Reproducible Examples}\label{create-basic-reproducible-examples}}
+
+The three main parts of the reproducible example (reprex) in Surgical Informatics are 1. packages, 2. small dataset and 3. code. Other things like R version and Linux version can be assumed as we all use one of only a few servers.
+
+If you have a small (and confidential) set of data in a tibble or data frame called \texttt{my\_data} and want it to be easily copied run: \texttt{dput(droplevels(my\_data))}. This will print out code in the console that can be copy-pasted to reproduce the data frame. Alternatively use the \texttt{tibble} or \texttt{tribble} functions to create it from scratch (this is preferable for simple datasets). Then copy in the packages and finally the code (ideally the least amount possible to generate the error) and share with the group e.g.:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+
+\CommentTok{# Output generated from dput(droplevels(my_data))}
+\NormalTok{data =}\StringTok{ }\KeywordTok{structure}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{a =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{), }\DataTypeTok{b =} \KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\StringTok{"c"}\NormalTok{), }\DataTypeTok{c =} \DecValTok{10}\OperatorTok{:}\DecValTok{12}\NormalTok{), }\DataTypeTok{.Names =} \KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }
+\StringTok{"b"}\NormalTok{, }\StringTok{"c"}\NormalTok{), }\DataTypeTok{row.names =} \KeywordTok{c}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\OperatorTok{-}\NormalTok{3L), }\DataTypeTok{class =} \KeywordTok{c}\NormalTok{(}\StringTok{"tbl_df"}\NormalTok{, }\StringTok{"tbl"}\NormalTok{, }
+\StringTok{"data.frame"}\NormalTok{))}
+
+\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{newvar =}\NormalTok{ a }\OperatorTok{/}\NormalTok{b)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in a/b: non-numeric argument to binary operator
+\end{verbatim}
+
+\hypertarget{holepunch---complex-reproducible-examples}{%
+\subsection{\texorpdfstring{\texttt{holepunch} - Complex Reproducible Examples}{holepunch - Complex Reproducible Examples}}\label{holepunch---complex-reproducible-examples}}
+
+From your project with data you are happy to make public make sure you are backed up to \texttt{git} and \texttt{GitHub}. See the relevant chapter on how to do this. Then run the following:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Holepunch testing}
+
+\NormalTok{remotes}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"karthik/holepunch"}\NormalTok{)}
+
+\KeywordTok{library}\NormalTok{(holepunch)}
+\KeywordTok{write_compendium_description}\NormalTok{(}\DataTypeTok{package =} \StringTok{"Title of my project"}\NormalTok{, }
+                             \DataTypeTok{description =} \StringTok{"Rough description of project or issue"}\NormalTok{)}
+
+\KeywordTok{write_dockerfile}\NormalTok{(}\DataTypeTok{maintainer =} \StringTok{"SurgicalInformatics"}\NormalTok{)}
+
+\KeywordTok{generate_badge}\NormalTok{()}
+
+\KeywordTok{build_binder}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+The file will generate some text to copy into the top of a \texttt{README.md} file. It will look like:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{<!--}\StringTok{ }\NormalTok{badges}\OperatorTok{:}\StringTok{ }\NormalTok{start }\OperatorTok{-}\NormalTok{->}
+\NormalTok{[}\OperatorTok{!}\NormalTok{[Launch Rstudio Binder](http}\OperatorTok{:}\ErrorTok{//}\NormalTok{mybinder.org}\OperatorTok{/}\NormalTok{badge_logo.svg)](https}\OperatorTok{:}\ErrorTok{//}\NormalTok{mybinder.org}\OperatorTok{/}\NormalTok{v2}\OperatorTok{/}\NormalTok{gh}\OperatorTok{/}\NormalTok{SurgicalInformatics}\OperatorTok{/}\ErrorTok{<}\NormalTok{project}\OperatorTok{>}\ErrorTok{/}\NormalTok{master?}\DataTypeTok{urlpath=}\NormalTok{rstudio)}
+\OperatorTok{<!--}\StringTok{ }\NormalTok{badges}\OperatorTok{:}\StringTok{ }\NormalTok{end }\OperatorTok{-}\NormalTok{->}
+\end{Highlighting}
+\end{Shaded}
+
+Now, whenever somebody clicks on the badge in the \texttt{README} on \texttt{GitHub} they will be taken to an RStudio server instance with all your files (excluding files listed in \texttt{.gitignore}), all the current versions of your package, all the current Linux packages and the current R version. They can then test your code in an near-identical environment to help identify the source of the error, their session will time out after 10 minutes of inactivity or 12 hours since starting and will not save anything so should only be used for bug-testing or quick examples.
+
+As this is a free version of RStudio server there is a limit to what is supported and it shouldn't be used for computationally-intensive processes.
+
+And, as mentioned: \textbf{No confidential data.}
 
 \hypertarget{working-with-chis}{%
 \section{Working with CHIs}\label{working-with-chis}}

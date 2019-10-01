@@ -12,13 +12,13 @@ https://github.com/SurgicalInformatics
 
 3. Open the terminal on argonaut, go to your home folder (just `cd` will default to taking you home). If the prompt says `username@argonaut:~$` that means you're home - `~` means user's home.
 
-4. In the terminal, do `git clone git@github.com:SurgicalInformatics/cookbook.git`.
+4. In the terminal, do `git clone https://github.com/SurgicalInformatics/cookbook.git`
 
 5. Look at the Files tab - a new folder called `cookbook` should have appeared at the bottom. Click on it and open the cookbook.Rproj file.
 
-6. Add your thing by editing the appropriate .Rmd file - there's one for each chapter. Use the Build tab to Build your changes into a book.
+6. Add your thing by editing the appropriate .Rmd file - there's one for each chapter. **click on More - Clean All** (if you don't do this you may be able to compile the book with code that won't work at a subsequent clean build which can be trickier to debug). Use the Build tab to Build your changes into a book.
 
-7. If anyone has pushed since you cloned/last pulled (hopefully they've not been working on the exact same chapter): click on More - Clean All. Then Pull from the Git tab. This only cleans the output files - html and PDF, it will not touch the changes you've made in the .Rmd file.
+7. If anyone has pushed since you cloned/last pulled (hopefully they've not been working on the exact same chapter): Make sure you **click on More - Clean All** (as above). Then Pull from the Git tab. This only cleans the output files - html and PDF, it will not touch the changes you've made in the .Rmd file.
 
 8. Then Build Book again - this will include the new changes you pulled as well as your changes.
 
