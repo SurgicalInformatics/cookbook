@@ -24,11 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<<<<<<< HEAD
 <meta name="date" content="2019-10-01" />
-=======
-<meta name="date" content="2019-09-27" />
->>>>>>> 53fed6c4bd90f16b9073d273affa7b28fb8e39a2
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -148,12 +144,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.1" data-path="snippets.html"><a href="snippets.html#create-basic-reproducible-examples"><i class="fa fa-check"></i><b>2.1.1</b> Create Basic Reproducible Examples</a></li>
 <li class="chapter" data-level="2.1.2" data-path="snippets.html"><a href="snippets.html#holepunch---complex-reproducible-examples"><i class="fa fa-check"></i><b>2.1.2</b> <code>holepunch</code> - Complex Reproducible Examples</a></li>
 </ul></li>
-<<<<<<< HEAD
-<li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.2</b> Working with dates</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.2.1</b> Difference between two dates</a></li>
-<li class="chapter" data-level="2.2.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.2.2</b> Lags</a></li>
-<li class="chapter" data-level="2.2.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.2.3</b> Pulling out “change in status” data</a></li>
-=======
 <li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#working-with-chis"><i class="fa fa-check"></i><b>2.2</b> Working with CHIs</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="snippets.html"><a href="snippets.html#chi_dob---extract-date-of-birth-from-chi"><i class="fa fa-check"></i><b>2.2.1</b> <code>chi_dob()</code> - Extract date of birth from CHI</a></li>
 <li class="chapter" data-level="2.2.2" data-path="snippets.html"><a href="snippets.html#chi_gender---extract-gender-from-chi"><i class="fa fa-check"></i><b>2.2.2</b> <code>chi_gender()</code> - Extract gender from CHI</a></li>
@@ -163,7 +153,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.3</b> Working with dates</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.3.1</b> Difference between two dates</a></li>
 <li class="chapter" data-level="2.3.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.3.2</b> Lags</a></li>
->>>>>>> 53fed6c4bd90f16b9073d273affa7b28fb8e39a2
+<li class="chapter" data-level="2.3.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.3.3</b> Pulling out “change in status” data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a></li>
@@ -396,29 +386,6 @@ I often want days as a numeric, not a lubridate type object.</p>
 <div id="lags" class="section level3">
 <h3><span class="header-section-number">2.3.2</span> Lags</h3>
 <p>This is useful for calculating, for instance, the period off medications. Lags are much better than long to wide solutions for this.</p>
-<<<<<<< HEAD
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
-<pre><code>## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>## ✔ ggplot2 3.2.1     ✔ readr   1.3.1
-## ✔ tibble  2.1.3     ✔ purrr   0.3.2
-## ✔ tidyr   1.0.0     ✔ stringr 1.4.0
-## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0</code></pre>
-<pre><code>## ── Conflicts ──────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ lubridate::as.difftime() masks base::as.difftime()
-## ✖ lubridate::date()        masks base::date()
-## ✖ dplyr::filter()          masks stats::filter()
-## ✖ lubridate::intersect()   masks base::intersect()
-## ✖ dplyr::lag()             masks stats::lag()
-## ✖ lubridate::setdiff()     masks base::setdiff()
-## ✖ lubridate::union()       masks base::union()</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">library</span>(lubridate)</a>
-<a class="sourceLine" id="cb29-2" data-line-number="2">id =<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>) </a>
-<a class="sourceLine" id="cb29-3" data-line-number="3">medication =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;aspirin&quot;</span>, <span class="st">&quot;aspirin&quot;</span>, <span class="st">&quot;aspirin&quot;</span>, <span class="st">&quot;tylenol&quot;</span>, <span class="st">&quot;lipitor&quot;</span>, <span class="st">&quot;advil&quot;</span>) </a>
-<a class="sourceLine" id="cb29-4" data-line-number="4">start.date =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;05/01/2017&quot;</span>, <span class="st">&quot;05/30/2017&quot;</span>, <span class="st">&quot;07/15/2017&quot;</span>, <span class="st">&quot;05/01/2017&quot;</span>, <span class="st">&quot;05/06/2017&quot;</span>, <span class="st">&quot;05/28/2017&quot;</span>)</a>
-<a class="sourceLine" id="cb29-5" data-line-number="5">stop.date =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;05/04/2017&quot;</span>, <span class="st">&quot;06/10/2017&quot;</span>, <span class="st">&quot;07/27/2017&quot;</span>, <span class="st">&quot;05/15/2017&quot;</span>, <span class="st">&quot;05/12/2017&quot;</span>, <span class="st">&quot;06/13/2017&quot;</span>)</a>
-<a class="sourceLine" id="cb29-6" data-line-number="6">df =<span class="st"> </span><span class="kw">tibble</span>(id, medication, start.date, stop.date)</a>
-<a class="sourceLine" id="cb29-7" data-line-number="7">df</a></code></pre></div>
-=======
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
 <a class="sourceLine" id="cb29-2" data-line-number="2"><span class="kw">library</span>(lubridate)</a>
 <a class="sourceLine" id="cb29-3" data-line-number="3">id =<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>) </a>
@@ -427,7 +394,6 @@ I often want days as a numeric, not a lubridate type object.</p>
 <a class="sourceLine" id="cb29-6" data-line-number="6">stop.date =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;05/04/2017&quot;</span>, <span class="st">&quot;06/10/2017&quot;</span>, <span class="st">&quot;07/27/2017&quot;</span>, <span class="st">&quot;05/15/2017&quot;</span>, <span class="st">&quot;05/12/2017&quot;</span>, <span class="st">&quot;06/13/2017&quot;</span>)</a>
 <a class="sourceLine" id="cb29-7" data-line-number="7">df =<span class="st"> </span><span class="kw">tibble</span>(id, medication, start.date, stop.date)</a>
 <a class="sourceLine" id="cb29-8" data-line-number="8">df</a></code></pre></div>
->>>>>>> 53fed6c4bd90f16b9073d273affa7b28fb8e39a2
 <pre><code>## # A tibble: 6 x 4
 ##      id medication start.date stop.date 
 ##   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;     
@@ -457,10 +423,10 @@ I often want days as a numeric, not a lubridate type object.</p>
 ## 6     5 advil      2017-05-28 2017-06-13 NA days         16 days</code></pre>
 </div>
 <div id="pulling-out-change-in-status-data" class="section level3">
-<h3><span class="header-section-number">2.2.3</span> Pulling out “change in status” data</h3>
+<h3><span class="header-section-number">2.3.3</span> Pulling out “change in status” data</h3>
 <p>If you have a number of episodes per patient, each with a status and a time, then you need to do this as a starting point for CPH analysis.</p>
 <div id="example-data" class="section level4">
-<h4><span class="header-section-number">2.2.3.1</span> Example data</h4>
+<h4><span class="header-section-number">2.3.3.1</span> Example data</h4>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
 <a class="sourceLine" id="cb33-2" data-line-number="2"><span class="kw">library</span>(lubridate)</a>
 <a class="sourceLine" id="cb33-3" data-line-number="3"><span class="kw">library</span>(finalfit)</a>
@@ -503,7 +469,7 @@ I often want days as a numeric, not a lubridate type object.</p>
 ## 20     5      1 1     2010-01-01 2010-05-05</code></pre>
 </div>
 <div id="compute-time-from-op-date-to-current-review" class="section level4">
-<h4><span class="header-section-number">2.2.3.2</span> Compute time from op date to current review</h4>
+<h4><span class="header-section-number">2.3.3.2</span> Compute time from op date to current review</h4>
 <p>… if necessary</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">mydata =<span class="st"> </span>mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb35-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(id, status_date) <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -536,7 +502,7 @@ I often want days as a numeric, not a lubridate type object.</p>
 ## 20     5      1 1     2010-01-01 2010-05-05    124</code></pre>
 </div>
 <div id="pull-out-change-of-status" class="section level4">
-<h4><span class="header-section-number">2.2.3.3</span> Pull out “change of status”</h4>
+<h4><span class="header-section-number">2.3.3.3</span> Pull out “change of status”</h4>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">mydata =<span class="st"> </span>mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb37-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(id) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb37-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(</a>
@@ -558,7 +524,7 @@ I often want days as a numeric, not a lubridate type object.</p>
 ## 5     5      1 1     2010-01-01 2010-04-05     94</code></pre>
 </div>
 <div id="run-cph" class="section level4">
-<h4><span class="header-section-number">2.2.3.4</span> Run CPH</h4>
+<h4><span class="header-section-number">2.3.3.4</span> Run CPH</h4>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb39-2" data-line-number="2"><span class="st">  </span><span class="kw">finalfit</span>(<span class="st">&quot;Surv(time, status)&quot;</span>, <span class="st">&quot;group&quot;</span>)</a></code></pre></div>
 <pre><code>##   Dependent: Surv(time, status)        all          HR (univariable)
