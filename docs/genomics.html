@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="methods.html">
-<link rel="next" href="data-transfer-and-eddie.html">
+<link rel="prev" href="plotting.html">
+<link rel="next" href="references.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -218,76 +218,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="machine-learning" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Machine learning</h1>
-<div id="deep-learning" class="section level2">
-<h2><span class="header-section-number">4.1</span> Deep learning</h2>
-<div id="pulling-images-from-redcap-directly-to-argodeep" class="section level3">
-<h3><span class="header-section-number">4.1.1</span> Pulling images from REDCap directly to argodeep</h3>
-<div id="original-file-names" class="section level4">
-<h4><span class="header-section-number">4.1.1.1</span> Original file names</h4>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">library</span>(REDCapR)</a>
-<a class="sourceLine" id="cb41-2" data-line-number="2">uri =<span class="st"> &quot;https://redcap.cir.ed.ac.uk/api/&quot;</span></a>
-<a class="sourceLine" id="cb41-3" data-line-number="3">token =<span class="st"> &quot;&quot;</span> <span class="co"># API token here</span></a>
-<a class="sourceLine" id="cb41-4" data-line-number="4">record_list =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">318</span></a>
-<a class="sourceLine" id="cb41-5" data-line-number="5">field_list =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;photo&quot;</span>, <span class="st">&quot;photo_2&quot;</span>, <span class="st">&quot;photo_3&quot;</span>, <span class="st">&quot;photo_4&quot;</span>)</a>
-<a class="sourceLine" id="cb41-6" data-line-number="6">event_list =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;wound_concerns_arm_2&quot;</span>, <span class="st">&quot;questionnaire_1_arm_2&quot;</span>,</a>
-<a class="sourceLine" id="cb41-7" data-line-number="7">               <span class="st">&quot;questionnaire_2_arm_2&quot;</span>, <span class="st">&quot;questionnaire_3_arm_2&quot;</span>)</a>
-<a class="sourceLine" id="cb41-8" data-line-number="8">directory =<span class="st"> &quot;wound_raw&quot;</span> <span class="co"># destination directory must exist already</span></a>
-<a class="sourceLine" id="cb41-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb41-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb41-11" data-line-number="11"><span class="cf">for</span>(record <span class="cf">in</span> record_list){</a>
-<a class="sourceLine" id="cb41-12" data-line-number="12">  <span class="cf">for</span>(field <span class="cf">in</span> field_list){</a>
-<a class="sourceLine" id="cb41-13" data-line-number="13">    <span class="cf">for</span>(event <span class="cf">in</span> event_list){</a>
-<a class="sourceLine" id="cb41-14" data-line-number="14">      result =<span class="st"> </span></a>
-<a class="sourceLine" id="cb41-15" data-line-number="15"><span class="st">        </span><span class="kw">tryCatch</span>({      <span class="co"># suppress breaking error when no image in slot</span></a>
-<a class="sourceLine" id="cb41-16" data-line-number="16">          <span class="kw">redcap_download_file_oneshot</span>(</a>
-<a class="sourceLine" id="cb41-17" data-line-number="17">            <span class="dt">record        =</span> record,</a>
-<a class="sourceLine" id="cb41-18" data-line-number="18">            <span class="dt">field         =</span> field,</a>
-<a class="sourceLine" id="cb41-19" data-line-number="19">            <span class="dt">redcap_uri    =</span> uri,</a>
-<a class="sourceLine" id="cb41-20" data-line-number="20">            <span class="dt">token         =</span> token,</a>
-<a class="sourceLine" id="cb41-21" data-line-number="21">            <span class="dt">event         =</span> event,</a>
-<a class="sourceLine" id="cb41-22" data-line-number="22">            <span class="dt">overwrite     =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb41-23" data-line-number="23">            <span class="dt">directory     =</span> directory</a>
-<a class="sourceLine" id="cb41-24" data-line-number="24">          )</a>
-<a class="sourceLine" id="cb41-25" data-line-number="25">        }, <span class="dt">error=</span><span class="cf">function</span>(e){})</a>
-<a class="sourceLine" id="cb41-26" data-line-number="26">    }</a>
-<a class="sourceLine" id="cb41-27" data-line-number="27">  }</a>
-<a class="sourceLine" id="cb41-28" data-line-number="28">}</a></code></pre></div>
-</div>
-<div id="named-from-redcap-record-id-and-event" class="section level4">
-<h4><span class="header-section-number">4.1.1.2</span> Named from REDCap record ID and event</h4>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">library</span>(REDCapR)</a>
-<a class="sourceLine" id="cb42-2" data-line-number="2">uri =<span class="st"> &quot;https://redcap.cir.ed.ac.uk/api/&quot;</span></a>
-<a class="sourceLine" id="cb42-3" data-line-number="3">token =<span class="st"> &quot;&quot;</span> <span class="co"># API token here</span></a>
-<a class="sourceLine" id="cb42-4" data-line-number="4">record_list =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">318</span></a>
-<a class="sourceLine" id="cb42-5" data-line-number="5">field_list =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;photo&quot;</span>, <span class="st">&quot;photo_2&quot;</span>, <span class="st">&quot;photo_3&quot;</span>, <span class="st">&quot;photo_4&quot;</span>)</a>
-<a class="sourceLine" id="cb42-6" data-line-number="6">event_list =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;wound_concerns_arm_2&quot;</span>, <span class="st">&quot;questionnaire_1_arm_2&quot;</span>,</a>
-<a class="sourceLine" id="cb42-7" data-line-number="7">               <span class="st">&quot;questionnaire_2_arm_2&quot;</span>, <span class="st">&quot;questionnaire_3_arm_2&quot;</span>)</a>
-<a class="sourceLine" id="cb42-8" data-line-number="8">directory =<span class="st"> &quot;wound_named&quot;</span> <span class="co"># destination directory must exist already</span></a>
-<a class="sourceLine" id="cb42-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb42-10" data-line-number="10"><span class="cf">for</span>(record <span class="cf">in</span> record_list){</a>
-<a class="sourceLine" id="cb42-11" data-line-number="11">  <span class="cf">for</span>(field <span class="cf">in</span> field_list){</a>
-<a class="sourceLine" id="cb42-12" data-line-number="12">    <span class="cf">for</span>(event <span class="cf">in</span> event_list){</a>
-<a class="sourceLine" id="cb42-13" data-line-number="13">      file_name =<span class="st"> </span><span class="kw">paste0</span>(record, <span class="st">&quot;_&quot;</span>, field, <span class="st">&quot;_&quot;</span>, event, <span class="st">&quot;.jpg&quot;</span>)</a>
-<a class="sourceLine" id="cb42-14" data-line-number="14">      result =<span class="st"> </span></a>
-<a class="sourceLine" id="cb42-15" data-line-number="15"><span class="st">        </span><span class="kw">tryCatch</span>({</a>
-<a class="sourceLine" id="cb42-16" data-line-number="16">          <span class="kw">redcap_download_file_oneshot</span>(</a>
-<a class="sourceLine" id="cb42-17" data-line-number="17">            <span class="dt">record        =</span> record,</a>
-<a class="sourceLine" id="cb42-18" data-line-number="18">            <span class="dt">field         =</span> field,</a>
-<a class="sourceLine" id="cb42-19" data-line-number="19">            <span class="dt">redcap_uri    =</span> uri,</a>
-<a class="sourceLine" id="cb42-20" data-line-number="20">            <span class="dt">token         =</span> token,</a>
-<a class="sourceLine" id="cb42-21" data-line-number="21">            <span class="dt">event         =</span> event,</a>
-<a class="sourceLine" id="cb42-22" data-line-number="22">            <span class="dt">overwrite     =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb42-23" data-line-number="23">            <span class="dt">directory     =</span> directory,</a>
-<a class="sourceLine" id="cb42-24" data-line-number="24">            <span class="dt">file_name     =</span> file_name</a>
-<a class="sourceLine" id="cb42-25" data-line-number="25">          )</a>
-<a class="sourceLine" id="cb42-26" data-line-number="26">        }, <span class="dt">error=</span><span class="cf">function</span>(e){})</a>
-<a class="sourceLine" id="cb42-27" data-line-number="27">    }</a>
-<a class="sourceLine" id="cb42-28" data-line-number="28">  }</a>
-<a class="sourceLine" id="cb42-29" data-line-number="29">}</a></code></pre></div>
+<div id="genomics" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Genomics</h1>
+<div id="single-cell-analysis" class="section level2">
+<h2><span class="header-section-number">7.1</span> Single Cell Analysis</h2>
+<div id="minimising-the-size-of-a-seurat-object" class="section level3">
+<h3><span class="header-section-number">7.1.1</span> Minimising the size of a Seurat Object</h3>
+<p>Single cell analyses are ofetn collated in Seurat objects which can be huge. We reduced the size of our Seurat object by pulling the relevant sections using the code below reducing the object to &lt;20% of its original size. This works by only including the sparse matrices. This is not a workable example, but the PBMC dataset could be used if necessary.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="co">#library(Seurat)</span></a>
+<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="co">#library(dplyr)</span></a>
+<a class="sourceLine" id="cb63-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb63-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb63-5" data-line-number="5"><span class="co">#Load in the data</span></a>
+<a class="sourceLine" id="cb63-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb63-7" data-line-number="7">pathtoglobaldata &lt;-<span class="st">&quot;mac_shiny/data/Global_sc_object&quot;</span></a>
+<a class="sourceLine" id="cb63-8" data-line-number="8">object_global&lt;-<span class="kw">readRDS</span>(pathtoglobaldata)</a>
+<a class="sourceLine" id="cb63-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb63-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb63-11" data-line-number="11"><span class="co"># Get sparse assay data</span></a>
+<a class="sourceLine" id="cb63-12" data-line-number="12">sizetest_global&lt;-<span class="kw">GetAssayData</span>(<span class="dt">object =</span> object_global, <span class="dt">slot =</span> <span class="st">&quot;data&quot;</span>) <span class="co"># counts don’t work, scaled breaks my pc with memory errors, not sure it matters that much</span></a>
+<a class="sourceLine" id="cb63-13" data-line-number="13">object_global_small&lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(sizetest_global)</a>
+<a class="sourceLine" id="cb63-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb63-15" data-line-number="15"><span class="co"># Add in classifications. </span></a>
+<a class="sourceLine" id="cb63-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb63-17" data-line-number="17">object_global_small<span class="op">@</span>reductions<span class="op">$</span>tsne&lt;-object_global<span class="op">@</span>reductions<span class="op">$</span>tsne <span class="co"># reduction embeddings for tsnegraph</span></a>
+<a class="sourceLine" id="cb63-18" data-line-number="18">object_global_small<span class="op">$</span>Phenotype&lt;-<span class="st"> </span>object_global<span class="op">$</span>Phenotype</a>
+<a class="sourceLine" id="cb63-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb63-20" data-line-number="20">object_global_small<span class="op">@</span>meta.data<span class="op">$</span>final_classification&lt;-<span class="st"> </span>object_global<span class="op">@</span>meta.data<span class="op">$</span>final_classification</a>
+<a class="sourceLine" id="cb63-21" data-line-number="21">object_global_small<span class="op">$</span>final_classificaiton&lt;-<span class="st"> </span>object_global<span class="op">$</span>final_classification <span class="co">#cell classifications</span></a>
+<a class="sourceLine" id="cb63-22" data-line-number="22"><span class="kw">Idents</span>(<span class="dt">object =</span> object_global_small) &lt;-<span class="st"> &quot;final_classificaiton&quot;</span> <span class="co">#set forever</span></a>
+<a class="sourceLine" id="cb63-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb63-24" data-line-number="24"></a>
+<a class="sourceLine" id="cb63-25" data-line-number="25"><span class="co">#same</span></a>
+<a class="sourceLine" id="cb63-26" data-line-number="26"><span class="kw">saveRDS</span>(object_global_small,<span class="st">&quot;mac_shiny/data/global_object_sml&quot;</span>)</a></code></pre></div>
 
-</div>
 </div>
 </div>
 </div>
@@ -296,8 +260,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="methods.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-transfer-and-eddie.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="plotting.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
