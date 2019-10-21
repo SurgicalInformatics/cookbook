@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>The Surgical Informatics Cookbook</title>
+  <title>Chapter 8 Programming in rlang | The Surgical Informatics Cookbook</title>
   <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
   <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="The Surgical Informatics Cookbook" />
+  <meta property="og:title" content="Chapter 8 Programming in rlang | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="The Surgical Informatics Cookbook" />
+  <meta name="twitter:title" content="Chapter 8 Programming in rlang | The Surgical Informatics Cookbook" />
   
   <meta name="twitter:description" content="All the brilliant bits of code we don’t want to forget." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="intro.html">
+<link rel="prev" href="genomics.html">
+<link rel="next" href="references.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -224,22 +224,65 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">The Surgical Informatics Cookbook</h1>
-<p class="author"><em>Surgical Informatics, University of Edinburgh</em></p>
-<p class="date"><em>2019-10-21</em></p>
+<div id="programming-in-rlang" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Programming in rlang</h1>
+<div id="rlang" class="section level2">
+<h2><span class="header-section-number">8.1</span> rlang</h2>
+<div id="what-is-rlang" class="section level3">
+<h3><span class="header-section-number">8.1.1</span> What is rlang?</h3>
+<p>rlang is a low-level programming API for R which the tidyverse uses (meaning it speaks to R in as R like way as possible, rather than a ‘high-level’ - high level is more user orientated and interpretable). It enables you to extend what the tidyverse can do and adapt it for your own uses. It’s particularly good to use if you’re doing lots of more ‘programming’ type R work, for example, building a package, making a complex shiny app or writing functions. It might also be handy if you’re doing lots of big data manipulation and want to manipulate different datasets in the same way, for example.</p>
+<p>In this chapter we’ll discuss some uses of it.</p>
 </div>
-<div id="section" class="section level1 unnumbered">
-<h1></h1>
+<div id="dynamic-calling-of-variables-using-dplyr" class="section level3">
+<h3><span class="header-section-number">8.1.2</span> Dynamic calling of variables using dplyr</h3>
+<p>In this example, say we have a tibble of variables, but we want to apply dynamic changes to it (so we feed R a variable, that can change, either using another function like <code>purr::map</code> or in a ShinyApp). In this instance, specifying each variable and each different possible consequence using different logical functions would take forever and be very clunky. So we can use rlang to simply put a dynamic variable/object through the same function.</p>
+<p>We’ll use an example where we want to summarise by different outcomes in a dynamic way.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Make data - here nonsense numbers on deaths per 100k from guns say</span>
 
+example_data =<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">countries =</span> <span class="kw">c</span>(<span class="st">&#39;UK&#39;</span>, <span class="st">&#39;USA&#39;</span>, <span class="st">&#39;Pakistan&#39;</span>, <span class="st">&#39;Mexico&#39;</span>, <span class="st">&#39;Ireland&#39;</span>, <span class="st">&#39;Estonia&#39;</span>),
+                      <span class="dt">region =</span> <span class="kw">c</span>(<span class="st">&#39;Europe&#39;</span>, <span class="st">&#39;Americas&#39;</span>, <span class="st">&#39;Asia&#39;</span>, <span class="st">&#39;Americas&#39;</span>, <span class="st">&#39;Europe&#39;</span>, <span class="st">&#39;Europe&#39;</span>),
+                      <span class="dt">Death_from_guns =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(<span class="kw">c</span>(<span class="st">&#39;1&#39;</span>, <span class="st">&#39;200&#39;</span>, <span class="st">&#39;150&#39;</span>, <span class="st">&#39;450&#39;</span>, <span class="st">&#39;3&#39;</span>, <span class="st">&#39;3.5&#39;</span>))),
+                      <span class="dt">Death_from_smoking =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(<span class="kw">c</span>(<span class="st">&#39;100&#39;</span>, <span class="st">&#39;300&#39;</span>, <span class="st">&#39;140&#39;</span>, <span class="st">&#39;150&#39;</span>, <span class="st">&#39;120&#39;</span>, <span class="st">&#39;300&#39;</span>))))
+
+
+<span class="co">#example function for summarising using dynamic variables and bang bangs</span>
+<span class="co">#note metric must be numeric</span>
+summarise_feature =<span class="st"> </span><span class="cf">function</span>(df, col_var, ...){
+  <span class="kw">require</span>(tidyverse)
+  summary_var &lt;-<span class="st"> </span><span class="kw">enquo</span>(col_var)
+  summary_nm &lt;-<span class="st"> </span><span class="kw">quo_name</span>(summary_var)
+  summary_nm_sum &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;metric_&quot;</span>,summary_nm)<span class="co">#The new LHS variable must have a different name from that on the RHS</span>
+  
+  df <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">group_by</span>(...) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">summarise</span>(<span class="op">!!</span>summary_nm_sum <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">sum</span>(<span class="op">!!</span>summary_var))}
+
+<span class="co">#output new variable</span>
+example_data <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise_feature</span>(Death_from_guns, region) <span class="co">#Metric can be provided by a shiny input too i.e. UQ(rlang::sym(input$metric))</span>
+
+<span class="co">#How to dynamically change names using mutate and rlang</span>
+<span class="co">#Bang bang variables into mutate/tidyverse(so they can be dynamically changed)</span>
+
+<span class="co">#Select metric</span>
+metric =<span class="st"> &#39;metric_Death_from_guns&#39;</span> <span class="co">#example but can be any named column</span>
+
+metric_mutate =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;prefix_&#39;</span>, metric) <span class="co">#some reason doesn&#39;t take these within the mutate function so has to be outside</span>
+
+example_data <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise_feature</span>(Death_from_guns, region) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="op">!!</span>metric_mutate <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="op">!!</span>rlang<span class="op">::</span><span class="kw">sym</span>(metric) <span class="op">*</span><span class="st"> </span><span class="dv">2</span>)<span class="co">#apply arbitary multiplication by two</span></code></pre>
+
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="genomics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
