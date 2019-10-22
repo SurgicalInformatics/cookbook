@@ -1417,8 +1417,8 @@ We'll use an example where we want to summarise by different outcomes in a dynam
 
 \NormalTok{example_data =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{countries =} \KeywordTok{c}\NormalTok{(}\StringTok{'UK'}\NormalTok{, }\StringTok{'USA'}\NormalTok{, }\StringTok{'Pakistan'}\NormalTok{, }\StringTok{'Mexico'}\NormalTok{, }\StringTok{'Ireland'}\NormalTok{, }\StringTok{'Estonia'}\NormalTok{),}
                       \DataTypeTok{region =} \KeywordTok{c}\NormalTok{(}\StringTok{'Europe'}\NormalTok{, }\StringTok{'Americas'}\NormalTok{, }\StringTok{'Asia'}\NormalTok{, }\StringTok{'Americas'}\NormalTok{, }\StringTok{'Europe'}\NormalTok{, }\StringTok{'Europe'}\NormalTok{),}
-                      \DataTypeTok{Death_from_guns =} \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.character}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{'1'}\NormalTok{, }\StringTok{'200'}\NormalTok{, }\StringTok{'150'}\NormalTok{, }\StringTok{'450'}\NormalTok{, }\StringTok{'3'}\NormalTok{, }\StringTok{'3.5'}\NormalTok{))),}
-                      \DataTypeTok{Death_from_smoking =} \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.character}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{'100'}\NormalTok{, }\StringTok{'300'}\NormalTok{, }\StringTok{'140'}\NormalTok{, }\StringTok{'150'}\NormalTok{, }\StringTok{'120'}\NormalTok{, }\StringTok{'300'}\NormalTok{))))}
+                      \DataTypeTok{Death_from_guns =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{200}\NormalTok{, }\DecValTok{150}\NormalTok{, }\DecValTok{450}\NormalTok{, }\DecValTok{3}\NormalTok{, }\FloatTok{3.5}\NormalTok{),}
+                      \DataTypeTok{Death_from_smoking =} \KeywordTok{c}\NormalTok{(}\DecValTok{100}\NormalTok{, }\DecValTok{300}\NormalTok{, }\DecValTok{140}\NormalTok{, }\DecValTok{150}\NormalTok{, }\DecValTok{120}\NormalTok{, }\DecValTok{300}\NormalTok{))}
 
 
 \CommentTok{#example function for summarising using dynamic variables and bang bangs}

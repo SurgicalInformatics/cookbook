@@ -27,8 +27,8 @@ library(tidyverse)
 
 example_data = tibble(countries = c('UK', 'USA', 'Pakistan', 'Mexico', 'Ireland', 'Estonia'),
                       region = c('Europe', 'Americas', 'Asia', 'Americas', 'Europe', 'Europe'),
-                      Death_from_guns = as.numeric(as.character(c('1', '200', '150', '450', '3', '3.5'))),
-                      Death_from_smoking = as.numeric(as.character(c('100', '300', '140', '150', '120', '300'))))
+                      Death_from_guns = c(1, 200, 150, 450, 3, 3.5),
+                      Death_from_smoking = c(100, 300, 140, 150, 120, 300))
 
 
 #example function for summarising using dynamic variables and bang bangs
