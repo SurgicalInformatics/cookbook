@@ -35,10 +35,18 @@ example_data = tibble(countries = c('UK', 'USA', 'Pakistan', 'Mexico', 'Ireland'
 #note metric must be numeric
 summarise_feature = function(df, col_var, ...){
   require(tidyverse)
+  
+  wurly_curly = function(.){#The wurly_curly function makes things nicer
+  require(rlang)
+  !!quo_name(enquo(.))}
+
+  summary_nm_sum <- paste0("metric_", wurly_curly(col_var))#The new LHS variable must have a different name from that on the RHS
+
   df %>%
     group_by(...) %>% 
-    summarise({{col_var}} := sum({{col_var}}))
-  }
+    summarise(!!summary_nm_sum := sum({{col_var}}))
+}
+
 
 #output new variable
 example_data %>% 

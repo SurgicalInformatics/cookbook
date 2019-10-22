@@ -24,7 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2019-10-21" />
+<meta name="date" content="2019-10-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -237,7 +237,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">8.1.2</span> Dynamic calling of variables using dplyr</h3>
 <p>In this example, say we have a tibble of variables, but we want to apply dynamic changes to it (so we feed R a variable, that can change, either using another function like <code>purr::map</code> or in a ShinyApp). In this instance, specifying each variable and each different possible consequence using different logical functions would take forever and be very clunky. So we can use rlang to simply put a dynamic variable/object through the same function.</p>
 <p>We’ll use an example where we want to summarise by different outcomes in a dynamic way.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Make data - here nonsense numbers on deaths per 100k from guns say</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="co">#Make data - here nonsense numbers on deaths per 100k from guns say</span>
 
 example_data =<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">countries =</span> <span class="kw">c</span>(<span class="st">&#39;UK&#39;</span>, <span class="st">&#39;USA&#39;</span>, <span class="st">&#39;Pakistan&#39;</span>, <span class="st">&#39;Mexico&#39;</span>, <span class="st">&#39;Ireland&#39;</span>, <span class="st">&#39;Estonia&#39;</span>),
                       <span class="dt">region =</span> <span class="kw">c</span>(<span class="st">&#39;Europe&#39;</span>, <span class="st">&#39;Americas&#39;</span>, <span class="st">&#39;Asia&#39;</span>, <span class="st">&#39;Americas&#39;</span>, <span class="st">&#39;Europe&#39;</span>, <span class="st">&#39;Europe&#39;</span>),
@@ -249,17 +250,22 @@ example_data =<span class="st"> </span><span class="kw">tibble</span>(<span clas
 <span class="co">#note metric must be numeric</span>
 summarise_feature =<span class="st"> </span><span class="cf">function</span>(df, col_var, ...){
   <span class="kw">require</span>(tidyverse)
-  summary_var &lt;-<span class="st"> </span><span class="kw">enquo</span>(col_var)
-  summary_nm &lt;-<span class="st"> </span><span class="kw">quo_name</span>(summary_var)
-  summary_nm_sum &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;metric_&quot;</span>,summary_nm)<span class="co">#The new LHS variable must have a different name from that on the RHS</span>
   
+  wurly_curly =<span class="st"> </span><span class="cf">function</span>(.){<span class="co">#The wurly_curly function makes things nicer</span>
+  <span class="kw">require</span>(rlang)
+  <span class="op">!!</span><span class="kw">quo_name</span>(<span class="kw">enquo</span>(.))}
+
+  summary_nm_sum &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;metric_&quot;</span>, <span class="kw">wurly_curly</span>(col_var))<span class="co">#The new LHS variable must have a different name from that on the RHS</span>
+
   df <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">group_by</span>(...) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">summarise</span>(<span class="op">!!</span>summary_nm_sum <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">sum</span>(<span class="op">!!</span>summary_var))}
+<span class="st">    </span><span class="kw">summarise</span>(<span class="op">!!</span>summary_nm_sum <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">sum</span>({{col_var}}))
+}
+
 
 <span class="co">#output new variable</span>
 example_data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">summarise_feature</span>(Death_from_guns, region) <span class="co">#Metric can be provided by a shiny input too i.e. UQ(rlang::sym(input$metric))</span>
+<span class="st">  </span><span class="kw">summarise_feature</span>(Death_from_guns, region) 
 
 <span class="co">#How to dynamically change names using mutate and rlang</span>
 <span class="co">#Bang bang variables into mutate/tidyverse(so they can be dynamically changed)</span>

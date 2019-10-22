@@ -124,7 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-10-21}
+    \date{2019-10-22}
 
 \usepackage{booktabs}
 
@@ -1412,6 +1412,7 @@ We'll use an example where we want to summarise by different outcomes in a dynam
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
 \CommentTok{#Make data - here nonsense numbers on deaths per 100k from guns say}
 
 \NormalTok{example_data =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{countries =} \KeywordTok{c}\NormalTok{(}\StringTok{'UK'}\NormalTok{, }\StringTok{'USA'}\NormalTok{, }\StringTok{'Pakistan'}\NormalTok{, }\StringTok{'Mexico'}\NormalTok{, }\StringTok{'Ireland'}\NormalTok{, }\StringTok{'Estonia'}\NormalTok{),}
@@ -1424,17 +1425,22 @@ We'll use an example where we want to summarise by different outcomes in a dynam
 \CommentTok{#note metric must be numeric}
 \NormalTok{summarise_feature =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(df, col_var, ...)\{}
   \KeywordTok{require}\NormalTok{(tidyverse)}
-\NormalTok{  summary_var <-}\StringTok{ }\KeywordTok{enquo}\NormalTok{(col_var)}
-\NormalTok{  summary_nm <-}\StringTok{ }\KeywordTok{quo_name}\NormalTok{(summary_var)}
-\NormalTok{  summary_nm_sum <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(}\StringTok{"metric_"}\NormalTok{,summary_nm)}\CommentTok{#The new LHS variable must have a different name from that on the RHS}
   
+\NormalTok{  wurly_curly =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(.)\{}\CommentTok{#The wurly_curly function makes things nicer}
+  \KeywordTok{require}\NormalTok{(rlang)}
+  \OperatorTok{!!}\KeywordTok{quo_name}\NormalTok{(}\KeywordTok{enquo}\NormalTok{(.))\}}
+
+\NormalTok{  summary_nm_sum <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(}\StringTok{"metric_"}\NormalTok{, }\KeywordTok{wurly_curly}\NormalTok{(col_var))}\CommentTok{#The new LHS variable must have a different name from that on the RHS}
+
 \NormalTok{  df }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{group_by}\NormalTok{(...) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\OperatorTok{!!}\NormalTok{summary_nm_sum }\OperatorTok{:}\ErrorTok{=}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\OperatorTok{!!}\NormalTok{summary_var))\}}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\OperatorTok{!!}\NormalTok{summary_nm_sum }\OperatorTok{:}\ErrorTok{=}\StringTok{ }\KeywordTok{sum}\NormalTok{(\{\{col_var\}\}))}
+\NormalTok{\}}
+
 
 \CommentTok{#output new variable}
 \NormalTok{example_data }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{summarise_feature}\NormalTok{(Death_from_guns, region) }\CommentTok{#Metric can be provided by a shiny input too i.e. UQ(rlang::sym(input$metric))}
+\StringTok{  }\KeywordTok{summarise_feature}\NormalTok{(Death_from_guns, region) }
 
 \CommentTok{#How to dynamically change names using mutate and rlang}
 \CommentTok{#Bang bang variables into mutate/tidyverse(so they can be dynamically changed)}
