@@ -22,7 +22,7 @@ In this example, say we have a tibble of variables, but we want to apply dynamic
 We'll use an example where we want to summarise by different outcomes in a dynamic way.
 
 ```{r , eval = FALSE}
-
+library(tidyverse)
 #Make data - here nonsense numbers on deaths per 100k from guns say
 
 example_data = tibble(countries = c('UK', 'USA', 'Pakistan', 'Mexico', 'Ireland', 'Estonia'),
@@ -35,17 +35,14 @@ example_data = tibble(countries = c('UK', 'USA', 'Pakistan', 'Mexico', 'Ireland'
 #note metric must be numeric
 summarise_feature = function(df, col_var, ...){
   require(tidyverse)
-  summary_var <- enquo(col_var)
-  summary_nm <- quo_name(summary_var)
-  summary_nm_sum <- paste0("metric_",summary_nm)#The new LHS variable must have a different name from that on the RHS
-  
   df %>%
     group_by(...) %>% 
-    summarise(!!summary_nm_sum := sum(!!summary_var))}
+    summarise({{col_var}} := sum({{col_var}}))
+  }
 
 #output new variable
 example_data %>% 
-  summarise_feature(Death_from_guns, region) #Metric can be provided by a shiny input too i.e. UQ(rlang::sym(input$metric))
+  summarise_feature(Death_from_guns, region) 
 
 #How to dynamically change names using mutate and rlang
 #Bang bang variables into mutate/tidyverse(so they can be dynamically changed)
