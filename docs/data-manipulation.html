@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Machine learning | The Surgical Informatics Cookbook</title>
+  <title>Chapter 3 Data manipulation | The Surgical Informatics Cookbook</title>
   <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Machine learning | The Surgical Informatics Cookbook" />
+  <meta property="og:title" content="Chapter 3 Data manipulation | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Machine learning | The Surgical Informatics Cookbook" />
+  <meta name="twitter:title" content="Chapter 3 Data manipulation | The Surgical Informatics Cookbook" />
   
   <meta name="twitter:description" content="All the brilliant bits of code we don’t want to forget." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="data-manipulation.html">
-<link rel="next" href="data-transfer-and-eddie.html">
+<link rel="prev" href="snippets.html">
+<link rel="next" href="machine-learning.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -225,77 +225,59 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="machine-learning" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Machine learning</h1>
-<div id="deep-learning" class="section level2">
-<h2><span class="header-section-number">4.1</span> Deep learning</h2>
-<div id="pulling-images-from-redcap-directly-to-argodeep" class="section level3">
-<h3><span class="header-section-number">4.1.1</span> Pulling images from REDCap directly to argodeep</h3>
-<div id="original-file-names" class="section level4">
-<h4><span class="header-section-number">4.1.1.1</span> Original file names</h4>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">library</span>(REDCapR)</a>
-<a class="sourceLine" id="cb45-2" data-line-number="2">uri =<span class="st"> &quot;https://redcap.cir.ed.ac.uk/api/&quot;</span></a>
-<a class="sourceLine" id="cb45-3" data-line-number="3">token =<span class="st"> &quot;&quot;</span> <span class="co"># API token here</span></a>
-<a class="sourceLine" id="cb45-4" data-line-number="4">record_list =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">318</span></a>
-<a class="sourceLine" id="cb45-5" data-line-number="5">field_list =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;photo&quot;</span>, <span class="st">&quot;photo_2&quot;</span>, <span class="st">&quot;photo_3&quot;</span>, <span class="st">&quot;photo_4&quot;</span>)</a>
-<a class="sourceLine" id="cb45-6" data-line-number="6">event_list =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;wound_concerns_arm_2&quot;</span>, <span class="st">&quot;questionnaire_1_arm_2&quot;</span>,</a>
-<a class="sourceLine" id="cb45-7" data-line-number="7">               <span class="st">&quot;questionnaire_2_arm_2&quot;</span>, <span class="st">&quot;questionnaire_3_arm_2&quot;</span>)</a>
-<a class="sourceLine" id="cb45-8" data-line-number="8">directory =<span class="st"> &quot;wound_raw&quot;</span> <span class="co"># destination directory must exist already</span></a>
-<a class="sourceLine" id="cb45-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb45-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb45-11" data-line-number="11"><span class="cf">for</span>(record <span class="cf">in</span> record_list){</a>
-<a class="sourceLine" id="cb45-12" data-line-number="12">  <span class="cf">for</span>(field <span class="cf">in</span> field_list){</a>
-<a class="sourceLine" id="cb45-13" data-line-number="13">    <span class="cf">for</span>(event <span class="cf">in</span> event_list){</a>
-<a class="sourceLine" id="cb45-14" data-line-number="14">      result =<span class="st"> </span></a>
-<a class="sourceLine" id="cb45-15" data-line-number="15"><span class="st">        </span><span class="kw">tryCatch</span>({      <span class="co"># suppress breaking error when no image in slot</span></a>
-<a class="sourceLine" id="cb45-16" data-line-number="16">          <span class="kw">redcap_download_file_oneshot</span>(</a>
-<a class="sourceLine" id="cb45-17" data-line-number="17">            <span class="dt">record        =</span> record,</a>
-<a class="sourceLine" id="cb45-18" data-line-number="18">            <span class="dt">field         =</span> field,</a>
-<a class="sourceLine" id="cb45-19" data-line-number="19">            <span class="dt">redcap_uri    =</span> uri,</a>
-<a class="sourceLine" id="cb45-20" data-line-number="20">            <span class="dt">token         =</span> token,</a>
-<a class="sourceLine" id="cb45-21" data-line-number="21">            <span class="dt">event         =</span> event,</a>
-<a class="sourceLine" id="cb45-22" data-line-number="22">            <span class="dt">overwrite     =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb45-23" data-line-number="23">            <span class="dt">directory     =</span> directory</a>
-<a class="sourceLine" id="cb45-24" data-line-number="24">          )</a>
-<a class="sourceLine" id="cb45-25" data-line-number="25">        }, <span class="dt">error=</span><span class="cf">function</span>(e){})</a>
-<a class="sourceLine" id="cb45-26" data-line-number="26">    }</a>
-<a class="sourceLine" id="cb45-27" data-line-number="27">  }</a>
-<a class="sourceLine" id="cb45-28" data-line-number="28">}</a></code></pre></div>
-</div>
-<div id="named-from-redcap-record-id-and-event" class="section level4">
-<h4><span class="header-section-number">4.1.1.2</span> Named from REDCap record ID and event</h4>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">library</span>(REDCapR)</a>
-<a class="sourceLine" id="cb46-2" data-line-number="2">uri =<span class="st"> &quot;https://redcap.cir.ed.ac.uk/api/&quot;</span></a>
-<a class="sourceLine" id="cb46-3" data-line-number="3">token =<span class="st"> &quot;&quot;</span> <span class="co"># API token here</span></a>
-<a class="sourceLine" id="cb46-4" data-line-number="4">record_list =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">318</span></a>
-<a class="sourceLine" id="cb46-5" data-line-number="5">field_list =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;photo&quot;</span>, <span class="st">&quot;photo_2&quot;</span>, <span class="st">&quot;photo_3&quot;</span>, <span class="st">&quot;photo_4&quot;</span>)</a>
-<a class="sourceLine" id="cb46-6" data-line-number="6">event_list =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;wound_concerns_arm_2&quot;</span>, <span class="st">&quot;questionnaire_1_arm_2&quot;</span>,</a>
-<a class="sourceLine" id="cb46-7" data-line-number="7">               <span class="st">&quot;questionnaire_2_arm_2&quot;</span>, <span class="st">&quot;questionnaire_3_arm_2&quot;</span>)</a>
-<a class="sourceLine" id="cb46-8" data-line-number="8">directory =<span class="st"> &quot;wound_named&quot;</span> <span class="co"># destination directory must exist already</span></a>
-<a class="sourceLine" id="cb46-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb46-10" data-line-number="10"><span class="cf">for</span>(record <span class="cf">in</span> record_list){</a>
-<a class="sourceLine" id="cb46-11" data-line-number="11">  <span class="cf">for</span>(field <span class="cf">in</span> field_list){</a>
-<a class="sourceLine" id="cb46-12" data-line-number="12">    <span class="cf">for</span>(event <span class="cf">in</span> event_list){</a>
-<a class="sourceLine" id="cb46-13" data-line-number="13">      file_name =<span class="st"> </span><span class="kw">paste0</span>(record, <span class="st">&quot;_&quot;</span>, field, <span class="st">&quot;_&quot;</span>, event, <span class="st">&quot;.jpg&quot;</span>)</a>
-<a class="sourceLine" id="cb46-14" data-line-number="14">      result =<span class="st"> </span></a>
-<a class="sourceLine" id="cb46-15" data-line-number="15"><span class="st">        </span><span class="kw">tryCatch</span>({</a>
-<a class="sourceLine" id="cb46-16" data-line-number="16">          <span class="kw">redcap_download_file_oneshot</span>(</a>
-<a class="sourceLine" id="cb46-17" data-line-number="17">            <span class="dt">record        =</span> record,</a>
-<a class="sourceLine" id="cb46-18" data-line-number="18">            <span class="dt">field         =</span> field,</a>
-<a class="sourceLine" id="cb46-19" data-line-number="19">            <span class="dt">redcap_uri    =</span> uri,</a>
-<a class="sourceLine" id="cb46-20" data-line-number="20">            <span class="dt">token         =</span> token,</a>
-<a class="sourceLine" id="cb46-21" data-line-number="21">            <span class="dt">event         =</span> event,</a>
-<a class="sourceLine" id="cb46-22" data-line-number="22">            <span class="dt">overwrite     =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb46-23" data-line-number="23">            <span class="dt">directory     =</span> directory,</a>
-<a class="sourceLine" id="cb46-24" data-line-number="24">            <span class="dt">file_name     =</span> file_name</a>
-<a class="sourceLine" id="cb46-25" data-line-number="25">          )</a>
-<a class="sourceLine" id="cb46-26" data-line-number="26">        }, <span class="dt">error=</span><span class="cf">function</span>(e){})</a>
-<a class="sourceLine" id="cb46-27" data-line-number="27">    }</a>
-<a class="sourceLine" id="cb46-28" data-line-number="28">  }</a>
-<a class="sourceLine" id="cb46-29" data-line-number="29">}</a></code></pre></div>
+<div id="data-manipulation" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Data manipulation</h1>
+<div id="collapse-multiple-no-and-yes-options" class="section level2">
+<h2><span class="header-section-number">3.1</span> Collapse multiple “no” and “yes” options</h2>
+<p>Common to have to do this in globalsurg projects</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2">mydata =<span class="st"> </span><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb41-3" data-line-number="3">  <span class="dt">ssi.factor =</span> <span class="kw">c</span>(<span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes, no treatment/wound opened only (CD 1)&quot;</span>,    </a>
+<a class="sourceLine" id="cb41-4" data-line-number="4">                 <span class="st">&quot;Yes, antibiotics only (CD 2)&quot;</span>, <span class="st">&quot;Yes, return to operating theatre (CD 3)&quot;</span>, </a>
+<a class="sourceLine" id="cb41-5" data-line-number="5">                 <span class="st">&quot;Yes, requiring critical care admission (CD 4)&quot;</span>, </a>
+<a class="sourceLine" id="cb41-6" data-line-number="6">                 <span class="st">&quot;Yes, resulting in death (CD 5)&quot;</span>,</a>
+<a class="sourceLine" id="cb41-7" data-line-number="7">                 <span class="st">&quot;Unknown&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb41-8" data-line-number="8"><span class="st">    </span><span class="kw">factor</span>(),</a>
+<a class="sourceLine" id="cb41-9" data-line-number="9">  <span class="dt">mri.factor =</span> <span class="kw">c</span>(<span class="st">&quot;No, not available&quot;</span>, <span class="st">&quot;No, not indicated&quot;</span>, </a>
+<a class="sourceLine" id="cb41-10" data-line-number="10">                 <span class="st">&quot;No, indicated and facilities available, but patient not able to pay&quot;</span>,</a>
+<a class="sourceLine" id="cb41-11" data-line-number="11">                 <span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;Unknown&quot;</span>, <span class="st">&quot;Unknown&quot;</span>, <span class="st">&quot;Unknown&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb41-12" data-line-number="12"><span class="st">    </span><span class="kw">factor</span>()</a>
+<a class="sourceLine" id="cb41-13" data-line-number="13">)</a>
+<a class="sourceLine" id="cb41-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb41-15" data-line-number="15"><span class="co"># Two functions make this work</span></a>
+<a class="sourceLine" id="cb41-16" data-line-number="16">fct_collapse_yn =<span class="st"> </span><span class="cf">function</span>(.f){</a>
+<a class="sourceLine" id="cb41-17" data-line-number="17">  .f <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb41-18" data-line-number="18"><span class="st">    </span>forcats<span class="op">::</span><span class="kw">fct_relabel</span>(<span class="op">~</span><span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;^No.*&quot;</span>, <span class="st">&quot;No&quot;</span>, .)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb41-19" data-line-number="19"><span class="st">    </span>forcats<span class="op">::</span><span class="kw">fct_relabel</span>(<span class="op">~</span><span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;^Yes.*&quot;</span>, <span class="st">&quot;Yes&quot;</span>, .))</a>
+<a class="sourceLine" id="cb41-20" data-line-number="20">}</a>
+<a class="sourceLine" id="cb41-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb41-22" data-line-number="22">is.yn =<span class="st"> </span><span class="cf">function</span>(.data){</a>
+<a class="sourceLine" id="cb41-23" data-line-number="23">  .f =<span class="st"> </span><span class="kw">is.factor</span>(.data)</a>
+<a class="sourceLine" id="cb41-24" data-line-number="24">  .yn =<span class="st"> </span>.data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb41-25" data-line-number="25"><span class="st">    </span><span class="kw">levels</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb41-26" data-line-number="26"><span class="st">    </span><span class="kw">grepl</span>(<span class="st">&quot;No|Yes&quot;</span>, .) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb41-27" data-line-number="27"><span class="st">    </span><span class="kw">any</span>()</a>
+<a class="sourceLine" id="cb41-28" data-line-number="28">  <span class="kw">all</span>(.f, .yn)</a>
+<a class="sourceLine" id="cb41-29" data-line-number="29">}</a>
+<a class="sourceLine" id="cb41-30" data-line-number="30"></a>
+<a class="sourceLine" id="cb41-31" data-line-number="31"><span class="co"># Raw variable</span></a>
+<a class="sourceLine" id="cb41-32" data-line-number="32">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb41-33" data-line-number="33"><span class="st">  </span><span class="kw">pull</span>(ssi.factor) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb41-34" data-line-number="34"><span class="st">  </span><span class="kw">levels</span>()</a></code></pre></div>
+<pre><code>## [1] &quot;No&quot;                                           
+## [2] &quot;Unknown&quot;                                      
+## [3] &quot;Yes, antibiotics only (CD 2)&quot;                 
+## [4] &quot;Yes, no treatment/wound opened only (CD 1)&quot;   
+## [5] &quot;Yes, requiring critical care admission (CD 4)&quot;
+## [6] &quot;Yes, resulting in death (CD 5)&quot;               
+## [7] &quot;Yes, return to operating theatre (CD 3)&quot;</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="co"># Collapse to _yn version</span></a>
+<a class="sourceLine" id="cb43-2" data-line-number="2">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate_if</span>(is.yn, <span class="kw">list</span>(<span class="dt">yn =</span> fct_collapse_yn)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-4" data-line-number="4"><span class="st">  </span><span class="kw">pull</span>(ssi.factor_yn) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-5" data-line-number="5"><span class="st">  </span><span class="kw">levels</span>()</a></code></pre></div>
+<pre><code>## [1] &quot;No&quot;      &quot;Unknown&quot; &quot;Yes&quot;</code></pre>
 
-</div>
-</div>
 </div>
 </div>
             </section>
@@ -303,8 +285,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="data-manipulation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-transfer-and-eddie.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="snippets.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="machine-learning.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

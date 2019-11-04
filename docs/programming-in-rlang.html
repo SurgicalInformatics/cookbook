@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Programming in rlang | The Surgical Informatics Cookbook</title>
   <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Programming in rlang | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2019-10-22" />
+<meta name="date" content="2019-11-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,7 +55,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -157,7 +156,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.3.3</b> Pulling out “change in status” data</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a></li>
+<li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-manipulation.html"><a href="data-manipulation.html#collapse-multiple-no-and-yes-options"><i class="fa fa-check"></i><b>3.1</b> Collapse multiple “no” and “yes” options</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>4</b> Machine learning</a><ul>
 <li class="chapter" data-level="4.1" data-path="machine-learning.html"><a href="machine-learning.html#deep-learning"><i class="fa fa-check"></i><b>4.1</b> Deep learning</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="machine-learning.html"><a href="machine-learning.html#pulling-images-from-redcap-directly-to-argodeep"><i class="fa fa-check"></i><b>4.1.1</b> Pulling images from REDCap directly to argodeep</a></li>
@@ -237,47 +238,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">8.1.2</span> Dynamic calling of variables using dplyr</h3>
 <p>In this example, say we have a tibble of variables, but we want to apply dynamic changes to it (so we feed R a variable, that can change, either using another function like <code>purr::map</code> or in a ShinyApp). In this instance, specifying each variable and each different possible consequence using different logical functions would take forever and be very clunky. So we can use rlang to simply put a dynamic variable/object through the same function.</p>
 <p>We’ll use an example where we want to summarise by different outcomes in a dynamic way.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="co">#Make data - here nonsense numbers on deaths per 100k from guns say</span>
-
-example_data =<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">countries =</span> <span class="kw">c</span>(<span class="st">&#39;UK&#39;</span>, <span class="st">&#39;USA&#39;</span>, <span class="st">&#39;Pakistan&#39;</span>, <span class="st">&#39;Mexico&#39;</span>, <span class="st">&#39;Ireland&#39;</span>, <span class="st">&#39;Estonia&#39;</span>),
-                      <span class="dt">region =</span> <span class="kw">c</span>(<span class="st">&#39;Europe&#39;</span>, <span class="st">&#39;Americas&#39;</span>, <span class="st">&#39;Asia&#39;</span>, <span class="st">&#39;Americas&#39;</span>, <span class="st">&#39;Europe&#39;</span>, <span class="st">&#39;Europe&#39;</span>),
-                      <span class="dt">Death_from_guns =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">200</span>, <span class="dv">150</span>, <span class="dv">450</span>, <span class="dv">3</span>, <span class="fl">3.5</span>),
-                      <span class="dt">Death_from_smoking =</span> <span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">300</span>, <span class="dv">140</span>, <span class="dv">150</span>, <span class="dv">120</span>, <span class="dv">300</span>))
-
-
-<span class="co">#example function for summarising using dynamic variables and bang bangs</span>
-<span class="co">#note metric must be numeric</span>
-summarise_feature =<span class="st"> </span><span class="cf">function</span>(df, col_var, ...){
-  <span class="kw">require</span>(tidyverse)
-  
-  wurly_curly =<span class="st"> </span><span class="cf">function</span>(.){<span class="co">#The wurly_curly function makes things nicer</span>
-  <span class="kw">require</span>(rlang)
-  <span class="op">!!</span><span class="kw">quo_name</span>(<span class="kw">enquo</span>(.))}
-
-  summary_nm_sum &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;metric_&quot;</span>, <span class="kw">wurly_curly</span>(col_var))<span class="co">#The new LHS variable must have a different name from that on the RHS</span>
-
-  df <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">group_by</span>(...) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">summarise</span>(<span class="op">!!</span>summary_nm_sum <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">sum</span>({{col_var}}))
-}
-
-
-<span class="co">#output new variable</span>
-example_data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">summarise_feature</span>(Death_from_guns, region) 
-
-<span class="co">#How to dynamically change names using mutate and rlang</span>
-<span class="co">#Bang bang variables into mutate/tidyverse(so they can be dynamically changed)</span>
-
-<span class="co">#Select metric</span>
-metric =<span class="st"> &#39;metric_Death_from_guns&#39;</span> <span class="co">#example but can be any named column</span>
-
-metric_mutate =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;prefix_&#39;</span>, metric) <span class="co">#some reason doesn&#39;t take these within the mutate function so has to be outside</span>
-
-example_data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">summarise_feature</span>(Death_from_guns, region) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="op">!!</span>metric_mutate <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="op">!!</span>rlang<span class="op">::</span><span class="kw">sym</span>(metric) <span class="op">*</span><span class="st"> </span><span class="dv">2</span>)<span class="co">#apply arbitary multiplication by two</span></code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb68-2" data-line-number="2"><span class="co">#Make data - here nonsense numbers on deaths per 100k from guns say</span></a>
+<a class="sourceLine" id="cb68-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb68-4" data-line-number="4">example_data =<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">countries =</span> <span class="kw">c</span>(<span class="st">&#39;UK&#39;</span>, <span class="st">&#39;USA&#39;</span>, <span class="st">&#39;Pakistan&#39;</span>, <span class="st">&#39;Mexico&#39;</span>, <span class="st">&#39;Ireland&#39;</span>, <span class="st">&#39;Estonia&#39;</span>),</a>
+<a class="sourceLine" id="cb68-5" data-line-number="5">                      <span class="dt">region =</span> <span class="kw">c</span>(<span class="st">&#39;Europe&#39;</span>, <span class="st">&#39;Americas&#39;</span>, <span class="st">&#39;Asia&#39;</span>, <span class="st">&#39;Americas&#39;</span>, <span class="st">&#39;Europe&#39;</span>, <span class="st">&#39;Europe&#39;</span>),</a>
+<a class="sourceLine" id="cb68-6" data-line-number="6">                      <span class="dt">Death_from_guns =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">200</span>, <span class="dv">150</span>, <span class="dv">450</span>, <span class="dv">3</span>, <span class="fl">3.5</span>),</a>
+<a class="sourceLine" id="cb68-7" data-line-number="7">                      <span class="dt">Death_from_smoking =</span> <span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">300</span>, <span class="dv">140</span>, <span class="dv">150</span>, <span class="dv">120</span>, <span class="dv">300</span>))</a>
+<a class="sourceLine" id="cb68-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb68-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb68-10" data-line-number="10"><span class="co">#example function for summarising using dynamic variables and bang bangs</span></a>
+<a class="sourceLine" id="cb68-11" data-line-number="11"><span class="co">#note metric must be numeric</span></a>
+<a class="sourceLine" id="cb68-12" data-line-number="12">summarise_feature =<span class="st"> </span><span class="cf">function</span>(df, col_var, ...){</a>
+<a class="sourceLine" id="cb68-13" data-line-number="13">  <span class="kw">require</span>(tidyverse)</a>
+<a class="sourceLine" id="cb68-14" data-line-number="14">  </a>
+<a class="sourceLine" id="cb68-15" data-line-number="15">  wurly_curly =<span class="st"> </span><span class="cf">function</span>(.){<span class="co">#The wurly_curly function makes things nicer</span></a>
+<a class="sourceLine" id="cb68-16" data-line-number="16">  <span class="kw">require</span>(rlang)</a>
+<a class="sourceLine" id="cb68-17" data-line-number="17">  <span class="op">!!</span><span class="kw">quo_name</span>(<span class="kw">enquo</span>(.))}</a>
+<a class="sourceLine" id="cb68-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb68-19" data-line-number="19">  summary_nm_sum &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;metric_&quot;</span>, <span class="kw">wurly_curly</span>(col_var))<span class="co">#The new LHS variable must have a different name from that on the RHS</span></a>
+<a class="sourceLine" id="cb68-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb68-21" data-line-number="21">  df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb68-22" data-line-number="22"><span class="st">    </span><span class="kw">group_by</span>(...) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb68-23" data-line-number="23"><span class="st">    </span><span class="kw">summarise</span>(<span class="op">!!</span>summary_nm_sum <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">sum</span>({{col_var}}))</a>
+<a class="sourceLine" id="cb68-24" data-line-number="24">}</a>
+<a class="sourceLine" id="cb68-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb68-26" data-line-number="26"></a>
+<a class="sourceLine" id="cb68-27" data-line-number="27"><span class="co">#output new variable</span></a>
+<a class="sourceLine" id="cb68-28" data-line-number="28">example_data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb68-29" data-line-number="29"><span class="st">  </span><span class="kw">summarise_feature</span>(Death_from_guns, region) </a>
+<a class="sourceLine" id="cb68-30" data-line-number="30"></a>
+<a class="sourceLine" id="cb68-31" data-line-number="31"><span class="co">#How to dynamically change names using mutate and rlang</span></a>
+<a class="sourceLine" id="cb68-32" data-line-number="32"><span class="co">#Bang bang variables into mutate/tidyverse(so they can be dynamically changed)</span></a>
+<a class="sourceLine" id="cb68-33" data-line-number="33"></a>
+<a class="sourceLine" id="cb68-34" data-line-number="34"><span class="co">#Select metric</span></a>
+<a class="sourceLine" id="cb68-35" data-line-number="35">metric =<span class="st"> &#39;metric_Death_from_guns&#39;</span> <span class="co">#example but can be any named column</span></a>
+<a class="sourceLine" id="cb68-36" data-line-number="36"></a>
+<a class="sourceLine" id="cb68-37" data-line-number="37">metric_mutate =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;prefix_&#39;</span>, metric) <span class="co">#some reason doesn&#39;t take these within the mutate function so has to be outside</span></a>
+<a class="sourceLine" id="cb68-38" data-line-number="38"></a>
+<a class="sourceLine" id="cb68-39" data-line-number="39">example_data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb68-40" data-line-number="40"><span class="st">  </span><span class="kw">summarise_feature</span>(Death_from_guns, region) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb68-41" data-line-number="41"><span class="st">  </span><span class="kw">mutate</span>(<span class="op">!!</span>metric_mutate <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="op">!!</span>rlang<span class="op">::</span><span class="kw">sym</span>(metric) <span class="op">*</span><span class="st"> </span><span class="dv">2</span>)<span class="co">#apply arbitary multiplication by two</span></a></code></pre></div>
 
 </div>
 </div>

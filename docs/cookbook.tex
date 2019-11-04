@@ -124,7 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-10-22}
+    \date{2019-11-04}
 
 \usepackage{booktabs}
 
@@ -234,11 +234,11 @@ Reference a figure by its code chunk label with the \texttt{fig:} prefix, e.g., 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}[t]
+\begin{table}
 
 \caption{\label{tab:nice-tab}Here is a nice table!}
 \centering
-\begin{tabular}{rrrrl}
+\begin{tabular}[t]{rrrrl}
 \toprule
 Sepal.Length & Sepal.Width & Petal.Length & Petal.Width & Species\\
 \midrule
@@ -306,7 +306,7 @@ If you have a small (and confidential) set of data in a tibble or data frame cal
 \end{Shaded}
 
 \begin{verbatim}
-## Error: Evaluation error: non-numeric argument to binary operator.
+## Error in a/b: non-numeric argument to binary operator
 \end{verbatim}
 
 \hypertarget{holepunch---complex-reproducible-examples}{%
@@ -796,10 +796,76 @@ If you have a number of episodes per patient, each with a status and a time, the
 ## 2 0.76 (0.10-5.51, p=0.786)
 \end{verbatim}
 
-\hypertarget{methods}{%
-\chapter{Methods}\label{methods}}
+\hypertarget{data-manipulation}{%
+\chapter{Data manipulation}\label{data-manipulation}}
 
-We describe our methods in this chapter.
+\hypertarget{collapse-multiple-no-and-yes-options}{%
+\section{Collapse multiple ``no'' and ``yes'' options}\label{collapse-multiple-no-and-yes-options}}
+
+Common to have to do this in globalsurg projects
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(dplyr)}
+\NormalTok{mydata =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}
+  \DataTypeTok{ssi.factor =} \KeywordTok{c}\NormalTok{(}\StringTok{"No"}\NormalTok{, }\StringTok{"Yes, no treatment/wound opened only (CD 1)"}\NormalTok{,    }
+                 \StringTok{"Yes, antibiotics only (CD 2)"}\NormalTok{, }\StringTok{"Yes, return to operating theatre (CD 3)"}\NormalTok{, }
+                 \StringTok{"Yes, requiring critical care admission (CD 4)"}\NormalTok{, }
+                 \StringTok{"Yes, resulting in death (CD 5)"}\NormalTok{,}
+                 \StringTok{"Unknown"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{factor}\NormalTok{(),}
+  \DataTypeTok{mri.factor =} \KeywordTok{c}\NormalTok{(}\StringTok{"No, not available"}\NormalTok{, }\StringTok{"No, not indicated"}\NormalTok{, }
+                 \StringTok{"No, indicated and facilities available, but patient not able to pay"}\NormalTok{,}
+                 \StringTok{"Yes"}\NormalTok{, }\StringTok{"Unknown"}\NormalTok{, }\StringTok{"Unknown"}\NormalTok{, }\StringTok{"Unknown"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{factor}\NormalTok{()}
+\NormalTok{)}
+
+\CommentTok{# Two functions make this work}
+\NormalTok{fct_collapse_yn =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(.f)\{}
+\NormalTok{  .f }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\NormalTok{forcats}\OperatorTok{::}\KeywordTok{fct_relabel}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"^No.*"}\NormalTok{, }\StringTok{"No"}\NormalTok{, .)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\NormalTok{forcats}\OperatorTok{::}\KeywordTok{fct_relabel}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"^Yes.*"}\NormalTok{, }\StringTok{"Yes"}\NormalTok{, .))}
+\NormalTok{\}}
+
+\NormalTok{is.yn =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(.data)\{}
+\NormalTok{  .f =}\StringTok{ }\KeywordTok{is.factor}\NormalTok{(.data)}
+\NormalTok{  .yn =}\StringTok{ }\NormalTok{.data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{levels}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{grepl}\NormalTok{(}\StringTok{"No|Yes"}\NormalTok{, .) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{any}\NormalTok{()}
+  \KeywordTok{all}\NormalTok{(.f, .yn)}
+\NormalTok{\}}
+
+\CommentTok{# Raw variable}
+\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{pull}\NormalTok{(ssi.factor) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{levels}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "No"                                           
+## [2] "Unknown"                                      
+## [3] "Yes, antibiotics only (CD 2)"                 
+## [4] "Yes, no treatment/wound opened only (CD 1)"   
+## [5] "Yes, requiring critical care admission (CD 4)"
+## [6] "Yes, resulting in death (CD 5)"               
+## [7] "Yes, return to operating theatre (CD 3)"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Collapse to _yn version}
+\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate_if}\NormalTok{(is.yn, }\KeywordTok{list}\NormalTok{(}\DataTypeTok{yn =}\NormalTok{ fct_collapse_yn)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{pull}\NormalTok{(ssi.factor_yn) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{levels}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "No"      "Unknown" "Yes"
+\end{verbatim}
 
 \hypertarget{machine-learning}{%
 \chapter{Machine learning}\label{machine-learning}}

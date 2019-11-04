@@ -1,0 +1,48 @@
+# Data manipulation
+
+## Collapse multiple "no" and "yes" options
+
+Common to have to do this in globalsurg projects
+
+```{r}
+library(dplyr)
+mydata = tibble(
+  ssi.factor = c("No", "Yes, no treatment/wound opened only (CD 1)",    
+                 "Yes, antibiotics only (CD 2)", "Yes, return to operating theatre (CD 3)", 
+                 "Yes, requiring critical care admission (CD 4)", 
+                 "Yes, resulting in death (CD 5)",
+                 "Unknown") %>%
+    factor(),
+  mri.factor = c("No, not available", "No, not indicated", 
+                 "No, indicated and facilities available, but patient not able to pay",
+                 "Yes", "Unknown", "Unknown", "Unknown") %>% 
+    factor()
+)
+
+# Two functions make this work
+fct_collapse_yn = function(.f){
+  .f %>% 
+    forcats::fct_relabel(~ gsub("^No.*", "No", .)) %>% 
+    forcats::fct_relabel(~ gsub("^Yes.*", "Yes", .))
+}
+
+is.yn = function(.data){
+  .f = is.factor(.data)
+  .yn = .data %>% 
+    levels() %>% 
+    grepl("No|Yes", .) %>% 
+    any()
+  all(.f, .yn)
+}
+
+# Raw variable
+mydata %>% 
+  pull(ssi.factor) %>% 
+  levels()
+
+# Collapse to _yn version
+mydata %>% 
+  mutate_if(is.yn, list(yn = fct_collapse_yn)) %>% 
+  pull(ssi.factor_yn) %>% 
+  levels()
+```
