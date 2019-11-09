@@ -11,3 +11,8 @@ description: "All the brilliant bits of code we don't want to forget."
 ---
 
 # {-}
+
+
+```{r echo=FALSE}
+knitr::include_graphics(here::here("img", "surgical_informatics_minibanner.png"))
+```

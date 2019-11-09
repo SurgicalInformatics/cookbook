@@ -40,3 +40,55 @@ plot + geom_label_repel(aes(label= country), show.legend = FALSE) #only needed i
 
 ```
 
+## Axis font size
+
+
+```{r fig.height=2, fig.width=3, message=FALSE, warning=FALSE}
+# OPTION 1: theme(axis.text = element_text(size = 12, colour = "black"))
+# OPTION 2: width and height arguments of ggsave()
+
+library(tidyverse)
+library(scales)
+
+# made-up example data
+mydata = tibble(group    = c("UMIC", "LMIC", "LIC") %>% rep(each = 2),
+                value    = 1:6, 
+                variable = c("Yes", "No") %>% rep(3))
+
+mydata %>% 
+  ggplot(aes(x = group, y = value, fill = variable)) +
+  geom_col(position = "fill") +
+  scale_y_continuous(labels = percent, expand = c(0, 0)) +
+  theme_bw() +
+  # OPTION 1: change font with theme()
+  theme(axis.text  = element_text(size = 12, colour = "black"),
+        axis.title = element_blank())
+
+# OPTION 2: play around with export size. Since PDF will always have max resolution anyway
+# but changing width and height modifies text size
+mywidth  = 5
+myheight = 4
+#ggsave("barplot_5x4.pdf", width = mywidth, height = myheight)
+
+mywidth  = 10
+myheight = 8
+#ggsave("barplot_10x8.pdf", width = mywidth, height = myheight)
+
+
+```
+
+Same plot 5x4 inches vs 10x8 inches:
+
+
+```{r, echo=FALSE, out.width="50%"}
+mywidth  = 5
+myheight = 4
+ggsave(here::here("img", "barplot_5x4.png"), width = mywidth, height = myheight)
+
+mywidth  = 10
+myheight = 8
+ggsave(here::here("img", "barplot_10x8.png"), width = mywidth, height = myheight)
+knitr::include_graphics(here::here("img", "barplot_5x4.png"))
+knitr::include_graphics(here::here("img", "barplot_10x8.png"))
+```
+

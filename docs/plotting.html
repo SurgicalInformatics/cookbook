@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html >
+
 <head>
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Plotting | The Surgical Informatics Cookbook</title>
-  <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>The Surgical Informatics Cookbook</title>
+  <meta name="description" content="All the brilliant bits of code we don’t want to forget.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 6 Plotting | The Surgical Informatics Cookbook" />
+  <meta property="og:title" content="The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
   
   
@@ -16,26 +17,25 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Plotting | The Surgical Informatics Cookbook" />
+  <meta name="twitter:title" content="The Surgical Informatics Cookbook" />
   
   <meta name="twitter:description" content="All the brilliant bits of code we don’t want to forget." />
   
 
-<meta name="author" content="Surgical Informatics, University of Edinburgh" />
+<meta name="author" content="Surgical Informatics, University of Edinburgh">
 
 
-<meta name="date" content="2019-11-04" />
+<meta name="date" content="2019-11-09">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
 <link rel="prev" href="data-transfer-and-eddie.html">
 <link rel="next" href="genomics.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -55,6 +55,7 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -192,6 +193,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>6</b> Plotting</a><ul>
 <li class="chapter" data-level="6.1" data-path="plotting.html"><a href="plotting.html#gghighlight-example"><i class="fa fa-check"></i><b>6.1</b> GGHighlight Example</a></li>
+<li class="chapter" data-level="6.2" data-path="plotting.html"><a href="plotting.html#axis-font-size"><i class="fa fa-check"></i><b>6.2</b> Axis font size</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="genomics.html"><a href="genomics.html"><i class="fa fa-check"></i><b>7</b> Genomics</a><ul>
 <li class="chapter" data-level="7.1" data-path="genomics.html"><a href="genomics.html#single-cell-analysis"><i class="fa fa-check"></i><b>7.1</b> Single Cell Analysis</a><ul>
@@ -246,6 +248,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb66-14" data-line-number="14"></a>
 <a class="sourceLine" id="cb66-15" data-line-number="15">plot <span class="op">+</span><span class="st"> </span><span class="kw">geom_label_repel</span>(<span class="kw">aes</span>(<span class="dt">label=</span> country), <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="co">#only needed if you use  use_direct_label = FALSE. This allows you to have a colour legend as well. </span></a></code></pre></div>
 <p><img src="cookbook_files/figure-html/gghighlight-1.png" width="672" /></p>
+</div>
+<div id="axis-font-size" class="section level2">
+<h2><span class="header-section-number">6.2</span> Axis font size</h2>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1"><span class="co"># OPTION 1: theme(axis.text = element_text(size = 12, colour = &quot;black&quot;))</span></a>
+<a class="sourceLine" id="cb67-2" data-line-number="2"><span class="co"># OPTION 2: width and height arguments of ggsave()</span></a>
+<a class="sourceLine" id="cb67-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb67-4" data-line-number="4"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb67-5" data-line-number="5"><span class="kw">library</span>(scales)</a>
+<a class="sourceLine" id="cb67-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb67-7" data-line-number="7"><span class="co"># made-up example data</span></a>
+<a class="sourceLine" id="cb67-8" data-line-number="8">mydata =<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">group    =</span> <span class="kw">c</span>(<span class="st">&quot;UMIC&quot;</span>, <span class="st">&quot;LMIC&quot;</span>, <span class="st">&quot;LIC&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rep</span>(<span class="dt">each =</span> <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb67-9" data-line-number="9">                <span class="dt">value    =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, </a>
+<a class="sourceLine" id="cb67-10" data-line-number="10">                <span class="dt">variable =</span> <span class="kw">c</span>(<span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;No&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rep</span>(<span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb67-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb67-12" data-line-number="12">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb67-13" data-line-number="13"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> group, <span class="dt">y =</span> value, <span class="dt">fill =</span> variable)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb67-14" data-line-number="14"><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb67-15" data-line-number="15"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> percent, <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb67-16" data-line-number="16"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb67-17" data-line-number="17"><span class="st">  </span><span class="co"># OPTION 1: change font with theme()</span></a>
+<a class="sourceLine" id="cb67-18" data-line-number="18"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text  =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>),</a>
+<a class="sourceLine" id="cb67-19" data-line-number="19">        <span class="dt">axis.title =</span> <span class="kw">element_blank</span>())</a></code></pre></div>
+<p><img src="cookbook_files/figure-html/unnamed-chunk-37-1.png" width="288" /></p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="co"># OPTION 2: play around with export size. Since PDF will always have max resolution anyway</span></a>
+<a class="sourceLine" id="cb68-2" data-line-number="2"><span class="co"># but changing width and height modifies text size</span></a>
+<a class="sourceLine" id="cb68-3" data-line-number="3">mywidth  =<span class="st"> </span><span class="dv">5</span></a>
+<a class="sourceLine" id="cb68-4" data-line-number="4">myheight =<span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb68-5" data-line-number="5"><span class="co">#ggsave(&quot;barplot_5x4.pdf&quot;, width = mywidth, height = myheight)</span></a>
+<a class="sourceLine" id="cb68-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb68-7" data-line-number="7">mywidth  =<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb68-8" data-line-number="8">myheight =<span class="st"> </span><span class="dv">8</span></a>
+<a class="sourceLine" id="cb68-9" data-line-number="9"><span class="co">#ggsave(&quot;barplot_10x8.pdf&quot;, width = mywidth, height = myheight)</span></a></code></pre></div>
+<p>Same plot 5x4 inches vs 10x8 inches:</p>
+<p><img src="img/barplot_5x4.png" width="50%" /><img src="img/barplot_10x8.png" width="50%" /></p>
 
 </div>
 </div>
@@ -275,7 +311,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapaper": false,
+"instapper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -285,10 +321,6 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": null,
-"text": null
-},
-"history": {
 "link": null,
 "text": null
 },
