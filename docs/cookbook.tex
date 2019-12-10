@@ -124,7 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-11-09}
+    \date{2019-12-10}
 
 \usepackage{booktabs}
 
@@ -161,7 +161,7 @@
 \hypertarget{how-to-contribute}{%
 \section{How to contribute}\label{how-to-contribute}}
 
-(Steps 1. to 5. only need to be done once - to set-up.)
+(Steps 1. to 3. only need to be done once - to set-up.)
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -175,17 +175,8 @@
   on GitHub (ask Riinu/Ewen):
   \url{https://github.com/SurgicalInformatics}
 \item
-  Open the terminal on argonaut, go to your home folder (just
-  \texttt{cd} will default to taking you home). If the prompt says
-  \texttt{username@argonaut:\textasciitilde{}\$} that means you're home
-  - \texttt{\textasciitilde{}} means user's home.
-\item
-  In the terminal, do
-  \texttt{git\ clone\ https://github.com/SurgicalInformatics/cookbook.git}
-\item
-  Look at the Files tab - a new folder called \texttt{cookbook} should
-  have appeared at the bottom. Click on it and open the cookbook.Rproj
-  file.
+  In RStudio: New Project - Version Control - git, then copy the URL:
+  \url{https://github.com/SurgicalInformatics/cookbook}
 \item
   Add your thing by editing the appropriate .Rmd file - there's one for
   each chapter. In the \texttt{Build} pane (next to
@@ -204,7 +195,7 @@
   as well as your changes.
 \item
   Git tab - commit everything, Push quickly before anyone else does or
-  you'll have to go back to step 7. You can check for new pushed commits
+  you'll have to go back to step 5. You can check for new pushed commits
   here:
   \url{https://github.com/SurgicalInformatics/cookbook/commits/master}
   Alternatively there's no harm in clicking the Pull button again - it
@@ -218,12 +209,7 @@ home, and do \texttt{git\ add\ -A} which is the same thing. Still need
 to Commit though!
 \end{quote}
 
-\textbf{10. Have fun!}
-
-\hypertarget{rules-of-posting}{%
-\section{Rules of posting}\label{rules-of-posting}}
-
-Rules of how to post here.
+\textbf{8. Have fun!}
 
 \hypertarget{indexing}{%
 \section{Indexing}\label{indexing}}
@@ -566,7 +552,7 @@ Works for a single date or a vector of dates.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 49 75 70
+## [1] 49 76 70
 \end{verbatim}
 
 \begin{Shaded}
@@ -612,7 +598,7 @@ Works for a single date or a vector of dates.
 ##   chi        dob        gender   age
 ##   <chr>      <date>     <chr>  <dbl>
 ## 1 1009701234 1970-09-10 Male      49
-## 2 1811431232 1943-11-18 Male      75
+## 2 1811431232 1943-11-18 Male      76
 ## 3 1304496368 1949-04-13 Female    70
 \end{verbatim}
 
@@ -666,7 +652,7 @@ correct via the modulus 11 algorithm.
 ##   chi        dob        gender   age chi_valid
 ##   <chr>      <date>     <chr>  <dbl> <lgl>    
 ## 1 1009701234 1970-09-10 Male      49 FALSE    
-## 2 1811431232 1943-11-18 Male      75 TRUE     
+## 2 1811431232 1943-11-18 Male      76 TRUE     
 ## 3 1304496368 1949-04-13 Female    70 TRUE
 \end{verbatim}
 

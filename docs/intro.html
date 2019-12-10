@@ -25,7 +25,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh">
 
 
-<meta name="date" content="2019-11-09">
+<meta name="date" content="2019-12-10">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -132,12 +132,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="index.html#section"></a></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#how-to-contribute"><i class="fa fa-check"></i><b>1.1</b> How to contribute</a></li>
-<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#rules-of-posting"><i class="fa fa-check"></i><b>1.2</b> Rules of posting</a></li>
-<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#indexing"><i class="fa fa-check"></i><b>1.3</b> Indexing</a><ul>
-<li class="chapter" data-level="1.3.1" data-path="intro.html"><a href="intro.html#index"><i class="fa fa-check"></i><b>1.3.1</b> Index</a></li>
-<li class="chapter" data-level="1.3.2" data-path="intro.html"><a href="intro.html#chapter-and-section-references"><i class="fa fa-check"></i><b>1.3.2</b> Chapter and section references</a></li>
-<li class="chapter" data-level="1.3.3" data-path="intro.html"><a href="intro.html#figure-and-table-references"><i class="fa fa-check"></i><b>1.3.3</b> Figure and table references</a></li>
-<li class="chapter" data-level="1.3.4" data-path="intro.html"><a href="intro.html#citations"><i class="fa fa-check"></i><b>1.3.4</b> Citations</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#indexing"><i class="fa fa-check"></i><b>1.2</b> Indexing</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="intro.html"><a href="intro.html#index"><i class="fa fa-check"></i><b>1.2.1</b> Index</a></li>
+<li class="chapter" data-level="1.2.2" data-path="intro.html"><a href="intro.html#chapter-and-section-references"><i class="fa fa-check"></i><b>1.2.2</b> Chapter and section references</a></li>
+<li class="chapter" data-level="1.2.3" data-path="intro.html"><a href="intro.html#figure-and-table-references"><i class="fa fa-check"></i><b>1.2.3</b> Figure and table references</a></li>
+<li class="chapter" data-level="1.2.4" data-path="intro.html"><a href="intro.html#citations"><i class="fa fa-check"></i><b>1.2.4</b> Citations</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="snippets.html"><a href="snippets.html"><i class="fa fa-check"></i><b>2</b> Snippets</a><ul>
@@ -231,33 +230,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
 <div id="how-to-contribute" class="section level2">
 <h2><span class="header-section-number">1.1</span> How to contribute</h2>
-<p>(Steps 1. to 5. only need to be done once - to set-up.)</p>
+<p>(Steps 1. to 3. only need to be done once - to set-up.)</p>
 <ol style="list-style-type: decimal">
 <li><p>Connect your RStudio and GitHub using these instructions, only up to “Create new project” is necessary here (the repository/project already exists):
 <a href="https://www.datasurg.net/2015/07/13/rstudio-and-github/" class="uri">https://www.datasurg.net/2015/07/13/rstudio-and-github/</a></p></li>
 <li><p>Get your GitHub account added to the surgicalinformatics organisation on GitHub (ask Riinu/Ewen):
 <a href="https://github.com/SurgicalInformatics" class="uri">https://github.com/SurgicalInformatics</a></p></li>
-<li><p>Open the terminal on argonaut, go to your home folder (just <code>cd</code> will default to taking you home). If the prompt says <code>username@argonaut:~$</code> that means you’re home - <code>~</code> means user’s home.</p></li>
-<li><p>In the terminal, do <code>git clone https://github.com/SurgicalInformatics/cookbook.git</code></p></li>
-<li><p>Look at the Files tab - a new folder called <code>cookbook</code> should have appeared at the bottom. Click on it and open the cookbook.Rproj file.</p></li>
+<li><p>In RStudio: New Project - Version Control - git, then copy the URL: <a href="https://github.com/SurgicalInformatics/cookbook" class="uri">https://github.com/SurgicalInformatics/cookbook</a></p></li>
 <li><p>Add your thing by editing the appropriate .Rmd file - there’s one for each chapter. In the <code>Build</code> pane (next to <code>Environment</code>) <strong>click on More - Clean All</strong> (if you don’t do this you may be able to compile the book with code that won’t work at a subsequent clean build which can be trickier to debug). Use the Build tab to Build your changes into a book.</p></li>
 <li><p>If anyone has pushed since you cloned/last pulled (hopefully they’ve not been working on the exact same chapter): Make sure you <strong>click on More - Clean All</strong> (as above). Then Pull from the Git tab. This only cleans the output files - html and PDF, it will not touch the changes you’ve made in the .Rmd file.</p></li>
 <li><p>Then Build Book again - this will include the new changes you pulled as well as your changes.</p></li>
-<li><p>Git tab - commit everything, Push quickly before anyone else does or you’ll have to go back to step 7. You can check for new pushed commits here: <a href="https://github.com/SurgicalInformatics/cookbook/commits/master" class="uri">https://github.com/SurgicalInformatics/cookbook/commits/master</a> Alternatively there’s no harm in clicking the Pull button again - it should then say “Already up-to-date”.</p></li>
+<li><p>Git tab - commit everything, Push quickly before anyone else does or you’ll have to go back to step 5. You can check for new pushed commits here: <a href="https://github.com/SurgicalInformatics/cookbook/commits/master" class="uri">https://github.com/SurgicalInformatics/cookbook/commits/master</a> Alternatively there’s no harm in clicking the Pull button again - it should then say “Already up-to-date”.</p></li>
 </ol>
 <blockquote>
 <p>Pro tip: instead of clicking on every single file in the Git tab, go to the terminal, <code>cd cookbook</code> to go to the project folder if still home, and do <code>git add -A</code> which is the same thing. Still need to Commit though!</p>
 </blockquote>
-<p><strong>10. Have fun!</strong></p>
-</div>
-<div id="rules-of-posting" class="section level2">
-<h2><span class="header-section-number">1.2</span> Rules of posting</h2>
-<p>Rules of how to post here.</p>
+<p><strong>8. Have fun!</strong></p>
 </div>
 <div id="indexing" class="section level2">
-<h2><span class="header-section-number">1.3</span> Indexing</h2>
+<h2><span class="header-section-number">1.2</span> Indexing</h2>
 <div id="index" class="section level3">
-<h3><span class="header-section-number">1.3.1</span> Index</h3>
+<h3><span class="header-section-number">1.2.1</span> Index</h3>
 <p>Bold index headings:<br />
 <code>\index{linear regression@\textbf{linear regression}}</code> (ticks in .Rmd file are excluded when actually using)</p>
 <p>Sub-entries of bold headings:<br />
@@ -266,11 +259,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <code>\index{linear regression}</code></p>
 </div>
 <div id="chapter-and-section-references" class="section level3">
-<h3><span class="header-section-number">1.3.2</span> Chapter and section references</h3>
+<h3><span class="header-section-number">1.2.2</span> Chapter and section references</h3>
 <p>You can label chapter and section titles using <code>{#label}</code> after them, e.g., we can reference Chapter <code>\@ref(intro)</code> (ticks in .Rmd are excluded when actually using). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter <code>\@ref(methods)</code>.</p>
 </div>
 <div id="figure-and-table-references" class="section level3">
-<h3><span class="header-section-number">1.3.3</span> Figure and table references</h3>
+<h3><span class="header-section-number">1.2.3</span> Figure and table references</h3>
 <p>Figures and tables with captions will be placed in <code>figure</code> and <code>table</code> environments, respectively.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">.1</span>, <span class="fl">.1</span>))</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">plot</span>(pressure, <span class="dt">type =</span> <span class="st">&#39;b&#39;</span>, <span class="dt">pch =</span> <span class="dv">19</span>)</a></code></pre></div>
@@ -441,7 +434,7 @@ Figure 1.1: Here is a nice figure!
 </table>
 </div>
 <div id="citations" class="section level3">
-<h3><span class="header-section-number">1.3.4</span> Citations</h3>
+<h3><span class="header-section-number">1.2.4</span> Citations</h3>
 <p>You can write citations, too. For example, we are using the <strong>bookdown</strong> package <span class="citation">(Xie <a href="#ref-R-bookdown">2018</a>)</span> in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015">2015</a>)</span>.</p>
 
 </div>
