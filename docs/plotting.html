@@ -254,26 +254,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb67-3" data-line-number="3"><span class="co"># unflipped (yes this plot has no purpose :)</span></a>
 <a class="sourceLine" id="cb67-4" data-line-number="4">gapminder <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb67-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> continent, <span class="dt">fill =</span> <span class="kw">factor</span>(year))) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb67-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_bar</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb67-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb67-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>)</a></code></pre></div>
 <p><img src="cookbook_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="co"># flipped</span></a>
 <a class="sourceLine" id="cb68-2" data-line-number="2">gapminder <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb68-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">fct_rev</span>(continent), <span class="dt">fill =</span> <span class="kw">factor</span>(year))) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb68-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb68-5" data-line-number="5"><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb68-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_fill_discrete</span>(<span class="dt">breaks =</span> rev) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb68-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>, <span class="dt">breaks =</span> rev) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb68-7" data-line-number="7"><span class="st">  </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="kw">guide_legend</span>(<span class="dt">reverse =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <p><img src="cookbook_files/figure-html/unnamed-chunk-37-2.png" width="672" /></p>
 <div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="co">## This is actually the same as the previous plot so is achieving the aim. </span></a>
 <a class="sourceLine" id="cb69-2" data-line-number="2"><span class="co">## But the unflipped plot isn&#39;t that great given the order of the year</span></a>
 <a class="sourceLine" id="cb69-3" data-line-number="3"><span class="co">## Hence why wanting to flip</span></a>
 <a class="sourceLine" id="cb69-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb69-5" data-line-number="5"><span class="co"># Other flipped</span></a>
-<a class="sourceLine" id="cb69-6" data-line-number="6">gapminder <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb69-7" data-line-number="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">fct_rev</span>(continent), <span class="dt">fill =</span> <span class="kw">fct_rev</span>(<span class="kw">factor</span>(year)))) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb69-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb69-9" data-line-number="9"><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb69-10" data-line-number="10"><span class="st">  </span><span class="kw">scale_fill_discrete</span>(<span class="dt">breaks =</span> rev)</a></code></pre></div>
+<a class="sourceLine" id="cb69-5" data-line-number="5"><span class="co"># Better flipped</span></a>
+<a class="sourceLine" id="cb69-6" data-line-number="6"><span class="co"># This way, new fill levels get added on the end</span></a>
+<a class="sourceLine" id="cb69-7" data-line-number="7">gapminder <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb69-8" data-line-number="8"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">fct_rev</span>(continent), <span class="dt">fill =</span> <span class="kw">fct_rev</span>(<span class="kw">factor</span>(year)))) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb69-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb69-10" data-line-number="10"><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb69-11" data-line-number="11"><span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>, <span class="dt">breaks =</span> rev, <span class="dt">direction =</span> <span class="dv">-1</span>)</a></code></pre></div>
 <p><img src="cookbook_files/figure-html/unnamed-chunk-37-3.png" width="672" /></p>
 </div>
 <div id="axis-font-size" class="section level2">

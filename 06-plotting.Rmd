@@ -47,26 +47,28 @@ library(ggplot2)
 # unflipped (yes this plot has no purpose :)
 gapminder %>% 
   ggplot(aes(x = continent, fill = factor(year))) + 
-  geom_bar()
+  geom_bar() + 
+  scale_fill_brewer(palette = "Paired")
   
 # flipped
 gapminder %>% 
   ggplot(aes(x = fct_rev(continent), fill = factor(year))) + 
   geom_bar() + 
   coord_flip() + 
-  scale_fill_discrete(breaks = rev) + 
+  scale_fill_brewer(palette = "Paired", breaks = rev) + 
   guides(fill = guide_legend(reverse = TRUE))
 
 ## This is actually the same as the previous plot so is achieving the aim. 
 ## But the unflipped plot isn't that great given the order of the year
 ## Hence why wanting to flip
 
-# Other flipped
+# Better flipped
+# This way, new fill levels get added on the end
 gapminder %>% 
   ggplot(aes(x = fct_rev(continent), fill = fct_rev(factor(year)))) + 
   geom_bar() + 
   coord_flip() + 
-  scale_fill_discrete(breaks = rev)
+  scale_fill_brewer(palette = "Paired", breaks = rev, direction = -1)
 
 ```
 
