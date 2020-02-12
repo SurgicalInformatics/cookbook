@@ -27,7 +27,6 @@ library(ggrepel)
 
 mydata=gapminder
 
-
 plot = mydata %>% 
   filter(year == "2002") %>% 
   ggplot(aes(x = gdpPercap, y = lifeExp, colour=continent)) +
@@ -39,6 +38,38 @@ plot = mydata %>%
 plot + geom_label_repel(aes(label= country), show.legend = FALSE) #only needed if you use  use_direct_label = FALSE. This allows you to have a colour legend as well. 
 
 ```
+
+## `coord_flip()` factor orders
+
+```{r}
+library(ggplot2)
+
+# unflipped (yes this plot has no purpose :)
+gapminder %>% 
+  ggplot(aes(x = continent, fill = factor(year))) + 
+  geom_bar()
+  
+# flipped
+gapminder %>% 
+  ggplot(aes(x = fct_rev(continent), fill = factor(year))) + 
+  geom_bar() + 
+  coord_flip() + 
+  scale_fill_discrete(breaks = rev) + 
+  guides(fill = guide_legend(reverse = TRUE))
+
+## This is actually the same as the previous plot so is achieving the aim. 
+## But the unflipped plot isn't that great given the order of the year
+## Hence why wanting to flip
+
+# Other flipped
+gapminder %>% 
+  ggplot(aes(x = fct_rev(continent), fill = fct_rev(factor(year)))) + 
+  geom_bar() + 
+  coord_flip() + 
+  scale_fill_discrete(breaks = rev)
+
+```
+
 
 ## Axis font size
 

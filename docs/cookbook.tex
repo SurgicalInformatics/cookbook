@@ -1,3 +1,6 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
 \documentclass[]{book}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
@@ -6,30 +9,31 @@
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
 \else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-  \else
-    \usepackage{fontspec}
-  \fi
+  \usepackage{unicode-math}
   \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \fi
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
 \IfFileExists{microtype.sty}{%
-\usepackage{microtype}
+\usepackage[]{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
 \usepackage{hyperref}
-\hypersetup{unicode=true,
+\hypersetup{
             pdftitle={The Surgical Informatics Cookbook},
             pdfauthor={Surgical Informatics, University of Edinburgh},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
-\usepackage{natbib}
-\bibliographystyle{apalike}
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -71,6 +75,8 @@
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -80,12 +86,6 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -100,48 +100,19 @@
 \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 
-%%% Use protect on footnotes to avoid problems with footnotes in titles
-\let\rmarkdownfootnote\footnote%
-\def\footnote{\protect\rmarkdownfootnote}
-
-%%% Change title format to be more compact
-\usepackage{titling}
-
-% Create subtitle command for use in maketitle
-\providecommand{\subtitle}[1]{
-  \posttitle{
-    \begin{center}\large#1\end{center}
-    }
-}
-
-\setlength{\droptitle}{-2em}
-
-  \title{The Surgical Informatics Cookbook}
-    \pretitle{\vspace{\droptitle}\centering\huge}
-  \posttitle{\par}
-    \author{Surgical Informatics, University of Edinburgh}
-    \preauthor{\centering\large\emph}
-  \postauthor{\par}
-      \predate{\centering\large\emph}
-  \postdate{\par}
-    \date{2019-12-10}
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
 
 \usepackage{booktabs}
+\usepackage[]{natbib}
+\bibliographystyle{apalike}
 
-\usepackage{amsthm}
-\newtheorem{theorem}{Theorem}[chapter]
-\newtheorem{lemma}{Lemma}[chapter]
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[chapter]
-\newtheorem{corollary}{Corollary}[chapter]
-\newtheorem{proposition}{Proposition}[chapter]
-\theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
-\theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[chapter]
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-\newtheorem*{solution}{Solution}
+\title{The Surgical Informatics Cookbook}
+\author{Surgical Informatics, University of Edinburgh}
+\date{2020-02-12}
+
 \begin{document}
 \maketitle
 
@@ -153,7 +124,7 @@
 \chapter*{}\label{section}}
 \addcontentsline{toc}{chapter}{}
 
-\includegraphics[width=30.97in]{/home/rots/cookbook/img/surgical_informatics_minibanner}
+\includegraphics[width=30.97in]{/home/eharrison/cookbook/img/surgical_informatics_minibanner}
 
 \hypertarget{intro}{%
 \chapter{Introduction}\label{intro}}
@@ -166,47 +137,25 @@
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Connect your RStudio and GitHub using these instructions, only up to
-  ``Create new project'' is necessary here (the repository/project
-  already exists):
+  Connect your RStudio and GitHub using these instructions, only up to ``Create new project'' is necessary here (the repository/project already exists):
   \url{https://www.datasurg.net/2015/07/13/rstudio-and-github/}
 \item
-  Get your GitHub account added to the surgicalinformatics organisation
-  on GitHub (ask Riinu/Ewen):
+  Get your GitHub account added to the surgicalinformatics organisation on GitHub (ask Riinu/Ewen):
   \url{https://github.com/SurgicalInformatics}
 \item
-  In RStudio: New Project - Version Control - git, then copy the URL:
-  \url{https://github.com/SurgicalInformatics/cookbook}
+  In RStudio: New Project - Version Control - git, then copy the URL: \url{https://github.com/SurgicalInformatics/cookbook}
 \item
-  Add your thing by editing the appropriate .Rmd file - there's one for
-  each chapter. In the \texttt{Build} pane (next to
-  \texttt{Environment}) \textbf{click on More - Clean All} (if you don't
-  do this you may be able to compile the book with code that won't work
-  at a subsequent clean build which can be trickier to debug). Use the
-  Build tab to Build your changes into a book.
+  Add your thing by editing the appropriate .Rmd file - there's one for each chapter. In the \texttt{Build} pane (next to \texttt{Environment}) \textbf{click on More - Clean All} (if you don't do this you may be able to compile the book with code that won't work at a subsequent clean build which can be trickier to debug). Use the Build tab to Build your changes into a book.
 \item
-  If anyone has pushed since you cloned/last pulled (hopefully they've
-  not been working on the exact same chapter): Make sure you
-  \textbf{click on More - Clean All} (as above). Then Pull from the Git
-  tab. This only cleans the output files - html and PDF, it will not
-  touch the changes you've made in the .Rmd file.
+  If anyone has pushed since you cloned/last pulled (hopefully they've not been working on the exact same chapter): Make sure you \textbf{click on More - Clean All} (as above). Then Pull from the Git tab. This only cleans the output files - html and PDF, it will not touch the changes you've made in the .Rmd file.
 \item
-  Then Build Book again - this will include the new changes you pulled
-  as well as your changes.
+  Then Build Book again - this will include the new changes you pulled as well as your changes.
 \item
-  Git tab - commit everything, Push quickly before anyone else does or
-  you'll have to go back to step 5. You can check for new pushed commits
-  here:
-  \url{https://github.com/SurgicalInformatics/cookbook/commits/master}
-  Alternatively there's no harm in clicking the Pull button again - it
-  should then say ``Already up-to-date''.
+  Git tab - commit everything, Push quickly before anyone else does or you'll have to go back to step 5. You can check for new pushed commits here: \url{https://github.com/SurgicalInformatics/cookbook/commits/master} Alternatively there's no harm in clicking the Pull button again - it should then say ``Already up-to-date''.
 \end{enumerate}
 
 \begin{quote}
-Pro tip: instead of clicking on every single file in the Git tab, go to
-the terminal, \texttt{cd\ cookbook} to go to the project folder if still
-home, and do \texttt{git\ add\ -A} which is the same thing. Still need
-to Commit though!
+Pro tip: instead of clicking on every single file in the Git tab, go to the terminal, \texttt{cd\ cookbook} to go to the project folder if still home, and do \texttt{git\ add\ -A} which is the same thing. Still need to Commit though!
 \end{quote}
 
 \textbf{8. Have fun!}
@@ -218,8 +167,7 @@ to Commit though!
 \subsection{Index}\label{index}}
 
 Bold index headings:\\
-\texttt{\textbackslash{}index\{linear\ regression@\textbackslash{}textbf\{linear\ regression\}\}}
-(ticks in .Rmd file are excluded when actually using)
+\texttt{\textbackslash{}index\{linear\ regression@\textbackslash{}textbf\{linear\ regression\}\}} (ticks in .Rmd file are excluded when actually using)
 
 Sub-entries of bold headings:\\
 \texttt{\textbackslash{}index\{linear\ regression@\textbackslash{}textbf\{linear\ regression\}!diagnostics\}}
@@ -228,22 +176,14 @@ Stand-alone entries:\\
 \texttt{\textbackslash{}index\{linear\ regression\}}
 
 \hypertarget{chapter-and-section-references}{%
-\subsection{Chapter and section
-references}\label{chapter-and-section-references}}
+\subsection{Chapter and section references}\label{chapter-and-section-references}}
 
-You can label chapter and section titles using \texttt{\{\#label\}}
-after them, e.g., we can reference Chapter
-\texttt{\textbackslash{}@ref(intro)} (ticks in .Rmd are excluded when
-actually using). If you do not manually label them, there will be
-automatic labels anyway, e.g., Chapter
-\texttt{\textbackslash{}@ref(methods)}.
+You can label chapter and section titles using \texttt{\{\#label\}} after them, e.g., we can reference Chapter \texttt{\textbackslash{}@ref(intro)} (ticks in .Rmd are excluded when actually using). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \texttt{\textbackslash{}@ref(methods)}.
 
 \hypertarget{figure-and-table-references}{%
-\subsection{Figure and table
-references}\label{figure-and-table-references}}
+\subsection{Figure and table references}\label{figure-and-table-references}}
 
-Figures and tables with captions will be placed in \texttt{figure} and
-\texttt{table} environments, respectively.
+Figures and tables with captions will be placed in \texttt{figure} and \texttt{table} environments, respectively.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -261,11 +201,7 @@ Figures and tables with captions will be placed in \texttt{figure} and
 \caption{Here is a nice figure!}\label{fig:nice-fig}
 \end{figure}
 
-Reference a figure by its code chunk label with the \texttt{fig:}
-prefix, e.g., see Figure \texttt{\textbackslash{}@ref(fig:nice-fig)}.
-Similarly, you can reference tables generated from
-\texttt{knitr::kable()}, e.g., see Table
-\texttt{\textbackslash{}@ref(tab:nice-tab)}.
+Reference a figure by its code chunk label with the \texttt{fig:} prefix, e.g., see Figure \texttt{\textbackslash{}@ref(fig:nice-fig)}. Similarly, you can reference tables generated from \texttt{knitr::kable()}, e.g., see Table \texttt{\textbackslash{}@ref(tab:nice-tab)}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -276,11 +212,11 @@ Similarly, you can reference tables generated from
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}[t]
+\begin{table}
 
 \caption{\label{tab:nice-tab}Here is a nice table!}
 \centering
-\begin{tabular}{rrrrl}
+\begin{tabular}[t]{rrrrl}
 \toprule
 Sepal.Length & Sepal.Width & Petal.Length & Petal.Width & Species\\
 \midrule
@@ -314,9 +250,7 @@ Sepal.Length & Sepal.Width & Petal.Length & Petal.Width & Species\\
 \hypertarget{citations}{%
 \subsection{Citations}\label{citations}}
 
-You can write citations, too. For example, we are using the
-\textbf{bookdown} package \citep{R-bookdown} in this sample book, which
-was built on top of R Markdown and \textbf{knitr} \citep{xie2015}.
+You can write citations, too. For example, we are using the \textbf{bookdown} package \citep{R-bookdown} in this sample book, which was built on top of R Markdown and \textbf{knitr} \citep{xie2015}.
 
 \hypertarget{snippets}{%
 \chapter{Snippets}\label{snippets}}
@@ -324,37 +258,16 @@ was built on top of R Markdown and \textbf{knitr} \citep{xie2015}.
 Random useful snippets that do not fit anywhere else.
 
 \hypertarget{creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker}{%
-\section{Creating Reproducible R Examples to Share in the Group (binder,
-holepunch and
-docker)}\label{creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker}}
+\section{Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)}\label{creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker}}
 
-When asking for help with R code having a reproducible example is
-crucial (some mock data that others can use along with your code to
-reproduce your error). Often this can be done easily with creation of a
-small tibble and posting of the code on slack but sometimes it requires
-more complex data or the error is due to something in the Linux system
-in which RStudio server is hosted. For example if the \texttt{cairo}
-package for Linux isn't installed then plots don't work. The
-\texttt{holepunch} package helps to reproduce examples like these (not
-suitable for projects with confidential data).
+When asking for help with R code having a reproducible example is crucial (some mock data that others can use along with your code to reproduce your error). Often this can be done easily with creation of a small tibble and posting of the code on slack but sometimes it requires more complex data or the error is due to something in the Linux system in which RStudio server is hosted. For example if the \texttt{cairo} package for Linux isn't installed then plots don't work. The \texttt{holepunch} package helps to reproduce examples like these (not suitable for projects with confidential data).
 
 \hypertarget{create-basic-reproducible-examples}{%
-\subsection{Create Basic Reproducible
-Examples}\label{create-basic-reproducible-examples}}
+\subsection{Create Basic Reproducible Examples}\label{create-basic-reproducible-examples}}
 
-The three main parts of the reproducible example (reprex) in Surgical
-Informatics are 1. packages, 2. small dataset and 3. code. Other things
-like R version and Linux version can be assumed as we all use one of
-only a few servers.
+The three main parts of the reproducible example (reprex) in Surgical Informatics are 1. packages, 2. small dataset and 3. code. Other things like R version and Linux version can be assumed as we all use one of only a few servers.
 
-If you have a small (and confidential) set of data in a tibble or data
-frame called \texttt{my\_data} and want it to be easily copied run:
-\texttt{dput(droplevels(my\_data))}. This will print out code in the
-console that can be copy-pasted to reproduce the data frame.
-Alternatively use the \texttt{tibble} or \texttt{tribble} functions to
-create it from scratch (this is preferable for simple datasets). Then
-copy in the packages and finally the code (ideally the least amount
-possible to generate the error) and share with the group e.g.:
+If you have a small (and confidential) set of data in a tibble or data frame called \texttt{my\_data} and want it to be easily copied run: \texttt{dput(droplevels(my\_data))}. This will print out code in the console that can be copy-pasted to reproduce the data frame. Alternatively use the \texttt{tibble} or \texttt{tribble} functions to create it from scratch (this is preferable for simple datasets). Then copy in the packages and finally the code (ideally the least amount possible to generate the error) and share with the group e.g.:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -371,16 +284,13 @@ possible to generate the error) and share with the group e.g.:
 \end{Shaded}
 
 \begin{verbatim}
-## Error: Evaluation error: non-numeric argument to binary operator.
+## Error in a/b: non-numeric argument to binary operator
 \end{verbatim}
 
 \hypertarget{holepunch---complex-reproducible-examples}{%
-\subsection{\texorpdfstring{\texttt{holepunch} - Complex Reproducible
-Examples}{holepunch - Complex Reproducible Examples}}\label{holepunch---complex-reproducible-examples}}
+\subsection{\texorpdfstring{\texttt{holepunch} - Complex Reproducible Examples}{holepunch - Complex Reproducible Examples}}\label{holepunch---complex-reproducible-examples}}
 
-From your project with data you are happy to make public make sure you
-are backed up to \texttt{git} and \texttt{GitHub}. See the relevant
-chapter on how to do this. Then run the following:
+From your project with data you are happy to make public make sure you are backed up to \texttt{git} and \texttt{GitHub}. See the relevant chapter on how to do this. Then run the following:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -400,8 +310,7 @@ chapter on how to do this. Then run the following:
 \end{Highlighting}
 \end{Shaded}
 
-The file will generate some text to copy into the top of a
-\texttt{README.md} file. It will look like:
+The file will generate some text to copy into the top of a \texttt{README.md} file. It will look like:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -411,19 +320,9 @@ The file will generate some text to copy into the top of a
 \end{Highlighting}
 \end{Shaded}
 
-Now, whenever somebody clicks on the badge in the \texttt{README} on
-\texttt{GitHub} they will be taken to an RStudio server instance with
-all your files (excluding files listed in \texttt{.gitignore}), all the
-current versions of your package, all the current Linux packages and the
-current R version. They can then test your code in an near-identical
-environment to help identify the source of the error, their session will
-time out after 10 minutes of inactivity or 12 hours since starting and
-will not save anything so should only be used for bug-testing or quick
-examples.
+Now, whenever somebody clicks on the badge in the \texttt{README} on \texttt{GitHub} they will be taken to an RStudio server instance with all your files (excluding files listed in \texttt{.gitignore}), all the current versions of your package, all the current Linux packages and the current R version. They can then test your code in an near-identical environment to help identify the source of the error, their session will time out after 10 minutes of inactivity or 12 hours since starting and will not save anything so should only be used for bug-testing or quick examples.
 
-As this is a free version of RStudio server there is a limit to what is
-supported and it shouldn't be used for computationally-intensive
-processes.
+As this is a free version of RStudio server there is a limit to what is supported and it shouldn't be used for computationally-intensive processes.
 
 And, as mentioned: \textbf{No confidential data.}
 
@@ -431,18 +330,15 @@ And, as mentioned: \textbf{No confidential data.}
 \section{Working with CHIs}\label{working-with-chis}}
 
 Here are 4 functions for CHIs that could even be put in a small package.
-The Community Health Index (CHI) is a population register, which is used
-in Scotland for health care purposes. The CHI number uniquely identifies
-a person on the index.
+The Community Health Index (CHI) is a population register, which is used in Scotland for health care purposes.
+The CHI number uniquely identifies a person on the index.
 
 \hypertarget{chi_dob---extract-date-of-birth-from-chi}{%
-\subsection{\texorpdfstring{\texttt{chi\_dob()} - Extract date of birth
-from
-CHI}{chi\_dob() - Extract date of birth from CHI}}\label{chi_dob---extract-date-of-birth-from-chi}}
+\subsection{\texorpdfstring{\texttt{chi\_dob()} - Extract date of birth from CHI}{chi\_dob() - Extract date of birth from CHI}}\label{chi_dob---extract-date-of-birth-from-chi}}
 
-Note \texttt{cutoff\_2000}. As CHI has only a two digit year, need to
-decide whether year is 1900s or 2000s. I don't think there is a formal
-way of determining this.
+Note \texttt{cutoff\_2000}.
+As CHI has only a two digit year, need to decide whether year is 1900s or 2000s.
+I don't think there is a formal way of determining this.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -488,11 +384,10 @@ way of determining this.
 \end{verbatim}
 
 \hypertarget{chi_gender---extract-gender-from-chi}{%
-\subsection{\texorpdfstring{\texttt{chi\_gender()} - Extract gender from
-CHI}{chi\_gender() - Extract gender from CHI}}\label{chi_gender---extract-gender-from-chi}}
+\subsection{\texorpdfstring{\texttt{chi\_gender()} - Extract gender from CHI}{chi\_gender() - Extract gender from CHI}}\label{chi_gender---extract-gender-from-chi}}
 
-Ninth digit is odd for men and even for women. A test for even is
-\texttt{x\ modulus\ 2\ ==\ 0}.
+Ninth digit is odd for men and even for women.
+A test for even is \texttt{x\ modulus\ 2\ ==\ 0}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -532,8 +427,7 @@ Ninth digit is odd for men and even for women. A test for even is
 \end{verbatim}
 
 \hypertarget{chi_age---extract-age-from-chi}{%
-\subsection{\texorpdfstring{\texttt{chi\_age()} - Extract age from
-CHI}{chi\_age() - Extract age from CHI}}\label{chi_age---extract-age-from-chi}}
+\subsection{\texorpdfstring{\texttt{chi\_age()} - Extract age from CHI}{chi\_age() - Extract age from CHI}}\label{chi_age---extract-age-from-chi}}
 
 Works for a single date or a vector of dates.
 
@@ -603,12 +497,9 @@ Works for a single date or a vector of dates.
 \end{verbatim}
 
 \hypertarget{chi_valid---logical-test-for-valid-chi}{%
-\subsection{\texorpdfstring{\texttt{chi\_valid()} - Logical test for
-valid
-CHI}{chi\_valid() - Logical test for valid CHI}}\label{chi_valid---logical-test-for-valid-chi}}
+\subsection{\texorpdfstring{\texttt{chi\_valid()} - Logical test for valid CHI}{chi\_valid() - Logical test for valid CHI}}\label{chi_valid---logical-test-for-valid-chi}}
 
-The final digit of the CHI can be used to test that the number is
-correct via the modulus 11 algorithm.
+The final digit of the CHI can be used to test that the number is correct via the modulus 11 algorithm.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -660,11 +551,10 @@ correct via the modulus 11 algorithm.
 \section{Working with dates}\label{working-with-dates}}
 
 \hypertarget{difference-between-two-dates}{%
-\subsection{Difference between two
-dates}\label{difference-between-two-dates}}
+\subsection{Difference between two dates}\label{difference-between-two-dates}}
 
-I always forget how to do this neatly. I often want days as a numeric,
-not a lubridate type object.
+I always forget how to do this neatly.
+I often want days as a numeric, not a lubridate type object.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -684,8 +574,7 @@ not a lubridate type object.
 \hypertarget{lags}{%
 \subsection{Lags}\label{lags}}
 
-This is useful for calculating, for instance, the period off
-medications. Lags are much better than long to wide solutions for this.
+This is useful for calculating, for instance, the period off medications. Lags are much better than long to wide solutions for this.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -739,11 +628,9 @@ medications. Lags are much better than long to wide solutions for this.
 \end{verbatim}
 
 \hypertarget{pulling-out-change-in-status-data}{%
-\subsection{Pulling out ``change in status''
-data}\label{pulling-out-change-in-status-data}}
+\subsection{Pulling out ``change in status'' data}\label{pulling-out-change-in-status-data}}
 
-If you have a number of episodes per patient, each with a status and a
-time, then you need to do this as a starting point for CPH analysis.
+If you have a number of episodes per patient, each with a status and a time, then you need to do this as a starting point for CPH analysis.
 
 \hypertarget{example-data}{%
 \subsubsection{Example data}\label{example-data}}
@@ -797,8 +684,7 @@ time, then you need to do this as a starting point for CPH analysis.
 \end{verbatim}
 
 \hypertarget{compute-time-from-op-date-to-current-review}{%
-\subsubsection{Compute time from op date to current
-review}\label{compute-time-from-op-date-to-current-review}}
+\subsubsection{Compute time from op date to current review}\label{compute-time-from-op-date-to-current-review}}
 
 \ldots{} if necessary
 
@@ -840,8 +726,7 @@ review}\label{compute-time-from-op-date-to-current-review}}
 \end{verbatim}
 
 \hypertarget{pull-out-change-of-status}{%
-\subsubsection{Pull out ``change of
-status''}\label{pull-out-change-of-status}}
+\subsubsection{Pull out ``change of status''}\label{pull-out-change-of-status}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -881,20 +766,19 @@ status''}\label{pull-out-change-of-status}}
 \end{Shaded}
 
 \begin{verbatim}
-##   Dependent: Surv(time, status)         all          HR (univariable)
-## 1                         group 0 2 (100.0)                         -
-## 2                               1 3 (100.0) 0.76 (0.10-5.51, p=0.786)
-##          HR (multivariable)
-## 1                         -
-## 2 0.76 (0.10-5.51, p=0.786)
+##  Dependent: Surv(time, status)         all          HR (univariable)
+##                          group 0 2 (100.0)                         -
+##                                1 3 (100.0) 0.76 (0.10-5.51, p=0.786)
+##         HR (multivariable)
+##                          -
+##  0.76 (0.10-5.51, p=0.786)
 \end{verbatim}
 
 \hypertarget{data-manipulation}{%
 \chapter{Data manipulation}\label{data-manipulation}}
 
 \hypertarget{collapse-multiple-no-and-yes-options}{%
-\section{Collapse multiple ``no'' and ``yes''
-options}\label{collapse-multiple-no-and-yes-options}}
+\section{Collapse multiple ``no'' and ``yes'' options}\label{collapse-multiple-no-and-yes-options}}
 
 Common to have to do this in globalsurg projects
 
@@ -968,8 +852,7 @@ Common to have to do this in globalsurg projects
 \section{Deep learning}\label{deep-learning}}
 
 \hypertarget{pulling-images-from-redcap-directly-to-argodeep}{%
-\subsection{Pulling images from REDCap directly to
-argodeep}\label{pulling-images-from-redcap-directly-to-argodeep}}
+\subsection{Pulling images from REDCap directly to argodeep}\label{pulling-images-from-redcap-directly-to-argodeep}}
 
 \hypertarget{original-file-names}{%
 \subsubsection{Original file names}\label{original-file-names}}
@@ -1008,8 +891,7 @@ argodeep}\label{pulling-images-from-redcap-directly-to-argodeep}}
 \end{Shaded}
 
 \hypertarget{named-from-redcap-record-id-and-event}{%
-\subsubsection{Named from REDCap record ID and
-event}\label{named-from-redcap-record-id-and-event}}
+\subsubsection{Named from REDCap record ID and event}\label{named-from-redcap-record-id-and-event}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1048,89 +930,47 @@ event}\label{named-from-redcap-record-id-and-event}}
 \hypertarget{data-transfer-and-eddie}{%
 \chapter{Data Transfer and Eddie}\label{data-transfer-and-eddie}}
 
-Often it is necessary to transfer data into and out of RStudio server.
-This can be done from personal laptops (as long as you have permission
-for the data!), university supported desktops, Eddie and a number of
-other devices or servers.
+Often it is necessary to transfer data into and out of RStudio server. This can be done from personal laptops (as long as you have permission for the data!), university supported desktops, Eddie and a number of other devices or servers.
 
 \hypertarget{uploading-and-downloading-data-the-easy-way}{%
-\section{Uploading and Downloading Data the Easy
-Way}\label{uploading-and-downloading-data-the-easy-way}}
+\section{Uploading and Downloading Data the Easy Way}\label{uploading-and-downloading-data-the-easy-way}}
 
-Often the GUI in RStudio is sufficient. In the \texttt{Files} pane click
-upload to move data from your current computer into RStudio server. To
-download select the file and then click
-\texttt{More\ \textgreater{}\ Export}. As always this should be done
-only when appropriate.
+Often the GUI in RStudio is sufficient. In the \texttt{Files} pane click upload to move data from your current computer into RStudio server. To download select the file and then click \texttt{More\ \textgreater{}\ Export}. As always this should be done only when appropriate.
 
-Sometimes this isn't possible either with large files or files stored
-remotely on other servers such as Eddie.
+Sometimes this isn't possible either with large files or files stored remotely on other servers such as Eddie.
 
 \hypertarget{alternative-methods-when-the-easy-way-wont-work}{%
-\section{Alternative Methods when the Easy Way won't
-work}\label{alternative-methods-when-the-easy-way-wont-work}}
+\section{Alternative Methods when the Easy Way won't work}\label{alternative-methods-when-the-easy-way-wont-work}}
 
 \hypertarget{what-is-eddie}{%
 \subsection{What is Eddie?}\label{what-is-eddie}}
 
-Eddie Mark 3 is the third iteration of the University's compute cluster
-and is available to all University of Edinburgh researchers. It consists
-of some 7000 Intel® Xeon® cores with up to 3 TB of memory available per
-compute node.
+Eddie Mark 3 is the third iteration of the University's compute cluster and is available to all University of Edinburgh researchers. It consists of some 7000 Intel® Xeon® cores with up to 3 TB of memory available per compute node.
 
-The surgical informatics group has a shared folder in the Eddie cluster
-which can be accessed to store data and perform analyses which might be
-too large or complex for RStudio server. Every task in Eddie is
-controlled through the command line interface - those familiar with
-Linux/Unix will be familiar with this.
+The surgical informatics group has a shared folder in the Eddie cluster which can be accessed to store data and perform analyses which might be too large or complex for RStudio server. Every task in Eddie is controlled through the command line interface - those familiar with Linux/Unix will be familiar with this.
 
 \hypertarget{using-the-command-line}{%
 \section{Using the Command Line}\label{using-the-command-line}}
 
-Sometimes the command line is the only possible way to copy data to and
-from RStudio server. Argonaut and Argosafe are \texttt{SSH}-enabled
-(Secure SHell) meaning that you can securely copy data to and from them
-using the command line editor on another device. It is also possible to
-use the RStudio terminal to copy to another device or server that is
-\texttt{SSH}-enabled although this isn't currently recommended due to
-issues with RStudio server's websockets (when you type in the terminal
-you have to do so very slowly for characters to appear in the right
-order or you have to use a script - described below).
+Sometimes the command line is the only possible way to copy data to and from RStudio server. Argonaut and Argosafe are \texttt{SSH}-enabled (Secure SHell) meaning that you can securely copy data to and from them using the command line editor on another device. It is also possible to use the RStudio terminal to copy to another device or server that is \texttt{SSH}-enabled although this isn't currently recommended due to issues with RStudio server's websockets (when you type in the terminal you have to do so very slowly for characters to appear in the right order or you have to use a script - described below).
 
-First, if you don't have a command line editor or SSH client installed
-(often the case for earlier Windows versions although there is talk of a
-native client becoming default) then you will need to install one. For
-working on a Windows device generally PuTTY is the recommended SSH
-client (allows you connect to other servers) and a reasonable command
-line editor to work with files on the local device is GitBash.
+First, if you don't have a command line editor or SSH client installed (often the case for earlier Windows versions although there is talk of a native client becoming default) then you will need to install one. For working on a Windows device generally PuTTY is the recommended SSH client (allows you connect to other servers) and a reasonable command line editor to work with files on the local device is GitBash.
 
 \hypertarget{downloads-and-setup---eddie-example}{%
-\subsection{Downloads and Setup - Eddie
-Example}\label{downloads-and-setup---eddie-example}}
+\subsection{Downloads and Setup - Eddie Example}\label{downloads-and-setup---eddie-example}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Make sure you have the University VPN downloaded for your own computer
-  to access Eddie if needed. The link is at:
-  \url{https://www.ed.ac.uk/information-services/computing/desktop-personal/vpn/vpn-service-using}.
-  It is the Cisco Connect Any Client which logs into the VPN (the
-  password should be different to your EASE password).\\
+  Make sure you have the University VPN downloaded for your own computer to access Eddie if needed. The link is at: \url{https://www.ed.ac.uk/information-services/computing/desktop-personal/vpn/vpn-service-using}. It is the Cisco Connect Any Client which logs into the VPN (the password should be different to your EASE password).\\
 \item
   Download the PuTTY terminal software: \url{https://www.putty.org/}.
 \end{enumerate}
 
-Open up PuTTY and you will see a configuration screen. On this screen
-make sure to enter \texttt{eddie3.ecdf.ed.ac.uk} into the box and tick
-SSH as your method for connection. The PuTTY terminal will launch
-(assuming you are connected to the University VPN already) and ask
-\texttt{login\ as} at which point you should enter your EASE username.
-You will then be asked for your EASE password and you should now see
-that you are logged into Eddie3.
+Open up PuTTY and you will see a configuration screen. On this screen make sure to enter \texttt{eddie3.ecdf.ed.ac.uk} into the box and tick SSH as your method for connection. The PuTTY terminal will launch (assuming you are connected to the University VPN already) and ask \texttt{login\ as} at which point you should enter your EASE username. You will then be asked for your EASE password and you should now see that you are logged into Eddie3.
 
-If you are logging in from RStudio Server or another terminal software
-you should enter on the command line:
+If you are logging in from RStudio Server or another terminal software you should enter on the command line:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1138,48 +978,30 @@ you should enter on the command line:
 \end{Highlighting}
 \end{Shaded}
 
- is your university username for EASE. You will then be asked for your
-password.
+ is your university username for EASE. You will then be asked for your password.
 
-More information on Eddie basics can also be found at:
-\url{https://www.wiki.ed.ac.uk/display/ResearchServices/Quickstart}.
+More information on Eddie basics can also be found at: \url{https://www.wiki.ed.ac.uk/display/ResearchServices/Quickstart}.
 
 \hypertarget{copy-and-paste-with-putty}{%
 \subsection{Copy and Paste with PuTTY}\label{copy-and-paste-with-putty}}
 
-Like many other command line interfaces PuTTY can be made to work more
-easily with copy and paste. This is done simply through highlighting and
-clicking and not with traditional \texttt{ctrl-c} and \texttt{ctrl-v}
-commands like typical word processors.
+Like many other command line interfaces PuTTY can be made to work more easily with copy and paste. This is done simply through highlighting and clicking and not with traditional \texttt{ctrl-c} and \texttt{ctrl-v} commands like typical word processors.
 
-\textbf{To copy text from PuTTY}: Highlight the text. That's it! No need
-to click anything or type / press anything, highlighting is enough. You
-can then paste the text elsewhere.
+\textbf{To copy text from PuTTY}: Highlight the text. That's it! No need to click anything or type / press anything, highlighting is enough. You can then paste the text elsewhere.
 
-\textbf{To copy text into PuTTY}: Once you've copied text (either by
-highlighting in PuTTY itself or by using \texttt{ctrl-c} in another
-programme, just right-click. The text will appear at the command line.
-If you copy several lines separated by \texttt{\textbackslash{}newline}
-then PuTTY will run each line up until the last one copied and leave the
-last line at the command line (if you highlight large sections of text
-in PuTTY and right-click it will try to run all of them).
+\textbf{To copy text into PuTTY}: Once you've copied text (either by highlighting in PuTTY itself or by using \texttt{ctrl-c} in another programme, just right-click. The text will appear at the command line. If you copy several lines separated by \texttt{\textbackslash{}newline} then PuTTY will run each line up until the last one copied and leave the last line at the command line (if you highlight large sections of text in PuTTY and right-click it will try to run all of them).
 
 \hypertarget{closing-a-session-in-putty}{%
-\subsection{Closing a Session in
-PuTTY}\label{closing-a-session-in-putty}}
+\subsection{Closing a Session in PuTTY}\label{closing-a-session-in-putty}}
 
 To close a session use \texttt{ctrl-d}.
 
 \hypertarget{eddie-file-structure}{%
 \subsection{Eddie File Structure}\label{eddie-file-structure}}
 
-Once you have logged into Eddie there are several directories
-(folders/places) where you can store and manipulate files. Moving
-between these directories is usually done using the \texttt{cd} command.
-The same idea is applicable to your own machine
+Once you have logged into Eddie there are several directories (folders/places) where you can store and manipulate files. Moving between these directories is usually done using the \texttt{cd} command. The same idea is applicable to your own machine
 
-When you first log in you will default to your home directory. In order
-to see the ``path'' to that directory enter the command:
+When you first log in you will default to your home directory. In order to see the ``path'' to that directory enter the command:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1193,8 +1015,7 @@ The terminal should print out something like:
 /home/<UUN>
 \end{verbatim}
 
-To get back to this directory at any point enter one of the following
-(they are both equivalent):
+To get back to this directory at any point enter one of the following (they are both equivalent):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1210,8 +1031,7 @@ or
 \end{Highlighting}
 \end{Shaded}
 
-When inside your home folder to see any of the files or subdirectories
-in your home directory enter:
+When inside your home folder to see any of the files or subdirectories in your home directory enter:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1219,18 +1039,7 @@ in your home directory enter:
 \end{Highlighting}
 \end{Shaded}
 
-The \texttt{-a} argument to ls shows hidden files which begin with a
-\texttt{.} such as \texttt{.Renviron} if you have created this. There
-are several other arguments which can be passed to ls such as
-\texttt{-l} which will should the permissions for the file or
-subdirectory. When using the \texttt{-l} argument the files start with
-\texttt{-} and are followed by 7 characters or \texttt{-} which explain
-whether different groups of people can write, read or execute the files.
-The first three are for the file owner, the next three for the group and
-the next three for any else with access to the directory. For example
-the following printed after running \texttt{ls\ -l} would indicate that
-the owner could read, write and execute a file, the group could read and
-execute it and that others could only read it:
+The \texttt{-a} argument to ls shows hidden files which begin with a \texttt{.} such as \texttt{.Renviron} if you have created this. There are several other arguments which can be passed to ls such as \texttt{-l} which will should the permissions for the file or subdirectory. When using the \texttt{-l} argument the files start with \texttt{-} and are followed by 7 characters or \texttt{-} which explain whether different groups of people can write, read or execute the files. The first three are for the file owner, the next three for the group and the next three for any else with access to the directory. For example the following printed after running \texttt{ls\ -l} would indicate that the owner could read, write and execute a file, the group could read and execute it and that others could only read it:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1239,16 +1048,12 @@ execute it and that others could only read it:
 \end{Shaded}
 
 \hypertarget{copying-data-from-eddie-into-rstudio-server}{%
-\section{Copying Data from Eddie into RStudio
-server}\label{copying-data-from-eddie-into-rstudio-server}}
+\section{Copying Data from Eddie into RStudio server}\label{copying-data-from-eddie-into-rstudio-server}}
 
 \hypertarget{method-1-using-putty-or-another-terminalshell-connected-to-eddie}{%
-\subsection{Method 1: Using PuTTY (or another terminal/shell connected
-to
-Eddie)}\label{method-1-using-putty-or-another-terminalshell-connected-to-eddie}}
+\subsection{Method 1: Using PuTTY (or another terminal/shell connected to Eddie)}\label{method-1-using-putty-or-another-terminalshell-connected-to-eddie}}
 
-To copy data from another server or device into RStudio Server use the
-following code in the command line editor (e.g.~PuTTY, GitBash etc.):
+To copy data from another server or device into RStudio Server use the following code in the command line editor (e.g.~PuTTY, GitBash etc.):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1256,34 +1061,18 @@ following code in the command line editor (e.g.~PuTTY, GitBash etc.):
 \end{Highlighting}
 \end{Shaded}
 
-You will be asked for your RStudio server (Argonaut etc.) password. If
-you are unsure of the file path enter \texttt{pwd} when you are working
-in the directory with the file before copying and pasting.
+You will be asked for your RStudio server (Argonaut etc.) password. If you are unsure of the file path enter \texttt{pwd} when you are working in the directory with the file before copying and pasting.
 
-If you are not sure of the path to the directory in which you wish to
-copy the data to or from then use \texttt{getwd()} in RStudio when
-inside the project you wish to copy to (you many need to add a
-subdirectory folder to the \texttt{getwd()} output if you are using
-subdirectories in your RStudio projects).
+If you are not sure of the path to the directory in which you wish to copy the data to or from then use \texttt{getwd()} in RStudio when inside the project you wish to copy to (you many need to add a subdirectory folder to the \texttt{getwd()} output if you are using subdirectories in your RStudio projects).
 
-The \texttt{scp} command will work with Argonaut and Argosafe as the
-ability to allow SSH connections has been activated. This may need to be
-established separately for other RStudio servers within the department.
+The \texttt{scp} command will work with Argonaut and Argosafe as the ability to allow SSH connections has been activated. This may need to be established separately for other RStudio servers within the department.
 
 \hypertarget{method-2-using-the-rstudio-server-terminal}{%
-\subsection{Method 2: Using the RStudio Server
-Terminal}\label{method-2-using-the-rstudio-server-terminal}}
+\subsection{Method 2: Using the RStudio Server Terminal}\label{method-2-using-the-rstudio-server-terminal}}
 
-To use the RStudio server terminal to copy data in and out of Eddie do
-not SSH into Eddie as described above but instead use the \texttt{scp}
-command. If you are using RStudio's terminal for accessing Eddie instead
-of PuTTY or something equivalent then you will need to either
-temporarily disconnect from Eddie (\texttt{ctrl-d}) or open a new
-terminal if using RStudio server Pro which allows multiple terminals.
+To use the RStudio server terminal to copy data in and out of Eddie do not SSH into Eddie as described above but instead use the \texttt{scp} command. If you are using RStudio's terminal for accessing Eddie instead of PuTTY or something equivalent then you will need to either temporarily disconnect from Eddie (\texttt{ctrl-d}) or open a new terminal if using RStudio server Pro which allows multiple terminals.
 
-In the terminal enter the following command to copy a single file from
-Eddie into RStudio server from a project subdirectory in the SurgInfGrp
-directory:
+In the terminal enter the following command to copy a single file from Eddie into RStudio server from a project subdirectory in the SurgInfGrp directory:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1294,14 +1083,10 @@ directory:
 \end{Highlighting}
 \end{Shaded}
 
-On entering the command to the terminal you will be asked to enter your
-EASE password (type this slowly if using RStudio Server Pro prior to web
-sockets issue being fixed). In order to move data in the other direction
-simply change the order of the file paths.
+On entering the command to the terminal you will be asked to enter your EASE password (type this slowly if using RStudio Server Pro prior to web sockets issue being fixed). In order to move data in the other direction simply change the order of the file paths.
 
 \hypertarget{the-surgical-informatics-group-folder-on-eddie}{%
-\section{The Surgical Informatics Group Folder (On
-Eddie)}\label{the-surgical-informatics-group-folder-on-eddie}}
+\section{The Surgical Informatics Group Folder (On Eddie)}\label{the-surgical-informatics-group-folder-on-eddie}}
 
 To get to the Surgical Informatics shared group directory enter:
 
@@ -1311,26 +1096,14 @@ To get to the Surgical Informatics shared group directory enter:
 \end{Highlighting}
 \end{Shaded}
 
-If you don't have access then Riinu or Ewen can provide this as they
-have admin rights.
+If you don't have access then Riinu or Ewen can provide this as they have admin rights.
 
-This directory should be the place to store any group projects or apps
-or other files which are somewhat (but not very) large. The group space
-has 200GB of memory allocated by default which is much greater than your
-home directory (10GB) but much less than the group space on the
-datastore which is up to 1TB. The group space should be used to store
-bulk files which can be staged into Eddie for an active session but will
-not be permanently stored in Eddie.
+This directory should be the place to store any group projects or apps or other files which are somewhat (but not very) large. The group space has 200GB of memory allocated by default which is much greater than your home directory (10GB) but much less than the group space on the datastore which is up to 1TB. The group space should be used to store bulk files which can be staged into Eddie for an active session but will not be permanently stored in Eddie.
 
 \hypertarget{the-scratch-space}{%
 \subsection{The Scratch Space}\label{the-scratch-space}}
 
-Your own personal scratch space is where you should work on active
-projects during a session after staging them in from the datastore
-and/or shared Surgical Informatics group directory. The scratch space
-has 2TB of storage per user but this is cleaned up after one month. This
-means large datasets can be analysed here but not stored in the
-long-term. To find your own personal scratch space enter:
+Your own personal scratch space is where you should work on active projects during a session after staging them in from the datastore and/or shared Surgical Informatics group directory. The scratch space has 2TB of storage per user but this is cleaned up after one month. This means large datasets can be analysed here but not stored in the long-term. To find your own personal scratch space enter:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1338,29 +1111,17 @@ long-term. To find your own personal scratch space enter:
 \end{Highlighting}
 \end{Shaded}
 
-Finally there is also a temporary directory (\$TMPDIR) which is only
-present and accessible whilst a job is running in Eddie. This has 1TB of
-available storage.
+Finally there is also a temporary directory (\$TMPDIR) which is only present and accessible whilst a job is running in Eddie. This has 1TB of available storage.
 
 \hypertarget{other-spaces}{%
 \subsection{Other Spaces}\label{other-spaces}}
 
-Occasionally group members may have access to other directories to share
-/ collaborate on projects. These are most often found at the path:
-\texttt{cd\ /exports/\textless{}COLLEGE\textgreater{}/eddie/\textless{}SCHOOL\textgreater{}/groups/\textless{}GROUP\textgreater{}}
-although for IGMM it may be:
-\texttt{cd\ /exports/igmm/eddie/\textless{}GROUP\textgreater{}}.
+Occasionally group members may have access to other directories to share / collaborate on projects. These are most often found at the path: \texttt{cd\ /exports/\textless{}COLLEGE\textgreater{}/eddie/\textless{}SCHOOL\textgreater{}/groups/\textless{}GROUP\textgreater{}} although for IGMM it may be: \texttt{cd\ /exports/igmm/eddie/\textless{}GROUP\textgreater{}}.
 
 \hypertarget{running-eddie-from-rstudio-server}{%
-\subsection{Running Eddie from RStudio
-Server}\label{running-eddie-from-rstudio-server}}
+\subsection{Running Eddie from RStudio Server}\label{running-eddie-from-rstudio-server}}
 
-It is possible to log in to Eddie from RStudio server and use Shell
-Scripts stored in RStudio to perform tasks in Eddie. This may be helpful
-if you plan to modify shell scripts a lot and want to have the benefit
-of the RStudio interface. \texttt{ctrl-alt-enter} sends data to the
-terminal in the same way that it would the console without the
-\texttt{alt}.
+It is possible to log in to Eddie from RStudio server and use Shell Scripts stored in RStudio to perform tasks in Eddie. This may be helpful if you plan to modify shell scripts a lot and want to have the benefit of the RStudio interface. \texttt{ctrl-alt-enter} sends data to the terminal in the same way that it would the console without the \texttt{alt}.
 
 To connect initially enter:
 
@@ -1370,19 +1131,12 @@ To connect initially enter:
 \end{Highlighting}
 \end{Shaded}
 
-You will then be asked for your password which has to be typed
-(currently slowly and carefully!) into the terminal. Afterwards you can
-send any commands from a script using \texttt{ctrl-alt-enter}. This will
-not work with \texttt{Rmd} or \texttt{notebooks}.
+You will then be asked for your password which has to be typed (currently slowly and carefully!) into the terminal. Afterwards you can send any commands from a script using \texttt{ctrl-alt-enter}. This will not work with \texttt{Rmd} or \texttt{notebooks}.
 
 \hypertarget{modules-applications-in-eddie}{%
-\subsection{Modules (Applications) in
-Eddie}\label{modules-applications-in-eddie}}
+\subsection{Modules (Applications) in Eddie}\label{modules-applications-in-eddie}}
 
-Eddie has several modules (applications) which can be run such as R,
-python, cuda, java, intel, fastqc etc. etc. The best way to see which
-modules you have available is to run \texttt{module\ avail}. To see
-which modules are loaded is to run \texttt{module\ list}.
+Eddie has several modules (applications) which can be run such as R, python, cuda, java, intel, fastqc etc. etc. The best way to see which modules you have available is to run \texttt{module\ avail}. To see which modules are loaded is to run \texttt{module\ list}.
 
 To load in a new module to use run the following:
 
@@ -1398,21 +1152,9 @@ To load in a new module to use run the following:
 \end{Highlighting}
 \end{Shaded}
 
-Once you have loaded modules that you will need for your analysis you
-may need to create new files or establish a library of packages for
-those modules. There are a default set of packages available for R when
-loaded from either the main applications library or from other
-installations on the IGMM paths but these are read-only meaning that for
-any customisation and installation of new packages, a separate library
-must be maintained and that the R options must be amended to point to
-this library. This can be done by creating a personal \texttt{.Rprofile}
-file in your home directory in Eddie which points to the Surgical
-Informatics Group Rlibrary.
+Once you have loaded modules that you will need for your analysis you may need to create new files or establish a library of packages for those modules. There are a default set of packages available for R when loaded from either the main applications library or from other installations on the IGMM paths but these are read-only meaning that for any customisation and installation of new packages, a separate library must be maintained and that the R options must be amended to point to this library. This can be done by creating a personal \texttt{.Rprofile} file in your home directory in Eddie which points to the Surgical Informatics Group Rlibrary.
 
-It is not advised to create a separate library in your own Eddie space
-as this will quickly use up your disc quota. Theoretically a separate
-installation of a package could be stored in your own space if working
-on developer edition or github branch / fork of a package.
+It is not advised to create a separate library in your own Eddie space as this will quickly use up your disc quota. Theoretically a separate installation of a package could be stored in your own space if working on developer edition or github branch / fork of a package.
 
 \hypertarget{working-with-r-in-eddie}{%
 \subsection{Working with R in Eddie}\label{working-with-r-in-eddie}}
@@ -1420,55 +1162,23 @@ on developer edition or github branch / fork of a package.
 \hypertarget{rprofile-file}{%
 \subsubsection{.Rprofile File}\label{rprofile-file}}
 
-When you load up R an \texttt{.Rprofile} file is sourced and anything
-contained within the file will be run for the current R session. This is
-particularly useful in Eddie because the defaults are not very helpful:
+When you load up R an \texttt{.Rprofile} file is sourced and anything contained within the file will be run for the current R session. This is particularly useful in Eddie because the defaults are not very helpful:
 
 \begin{itemize}
 \tightlist
 \item
-  The R package library is the Eddie default library which cannot be
-  added to
+  The R package library is the Eddie default library which cannot be added to
 \item
-  The CRAN mirror is not specified so every session will ask you to
-  select a new CRAN mirror to install packages in a temporary library
+  The CRAN mirror is not specified so every session will ask you to select a new CRAN mirror to install packages in a temporary library
 \end{itemize}
 
-The \texttt{.Rprofile} file also has other options which can be
-customised to improve how your current R session will run on Eddie.
-There are a number of possible customisations but be careful as not all
-are helpful if you end up collaborating with other research teams, some
-of these customisations such as \texttt{stringsAsFactors=FALSE} by
-default could be used in a project-specific \texttt{.Rprofile} file with
-caution but if you are working with another research group who rely on
-\texttt{read.csv} and have scripts established which assume that all
-strings are factors then having that customisation in your home
-directory may generate bugs when collaborating on projects.
+The \texttt{.Rprofile} file also has other options which can be customised to improve how your current R session will run on Eddie. There are a number of possible customisations but be careful as not all are helpful if you end up collaborating with other research teams, some of these customisations such as \texttt{stringsAsFactors=FALSE} by default could be used in a project-specific \texttt{.Rprofile} file with caution but if you are working with another research group who rely on \texttt{read.csv} and have scripts established which assume that all strings are factors then having that customisation in your home directory may generate bugs when collaborating on projects.
 
-R will automatically look for a \texttt{.Rprofile} file when R is
-started during each Eddie session and will look for this file in three
-places with an order of preference. The first place is the current
-working directory of a project so an \texttt{.Rprofile} file could be
-stored here to generate very specific customisations for a project if
-necessary. The next place it will look is in your own home directory
-(\texttt{/home/\textless{}UUN\textgreater{}/} or
-\texttt{/\textasciitilde{}/}), this is where you should create a
-\texttt{.Rprofile} file which will be your default for all sessions, it
-is recommended to use this sparingly but that certain key features are
-used such as setting up your main library location as the Surgical
-Informatics Group and setting up a default CRAN mirror e.g.~the RStudio
-CRAN mirror. Finally, if there is not a \texttt{.Rprofile} file here
-then R will attempt to source a file in the R home directory (found in R
-using \texttt{.R.home()}) and if there is no file here then no
-customisation will occur. Some servers also have a
-\texttt{.Rprofile.site} file although this is not currently present in
-Eddie.
+R will automatically look for a \texttt{.Rprofile} file when R is started during each Eddie session and will look for this file in three places with an order of preference. The first place is the current working directory of a project so an \texttt{.Rprofile} file could be stored here to generate very specific customisations for a project if necessary. The next place it will look is in your own home directory (\texttt{/home/\textless{}UUN\textgreater{}/} or \texttt{/\textasciitilde{}/}), this is where you should create a \texttt{.Rprofile} file which will be your default for all sessions, it is recommended to use this sparingly but that certain key features are used such as setting up your main library location as the Surgical Informatics Group and setting up a default CRAN mirror e.g.~the RStudio CRAN mirror. Finally, if there is not a \texttt{.Rprofile} file here then R will attempt to source a file in the R home directory (found in R using \texttt{.R.home()}) and if there is no file here then no customisation will occur. Some servers also have a \texttt{.Rprofile.site} file although this is not currently present in Eddie.
 
-\emph{Important}: Always leave the final line of an \texttt{.Rprofile}
-file blank.
+\emph{Important}: Always leave the final line of an \texttt{.Rprofile} file blank.
 
-A possible \texttt{.Rprofile} file for using in Eddie as part of the
-Surgical Informatics Group is:
+A possible \texttt{.Rprofile} file for using in Eddie as part of the Surgical Informatics Group is:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1520,39 +1230,16 @@ Surgical Informatics Group is:
 \end{Highlighting}
 \end{Shaded}
 
-The above configuration should generate minimal portability issues when
-working on other projects.
+The above configuration should generate minimal portability issues when working on other projects.
 
-There are a few explanations of the benefits and side effects of having
-a \texttt{.Rprofile} file as well as ways to temporarily mask them for
-specific projects which will be shared with other collaborators in this
-blog post:
-\url{https://www.r-bloggers.com/fun-with-Rprofile-and-customizing-r-startup/}.
+There are a few explanations of the benefits and side effects of having a \texttt{.Rprofile} file as well as ways to temporarily mask them for specific projects which will be shared with other collaborators in this blog post: \url{https://www.r-bloggers.com/fun-with-Rprofile-and-customizing-r-startup/}.
 
-Should you wish to have an entire directory of startup files (e.g.~one
-file for CRAN, one file for library, one file for custom function etc.
-etc.) so that segments of the customisation can be shared quickly
-without modifying / dropping all of the other elements of the
-\texttt{.Rprofile} file then this is described here:
-\url{https://cran.r-project.org/web/packages/startup/vignettes/startup-intro.html}.
-This relies on the \texttt{startup} package. Other options such as
-having secure directories with GitHub tokens and other content which is
-protected from access by other Eddie users is also discussed there.
+Should you wish to have an entire directory of startup files (e.g.~one file for CRAN, one file for library, one file for custom function etc. etc.) so that segments of the customisation can be shared quickly without modifying / dropping all of the other elements of the \texttt{.Rprofile} file then this is described here: \url{https://cran.r-project.org/web/packages/startup/vignettes/startup-intro.html}. This relies on the \texttt{startup} package. Other options such as having secure directories with GitHub tokens and other content which is protected from access by other Eddie users is also discussed there.
 
 \hypertarget{creating-an-.rprofile-file}{%
-\subsubsection{Creating an .Rprofile
-File}\label{creating-an-.rprofile-file}}
+\subsubsection{Creating an .Rprofile File}\label{creating-an-.rprofile-file}}
 
-When you first use Eddie there will not be any \texttt{.Rprofile} file
-generated by default and a blank file will need to be created. This can
-be done by entering the following into the terminal after loading R. To
-load R enter \texttt{module\ load\ R/3.5.3} (or the currently available
-R versions seen on \texttt{module\ avail}) into the terminal followed by
-\texttt{R}. This will start an active R session. Then enter the
-following code (please do not change the path to the shared group
-folder! If you need to change the path to a project be sure to include
-the subdirectory otherwise R will use your \texttt{.Rprofile} file for
-all SurgInfGrp users which won't be popular):
+When you first use Eddie there will not be any \texttt{.Rprofile} file generated by default and a blank file will need to be created. This can be done by entering the following into the terminal after loading R. To load R enter \texttt{module\ load\ R/3.5.3} (or the currently available R versions seen on \texttt{module\ avail}) into the terminal followed by \texttt{R}. This will start an active R session. Then enter the following code (please do not change the path to the shared group folder! If you need to change the path to a project be sure to include the subdirectory otherwise R will use your \texttt{.Rprofile} file for all SurgInfGrp users which won't be popular):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1560,31 +1247,16 @@ all SurgInfGrp users which won't be popular):
 \end{Highlighting}
 \end{Shaded}
 
-This will create a blank \texttt{.Rprofile} file in your home directory
-on Eddie which should be edited to customise the R configuration.
+This will create a blank \texttt{.Rprofile} file in your home directory on Eddie which should be edited to customise the R configuration.
 
-In order to edit the file it is suggested that you use the nano
-Unix-based editor. Firstly quit the current R session as that has not
-yet been configured to use the editor. Enter \texttt{q()} as you would
-normally do when closing R and enter \texttt{n} if asked about saving
-workspace image.
+In order to edit the file it is suggested that you use the nano Unix-based editor. Firstly quit the current R session as that has not yet been configured to use the editor. Enter \texttt{q()} as you would normally do when closing R and enter \texttt{n} if asked about saving workspace image.
 
-Navigagte to your home directory and using \texttt{ls\ -a} you should
-see the \texttt{.Rprofile} file which is currently blank.
+Navigagte to your home directory and using \texttt{ls\ -a} you should see the \texttt{.Rprofile} file which is currently blank.
 
 \hypertarget{renviron-file}{%
 \subsubsection{.Renviron File}\label{renviron-file}}
 
-In addition to changing the \texttt{.Rprofile} file you will most likely
-need to change the \texttt{.Renviron} file. The default for this is
-probably located in the R home directory which may be
-\texttt{/exports/applications/apps/SL7/R/3.5.3/lib64/R/etc/}. The
-\texttt{.Renviron} file is searched for in the same order by R as the
-\texttt{.Rprofile} file with R first aiming to find the file in the
-project directory and if not able to find it there looking in the user
-home directory and finally looking to the R home directory. To copy the
-\texttt{Renviron} file in the R home directory into a \texttt{.Renviron}
-file in your home directory enter the following code in the terminal:
+In addition to changing the \texttt{.Rprofile} file you will most likely need to change the \texttt{.Renviron} file. The default for this is probably located in the R home directory which may be \texttt{/exports/applications/apps/SL7/R/3.5.3/lib64/R/etc/}. The \texttt{.Renviron} file is searched for in the same order by R as the \texttt{.Rprofile} file with R first aiming to find the file in the project directory and if not able to find it there looking in the user home directory and finally looking to the R home directory. To copy the \texttt{Renviron} file in the R home directory into a \texttt{.Renviron} file in your home directory enter the following code in the terminal:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1593,8 +1265,7 @@ file in your home directory enter the following code in the terminal:
 \end{Highlighting}
 \end{Shaded}
 
-The following is a reasonable starting point for the \texttt{.Renviron}
-file in your own profile:
+The following is a reasonable starting point for the \texttt{.Renviron} file in your own profile:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1657,10 +1328,7 @@ file in your own profile:
 \end{Highlighting}
 \end{Shaded}
 
-The \texttt{.Renviron} file can be copied to specific projects when
-specific R files / directories (or files / directories for other
-languages) are needed to run a particular analysis. For example, to use
-the GCC compiler from IGMM the following could be added to the file:
+The \texttt{.Renviron} file can be copied to specific projects when specific R files / directories (or files / directories for other languages) are needed to run a particular analysis. For example, to use the GCC compiler from IGMM the following could be added to the file:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1670,20 +1338,12 @@ the GCC compiler from IGMM the following could be added to the file:
 \end{Highlighting}
 \end{Shaded}
 
-The \texttt{.Rprofile} files and \texttt{.Renviron} files should be as
-generic as possible in your own profile so as to avoid issues when
-sharing scripts. They can be tailored for specific projects when needed
-in the local working directory. Typically this should be to alter the
-paths to directories etc. and not to create bespoke functions which
-should be done in scripts.
+The \texttt{.Rprofile} files and \texttt{.Renviron} files should be as generic as possible in your own profile so as to avoid issues when sharing scripts. They can be tailored for specific projects when needed in the local working directory. Typically this should be to alter the paths to directories etc. and not to create bespoke functions which should be done in scripts.
 
 \hypertarget{specific-r-package-versions}{%
-\subsection{Specific R Package
-Versions}\label{specific-r-package-versions}}
+\subsection{Specific R Package Versions}\label{specific-r-package-versions}}
 
-When working with other teams it is often necessary to work with
-particular R package versions. One effective way to ensure you do this
-is using the remotes package:
+When working with other teams it is often necessary to work with particular R package versions. One effective way to ensure you do this is using the remotes package:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1695,20 +1355,12 @@ is using the remotes package:
 \hypertarget{general-eddie-etiquette}{%
 \subsection{General Eddie Etiquette}\label{general-eddie-etiquette}}
 
-Don't overwrite or change other users files without permission and set
-up your own files to prevent others doing that if appropriate. Please
-don't leave configuration files like \texttt{.Renviron} files in the
-shared space as this can play havoc with other users R tasks in Eddie -
-if you need a particular configuration (e.g.~a default package library
-for a project) then best to leave the config files in the directory for
-that project (or in your own home directory).
+Don't overwrite or change other users files without permission and set up your own files to prevent others doing that if appropriate. Please don't leave configuration files like \texttt{.Renviron} files in the shared space as this can play havoc with other users R tasks in Eddie - if you need a particular configuration (e.g.~a default package library for a project) then best to leave the config files in the directory for that project (or in your own home directory).
 
 \hypertarget{unix-tutorials}{%
 \section{Unix Tutorials}\label{unix-tutorials}}
 
-The University Digital Skills Framework offers a three-part tutorial
-covering Unix which is free. If you use a lot of Eddie etc. this may be
-helpful:\url{https://www.digitalskills.ed.ac.uk/all-resources/?wdt_column_filter\%5B1\%5D=Classroom}
+The University Digital Skills Framework offers a three-part tutorial covering Unix which is free. If you use a lot of Eddie etc. this may be helpful:\url{https://www.digitalskills.ed.ac.uk/all-resources/?wdt_column_filter\%5B1\%5D=Classroom}
 
 \hypertarget{plotting}{%
 \chapter{Plotting}\label{plotting}}
@@ -1716,10 +1368,7 @@ helpful:\url{https://www.digitalskills.ed.ac.uk/all-resources/?wdt_column_filter
 \hypertarget{gghighlight-example}{%
 \section{GGHighlight Example}\label{gghighlight-example}}
 
-Plotting with gghighlight is pretty awesome allowing you to filter on
-any variable. It seems that gghighlight overwrites any `colour' variable
-you put in the main aes. To get round this and have labels, save as a
-plot and add geom\_label\_repel separately.
+Plotting with gghighlight is pretty awesome allowing you to filter on any variable. It seems that gghighlight overwrites any `colour' variable you put in the main aes. To get round this and have labels, save as a plot and add geom\_label\_repel separately.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1727,7 +1376,6 @@ plot and add geom\_label\_repel separately.
 \KeywordTok{library}\NormalTok{(ggrepel)}
 
 \NormalTok{mydata=gapminder}
-
 
 \NormalTok{plot =}\StringTok{ }\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{filter}\NormalTok{(year }\OperatorTok{==}\StringTok{ "2002"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
@@ -1742,6 +1390,53 @@ plot and add geom\_label\_repel separately.
 \end{Shaded}
 
 \includegraphics{cookbook_files/figure-latex/gghighlight-1.pdf}
+
+\hypertarget{coord_flip-factor-orders}{%
+\section{\texorpdfstring{\texttt{coord\_flip()} factor orders}{coord\_flip() factor orders}}\label{coord_flip-factor-orders}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+
+\CommentTok{# unflipped (yes this plot has no purpose :)}
+\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ continent, }\DataTypeTok{fill =} \KeywordTok{factor}\NormalTok{(year))) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{cookbook_files/figure-latex/unnamed-chunk-37-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# flipped}
+\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{fct_rev}\NormalTok{(continent), }\DataTypeTok{fill =} \KeywordTok{factor}\NormalTok{(year))) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{coord_flip}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_fill_discrete}\NormalTok{(}\DataTypeTok{breaks =}\NormalTok{ rev) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{fill =} \KeywordTok{guide_legend}\NormalTok{(}\DataTypeTok{reverse =} \OtherTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{cookbook_files/figure-latex/unnamed-chunk-37-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{## This is actually the same as the previous plot so is achieving the aim. }
+\CommentTok{## But the unflipped plot isn't that great given the order of the year}
+\CommentTok{## Hence why wanting to flip}
+
+\CommentTok{# Other flipped}
+\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{fct_rev}\NormalTok{(continent), }\DataTypeTok{fill =} \KeywordTok{fct_rev}\NormalTok{(}\KeywordTok{factor}\NormalTok{(year)))) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{coord_flip}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_fill_discrete}\NormalTok{(}\DataTypeTok{breaks =}\NormalTok{ rev)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{cookbook_files/figure-latex/unnamed-chunk-37-3.pdf}
 
 \hypertarget{axis-font-size}{%
 \section{Axis font size}\label{axis-font-size}}
@@ -1770,7 +1465,7 @@ plot and add geom\_label\_repel separately.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{cookbook_files/figure-latex/unnamed-chunk-37-1.pdf}
+\includegraphics{cookbook_files/figure-latex/unnamed-chunk-38-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1788,8 +1483,8 @@ plot and add geom\_label\_repel separately.
 
 Same plot 5x4 inches vs 10x8 inches:
 
-\includegraphics[width=0.5\linewidth]{/home/rots/cookbook/img/barplot_5x4}
-\includegraphics[width=0.5\linewidth]{/home/rots/cookbook/img/barplot_10x8}
+\includegraphics[width=0.5\linewidth]{/home/eharrison/cookbook/img/barplot_5x4}
+\includegraphics[width=0.5\linewidth]{/home/eharrison/cookbook/img/barplot_10x8}
 
 \hypertarget{genomics}{%
 \chapter{Genomics}\label{genomics}}
@@ -1798,15 +1493,9 @@ Same plot 5x4 inches vs 10x8 inches:
 \section{Single Cell Analysis}\label{single-cell-analysis}}
 
 \hypertarget{minimising-the-size-of-a-seurat-object}{%
-\subsection{Minimising the size of a Seurat
-Object}\label{minimising-the-size-of-a-seurat-object}}
+\subsection{Minimising the size of a Seurat Object}\label{minimising-the-size-of-a-seurat-object}}
 
-Single cell analyses are ofetn collated in Seurat objects which can be
-huge. We reduced the size of our Seurat object by pulling the relevant
-sections using the code below reducing the object to \textless{}20\% of
-its original size. This works by only including the sparse matrices.
-This is not a workable example, but the PBMC dataset could be used if
-necessary.
+Single cell analyses are ofetn collated in Seurat objects which can be huge. We reduced the size of our Seurat object by pulling the relevant sections using the code below reducing the object to \textless{}20\% of its original size. This works by only including the sparse matrices. This is not a workable example, but the PBMC dataset could be used if necessary.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1848,32 +1537,16 @@ necessary.
 \hypertarget{what-is-rlang}{%
 \subsection{What is rlang?}\label{what-is-rlang}}
 
-rlang is a low-level programming API for R which the tidyverse uses
-(meaning it speaks to R in as R like way as possible, rather than a
-`high-level' - high level is more user orientated and interpretable). It
-enables you to extend what the tidyverse can do and adapt it for your
-own uses. It's particularly good to use if you're doing lots of more
-`programming' type R work, for example, building a package, making a
-complex shiny app or writing functions. It might also be handy if you're
-doing lots of big data manipulation and want to manipulate different
-datasets in the same way, for example.
+rlang is a low-level programming API for R which the tidyverse uses (meaning it speaks to R in as R like way as possible, rather than a `high-level' - high level is more user orientated and interpretable). It enables you to extend what the tidyverse can do and adapt it for your own uses. It's particularly good to use if you're doing lots of more `programming' type R work, for example, building a package, making a complex shiny app or writing functions. It might also be handy if you're doing lots of big data manipulation and want to manipulate different datasets in the same way, for example.
 
 In this chapter we'll discuss some uses of it.
 
 \hypertarget{dynamic-calling-of-variables-using-dplyr}{%
-\subsection{Dynamic calling of variables using
-dplyr}\label{dynamic-calling-of-variables-using-dplyr}}
+\subsection{Dynamic calling of variables using dplyr}\label{dynamic-calling-of-variables-using-dplyr}}
 
-In this example, say we have a tibble of variables, but we want to apply
-dynamic changes to it (so we feed R a variable, that can change, either
-using another function like \texttt{purr::map} or in a ShinyApp). In
-this instance, specifying each variable and each different possible
-consequence using different logical functions would take forever and be
-very clunky. So we can use rlang to simply put a dynamic variable/object
-through the same function.
+In this example, say we have a tibble of variables, but we want to apply dynamic changes to it (so we feed R a variable, that can change, either using another function like \texttt{purr::map} or in a ShinyApp). In this instance, specifying each variable and each different possible consequence using different logical functions would take forever and be very clunky. So we can use rlang to simply put a dynamic variable/object through the same function.
 
-We'll use an example where we want to summarise by different outcomes in
-a dynamic way.
+We'll use an example where we want to summarise by different outcomes in a dynamic way.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1922,6 +1595,5 @@ a dynamic way.
 \end{Shaded}
 
 \bibliography{book.bib,packages.bib}
-
 
 \end{document}
