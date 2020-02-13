@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Data Transfer and Eddie | The Surgical Informatics Cookbook</title>
+  <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Data Transfer and Eddie | The Surgical Informatics Cookbook" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="All the brilliant bits of code we don’t want to forget." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Data Transfer and Eddie | The Surgical Informatics Cookbook" />
+  
+  <meta name="twitter:description" content="All the brilliant bits of code we don’t want to forget." />
+  
+
+<meta name="author" content="Surgical Informatics, University of Edinburgh" />
+
+
+<meta name="date" content="2020-02-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="machine-learning.html">
+<link rel="next" href="plotting.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">The Surgical Informatics Cookbook</a></li>
+
+<li class="divider"></li>
+<li><a href="index.html#section"></a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#how-to-contribute"><i class="fa fa-check"></i><b>1.1</b> How to contribute</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#indexing"><i class="fa fa-check"></i><b>1.2</b> Indexing</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="intro.html"><a href="intro.html#index"><i class="fa fa-check"></i><b>1.2.1</b> Index</a></li>
+<li class="chapter" data-level="1.2.2" data-path="intro.html"><a href="intro.html#chapter-and-section-references"><i class="fa fa-check"></i><b>1.2.2</b> Chapter and section references</a></li>
+<li class="chapter" data-level="1.2.3" data-path="intro.html"><a href="intro.html#figure-and-table-references"><i class="fa fa-check"></i><b>1.2.3</b> Figure and table references</a></li>
+<li class="chapter" data-level="1.2.4" data-path="intro.html"><a href="intro.html#citations"><i class="fa fa-check"></i><b>1.2.4</b> Citations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="snippets.html"><a href="snippets.html"><i class="fa fa-check"></i><b>2</b> Snippets</a><ul>
+<li class="chapter" data-level="2.1" data-path="snippets.html"><a href="snippets.html#creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker"><i class="fa fa-check"></i><b>2.1</b> Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="snippets.html"><a href="snippets.html#create-basic-reproducible-examples"><i class="fa fa-check"></i><b>2.1.1</b> Create Basic Reproducible Examples</a></li>
+<li class="chapter" data-level="2.1.2" data-path="snippets.html"><a href="snippets.html#holepunch---complex-reproducible-examples"><i class="fa fa-check"></i><b>2.1.2</b> <code>holepunch</code> - Complex Reproducible Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#working-with-chis"><i class="fa fa-check"></i><b>2.2</b> Working with CHIs</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="snippets.html"><a href="snippets.html#chi_dob---extract-date-of-birth-from-chi"><i class="fa fa-check"></i><b>2.2.1</b> <code>chi_dob()</code> - Extract date of birth from CHI</a></li>
+<li class="chapter" data-level="2.2.2" data-path="snippets.html"><a href="snippets.html#chi_gender---extract-gender-from-chi"><i class="fa fa-check"></i><b>2.2.2</b> <code>chi_gender()</code> - Extract gender from CHI</a></li>
+<li class="chapter" data-level="2.2.3" data-path="snippets.html"><a href="snippets.html#chi_age---extract-age-from-chi"><i class="fa fa-check"></i><b>2.2.3</b> <code>chi_age()</code> - Extract age from CHI</a></li>
+<li class="chapter" data-level="2.2.4" data-path="snippets.html"><a href="snippets.html#chi_valid---logical-test-for-valid-chi"><i class="fa fa-check"></i><b>2.2.4</b> <code>chi_valid()</code> - Logical test for valid CHI</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.3</b> Working with dates</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.3.1</b> Difference between two dates</a></li>
+<li class="chapter" data-level="2.3.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.3.2</b> Lags</a></li>
+<li class="chapter" data-level="2.3.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.3.3</b> Pulling out “change in status” data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-manipulation.html"><a href="data-manipulation.html#collapse-multiple-no-and-yes-options"><i class="fa fa-check"></i><b>3.1</b> Collapse multiple “no” and “yes” options</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>4</b> Machine learning</a><ul>
+<li class="chapter" data-level="4.1" data-path="machine-learning.html"><a href="machine-learning.html#deep-learning"><i class="fa fa-check"></i><b>4.1</b> Deep learning</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="machine-learning.html"><a href="machine-learning.html#pulling-images-from-redcap-directly-to-argodeep"><i class="fa fa-check"></i><b>4.1.1</b> Pulling images from REDCap directly to argodeep</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html"><i class="fa fa-check"></i><b>5</b> Data Transfer and Eddie</a><ul>
+<li class="chapter" data-level="5.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#uploading-and-downloading-data-the-easy-way"><i class="fa fa-check"></i><b>5.1</b> Uploading and Downloading Data the Easy Way</a></li>
+<li class="chapter" data-level="5.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#alternative-methods-when-the-easy-way-wont-work"><i class="fa fa-check"></i><b>5.2</b> Alternative Methods when the Easy Way won’t work</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#what-is-eddie"><i class="fa fa-check"></i><b>5.2.1</b> What is Eddie?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#using-the-command-line"><i class="fa fa-check"></i><b>5.3</b> Using the Command Line</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#downloads-and-setup---eddie-example"><i class="fa fa-check"></i><b>5.3.1</b> Downloads and Setup - Eddie Example</a></li>
+<li class="chapter" data-level="5.3.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#copy-and-paste-with-putty"><i class="fa fa-check"></i><b>5.3.2</b> Copy and Paste with PuTTY</a></li>
+<li class="chapter" data-level="5.3.3" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#closing-a-session-in-putty"><i class="fa fa-check"></i><b>5.3.3</b> Closing a Session in PuTTY</a></li>
+<li class="chapter" data-level="5.3.4" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#eddie-file-structure"><i class="fa fa-check"></i><b>5.3.4</b> Eddie File Structure</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#copying-data-from-eddie-into-rstudio-server"><i class="fa fa-check"></i><b>5.4</b> Copying Data from Eddie into RStudio server</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#method-1-using-putty-or-another-terminalshell-connected-to-eddie"><i class="fa fa-check"></i><b>5.4.1</b> Method 1: Using PuTTY (or another terminal/shell connected to Eddie)</a></li>
+<li class="chapter" data-level="5.4.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#method-2-using-the-rstudio-server-terminal"><i class="fa fa-check"></i><b>5.4.2</b> Method 2: Using the RStudio Server Terminal</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#the-surgical-informatics-group-folder-on-eddie"><i class="fa fa-check"></i><b>5.5</b> The Surgical Informatics Group Folder (On Eddie)</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#the-scratch-space"><i class="fa fa-check"></i><b>5.5.1</b> The Scratch Space</a></li>
+<li class="chapter" data-level="5.5.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#other-spaces"><i class="fa fa-check"></i><b>5.5.2</b> Other Spaces</a></li>
+<li class="chapter" data-level="5.5.3" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#running-eddie-from-rstudio-server"><i class="fa fa-check"></i><b>5.5.3</b> Running Eddie from RStudio Server</a></li>
+<li class="chapter" data-level="5.5.4" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#modules-applications-in-eddie"><i class="fa fa-check"></i><b>5.5.4</b> Modules (Applications) in Eddie</a></li>
+<li class="chapter" data-level="5.5.5" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#working-with-r-in-eddie"><i class="fa fa-check"></i><b>5.5.5</b> Working with R in Eddie</a></li>
+<li class="chapter" data-level="5.5.6" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#specific-r-package-versions"><i class="fa fa-check"></i><b>5.5.6</b> Specific R Package Versions</a></li>
+<li class="chapter" data-level="5.5.7" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#general-eddie-etiquette"><i class="fa fa-check"></i><b>5.5.7</b> General Eddie Etiquette</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#unix-tutorials"><i class="fa fa-check"></i><b>5.6</b> Unix Tutorials</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>6</b> Plotting</a><ul>
+<li class="chapter" data-level="6.1" data-path="plotting.html"><a href="plotting.html#gghighlight-example"><i class="fa fa-check"></i><b>6.1</b> GGHighlight Example</a></li>
+<li class="chapter" data-level="6.2" data-path="plotting.html"><a href="plotting.html#coord_flip-factor-orders"><i class="fa fa-check"></i><b>6.2</b> <code>coord_flip()</code> factor orders</a></li>
+<li class="chapter" data-level="6.3" data-path="plotting.html"><a href="plotting.html#axis-font-size"><i class="fa fa-check"></i><b>6.3</b> Axis font size</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="genomics.html"><a href="genomics.html"><i class="fa fa-check"></i><b>7</b> Genomics</a><ul>
+<li class="chapter" data-level="7.1" data-path="genomics.html"><a href="genomics.html#single-cell-analysis"><i class="fa fa-check"></i><b>7.1</b> Single Cell Analysis</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="genomics.html"><a href="genomics.html#minimising-the-size-of-a-seurat-object"><i class="fa fa-check"></i><b>7.1.1</b> Minimising the size of a Seurat Object</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html"><i class="fa fa-check"></i><b>8</b> Programming in rlang</a><ul>
+<li class="chapter" data-level="8.1" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html#rlang"><i class="fa fa-check"></i><b>8.1</b> rlang</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html#what-is-rlang"><i class="fa fa-check"></i><b>8.1.1</b> What is rlang?</a></li>
+<li class="chapter" data-level="8.1.2" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html#dynamic-calling-of-variables-using-dplyr"><i class="fa fa-check"></i><b>8.1.2</b> Dynamic calling of variables using dplyr</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Surgical Informatics Cookbook</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-transfer-and-eddie" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Data Transfer and Eddie</h1>
+<p>Often it is necessary to transfer data into and out of RStudio server. This can be done from personal laptops (as long as you have permission for the data!), university supported desktops, Eddie and a number of other devices or servers.</p>
+<div id="uploading-and-downloading-data-the-easy-way" class="section level2">
+<h2><span class="header-section-number">5.1</span> Uploading and Downloading Data the Easy Way</h2>
+<p>Often the GUI in RStudio is sufficient. In the <code>Files</code> pane click upload to move data from your current computer into RStudio server. To download select the file and then click <code>More &gt; Export</code>. As always this should be done only when appropriate.</p>
+<p>Sometimes this isn’t possible either with large files or files stored remotely on other servers such as Eddie.</p>
+</div>
+<div id="alternative-methods-when-the-easy-way-wont-work" class="section level2">
+<h2><span class="header-section-number">5.2</span> Alternative Methods when the Easy Way won’t work</h2>
+<div id="what-is-eddie" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> What is Eddie?</h3>
+<p>Eddie Mark 3 is the third iteration of the University’s compute cluster and is available to all University of Edinburgh researchers. It consists of some 7000 Intel® Xeon® cores with up to 3 TB of memory available per compute node.</p>
+<p>The surgical informatics group has a shared folder in the Eddie cluster which can be accessed to store data and perform analyses which might be too large or complex for RStudio server. Every task in Eddie is controlled through the command line interface - those familiar with Linux/Unix will be familiar with this.</p>
+</div>
+</div>
+<div id="using-the-command-line" class="section level2">
+<h2><span class="header-section-number">5.3</span> Using the Command Line</h2>
+<p>Sometimes the command line is the only possible way to copy data to and from RStudio server. Argonaut and Argosafe are <code>SSH</code>-enabled (Secure SHell) meaning that you can securely copy data to and from them using the command line editor on another device. It is also possible to use the RStudio terminal to copy to another device or server that is <code>SSH</code>-enabled although this isn’t currently recommended due to issues with RStudio server’s websockets (when you type in the terminal you have to do so very slowly for characters to appear in the right order or you have to use a script - described below).</p>
+<p>First, if you don’t have a command line editor or SSH client installed (often the case for earlier Windows versions although there is talk of a native client becoming default) then you will need to install one. For working on a Windows device generally PuTTY is the recommended SSH client (allows you connect to other servers) and a reasonable command line editor to work with files on the local device is GitBash.</p>
+<div id="downloads-and-setup---eddie-example" class="section level3">
+<h3><span class="header-section-number">5.3.1</span> Downloads and Setup - Eddie Example</h3>
+<ol style="list-style-type: decimal">
+<li>Make sure you have the University VPN downloaded for your own computer to access Eddie if needed. The link is at: <a href="https://www.ed.ac.uk/information-services/computing/desktop-personal/vpn/vpn-service-using" class="uri">https://www.ed.ac.uk/information-services/computing/desktop-personal/vpn/vpn-service-using</a>. It is the Cisco Connect Any Client which logs into the VPN (the password should be different to your EASE password).<br />
+</li>
+<li>Download the PuTTY terminal software: <a href="https://www.putty.org/" class="uri">https://www.putty.org/</a>.</li>
+</ol>
+<p>Open up PuTTY and you will see a configuration screen. On this screen make sure to enter <code>eddie3.ecdf.ed.ac.uk</code> into the box and tick SSH as your method for connection. The PuTTY terminal will launch (assuming you are connected to the University VPN already) and ask <code>login as</code> at which point you should enter your EASE username. You will then be asked for your EASE password and you should now see that you are logged into Eddie3.</p>
+<p>If you are logging in from RStudio Server or another terminal software you should enter on the command line:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="fu">ssh</span> <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie3.ecdf.ed.ac.uk</a></code></pre></div>
+<p><UUN> is your university username for EASE. You will then be asked for your password.</p>
+<p>More information on Eddie basics can also be found at: <a href="https://www.wiki.ed.ac.uk/display/ResearchServices/Quickstart" class="uri">https://www.wiki.ed.ac.uk/display/ResearchServices/Quickstart</a>.</p>
+</div>
+<div id="copy-and-paste-with-putty" class="section level3">
+<h3><span class="header-section-number">5.3.2</span> Copy and Paste with PuTTY</h3>
+<p>Like many other command line interfaces PuTTY can be made to work more easily with copy and paste. This is done simply through highlighting and clicking and not with traditional <code>ctrl-c</code> and <code>ctrl-v</code> commands like typical word processors.</p>
+<p><strong>To copy text from PuTTY</strong>: Highlight the text. That’s it! No need to click anything or type / press anything, highlighting is enough. You can then paste the text elsewhere.</p>
+<p><strong>To copy text into PuTTY</strong>: Once you’ve copied text (either by highlighting in PuTTY itself or by using <code>ctrl-c</code> in another programme, just right-click. The text will appear at the command line. If you copy several lines separated by <code>\newline</code> then PuTTY will run each line up until the last one copied and leave the last line at the command line (if you highlight large sections of text in PuTTY and right-click it will try to run all of them).</p>
+</div>
+<div id="closing-a-session-in-putty" class="section level3">
+<h3><span class="header-section-number">5.3.3</span> Closing a Session in PuTTY</h3>
+<p>To close a session use <code>ctrl-d</code>.</p>
+</div>
+<div id="eddie-file-structure" class="section level3">
+<h3><span class="header-section-number">5.3.4</span> Eddie File Structure</h3>
+<p>Once you have logged into Eddie there are several directories (folders/places) where you can store and manipulate files. Moving between these directories is usually done using the <code>cd</code> command. The same idea is applicable to your own machine</p>
+<p>When you first log in you will default to your home directory. In order to see the “path” to that directory enter the command:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="bu">pwd</span></a></code></pre></div>
+<p>The terminal should print out something like:</p>
+<pre><code>/home/&lt;UUN&gt;</code></pre>
+<p>To get back to this directory at any point enter one of the following (they are both equivalent):</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="bu">cd</span> /home/<span class="op">&lt;</span>UUN<span class="op">&gt;</span></a></code></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="bu">cd</span> ~</a></code></pre></div>
+<p>When inside your home folder to see any of the files or subdirectories in your home directory enter:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="fu">ls</span> -a</a></code></pre></div>
+<p>The <code>-a</code> argument to ls shows hidden files which begin with a <code>.</code> such as <code>.Renviron</code> if you have created this. There are several other arguments which can be passed to ls such as <code>-l</code> which will should the permissions for the file or subdirectory. When using the <code>-l</code> argument the files start with <code>-</code> and are followed by 7 characters or <code>-</code> which explain whether different groups of people can write, read or execute the files. The first three are for the file owner, the next three for the group and the next three for any else with access to the directory. For example the following printed after running <code>ls -l</code> would indicate that the owner could read, write and execute a file, the group could read and execute it and that others could only read it:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="ex">-rwxr-xr--</span> ... ... ... ... my_file.txt</a></code></pre></div>
+</div>
+</div>
+<div id="copying-data-from-eddie-into-rstudio-server" class="section level2">
+<h2><span class="header-section-number">5.4</span> Copying Data from Eddie into RStudio server</h2>
+<div id="method-1-using-putty-or-another-terminalshell-connected-to-eddie" class="section level3">
+<h3><span class="header-section-number">5.4.1</span> Method 1: Using PuTTY (or another terminal/shell connected to Eddie)</h3>
+<p>To copy data from another server or device into RStudio Server use the following code in the command line editor (e.g. PuTTY, GitBash etc.):</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="fu">scp</span> <span class="op">&lt;</span>file_path_on_other_device_or_server<span class="op">&gt;</span>new_file.txt <span class="op">&lt;</span>RStudio_Server_Username<span class="op">&gt;</span>@argonaut.is.ed.ac.uk:<span class="op">&lt;</span>RStudio_path<span class="op">&gt;</span>/<span class="op">&lt;</span>project_directory<span class="op">&gt;</span>/</a></code></pre></div>
+<p>You will be asked for your RStudio server (Argonaut etc.) password. If you are unsure of the file path enter <code>pwd</code> when you are working in the directory with the file before copying and pasting.</p>
+<p>If you are not sure of the path to the directory in which you wish to copy the data to or from then use <code>getwd()</code> in RStudio when inside the project you wish to copy to (you many need to add a subdirectory folder to the <code>getwd()</code> output if you are using subdirectories in your RStudio projects).</p>
+<p>The <code>scp</code> command will work with Argonaut and Argosafe as the ability to allow SSH connections has been activated. This may need to be established separately for other RStudio servers within the department.</p>
+</div>
+<div id="method-2-using-the-rstudio-server-terminal" class="section level3">
+<h3><span class="header-section-number">5.4.2</span> Method 2: Using the RStudio Server Terminal</h3>
+<p>To use the RStudio server terminal to copy data in and out of Eddie do not SSH into Eddie as described above but instead use the <code>scp</code> command. If you are using RStudio’s terminal for accessing Eddie instead of PuTTY or something equivalent then you will need to either temporarily disconnect from Eddie (<code>ctrl-d</code>) or open a new terminal if using RStudio server Pro which allows multiple terminals.</p>
+<p>In the terminal enter the following command to copy a single file from Eddie into RStudio server from a project subdirectory in the SurgInfGrp directory:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="fu">scp</span> <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie3.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/<span class="op">&lt;</span>project_subdirectory<span class="op">&gt;</span>/my_file.txt /home/<span class="op">&lt;</span>RStudio_Server_Username<span class="op">&gt;</span>/<span class="op">&lt;</span>RStudio_Project<span class="op">&gt;</span>/</a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb55-3" data-line-number="3"><span class="co"># Or adapt to copy entire directory contents (drop the * to copy the directory/folder as well as the contents)</span></a>
+<a class="sourceLine" id="cb55-4" data-line-number="4"><span class="fu">scp</span> -r <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie3.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/<span class="op">&lt;</span>project_subdirectory<span class="op">&gt;</span>/* /home/<span class="op">&lt;</span>RStudio_Server_Username<span class="op">&gt;</span>/<span class="op">&lt;</span>RStudio_Project<span class="op">&gt;</span>/</a></code></pre></div>
+<p>On entering the command to the terminal you will be asked to enter your EASE password (type this slowly if using RStudio Server Pro prior to web sockets issue being fixed). In order to move data in the other direction simply change the order of the file paths.</p>
+</div>
+</div>
+<div id="the-surgical-informatics-group-folder-on-eddie" class="section level2">
+<h2><span class="header-section-number">5.5</span> The Surgical Informatics Group Folder (On Eddie)</h2>
+<p>To get to the Surgical Informatics shared group directory enter:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="bu">cd</span> /exports/cmvm/eddie/edmed/groups/SurgInfGrp</a></code></pre></div>
+<p>If you don’t have access then Riinu or Ewen can provide this as they have admin rights.</p>
+<p>This directory should be the place to store any group projects or apps or other files which are somewhat (but not very) large. The group space has 200GB of memory allocated by default which is much greater than your home directory (10GB) but much less than the group space on the datastore which is up to 1TB. The group space should be used to store bulk files which can be staged into Eddie for an active session but will not be permanently stored in Eddie.</p>
+<div id="the-scratch-space" class="section level3">
+<h3><span class="header-section-number">5.5.1</span> The Scratch Space</h3>
+<p>Your own personal scratch space is where you should work on active projects during a session after staging them in from the datastore and/or shared Surgical Informatics group directory. The scratch space has 2TB of storage per user but this is cleaned up after one month. This means large datasets can be analysed here but not stored in the long-term. To find your own personal scratch space enter:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="bu">cd</span> /exports/eddie/scratch/<span class="op">&lt;</span>UUN<span class="op">&gt;</span></a></code></pre></div>
+<p>Finally there is also a temporary directory ($TMPDIR) which is only present and accessible whilst a job is running in Eddie. This has 1TB of available storage.</p>
+</div>
+<div id="other-spaces" class="section level3">
+<h3><span class="header-section-number">5.5.2</span> Other Spaces</h3>
+<p>Occasionally group members may have access to other directories to share / collaborate on projects. These are most often found at the path: <code>cd /exports/&lt;COLLEGE&gt;/eddie/&lt;SCHOOL&gt;/groups/&lt;GROUP&gt;</code> although for IGMM it may be: <code>cd /exports/igmm/eddie/&lt;GROUP&gt;</code>.</p>
+</div>
+<div id="running-eddie-from-rstudio-server" class="section level3">
+<h3><span class="header-section-number">5.5.3</span> Running Eddie from RStudio Server</h3>
+<p>It is possible to log in to Eddie from RStudio server and use Shell Scripts stored in RStudio to perform tasks in Eddie. This may be helpful if you plan to modify shell scripts a lot and want to have the benefit of the RStudio interface. <code>ctrl-alt-enter</code> sends data to the terminal in the same way that it would the console without the <code>alt</code>.</p>
+<p>To connect initially enter:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="fu">ssh</span> <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie3.ecdf.ed.ac.uk</a></code></pre></div>
+<p>You will then be asked for your password which has to be typed (currently slowly and carefully!) into the terminal. Afterwards you can send any commands from a script using <code>ctrl-alt-enter</code>. This will not work with <code>Rmd</code> or <code>notebooks</code>.</p>
+</div>
+<div id="modules-applications-in-eddie" class="section level3">
+<h3><span class="header-section-number">5.5.4</span> Modules (Applications) in Eddie</h3>
+<p>Eddie has several modules (applications) which can be run such as R, python, cuda, java, intel, fastqc etc. etc. The best way to see which modules you have available is to run <code>module avail</code>. To see which modules are loaded is to run <code>module list</code>.</p>
+<p>To load in a new module to use run the following:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="ex">module</span> load <span class="op">&lt;</span>module<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb59-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb59-3" data-line-number="3"><span class="co"># For example:</span></a>
+<a class="sourceLine" id="cb59-4" data-line-number="4"><span class="ex">module</span> load R/3.5.3</a>
+<a class="sourceLine" id="cb59-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb59-6" data-line-number="6"><span class="co"># Note that the default R version is 3.3.2 (as of 13th June 2019) and is loaded using:</span></a>
+<a class="sourceLine" id="cb59-7" data-line-number="7"><span class="ex">module</span> load R</a></code></pre></div>
+<p>Once you have loaded modules that you will need for your analysis you may need to create new files or establish a library of packages for those modules. There are a default set of packages available for R when loaded from either the main applications library or from other installations on the IGMM paths but these are read-only meaning that for any customisation and installation of new packages, a separate library must be maintained and that the R options must be amended to point to this library. This can be done by creating a personal <code>.Rprofile</code> file in your home directory in Eddie which points to the Surgical Informatics Group Rlibrary.</p>
+<p>It is not advised to create a separate library in your own Eddie space as this will quickly use up your disc quota. Theoretically a separate installation of a package could be stored in your own space if working on developer edition or github branch / fork of a package.</p>
+</div>
+<div id="working-with-r-in-eddie" class="section level3">
+<h3><span class="header-section-number">5.5.5</span> Working with R in Eddie</h3>
+<div id="rprofile-file" class="section level4">
+<h4><span class="header-section-number">5.5.5.1</span> .Rprofile File</h4>
+<p>When you load up R an <code>.Rprofile</code> file is sourced and anything contained within the file will be run for the current R session. This is particularly useful in Eddie because the defaults are not very helpful:</p>
+<ul>
+<li>The R package library is the Eddie default library which cannot be added to</li>
+<li>The CRAN mirror is not specified so every session will ask you to select a new CRAN mirror to install packages in a temporary library</li>
+</ul>
+<p>The <code>.Rprofile</code> file also has other options which can be customised to improve how your current R session will run on Eddie. There are a number of possible customisations but be careful as not all are helpful if you end up collaborating with other research teams, some of these customisations such as <code>stringsAsFactors=FALSE</code> by default could be used in a project-specific <code>.Rprofile</code> file with caution but if you are working with another research group who rely on <code>read.csv</code> and have scripts established which assume that all strings are factors then having that customisation in your home directory may generate bugs when collaborating on projects.</p>
+<p>R will automatically look for a <code>.Rprofile</code> file when R is started during each Eddie session and will look for this file in three places with an order of preference. The first place is the current working directory of a project so an <code>.Rprofile</code> file could be stored here to generate very specific customisations for a project if necessary. The next place it will look is in your own home directory (<code>/home/&lt;UUN&gt;/</code> or <code>/~/</code>), this is where you should create a <code>.Rprofile</code> file which will be your default for all sessions, it is recommended to use this sparingly but that certain key features are used such as setting up your main library location as the Surgical Informatics Group and setting up a default CRAN mirror e.g. the RStudio CRAN mirror. Finally, if there is not a <code>.Rprofile</code> file here then R will attempt to source a file in the R home directory (found in R using <code>.R.home()</code>) and if there is no file here then no customisation will occur. Some servers also have a <code>.Rprofile.site</code> file although this is not currently present in Eddie.</p>
+<p><em>Important</em>: Always leave the final line of an <code>.Rprofile</code> file blank.</p>
+<p>A possible <code>.Rprofile</code> file for using in Eddie as part of the Surgical Informatics Group is:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="co">## Rprofile template</span></a>
+<a class="sourceLine" id="cb60-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb60-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb60-4" data-line-number="4"><span class="co">## Stop being asked for CRAN mirror every time</span></a>
+<a class="sourceLine" id="cb60-5" data-line-number="5"><span class="kw">options</span>(<span class="st">&quot;repos&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dt">CRAN =</span> <span class="st">&quot;http://cran.rstudio.com/&quot;</span>))</a>
+<a class="sourceLine" id="cb60-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb60-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb60-8" data-line-number="8"><span class="co">## Change the default editor to nano</span></a>
+<a class="sourceLine" id="cb60-9" data-line-number="9"><span class="kw">options</span>(<span class="dt">editor=</span><span class="st">&quot;nano&quot;</span>)</a>
+<a class="sourceLine" id="cb60-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb60-11" data-line-number="11"><span class="co">## Change the terminal prompt to make it clear R is loaded</span></a>
+<a class="sourceLine" id="cb60-12" data-line-number="12"><span class="kw">options</span>(<span class="dt">prompt=</span><span class="st">&quot;R &gt; &quot;</span>)</a>
+<a class="sourceLine" id="cb60-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb60-14" data-line-number="14"><span class="co">## Prevent default saving of workspace image (similar to recommended RStudio server settings)</span></a>
+<a class="sourceLine" id="cb60-15" data-line-number="15">q &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">save=</span><span class="st">&quot;no&quot;</span>, ...) {</a>
+<a class="sourceLine" id="cb60-16" data-line-number="16">        <span class="kw">quit</span>(<span class="dt">save=</span>save, ...)</a>
+<a class="sourceLine" id="cb60-17" data-line-number="17">}</a>
+<a class="sourceLine" id="cb60-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb60-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb60-20" data-line-number="20"><span class="co">## Clever code to allow tab-completion of package names used in library()</span></a>
+<a class="sourceLine" id="cb60-21" data-line-number="21">utils<span class="op">::</span><span class="kw">rc.settings</span>(<span class="dt">ipck=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb60-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb60-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb60-24" data-line-number="24"><span class="co">## Add some colour to the console if colourout is available</span></a>
+<a class="sourceLine" id="cb60-25" data-line-number="25"><span class="cf">if</span>(<span class="kw">Sys.Getenv</span>(<span class="st">&quot;TERM&quot;</span>) <span class="op">==</span><span class="st"> &quot;xterm-256color&quot;</span>)</a>
+<a class="sourceLine" id="cb60-26" data-line-number="26">        <span class="kw">library</span>(<span class="st">&quot;colorout&quot;</span>)</a>
+<a class="sourceLine" id="cb60-27" data-line-number="27"></a>
+<a class="sourceLine" id="cb60-28" data-line-number="28"><span class="co">## Create a new envisible environment which can be used to create new functions</span></a>
+<a class="sourceLine" id="cb60-29" data-line-number="29"><span class="co">## Benefit of this is that all new functions here are hidden in environment and not rmeoved by rm(list = ls())</span></a>
+<a class="sourceLine" id="cb60-30" data-line-number="30">.env &lt;-<span class="st"> </span><span class="kw">new.env</span>()</a>
+<a class="sourceLine" id="cb60-31" data-line-number="31"></a>
+<a class="sourceLine" id="cb60-32" data-line-number="32"></a>
+<a class="sourceLine" id="cb60-33" data-line-number="33"><span class="co">## Set library path to make sure packages are loaded from SurgInfGrp</span></a>
+<a class="sourceLine" id="cb60-34" data-line-number="34"><span class="kw">.libPaths</span>(<span class="st">&quot;/exports/cmvm/eddie/edmed/groups/SurgInfGrp/R/Rlibrary&quot;</span>)</a>
+<a class="sourceLine" id="cb60-35" data-line-number="35"></a>
+<a class="sourceLine" id="cb60-36" data-line-number="36"></a>
+<a class="sourceLine" id="cb60-37" data-line-number="37"><span class="co">## If working on a particular project e.g. the gwas_pipeline from IGMM best to create a new library due to R version issues in that project</span></a>
+<a class="sourceLine" id="cb60-38" data-line-number="38"><span class="co">## Just copy the .Rprofile file from your own home directory into the project working directory and edit to change library</span></a>
+<a class="sourceLine" id="cb60-39" data-line-number="39"></a>
+<a class="sourceLine" id="cb60-40" data-line-number="40"></a>
+<a class="sourceLine" id="cb60-41" data-line-number="41"><span class="co">## Attach all the variables created</span></a>
+<a class="sourceLine" id="cb60-42" data-line-number="42"><span class="kw">attach</span>(.env)</a>
+<a class="sourceLine" id="cb60-43" data-line-number="43"></a>
+<a class="sourceLine" id="cb60-44" data-line-number="44"></a>
+<a class="sourceLine" id="cb60-45" data-line-number="45"><span class="co">## Remember that an .Rprofile file always silently ignores the last line so don&#39;t forget to leave empty newlines</span></a></code></pre></div>
+<p>The above configuration should generate minimal portability issues when working on other projects.</p>
+<p>There are a few explanations of the benefits and side effects of having a <code>.Rprofile</code> file as well as ways to temporarily mask them for specific projects which will be shared with other collaborators in this blog post: <a href="https://www.r-bloggers.com/fun-with-Rprofile-and-customizing-r-startup/" class="uri">https://www.r-bloggers.com/fun-with-Rprofile-and-customizing-r-startup/</a>.</p>
+<p>Should you wish to have an entire directory of startup files (e.g. one file for CRAN, one file for library, one file for custom function etc. etc.) so that segments of the customisation can be shared quickly without modifying / dropping all of the other elements of the <code>.Rprofile</code> file then this is described here: <a href="https://cran.r-project.org/web/packages/startup/vignettes/startup-intro.html" class="uri">https://cran.r-project.org/web/packages/startup/vignettes/startup-intro.html</a>. This relies on the <code>startup</code> package. Other options such as having secure directories with GitHub tokens and other content which is protected from access by other Eddie users is also discussed there.</p>
+</div>
+<div id="creating-an-.rprofile-file" class="section level4">
+<h4><span class="header-section-number">5.5.5.2</span> Creating an .Rprofile File</h4>
+<p>When you first use Eddie there will not be any <code>.Rprofile</code> file generated by default and a blank file will need to be created. This can be done by entering the following into the terminal after loading R. To load R enter <code>module load R/3.5.3</code> (or the currently available R versions seen on <code>module avail</code>) into the terminal followed by <code>R</code>. This will start an active R session. Then enter the following code (please do not change the path to the shared group folder! If you need to change the path to a project be sure to include the subdirectory otherwise R will use your <code>.Rprofile</code> file for all SurgInfGrp users which won’t be popular):</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="kw">file.create</span>(<span class="st">&quot;~/.Rprofile&quot;</span>)</a></code></pre></div>
+<p>This will create a blank <code>.Rprofile</code> file in your home directory on Eddie which should be edited to customise the R configuration.</p>
+<p>In order to edit the file it is suggested that you use the nano Unix-based editor. Firstly quit the current R session as that has not yet been configured to use the editor. Enter <code>q()</code> as you would normally do when closing R and enter <code>n</code> if asked about saving workspace image.</p>
+<p>Navigagte to your home directory and using <code>ls -a</code> you should see the <code>.Rprofile</code> file which is currently blank.</p>
+</div>
+<div id="renviron-file" class="section level4">
+<h4><span class="header-section-number">5.5.5.3</span> .Renviron File</h4>
+<p>In addition to changing the <code>.Rprofile</code> file you will most likely need to change the <code>.Renviron</code> file. The default for this is probably located in the R home directory which may be <code>/exports/applications/apps/SL7/R/3.5.3/lib64/R/etc/</code>. The <code>.Renviron</code> file is searched for in the same order by R as the <code>.Rprofile</code> file with R first aiming to find the file in the project directory and if not able to find it there looking in the user home directory and finally looking to the R home directory. To copy the <code>Renviron</code> file in the R home directory into a <code>.Renviron</code> file in your home directory enter the following code in the terminal:</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="co"># Path will need edited if future installations of R replace 3.5.3</span></a>
+<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="fu">cp</span> /exports/applications/apps/SL7/R/3.5.3/lib64/R/etc/Renviron ~/.Renviron</a></code></pre></div>
+<p>The following is a reasonable starting point for the <code>.Renviron</code> file in your own profile:</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="co">### etc/Renviron.  Generated from Renviron.in by configure.</span></a>
+<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="co">###</span></a>
+<a class="sourceLine" id="cb63-3" data-line-number="3"><span class="co">### ${R_HOME}/etc/Renviron</span></a>
+<a class="sourceLine" id="cb63-4" data-line-number="4"><span class="co">###</span></a>
+<a class="sourceLine" id="cb63-5" data-line-number="5"><span class="co">### Record R system environment variables.</span></a>
+<a class="sourceLine" id="cb63-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb63-7" data-line-number="7">R_PLATFORM=<span class="er">$</span>{R_PLATFORM<span class="op">-</span><span class="st">&#39;x86_64-pc-linux-gnu&#39;</span>}</a>
+<a class="sourceLine" id="cb63-8" data-line-number="8"><span class="co">## Default printer paper size: first record if user set R_PAPERSIZE</span></a>
+<a class="sourceLine" id="cb63-9" data-line-number="9">R_PAPERSIZE_USER=<span class="er">$</span>{R_PAPERSIZE}</a>
+<a class="sourceLine" id="cb63-10" data-line-number="10">R_PAPERSIZE=<span class="er">$</span>{R_PAPERSIZE<span class="op">-</span><span class="st">&#39;a4&#39;</span>}</a>
+<a class="sourceLine" id="cb63-11" data-line-number="11"><span class="co">## Default print command</span></a>
+<a class="sourceLine" id="cb63-12" data-line-number="12">R_PRINTCMD=<span class="er">$</span>{R_PRINTCMD<span class="op">-</span><span class="st">&#39;&#39;</span>}</a>
+<a class="sourceLine" id="cb63-13" data-line-number="13"><span class="co"># for Rd2pdf, reference manual</span></a>
+<a class="sourceLine" id="cb63-14" data-line-number="14">R_RD4PDF=<span class="er">$</span>{R_RD4PDF<span class="op">-</span><span class="st">&#39;times,hyper&#39;</span>}</a>
+<a class="sourceLine" id="cb63-15" data-line-number="15"><span class="co">## used for options(&quot;texi2dvi&quot;)</span></a>
+<a class="sourceLine" id="cb63-16" data-line-number="16">R_TEXI2DVICMD=<span class="er">$</span>{R_TEXI2DVICMD<span class="op">-</span><span class="er">$</span>{TEXI2DVI<span class="op">-</span><span class="st">&#39;texi2dvi&#39;</span>}}</a>
+<a class="sourceLine" id="cb63-17" data-line-number="17"><span class="co">## used by untar and installing grDevices</span></a>
+<a class="sourceLine" id="cb63-18" data-line-number="18">R_GZIPCMD=<span class="er">$</span>{R_GZIPCMD<span class="op">-</span><span class="st">&#39;/usr/bin/gzip&#39;</span>}</a>
+<a class="sourceLine" id="cb63-19" data-line-number="19"><span class="co">## Default zip/unzip commands</span></a>
+<a class="sourceLine" id="cb63-20" data-line-number="20">R_UNZIPCMD=<span class="er">$</span>{R_UNZIPCMD<span class="op">-</span><span class="st">&#39;/usr/bin/unzip&#39;</span>}</a>
+<a class="sourceLine" id="cb63-21" data-line-number="21">R_ZIPCMD=<span class="er">$</span>{R_ZIPCMD<span class="op">-</span><span class="st">&#39;/usr/bin/zip&#39;</span>}</a>
+<a class="sourceLine" id="cb63-22" data-line-number="22">R_BZIPCMD=<span class="er">$</span>{R_BZIPCMD<span class="op">-</span><span class="st">&#39;/usr/bin/bzip2&#39;</span>}</a>
+<a class="sourceLine" id="cb63-23" data-line-number="23"><span class="co">## Default browser</span></a>
+<a class="sourceLine" id="cb63-24" data-line-number="24">R_BROWSER=<span class="er">$</span>{R_BROWSER<span class="op">-</span><span class="st">&#39;/usr/bin/xdg-open&#39;</span>}</a>
+<a class="sourceLine" id="cb63-25" data-line-number="25"><span class="co">## Default pager</span></a>
+<a class="sourceLine" id="cb63-26" data-line-number="26">PAGER=<span class="er">$</span>{PAGER<span class="op">-</span><span class="st">&#39;/usr/bin/less&#39;</span>}</a>
+<a class="sourceLine" id="cb63-27" data-line-number="27"><span class="co">## Default PDF viewer</span></a>
+<a class="sourceLine" id="cb63-28" data-line-number="28">R_PDFVIEWER=<span class="er">$</span>{R_PDFVIEWER<span class="op">-</span><span class="st">&#39;/usr/bin/xdg-open&#39;</span>}</a>
+<a class="sourceLine" id="cb63-29" data-line-number="29"><span class="co">## Used by libtool</span></a>
+<a class="sourceLine" id="cb63-30" data-line-number="30">LN_S=<span class="st">&#39;ln -s&#39;</span></a>
+<a class="sourceLine" id="cb63-31" data-line-number="31">MAKE=<span class="er">$</span>{MAKE<span class="op">-</span><span class="st">&#39;make&#39;</span>}</a>
+<a class="sourceLine" id="cb63-32" data-line-number="32"><span class="co">## Prefer a POSIX-compliant sed on e.g. Solaris</span></a>
+<a class="sourceLine" id="cb63-33" data-line-number="33">SED=<span class="er">$</span>{SED<span class="op">-</span><span class="st">&#39;/usr/bin/sed&#39;</span>}</a>
+<a class="sourceLine" id="cb63-34" data-line-number="34"><span class="co">## Prefer a tar that can automagically read compressed archives</span></a>
+<a class="sourceLine" id="cb63-35" data-line-number="35">TAR=<span class="er">$</span>{TAR<span class="op">-</span><span class="st">&#39;/usr/bin/gtar&#39;</span>}</a>
+<a class="sourceLine" id="cb63-36" data-line-number="36"></a>
+<a class="sourceLine" id="cb63-37" data-line-number="37"><span class="co">## System and compiler types.</span></a>
+<a class="sourceLine" id="cb63-38" data-line-number="38">R_SYSTEM_ABI=<span class="st">&#39;linux,gcc,gxx,gfortran,?&#39;</span></a>
+<a class="sourceLine" id="cb63-39" data-line-number="39"></a>
+<a class="sourceLine" id="cb63-40" data-line-number="40"></a>
+<a class="sourceLine" id="cb63-41" data-line-number="41"><span class="co">## Change the default R libraries and directories</span></a>
+<a class="sourceLine" id="cb63-42" data-line-number="42">R_DOC_DIR=<span class="er">/</span>exports<span class="op">/</span>applications<span class="op">/</span>apps<span class="op">/</span>SL7<span class="op">/</span>R<span class="op">/</span><span class="dv">3</span>.<span class="fl">5.3</span><span class="op">/</span>lib64<span class="op">/</span>R<span class="op">/</span>doc</a>
+<a class="sourceLine" id="cb63-43" data-line-number="43">R_INCLUDE_DIR=<span class="er">/</span>exports<span class="op">/</span>applications<span class="op">/</span>apps<span class="op">/</span>SL7<span class="op">/</span>R<span class="op">/</span><span class="dv">3</span>.<span class="fl">5.3</span><span class="op">/</span>lib64<span class="op">/</span>R<span class="op">/</span>include</a>
+<a class="sourceLine" id="cb63-44" data-line-number="44">R_SHARE_DIR=<span class="er">/</span>exports<span class="op">/</span>applications<span class="op">/</span>apps<span class="op">/</span>SL7<span class="op">/</span>R<span class="op">/</span><span class="dv">3</span>.<span class="fl">5.3</span><span class="op">/</span>lib64<span class="op">/</span>R<span class="op">/</span>share</a>
+<a class="sourceLine" id="cb63-45" data-line-number="45">RBIN=<span class="er">/</span>exports<span class="op">/</span>applications<span class="op">/</span>apps<span class="op">/</span>SL7<span class="op">/</span>R<span class="op">/</span><span class="dv">3</span>.<span class="fl">5.3</span><span class="op">/</span>bin</a>
+<a class="sourceLine" id="cb63-46" data-line-number="46">RDIR=<span class="er">/</span>exports<span class="op">/</span>applications<span class="op">/</span>apps<span class="op">/</span>SL7<span class="op">/</span>R<span class="op">/</span><span class="dv">3</span>.<span class="fl">5.3</span><span class="op">/</span><span class="dv">3</span>.<span class="fl">3.3</span></a>
+<a class="sourceLine" id="cb63-47" data-line-number="47">R_LIBS=<span class="er">/</span>exports<span class="op">/</span>cmvm<span class="op">/</span>eddie<span class="op">/</span>edmed<span class="op">/</span>groups<span class="op">/</span>SurgInfGrp<span class="op">/</span>R<span class="op">/</span>Rlibrary</a>
+<a class="sourceLine" id="cb63-48" data-line-number="48">R_LIBS_SITE=<span class="er">/</span>exports<span class="op">/</span>cmvm<span class="op">/</span>eddie<span class="op">/</span>edmed<span class="op">/</span>groups<span class="op">/</span>SurgInfGrp<span class="op">/</span>R<span class="op">/</span>Rlibrary</a>
+<a class="sourceLine" id="cb63-49" data-line-number="49">R_LIBS_USER=<span class="er">/</span>exports<span class="op">/</span>cmvm<span class="op">/</span>eddie<span class="op">/</span>edmed<span class="op">/</span>groups<span class="op">/</span>SurgInfGrp<span class="op">/</span>R<span class="op">/</span>Rlibrary</a>
+<a class="sourceLine" id="cb63-50" data-line-number="50"></a>
+<a class="sourceLine" id="cb63-51" data-line-number="51"></a>
+<a class="sourceLine" id="cb63-52" data-line-number="52"></a>
+<a class="sourceLine" id="cb63-53" data-line-number="53"></a>
+<a class="sourceLine" id="cb63-54" data-line-number="54"><span class="co">### Local Variables: ***</span></a>
+<a class="sourceLine" id="cb63-55" data-line-number="55"><span class="co">### mode: sh ***</span></a>
+<a class="sourceLine" id="cb63-56" data-line-number="56"><span class="co">### sh-indentation: 2 ***</span></a></code></pre></div>
+<p>The <code>.Renviron</code> file can be copied to specific projects when specific R files / directories (or files / directories for other languages) are needed to run a particular analysis. For example, to use the GCC compiler from IGMM the following could be added to the file:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="co">## Change the Clang variables</span></a>
+<a class="sourceLine" id="cb64-2" data-line-number="2">CC=igmm<span class="op">/</span>compilers<span class="op">/</span>gcc<span class="op">/</span><span class="dv">5</span>.<span class="fl">5.0</span> <span class="op">-</span>fopenmp</a>
+<a class="sourceLine" id="cb64-3" data-line-number="3">CXX=igmm<span class="op">/</span>compilers<span class="op">/</span>gcc<span class="op">/</span><span class="dv">5</span>.<span class="fl">5.0</span> <span class="op">-</span>fopenmp</a></code></pre></div>
+<p>The <code>.Rprofile</code> files and <code>.Renviron</code> files should be as generic as possible in your own profile so as to avoid issues when sharing scripts. They can be tailored for specific projects when needed in the local working directory. Typically this should be to alter the paths to directories etc. and not to create bespoke functions which should be done in scripts.</p>
+</div>
+</div>
+<div id="specific-r-package-versions" class="section level3">
+<h3><span class="header-section-number">5.5.6</span> Specific R Package Versions</h3>
+<p>When working with other teams it is often necessary to work with particular R package versions. One effective way to ensure you do this is using the remotes package:</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1"><span class="co"># Install the GenABEL package from CRAN but as no longer supporte need the 1.8-0 version from the archive</span></a>
+<a class="sourceLine" id="cb65-2" data-line-number="2">remotes<span class="op">::</span><span class="kw">install_version</span>(<span class="st">&quot;GenABEL&quot;</span>, <span class="dt">version =</span> <span class="st">&quot;1.8-0&quot;</span>)</a></code></pre></div>
+</div>
+<div id="general-eddie-etiquette" class="section level3">
+<h3><span class="header-section-number">5.5.7</span> General Eddie Etiquette</h3>
+<p>Don’t overwrite or change other users files without permission and set up your own files to prevent others doing that if appropriate. Please don’t leave configuration files like <code>.Renviron</code> files in the shared space as this can play havoc with other users R tasks in Eddie - if you need a particular configuration (e.g. a default package library for a project) then best to leave the config files in the directory for that project (or in your own home directory).</p>
+</div>
+</div>
+<div id="unix-tutorials" class="section level2">
+<h2><span class="header-section-number">5.6</span> Unix Tutorials</h2>
+<p>The University Digital Skills Framework offers a three-part tutorial covering Unix which is free. If you use a lot of Eddie etc. this may be helpful:<a href="https://www.digitalskills.ed.ac.uk/all-resources/?wdt_column_filter%5B1%5D=Classroom" class="uri">https://www.digitalskills.ed.ac.uk/all-resources/?wdt_column_filter%5B1%5D=Classroom</a></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="machine-learning.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="plotting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["cookbook.pdf", "cookbook.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
