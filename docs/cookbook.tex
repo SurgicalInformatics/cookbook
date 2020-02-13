@@ -111,7 +111,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2020-02-12}
+\date{2020-02-13}
 
 \begin{document}
 \maketitle
@@ -124,7 +124,7 @@
 \chapter*{}\label{section}}
 \addcontentsline{toc}{chapter}{}
 
-\includegraphics[width=30.97in]{/home/eharrison/cookbook/img/surgical_informatics_minibanner}
+\includegraphics[width=30.97in]{/home/common/users/cfairfield/cookbook/img/surgical_informatics_minibanner}
 
 \hypertarget{intro}{%
 \chapter{Introduction}\label{intro}}
@@ -1485,8 +1485,8 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 
 Same plot 5x4 inches vs 10x8 inches:
 
-\includegraphics[width=0.5\linewidth]{/home/eharrison/cookbook/img/barplot_5x4}
-\includegraphics[width=0.5\linewidth]{/home/eharrison/cookbook/img/barplot_10x8}
+\includegraphics[width=0.5\linewidth]{/home/common/users/cfairfield/cookbook/img/barplot_5x4}
+\includegraphics[width=0.5\linewidth]{/home/common/users/cfairfield/cookbook/img/barplot_10x8}
 
 \hypertarget{genomics}{%
 \chapter{Genomics}\label{genomics}}
@@ -1593,6 +1593,248 @@ We'll use an example where we want to summarise by different outcomes in a dynam
 \NormalTok{example_data }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{summarise_feature}\NormalTok{(Death_from_guns, region) }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\OperatorTok{!!}\NormalTok{metric_mutate }\OperatorTok{:}\ErrorTok{=}\StringTok{ }\OperatorTok{!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{sym}\NormalTok{(metric) }\OperatorTok{*}\StringTok{ }\DecValTok{2}\NormalTok{)}\CommentTok{#apply arbitary multiplication by two}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{citations-with-r-markdown}{%
+\chapter{Citations with R Markdown}\label{citations-with-r-markdown}}
+
+Writing publications and other documents requires citations both of academic papers and of R packages.
+
+Zotero provides efficient and free reference management which generates new citation objects with the click of a button in Chrome and easy generation of \texttt{.bib} files which can be used to create references in \texttt{rmarkdown} and \texttt{bookdown}.
+
+\emph{Top tip: Do this on Day 1 of your PhD!}
+
+\hypertarget{zotero-set-up}{%
+\section{Zotero Set-up}\label{zotero-set-up}}
+
+\href{https://www.zotero.org/download/}{Zotero} should be installed and provides 300MB of free storage which covers a few thousand references as long as PDFs are stored elsewhere. The \href{https://www.zotero.org/download/}{Chrome connector} can be downloaded to allow one-click saving of citations. Just click the icon at the top right of the browser to store meta-data and files.
+
+Set up an online account with Zotero so that your data is available remotely.
+
+\href{https://www.zotero.org/support/plugins}{Zotfile} should be installed to help with PDF storage. Download the \texttt{.xpi} file for Zotfile. To install \textbf{Zotfile} open Zotero and go to \texttt{Tools\ →\ Add-ons\ →\ cog\ in\ top\ right\ corner} and select downloaded \texttt{.xpi} file to install.
+
+\begin{figure}
+\includegraphics[width=36.78in]{img/zotero_add_on_install} \caption{Installing a Zotero Plug-in from an .xpi File}\label{fig:add-on-install}
+\end{figure}
+
+\href{https://github.com/retorquere/zotero-better-bibtex/releases/tag/v5.1.76}{Better BibTeX} is another plug-in which generates citation keys in a robust and reproducible way which is needed for larger projects (e.g.~PhDs) to avoid duplicate citation handles. An \texttt{.xpi} file can be downloaded from GitHub and installed in the same way.
+
+\hypertarget{file-storage-set-up}{%
+\section{File Storage Set-up}\label{file-storage-set-up}}
+
+In addition to Zotero set-up it is a good idea to have a cloud storage service to maintain a library of PDFs without using up Zotero storage capacity. These will also need to be accessible to the \texttt{Windows\ Explorer} or the \texttt{Mac\ Finder} - there are several guides on how to do this for \href{https://www.howtogeek.com/228989/how-to-use-the-desktop-google-drive-app/}{Google Drive} and \href{https://www.dropboxforum.com/t5/Installation-and-desktop-app/How-do-I-put-Dropbox-on-my-File-Explorer-in-Win-10/td-p/313031}{DropBox}.
+
+\hypertarget{folder-set-up}{%
+\section{Folder Set-up}\label{folder-set-up}}
+
+\hypertarget{storing-pdfs}{%
+\subsection{Storing PDFs}\label{storing-pdfs}}
+
+Create a folder in a cloud storage service to store PDFs which can be accessed from your own file explorer.
+
+\hypertarget{storing-bibliographies}{%
+\subsection{Storing Bibliographies}\label{storing-bibliographies}}
+
+Create a folder which will store your \texttt{.bib} file. This can then be used to provide the references for your \texttt{.rmd} files.
+
+\hypertarget{subfolder-for-references}{%
+\subsection{Subfolder for References}\label{subfolder-for-references}}
+
+It may be a good idea in Zotero to carefully categorise publications by their content. This makes it very easy to look up publications on a given topic (Zotero allows a citation to be shared across several folders such that a publication documenting an RCT with updated meta-analysis could be in folders for each type of study etc.).
+
+Generally a parent folder will be used to generate a bibliography file and anything likely to be cited in a document / thesis should be in that folder or one of its subfolders.
+
+\hypertarget{configuring-zotero}{%
+\section{Configuring Zotero}\label{configuring-zotero}}
+
+\hypertarget{zotfile-pdf-preferences}{%
+\subsection{ZotFile PDF Preferences}\label{zotfile-pdf-preferences}}
+
+To setup Zotero so that retrieved PDFs are automatically stored and renamed in the cloud storage without consuming the Zotero storage quota go to ``Tools → ZotFile Preferences'' and on the first tab: \textbf{General Settings} and set the folder and subfolder naming strategy for PDFs. Set the location of the files to a Custom location in cloud storage e.g.(``\textasciitilde{}\textbackslash{}Google Drive\textbackslash{}Zotero PDF Library''). ZotFile will also store retrieved PDFs in subfolders to help with finding PDFs at a later date. A reasonable setup is to create a subfolder with the first author surname so that all papers authored by one (or more) author with the same name are stored together using the \textbackslash{}\%a in the subfolder field. Other alternatives are to store PDFs in subfolders using year (\textbackslash{}\%y); journal or publisher (\textbackslash{}\%w); or item type (\textbackslash{}\%T).
+
+\begin{figure}
+\includegraphics[width=44.44in]{img/zotfile_preferences} \caption{ZotFile PDF Storage Preferences}\label{fig:zotfile-preferences}
+\end{figure}
+
+Next the \textbf{Renaming Rules} tab can be configured to provide sensible names to each of the files (this is essential if PDFs are not to be stored as random strings of characters which provide no meaning). Setting the format to: \{\%a\_\}\{\%y\_\}\{\%t\} provides names for the PDFs in the format of: \texttt{Fairfield\_2019\_Gallstone\_Disease\_and\_the\_Risk\_of\_Cardiovascular\_Disease.pdf}. This shows author, year and first word of title without needing to expand the file name.
+
+\begin{figure}
+\includegraphics[width=44.47in]{img/zotfile_renaming} \caption{ZotFile PDF Storage Preferences}\label{fig:zotfile-renaming}
+\end{figure}
+
+In the \textbf{Advanced Settings} tab it is strongly recommended to select removal of ``Special characters'', leaving these in creates problems when knitting to PDF as LaTeX may recognise the special characters in unexpected ways.
+
+\hypertarget{general-zotero-settings}{%
+\subsection{General Zotero Settings}\label{general-zotero-settings}}
+
+Zotero has several configurable settings (accessed through: ``Edit → Preferences''). The following settings are generally helpful (left as default if not mentioned):
+
+\textbf{General:}
++ Tick the following:
++ Automatically attach associated PDFs
++ Automatically retrieve metadata for PDFs
++ Automatically rename attachments using parent metadata
++ Automatically tag items with keywords and subject headings
++ All options in Group section
++ Leave the following unticked:
++ Automatically take snapshots
++ Rename linked files
+
+\textbf{Sync:}
++ Enter the account details
++ Tick sync automatically
++ Untick sync full text (if you choose to save PDFs then syncing full text will quickly consume the 300MB quota)
+
+\textbf{Search:}
++ Leave unchanged
+
+\textbf{Export:}
++ Leave unchanged
+
+\textbf{Cite:}
++ There are several sensible defaults but if there is a new citation style you wish to be able to use in Microsoft Word for example then click ``Get additional styles'' as there is probably a version that you need already created. You can click the ``+'' button to add a style from a \texttt{.csl} file if you have one already. Finally, if you are desperate for a style that doesn't already exist then you can select a citation style and click Style Editor and edit the raw \texttt{.csl} file. The \texttt{.csl} file for use in \texttt{.rmd} doesn't need configured here but instead within the YAML of your .rmd file
++ In the Word Processors subtab (on the main Cite tab), you can install the Microsoft Word add-in to allow Zotero to work in Microsoft Word.
+
+\textbf{Advanced:}
++ Change nothing on the General subtab
++ In the Files and Folders subtab select the path to directory for attachments
++ Change nothing on the Shortcuts subtab
++ Change nothing on the Feeds subtab
+
+\textbf{Better BibTex:}
++ In this section set the Citation Key format to {[}auth:lower:alphanum{]}\emph{{[}year:alphanum{]}}{[}veryshorttitle:lower:alphanum{]}\_{[}journal:lower:clean:alphanum{]} (Figure 4). This generates a citation key for each reference in the format of fairfield\_2019\_gallstones\_scientificreports or harrison\_2012\_hospital\_bmj. It always takes the first author's surname, the year, the first word of the title and the journal abbreviation if known. The clean and alphanum arguments to this field are used to remove unwanted punctuation which can cause citation to fail in LaTeX.
+
+If an author has published an article with the same first word of the title in the same year then the second article appends an ``a'' to the handle and the third a ``b'' and so on.
+
+\begin{figure}
+\includegraphics[width=44.42in]{img/zotero_citation_key} \caption{ZotFile PDF Storage Preferences}\label{fig:zotfile-citation-key}
+\end{figure}
+
+\hypertarget{refresh-bibtex-citation-key}{%
+\subsection{Refresh BibTex Citation Key}\label{refresh-bibtex-citation-key}}
+
+If you already have used Zotero without this setup and want to refresh your citation keys to follow the standard pattern then select all references, right click and use ``Better BibTex → Refresh BibTeX Key''.
+
+\hypertarget{generating-a-.bib-file}{%
+\section{Generating a .bib File}\label{generating-a-.bib-file}}
+
+For referencing in a new project, publication or submission it may be helpful to have a dynamic \texttt{.bib} file that updates with every new publication added to Zotero and can be accessed from any device through cloud storage.
+
+To set up a \texttt{.bib} file, first find the folder that you wish to create the file from (this should be the folder which contains any citations you will use and ideally not the full library to cut down on unnecessary storage and syncing requirements).
+
+Note that the \texttt{.bib} file will generate a bibliography from any citations stored directly in the folder when using default settings. This prevents use of subfolders which are particularly helpful for organising citations so it may be helpful to change the setting so that folders also show any citations stored in subfolders. To make this change go to ``Edit Preferences'' and select the ``Advanced'' tab and at the bottom of the ``General'' subtab select ``Config Editor''. This will bring up a searchable list of configurations (it may show a warning message before this) and search in the search box for ``extensions.zotero.recursiveCollections''. Set ``Value'' to TRUE and then when you click a folder you should see all of the citations also stored in subfolders.
+
+Right click the folder which has all of the references (with or without subfolders) and select ``Export Collection''. A pop-up window will appear at which point select ``Keep Updated'' and if using RStudio desktop save the file in the directory where you have your \texttt{.rmd} project files. If you are working with RStudio server then save the file in a cloud storage location which will then be accessed from the server. A \texttt{.bib} file stored in Dropbox can be copied into RStudio server for a given project as per below.
+
+\hypertarget{linking-dropbox-and-rstudio-server}{%
+\section{Linking DropBox and Rstudio Server}\label{linking-dropbox-and-rstudio-server}}
+
+Dropbox provides a token to allow communication between different apps. The \texttt{rdrop2} package allows this. It may be necessary to create the token on RStudio desktop as creation on the server is buggy but this is perfectly ok.
+
+\textbf{Caution:} The token generated by this process could be used to access your Dropbox from anywhere using RStudio if you do not keep it secure. If somebody were to access an unencrypted token then it would be equivalent to handing out your email and password. Use the \texttt{encryptr} package to allow safe storage of this token.
+
+\hypertarget{token-creation}{%
+\subsection{Token Creation}\label{token-creation}}
+
+The code will create two files, a token and the \texttt{.httr-oauth} file from which a token can also be made. The encryptr package can then encrypt the files using a public / private key pair. It is essential that the password that is set when using genkeys() is remembered otherwise the token cannot then be used. In this case the original token can't be retrieved but could be created again from scratch.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(rdrop2)}
+\KeywordTok{library}\NormalTok{(encryptr)}
+ 
+\CommentTok{# Create token}
+\NormalTok{token <-}\StringTok{ }\KeywordTok{drop_auth}\NormalTok{()}
+ 
+\CommentTok{# Save token}
+\KeywordTok{saveRDS}\NormalTok{(token, }\StringTok{"droptoken.rds"}\NormalTok{)}
+ 
+\CommentTok{# Encrypt token}
+\KeywordTok{genkeys}\NormalTok{()               }\CommentTok{# Default file names are id_rsa and id_rsa.pub}
+\KeywordTok{encrypt_file}\NormalTok{(}\StringTok{"droptoken.rds"}\NormalTok{, }\StringTok{"droptoken.rds.encryptr.bin"}\NormalTok{)}
+\KeywordTok{encrypt_file}\NormalTok{(}\StringTok{".httr-oauth"}\NormalTok{, }\StringTok{".httr-oauth.encryptr.bin"}\NormalTok{)}
+ 
+\CommentTok{# Same details should appear later}
+\KeywordTok{drop_acc}\NormalTok{()}
+ 
+\CommentTok{# Remove token from local environment}
+\KeywordTok{rm}\NormalTok{(token)}
+ 
+ 
+\CommentTok{# Delete the unencrypted files}
+\KeywordTok{system}\NormalTok{(}\StringTok{"rm droptoken.rds"}\NormalTok{)}
+\KeywordTok{system}\NormalTok{(}\StringTok{"rm .httr-oauth"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The following files will then be needed to upload to the RStudio server:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{droptoken.rds.encryptr.bin} -- or the name provided for the encrypted DropBox token
+\item
+  \texttt{id\_rsa} -- or the name provided for the private key from the private / public key pair
+\end{itemize}
+
+\hypertarget{dropbox-linkage}{%
+\subsection{DropBox Linkage}\label{dropbox-linkage}}
+
+Now that the encrypted token and necessary (password-protected) private key are available in RStudio server, the following can be saved as a separate script. The script is designed to read in and decrypt the encrypted token (this will require a password and should be done if the .bib file needs updated). Only the drop\_download() needs repeated if using the token again during the same session. The token should be cleared at the end of every session for additional security.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(rdrop2)}
+\KeywordTok{library}\NormalTok{(encryptr)}
+ 
+\CommentTok{# ******** }\AlertTok{WARNING}\CommentTok{ ********}
+\CommentTok{# Losing the unencrypted token will give anyone }
+\CommentTok{# complete control of your Dropbox account}
+\CommentTok{# If you are concerned this has happened,}
+\CommentTok{# you can then revoke the rdrop2 app from your}
+\CommentTok{# dropbox account and start over.}
+\CommentTok{# ******** }\AlertTok{WARNING}\CommentTok{ ********}
+ 
+ 
+\NormalTok{safely_extract_dropbox_token <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(}\DataTypeTok{encrypted_db_token =} \OtherTok{NULL}\NormalTok{, }
+                                         \DataTypeTok{private_key_file =} \OtherTok{NULL}\NormalTok{)\{}
+  \KeywordTok{decrypt_file}\NormalTok{(encrypted_db_token, }
+               \DataTypeTok{file_name =} \StringTok{"temporary_dropbox_token.rds"}\NormalTok{, }
+               \DataTypeTok{private_key_path =}\NormalTok{ private_key_file)}
+  
+\NormalTok{  token <<-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\StringTok{"temporary_dropbox_token.rds"}\NormalTok{)}
+  
+  \KeywordTok{system}\NormalTok{(}\StringTok{"rm temporary_dropbox_token.rds"}\NormalTok{)}
+\NormalTok{\}}
+ 
+\KeywordTok{safely_extract_dropbox_token}\NormalTok{(}\DataTypeTok{encrypted_db_token =} \StringTok{"droptoken.rds.encryptr.bin"}\NormalTok{, }
+                             \DataTypeTok{private_key_file =} \StringTok{"id_rsa"}\NormalTok{)}
+ 
+\CommentTok{# Then pass the token to each drop_ function}
+\KeywordTok{drop_acc}\NormalTok{(}\DataTypeTok{dtoken =}\NormalTok{ token)}
+ 
+\CommentTok{# The path is the Dropbox file location}
+\KeywordTok{drop_download}\NormalTok{(}\DataTypeTok{path =} \StringTok{"My_Dropbox_Home_Directory/Zotero Library/my.bib"}\NormalTok{, }
+              \DataTypeTok{local_path =} \StringTok{"my.bib"}\NormalTok{, }
+              \DataTypeTok{dtoken =}\NormalTok{ token,}
+              \DataTypeTok{overwrite =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Now that the \texttt{.bib} file has been created and is stored as ``my.bib'' in the local directory, it should update whenever the token is loaded and drop\_download() is run. The \texttt{.bib} file should be listed in the \texttt{.rmd} YAML.
+
+\hypertarget{citing-r-packages}{%
+\section{Citing R Packages}\label{citing-r-packages}}
+
+When citing R packages a separate \texttt{.bib} file can be created. The following code could be added to an \texttt{index.rmd} file in \texttt{bookdown} or in a setup chunk in a stand-alone \texttt{.rmd}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# automatically create a bib database for R packages}
+\NormalTok{knitr}\OperatorTok{::}\KeywordTok{write_bib}\NormalTok{(}\KeywordTok{c}\NormalTok{(}
+  \KeywordTok{.packages}\NormalTok{(), }\StringTok{'encryptr'}\NormalTok{, }\StringTok{'knitr'}\NormalTok{, }\StringTok{'rmarkdown'}
+\NormalTok{), }\StringTok{'packages.bib'}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
