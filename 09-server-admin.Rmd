@@ -1,0 +1,27 @@
+# Server admin
+```{r , include=FALSE}
+knitr::opts_chunk$set(
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+## RStudio Connect: argoshare
+
+### Delete user
+
+```{bash eval=FALSE, include=TRUE}
+# Delete user from argoshare
+## Connect must be stopped first
+sudo systemctl stop rstudio-connect
+
+## List all users
+sudo /opt/rstudio-connect/bin/usermanager list
+
+## Find guid for the user you want to delete, looks like below. 
+## Delete user - need to say y/n
+sudo /opt/rstudio-connect/bin/usermanager delete --users --user-guid 46cb5adb-4036-451f-9f08-0da3197dbc6c
+
+## Restart connect
+sudo systemctl start rstudio-connect
+```

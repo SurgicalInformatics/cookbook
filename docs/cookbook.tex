@@ -111,7 +111,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2020-02-13}
+\date{2020-02-25}
 
 \begin{document}
 \maketitle
@@ -124,7 +124,7 @@
 \chapter*{}\label{section}}
 \addcontentsline{toc}{chapter}{}
 
-\includegraphics[width=30.97in]{/home/common/users/cfairfield/cookbook/img/surgical_informatics_minibanner}
+\includegraphics[width=30.97in]{/home/eharrison/cookbook/img/surgical_informatics_minibanner}
 
 \hypertarget{intro}{%
 \chapter{Introduction}\label{intro}}
@@ -1485,8 +1485,8 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 
 Same plot 5x4 inches vs 10x8 inches:
 
-\includegraphics[width=0.5\linewidth]{/home/common/users/cfairfield/cookbook/img/barplot_5x4}
-\includegraphics[width=0.5\linewidth]{/home/common/users/cfairfield/cookbook/img/barplot_10x8}
+\includegraphics[width=0.5\linewidth]{/home/eharrison/cookbook/img/barplot_5x4}
+\includegraphics[width=0.5\linewidth]{/home/eharrison/cookbook/img/barplot_10x8}
 
 \hypertarget{genomics}{%
 \chapter{Genomics}\label{genomics}}
@@ -1593,6 +1593,33 @@ We'll use an example where we want to summarise by different outcomes in a dynam
 \NormalTok{example_data }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{summarise_feature}\NormalTok{(Death_from_guns, region) }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\OperatorTok{!!}\NormalTok{metric_mutate }\OperatorTok{:}\ErrorTok{=}\StringTok{ }\OperatorTok{!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{sym}\NormalTok{(metric) }\OperatorTok{*}\StringTok{ }\DecValTok{2}\NormalTok{)}\CommentTok{#apply arbitary multiplication by two}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{server-admin}{%
+\chapter{Server admin}\label{server-admin}}
+
+\hypertarget{rstudio-connect-argoshare}{%
+\section{RStudio Connect: argoshare}\label{rstudio-connect-argoshare}}
+
+\hypertarget{delete-user}{%
+\subsection{Delete user}\label{delete-user}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Delete user from argoshare}
+\CommentTok{## Connect must be stopped first}
+\FunctionTok{sudo}\NormalTok{ systemctl stop rstudio-connect}
+
+\CommentTok{## List all users}
+\FunctionTok{sudo}\NormalTok{ /opt/rstudio-connect/bin/usermanager list}
+
+\CommentTok{## Find guid for the user you want to delete, looks like below. }
+\CommentTok{## Delete user - need to say y/n}
+\FunctionTok{sudo}\NormalTok{ /opt/rstudio-connect/bin/usermanager delete --users --user-guid 46cb5adb-4036-451f-9f08-0da3197dbc6c}
+
+\CommentTok{## Restart connect}
+\FunctionTok{sudo}\NormalTok{ systemctl start rstudio-connect}
 \end{Highlighting}
 \end{Shaded}
 
