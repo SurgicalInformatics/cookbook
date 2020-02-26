@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html >
+
 <head>
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Data manipulation | The Surgical Informatics Cookbook</title>
-  <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>The Surgical Informatics Cookbook</title>
+  <meta name="description" content="All the brilliant bits of code we don’t want to forget.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 3 Data manipulation | The Surgical Informatics Cookbook" />
+  <meta property="og:title" content="The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
   
   
@@ -16,26 +17,25 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Data manipulation | The Surgical Informatics Cookbook" />
+  <meta name="twitter:title" content="The Surgical Informatics Cookbook" />
   
   <meta name="twitter:description" content="All the brilliant bits of code we don’t want to forget." />
   
 
-<meta name="author" content="Surgical Informatics, University of Edinburgh" />
+<meta name="author" content="Surgical Informatics, University of Edinburgh">
 
 
-<meta name="date" content="2020-02-25" />
+<meta name="date" content="2020-02-26">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
 <link rel="prev" href="snippets.html">
 <link rel="next" href="machine-learning.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -55,6 +55,7 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -157,6 +158,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-manipulation.html"><a href="data-manipulation.html#collapse-multiple-no-and-yes-options"><i class="fa fa-check"></i><b>3.1</b> Collapse multiple “no” and “yes” options</a></li>
+<li class="chapter" data-level="3.2" data-path="data-manipulation.html"><a href="data-manipulation.html#filter-na-dropping-rows-where-all-specified-variables-are-na"><i class="fa fa-check"></i><b>3.2</b> Filter NA: Dropping rows where all specified variables are NA</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>4</b> Machine learning</a><ul>
 <li class="chapter" data-level="4.1" data-path="machine-learning.html"><a href="machine-learning.html#deep-learning"><i class="fa fa-check"></i><b>4.1</b> Deep learning</a><ul>
@@ -255,7 +257,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 3</span> Data manipulation</h1>
 <div id="collapse-multiple-no-and-yes-options" class="section level2">
 <h2><span class="header-section-number">3.1</span> Collapse multiple “no” and “yes” options</h2>
-<p>Common to have to do this in globalsurg projects</p>
+<p>Common to have to do this in GlobalSurg projects:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
 <a class="sourceLine" id="cb41-2" data-line-number="2">mydata =<span class="st"> </span><span class="kw">tibble</span>(</a>
 <a class="sourceLine" id="cb41-3" data-line-number="3">  <span class="dt">ssi.factor =</span> <span class="kw">c</span>(<span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes, no treatment/wound opened only (CD 1)&quot;</span>,    </a>
@@ -303,6 +305,94 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb43-4" data-line-number="4"><span class="st">  </span><span class="kw">pull</span>(ssi.factor_yn) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb43-5" data-line-number="5"><span class="st">  </span><span class="kw">levels</span>()</a></code></pre></div>
 <pre><code>## [1] &quot;No&quot;      &quot;Unknown&quot; &quot;Yes&quot;</code></pre>
+</div>
+<div id="filter-na-dropping-rows-where-all-specified-variables-are-na" class="section level2">
+<h2><span class="header-section-number">3.2</span> Filter NA: Dropping rows where all specified variables are NA</h2>
+<p>I want to keep rows that have a value for <code>important_a</code> and/or <code>important_b</code> (so rows 1, 3, 4).
+I don’t care whether <code>whatever_c</code> is empty or not, but I do want to keep it.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb45-3" data-line-number="3">mydata  =<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">important_a =</span> <span class="kw">c</span>(<span class="st">&quot;Value&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="ot">NA</span>, <span class="ot">NA</span>),</a>
+<a class="sourceLine" id="cb45-4" data-line-number="4">                 <span class="dt">important_b =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="ot">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="st">&quot;Value&quot;</span>, <span class="ot">NA</span>),</a>
+<a class="sourceLine" id="cb45-5" data-line-number="5">                 <span class="dt">whatever_c  =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="ot">NA</span>, <span class="ot">NA</span>, <span class="ot">NA</span>))</a>
+<a class="sourceLine" id="cb45-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb45-7" data-line-number="7">mydata</a></code></pre></div>
+<pre><code>## # A tibble: 5 x 3
+##   important_a important_b whatever_c
+##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
+## 1 Value       &lt;NA&gt;        &lt;NA&gt;      
+## 2 &lt;NA&gt;        &lt;NA&gt;        Value     
+## 3 Value       Value       &lt;NA&gt;      
+## 4 &lt;NA&gt;        Value       &lt;NA&gt;      
+## 5 &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;</code></pre>
+<p>Functions for missing values that are very useful, but don’t do what I want are:</p>
+<ol style="list-style-type: decimal">
+<li>This keeps complete cases based on all columns:</li>
+</ol>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb47-2" data-line-number="2"><span class="st">  </span><span class="kw">drop_na</span>()</a></code></pre></div>
+<pre><code>## # A tibble: 0 x 3
+## # … with 3 variables: important_a &lt;chr&gt;, important_b &lt;chr&gt;,
+## #   whatever_c &lt;chr&gt;</code></pre>
+<p>(Returns 0 as we don’t have rows where all 3 columns have a value).</p>
+<ol start="2" style="list-style-type: decimal">
+<li>This keeps complete cases based on specified columns:</li>
+</ol>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="st">  </span><span class="kw">drop_na</span>(important_a, important_b)</a></code></pre></div>
+<pre><code>## # A tibble: 1 x 3
+##   important_a important_b whatever_c
+##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
+## 1 Value       Value       &lt;NA&gt;</code></pre>
+<p>This only keeps the row where both a and b have a value.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>This keeps rows that have a value in any column:</li>
+</ol>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="st">  </span><span class="kw">filter_all</span>(<span class="kw">any_vars</span>(<span class="op">!</span><span class="st"> </span><span class="kw">is.na</span>(.)))</a></code></pre></div>
+<pre><code>## # A tibble: 4 x 3
+##   important_a important_b whatever_c
+##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
+## 1 Value       &lt;NA&gt;        &lt;NA&gt;      
+## 2 &lt;NA&gt;        &lt;NA&gt;        Value     
+## 3 Value       Value       &lt;NA&gt;      
+## 4 &lt;NA&gt;        Value       &lt;NA&gt;</code></pre>
+<p>The third example is better achieved using the janitor package:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="st">  </span>janitor<span class="op">::</span><span class="kw">remove_empty</span>()</a></code></pre></div>
+<pre><code>## # A tibble: 4 x 3
+##   important_a important_b whatever_c
+##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
+## 1 Value       &lt;NA&gt;        &lt;NA&gt;      
+## 2 &lt;NA&gt;        &lt;NA&gt;        Value     
+## 3 Value       Value       &lt;NA&gt;      
+## 4 &lt;NA&gt;        Value       &lt;NA&gt;</code></pre>
+<p>Now, (3) is pretty close, but still, I’m not interested in row 2 - where both a and b are empty but c has a value (which is why it’s kept).</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Simple solution</li>
+</ol>
+<p>A quick solution is to use <code>! is.na()</code> for each variable inside a <code>filter()</code>:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="st"> </span><span class="kw">is.na</span>(important_a) <span class="op">|</span><span class="st"> </span><span class="op">!</span><span class="st"> </span><span class="kw">is.na</span>(important_b))</a></code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   important_a important_b whatever_c
+##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
+## 1 Value       &lt;NA&gt;        &lt;NA&gt;      
+## 2 Value       Value       &lt;NA&gt;      
+## 3 &lt;NA&gt;        Value       &lt;NA&gt;</code></pre>
+<p>And this is definitely what I do when I only have a couple of these variables. But if you have tens, then the filtering logic becomes horrendously long and it’s easy to miss one out/make a mistake.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Powerful solution:</li>
+</ol>
+<p>A scalable solution is to use <code>filter_at()</code> with <code>vars()</code> with a select helper (e.g., <code>starts with()</code>), and then the <code>any_vars(! is.na(.))</code> that was introduced in (3).</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="st">  </span><span class="kw">filter_at</span>(<span class="kw">vars</span>(<span class="kw">starts_with</span>(<span class="st">&quot;important_&quot;</span>)), <span class="kw">any_vars</span>(<span class="op">!</span><span class="st"> </span><span class="kw">is.na</span>(.)))</a></code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   important_a important_b whatever_c
+##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
+## 1 Value       &lt;NA&gt;        &lt;NA&gt;      
+## 2 Value       Value       &lt;NA&gt;      
+## 3 &lt;NA&gt;        Value       &lt;NA&gt;</code></pre>
 
 </div>
 </div>
@@ -332,7 +422,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapaper": false,
+"instapper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -342,10 +432,6 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": null,
-"text": null
-},
-"history": {
 "link": null,
 "text": null
 },

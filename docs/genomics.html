@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html >
+
 <head>
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 Genomics | The Surgical Informatics Cookbook</title>
-  <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>The Surgical Informatics Cookbook</title>
+  <meta name="description" content="All the brilliant bits of code we don’t want to forget.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 7 Genomics | The Surgical Informatics Cookbook" />
+  <meta property="og:title" content="The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
   
   
@@ -16,26 +17,25 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Genomics | The Surgical Informatics Cookbook" />
+  <meta name="twitter:title" content="The Surgical Informatics Cookbook" />
   
   <meta name="twitter:description" content="All the brilliant bits of code we don’t want to forget." />
   
 
-<meta name="author" content="Surgical Informatics, University of Edinburgh" />
+<meta name="author" content="Surgical Informatics, University of Edinburgh">
 
 
-<meta name="date" content="2020-02-25" />
+<meta name="date" content="2020-02-26">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
 <link rel="prev" href="plotting.html">
 <link rel="next" href="programming-in-rlang.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -55,6 +55,7 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -157,6 +158,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-manipulation.html"><a href="data-manipulation.html#collapse-multiple-no-and-yes-options"><i class="fa fa-check"></i><b>3.1</b> Collapse multiple “no” and “yes” options</a></li>
+<li class="chapter" data-level="3.2" data-path="data-manipulation.html"><a href="data-manipulation.html#filter-na-dropping-rows-where-all-specified-variables-are-na"><i class="fa fa-check"></i><b>3.2</b> Filter NA: Dropping rows where all specified variables are NA</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>4</b> Machine learning</a><ul>
 <li class="chapter" data-level="4.1" data-path="machine-learning.html"><a href="machine-learning.html#deep-learning"><i class="fa fa-check"></i><b>4.1</b> Deep learning</a><ul>
@@ -258,32 +260,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="minimising-the-size-of-a-seurat-object" class="section level3">
 <h3><span class="header-section-number">7.1.1</span> Minimising the size of a Seurat Object</h3>
 <p>Single cell analyses are ofetn collated in Seurat objects which can be huge. We reduced the size of our Seurat object by pulling the relevant sections using the code below reducing the object to &lt;20% of its original size. This works by only including the sparse matrices. This is not a workable example, but the PBMC dataset could be used if necessary.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="co">#library(Seurat)</span></a>
-<a class="sourceLine" id="cb72-2" data-line-number="2"><span class="co">#library(dplyr)</span></a>
-<a class="sourceLine" id="cb72-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb72-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb72-5" data-line-number="5"><span class="co">#Load in the data</span></a>
-<a class="sourceLine" id="cb72-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb72-7" data-line-number="7">pathtoglobaldata &lt;-<span class="st">&quot;mac_shiny/data/Global_sc_object&quot;</span></a>
-<a class="sourceLine" id="cb72-8" data-line-number="8">object_global&lt;-<span class="kw">readRDS</span>(pathtoglobaldata)</a>
-<a class="sourceLine" id="cb72-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb72-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb72-11" data-line-number="11"><span class="co"># Get sparse assay data</span></a>
-<a class="sourceLine" id="cb72-12" data-line-number="12">sizetest_global&lt;-<span class="kw">GetAssayData</span>(<span class="dt">object =</span> object_global, <span class="dt">slot =</span> <span class="st">&quot;data&quot;</span>) <span class="co"># counts don’t work, scaled breaks my pc with memory errors, not sure it matters that much</span></a>
-<a class="sourceLine" id="cb72-13" data-line-number="13">object_global_small&lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(sizetest_global)</a>
-<a class="sourceLine" id="cb72-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb72-15" data-line-number="15"><span class="co"># Add in classifications. </span></a>
-<a class="sourceLine" id="cb72-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb72-17" data-line-number="17">object_global_small<span class="op">@</span>reductions<span class="op">$</span>tsne&lt;-object_global<span class="op">@</span>reductions<span class="op">$</span>tsne <span class="co"># reduction embeddings for tsnegraph</span></a>
-<a class="sourceLine" id="cb72-18" data-line-number="18">object_global_small<span class="op">$</span>Phenotype&lt;-<span class="st"> </span>object_global<span class="op">$</span>Phenotype</a>
-<a class="sourceLine" id="cb72-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb72-20" data-line-number="20">object_global_small<span class="op">@</span>meta.data<span class="op">$</span>final_classification&lt;-<span class="st"> </span>object_global<span class="op">@</span>meta.data<span class="op">$</span>final_classification</a>
-<a class="sourceLine" id="cb72-21" data-line-number="21">object_global_small<span class="op">$</span>final_classificaiton&lt;-<span class="st"> </span>object_global<span class="op">$</span>final_classification <span class="co">#cell classifications</span></a>
-<a class="sourceLine" id="cb72-22" data-line-number="22"><span class="kw">Idents</span>(<span class="dt">object =</span> object_global_small) &lt;-<span class="st"> &quot;final_classificaiton&quot;</span> <span class="co">#set forever</span></a>
-<a class="sourceLine" id="cb72-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb72-24" data-line-number="24"></a>
-<a class="sourceLine" id="cb72-25" data-line-number="25"><span class="co">#same</span></a>
-<a class="sourceLine" id="cb72-26" data-line-number="26"><span class="kw">saveRDS</span>(object_global_small,<span class="st">&quot;mac_shiny/data/global_object_sml&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="co">#library(Seurat)</span></a>
+<a class="sourceLine" id="cb86-2" data-line-number="2"><span class="co">#library(dplyr)</span></a>
+<a class="sourceLine" id="cb86-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb86-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb86-5" data-line-number="5"><span class="co">#Load in the data</span></a>
+<a class="sourceLine" id="cb86-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb86-7" data-line-number="7">pathtoglobaldata &lt;-<span class="st">&quot;mac_shiny/data/Global_sc_object&quot;</span></a>
+<a class="sourceLine" id="cb86-8" data-line-number="8">object_global&lt;-<span class="kw">readRDS</span>(pathtoglobaldata)</a>
+<a class="sourceLine" id="cb86-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb86-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb86-11" data-line-number="11"><span class="co"># Get sparse assay data</span></a>
+<a class="sourceLine" id="cb86-12" data-line-number="12">sizetest_global&lt;-<span class="kw">GetAssayData</span>(<span class="dt">object =</span> object_global, <span class="dt">slot =</span> <span class="st">&quot;data&quot;</span>) <span class="co"># counts don’t work, scaled breaks my pc with memory errors, not sure it matters that much</span></a>
+<a class="sourceLine" id="cb86-13" data-line-number="13">object_global_small&lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(sizetest_global)</a>
+<a class="sourceLine" id="cb86-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb86-15" data-line-number="15"><span class="co"># Add in classifications. </span></a>
+<a class="sourceLine" id="cb86-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb86-17" data-line-number="17">object_global_small<span class="op">@</span>reductions<span class="op">$</span>tsne&lt;-object_global<span class="op">@</span>reductions<span class="op">$</span>tsne <span class="co"># reduction embeddings for tsnegraph</span></a>
+<a class="sourceLine" id="cb86-18" data-line-number="18">object_global_small<span class="op">$</span>Phenotype&lt;-<span class="st"> </span>object_global<span class="op">$</span>Phenotype</a>
+<a class="sourceLine" id="cb86-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb86-20" data-line-number="20">object_global_small<span class="op">@</span>meta.data<span class="op">$</span>final_classification&lt;-<span class="st"> </span>object_global<span class="op">@</span>meta.data<span class="op">$</span>final_classification</a>
+<a class="sourceLine" id="cb86-21" data-line-number="21">object_global_small<span class="op">$</span>final_classificaiton&lt;-<span class="st"> </span>object_global<span class="op">$</span>final_classification <span class="co">#cell classifications</span></a>
+<a class="sourceLine" id="cb86-22" data-line-number="22"><span class="kw">Idents</span>(<span class="dt">object =</span> object_global_small) &lt;-<span class="st"> &quot;final_classificaiton&quot;</span> <span class="co">#set forever</span></a>
+<a class="sourceLine" id="cb86-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb86-24" data-line-number="24"></a>
+<a class="sourceLine" id="cb86-25" data-line-number="25"><span class="co">#same</span></a>
+<a class="sourceLine" id="cb86-26" data-line-number="26"><span class="kw">saveRDS</span>(object_global_small,<span class="st">&quot;mac_shiny/data/global_object_sml&quot;</span>)</a></code></pre></div>
 
 </div>
 </div>
@@ -314,7 +316,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapaper": false,
+"instapper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -324,10 +326,6 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": null,
-"text": null
-},
-"history": {
 "link": null,
 "text": null
 },

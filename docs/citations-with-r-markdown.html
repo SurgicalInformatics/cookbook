@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html >
+
 <head>
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 10 Citations with R Markdown | The Surgical Informatics Cookbook</title>
-  <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>The Surgical Informatics Cookbook</title>
+  <meta name="description" content="All the brilliant bits of code we don’t want to forget.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 10 Citations with R Markdown | The Surgical Informatics Cookbook" />
+  <meta property="og:title" content="The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
   
   
@@ -16,26 +17,25 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 10 Citations with R Markdown | The Surgical Informatics Cookbook" />
+  <meta name="twitter:title" content="The Surgical Informatics Cookbook" />
   
   <meta name="twitter:description" content="All the brilliant bits of code we don’t want to forget." />
   
 
-<meta name="author" content="Surgical Informatics, University of Edinburgh" />
+<meta name="author" content="Surgical Informatics, University of Edinburgh">
 
 
-<meta name="date" content="2020-02-25" />
+<meta name="date" content="2020-02-26">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
 <link rel="prev" href="server-admin.html">
 <link rel="next" href="references.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -55,6 +55,7 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -157,6 +158,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-manipulation.html"><a href="data-manipulation.html#collapse-multiple-no-and-yes-options"><i class="fa fa-check"></i><b>3.1</b> Collapse multiple “no” and “yes” options</a></li>
+<li class="chapter" data-level="3.2" data-path="data-manipulation.html"><a href="data-manipulation.html#filter-na-dropping-rows-where-all-specified-variables-are-na"><i class="fa fa-check"></i><b>3.2</b> Filter NA: Dropping rows where all specified variables are NA</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>4</b> Machine learning</a><ul>
 <li class="chapter" data-level="4.1" data-path="machine-learning.html"><a href="machine-learning.html#deep-learning"><i class="fa fa-check"></i><b>4.1</b> Deep learning</a><ul>
@@ -367,30 +369,30 @@ Figure 10.4: ZotFile PDF Storage Preferences
 <div id="token-creation" class="section level3">
 <h3><span class="header-section-number">10.6.1</span> Token Creation</h3>
 <p>The code will create two files, a token and the <code>.httr-oauth</code> file from which a token can also be made. The encryptr package can then encrypt the files using a public / private key pair. It is essential that the password that is set when using genkeys() is remembered otherwise the token cannot then be used. In this case the original token can’t be retrieved but could be created again from scratch.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1"><span class="kw">library</span>(rdrop2)</a>
-<a class="sourceLine" id="cb75-2" data-line-number="2"><span class="kw">library</span>(encryptr)</a>
-<a class="sourceLine" id="cb75-3" data-line-number="3"> </a>
-<a class="sourceLine" id="cb75-4" data-line-number="4"><span class="co"># Create token</span></a>
-<a class="sourceLine" id="cb75-5" data-line-number="5">token &lt;-<span class="st"> </span><span class="kw">drop_auth</span>()</a>
-<a class="sourceLine" id="cb75-6" data-line-number="6"> </a>
-<a class="sourceLine" id="cb75-7" data-line-number="7"><span class="co"># Save token</span></a>
-<a class="sourceLine" id="cb75-8" data-line-number="8"><span class="kw">saveRDS</span>(token, <span class="st">&quot;droptoken.rds&quot;</span>)</a>
-<a class="sourceLine" id="cb75-9" data-line-number="9"> </a>
-<a class="sourceLine" id="cb75-10" data-line-number="10"><span class="co"># Encrypt token</span></a>
-<a class="sourceLine" id="cb75-11" data-line-number="11"><span class="kw">genkeys</span>()               <span class="co"># Default file names are id_rsa and id_rsa.pub</span></a>
-<a class="sourceLine" id="cb75-12" data-line-number="12"><span class="kw">encrypt_file</span>(<span class="st">&quot;droptoken.rds&quot;</span>, <span class="st">&quot;droptoken.rds.encryptr.bin&quot;</span>)</a>
-<a class="sourceLine" id="cb75-13" data-line-number="13"><span class="kw">encrypt_file</span>(<span class="st">&quot;.httr-oauth&quot;</span>, <span class="st">&quot;.httr-oauth.encryptr.bin&quot;</span>)</a>
-<a class="sourceLine" id="cb75-14" data-line-number="14"> </a>
-<a class="sourceLine" id="cb75-15" data-line-number="15"><span class="co"># Same details should appear later</span></a>
-<a class="sourceLine" id="cb75-16" data-line-number="16"><span class="kw">drop_acc</span>()</a>
-<a class="sourceLine" id="cb75-17" data-line-number="17"> </a>
-<a class="sourceLine" id="cb75-18" data-line-number="18"><span class="co"># Remove token from local environment</span></a>
-<a class="sourceLine" id="cb75-19" data-line-number="19"><span class="kw">rm</span>(token)</a>
-<a class="sourceLine" id="cb75-20" data-line-number="20"> </a>
-<a class="sourceLine" id="cb75-21" data-line-number="21"> </a>
-<a class="sourceLine" id="cb75-22" data-line-number="22"><span class="co"># Delete the unencrypted files</span></a>
-<a class="sourceLine" id="cb75-23" data-line-number="23"><span class="kw">system</span>(<span class="st">&quot;rm droptoken.rds&quot;</span>)</a>
-<a class="sourceLine" id="cb75-24" data-line-number="24"><span class="kw">system</span>(<span class="st">&quot;rm .httr-oauth&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1"><span class="kw">library</span>(rdrop2)</a>
+<a class="sourceLine" id="cb89-2" data-line-number="2"><span class="kw">library</span>(encryptr)</a>
+<a class="sourceLine" id="cb89-3" data-line-number="3"> </a>
+<a class="sourceLine" id="cb89-4" data-line-number="4"><span class="co"># Create token</span></a>
+<a class="sourceLine" id="cb89-5" data-line-number="5">token &lt;-<span class="st"> </span><span class="kw">drop_auth</span>()</a>
+<a class="sourceLine" id="cb89-6" data-line-number="6"> </a>
+<a class="sourceLine" id="cb89-7" data-line-number="7"><span class="co"># Save token</span></a>
+<a class="sourceLine" id="cb89-8" data-line-number="8"><span class="kw">saveRDS</span>(token, <span class="st">&quot;droptoken.rds&quot;</span>)</a>
+<a class="sourceLine" id="cb89-9" data-line-number="9"> </a>
+<a class="sourceLine" id="cb89-10" data-line-number="10"><span class="co"># Encrypt token</span></a>
+<a class="sourceLine" id="cb89-11" data-line-number="11"><span class="kw">genkeys</span>()               <span class="co"># Default file names are id_rsa and id_rsa.pub</span></a>
+<a class="sourceLine" id="cb89-12" data-line-number="12"><span class="kw">encrypt_file</span>(<span class="st">&quot;droptoken.rds&quot;</span>, <span class="st">&quot;droptoken.rds.encryptr.bin&quot;</span>)</a>
+<a class="sourceLine" id="cb89-13" data-line-number="13"><span class="kw">encrypt_file</span>(<span class="st">&quot;.httr-oauth&quot;</span>, <span class="st">&quot;.httr-oauth.encryptr.bin&quot;</span>)</a>
+<a class="sourceLine" id="cb89-14" data-line-number="14"> </a>
+<a class="sourceLine" id="cb89-15" data-line-number="15"><span class="co"># Same details should appear later</span></a>
+<a class="sourceLine" id="cb89-16" data-line-number="16"><span class="kw">drop_acc</span>()</a>
+<a class="sourceLine" id="cb89-17" data-line-number="17"> </a>
+<a class="sourceLine" id="cb89-18" data-line-number="18"><span class="co"># Remove token from local environment</span></a>
+<a class="sourceLine" id="cb89-19" data-line-number="19"><span class="kw">rm</span>(token)</a>
+<a class="sourceLine" id="cb89-20" data-line-number="20"> </a>
+<a class="sourceLine" id="cb89-21" data-line-number="21"> </a>
+<a class="sourceLine" id="cb89-22" data-line-number="22"><span class="co"># Delete the unencrypted files</span></a>
+<a class="sourceLine" id="cb89-23" data-line-number="23"><span class="kw">system</span>(<span class="st">&quot;rm droptoken.rds&quot;</span>)</a>
+<a class="sourceLine" id="cb89-24" data-line-number="24"><span class="kw">system</span>(<span class="st">&quot;rm .httr-oauth&quot;</span>)</a></code></pre></div>
 <p>The following files will then be needed to upload to the RStudio server:</p>
 <ul>
 <li><code>droptoken.rds.encryptr.bin</code> – or the name provided for the encrypted DropBox token</li>
@@ -400,50 +402,50 @@ Figure 10.4: ZotFile PDF Storage Preferences
 <div id="dropbox-linkage" class="section level3">
 <h3><span class="header-section-number">10.6.2</span> DropBox Linkage</h3>
 <p>Now that the encrypted token and necessary (password-protected) private key are available in RStudio server, the following can be saved as a separate script. The script is designed to read in and decrypt the encrypted token (this will require a password and should be done if the .bib file needs updated). Only the drop_download() needs repeated if using the token again during the same session. The token should be cleared at the end of every session for additional security.</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="kw">library</span>(rdrop2)</a>
-<a class="sourceLine" id="cb76-2" data-line-number="2"><span class="kw">library</span>(encryptr)</a>
-<a class="sourceLine" id="cb76-3" data-line-number="3"> </a>
-<a class="sourceLine" id="cb76-4" data-line-number="4"><span class="co"># ******** </span><span class="al">WARNING</span><span class="co"> ********</span></a>
-<a class="sourceLine" id="cb76-5" data-line-number="5"><span class="co"># Losing the unencrypted token will give anyone </span></a>
-<a class="sourceLine" id="cb76-6" data-line-number="6"><span class="co"># complete control of your Dropbox account</span></a>
-<a class="sourceLine" id="cb76-7" data-line-number="7"><span class="co"># If you are concerned this has happened,</span></a>
-<a class="sourceLine" id="cb76-8" data-line-number="8"><span class="co"># you can then revoke the rdrop2 app from your</span></a>
-<a class="sourceLine" id="cb76-9" data-line-number="9"><span class="co"># dropbox account and start over.</span></a>
-<a class="sourceLine" id="cb76-10" data-line-number="10"><span class="co"># ******** </span><span class="al">WARNING</span><span class="co"> ********</span></a>
-<a class="sourceLine" id="cb76-11" data-line-number="11"> </a>
-<a class="sourceLine" id="cb76-12" data-line-number="12"> </a>
-<a class="sourceLine" id="cb76-13" data-line-number="13">safely_extract_dropbox_token &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">encrypted_db_token =</span> <span class="ot">NULL</span>, </a>
-<a class="sourceLine" id="cb76-14" data-line-number="14">                                         <span class="dt">private_key_file =</span> <span class="ot">NULL</span>){</a>
-<a class="sourceLine" id="cb76-15" data-line-number="15">  <span class="kw">decrypt_file</span>(encrypted_db_token, </a>
-<a class="sourceLine" id="cb76-16" data-line-number="16">               <span class="dt">file_name =</span> <span class="st">&quot;temporary_dropbox_token.rds&quot;</span>, </a>
-<a class="sourceLine" id="cb76-17" data-line-number="17">               <span class="dt">private_key_path =</span> private_key_file)</a>
-<a class="sourceLine" id="cb76-18" data-line-number="18">  </a>
-<a class="sourceLine" id="cb76-19" data-line-number="19">  token &lt;&lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;temporary_dropbox_token.rds&quot;</span>)</a>
-<a class="sourceLine" id="cb76-20" data-line-number="20">  </a>
-<a class="sourceLine" id="cb76-21" data-line-number="21">  <span class="kw">system</span>(<span class="st">&quot;rm temporary_dropbox_token.rds&quot;</span>)</a>
-<a class="sourceLine" id="cb76-22" data-line-number="22">}</a>
-<a class="sourceLine" id="cb76-23" data-line-number="23"> </a>
-<a class="sourceLine" id="cb76-24" data-line-number="24"><span class="kw">safely_extract_dropbox_token</span>(<span class="dt">encrypted_db_token =</span> <span class="st">&quot;droptoken.rds.encryptr.bin&quot;</span>, </a>
-<a class="sourceLine" id="cb76-25" data-line-number="25">                             <span class="dt">private_key_file =</span> <span class="st">&quot;id_rsa&quot;</span>)</a>
-<a class="sourceLine" id="cb76-26" data-line-number="26"> </a>
-<a class="sourceLine" id="cb76-27" data-line-number="27"><span class="co"># Then pass the token to each drop_ function</span></a>
-<a class="sourceLine" id="cb76-28" data-line-number="28"><span class="kw">drop_acc</span>(<span class="dt">dtoken =</span> token)</a>
-<a class="sourceLine" id="cb76-29" data-line-number="29"> </a>
-<a class="sourceLine" id="cb76-30" data-line-number="30"><span class="co"># The path is the Dropbox file location</span></a>
-<a class="sourceLine" id="cb76-31" data-line-number="31"><span class="kw">drop_download</span>(<span class="dt">path =</span> <span class="st">&quot;My_Dropbox_Home_Directory/Zotero Library/my.bib&quot;</span>, </a>
-<a class="sourceLine" id="cb76-32" data-line-number="32">              <span class="dt">local_path =</span> <span class="st">&quot;my.bib&quot;</span>, </a>
-<a class="sourceLine" id="cb76-33" data-line-number="33">              <span class="dt">dtoken =</span> token,</a>
-<a class="sourceLine" id="cb76-34" data-line-number="34">              <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1"><span class="kw">library</span>(rdrop2)</a>
+<a class="sourceLine" id="cb90-2" data-line-number="2"><span class="kw">library</span>(encryptr)</a>
+<a class="sourceLine" id="cb90-3" data-line-number="3"> </a>
+<a class="sourceLine" id="cb90-4" data-line-number="4"><span class="co"># ******** </span><span class="al">WARNING</span><span class="co"> ********</span></a>
+<a class="sourceLine" id="cb90-5" data-line-number="5"><span class="co"># Losing the unencrypted token will give anyone </span></a>
+<a class="sourceLine" id="cb90-6" data-line-number="6"><span class="co"># complete control of your Dropbox account</span></a>
+<a class="sourceLine" id="cb90-7" data-line-number="7"><span class="co"># If you are concerned this has happened,</span></a>
+<a class="sourceLine" id="cb90-8" data-line-number="8"><span class="co"># you can then revoke the rdrop2 app from your</span></a>
+<a class="sourceLine" id="cb90-9" data-line-number="9"><span class="co"># dropbox account and start over.</span></a>
+<a class="sourceLine" id="cb90-10" data-line-number="10"><span class="co"># ******** </span><span class="al">WARNING</span><span class="co"> ********</span></a>
+<a class="sourceLine" id="cb90-11" data-line-number="11"> </a>
+<a class="sourceLine" id="cb90-12" data-line-number="12"> </a>
+<a class="sourceLine" id="cb90-13" data-line-number="13">safely_extract_dropbox_token &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">encrypted_db_token =</span> <span class="ot">NULL</span>, </a>
+<a class="sourceLine" id="cb90-14" data-line-number="14">                                         <span class="dt">private_key_file =</span> <span class="ot">NULL</span>){</a>
+<a class="sourceLine" id="cb90-15" data-line-number="15">  <span class="kw">decrypt_file</span>(encrypted_db_token, </a>
+<a class="sourceLine" id="cb90-16" data-line-number="16">               <span class="dt">file_name =</span> <span class="st">&quot;temporary_dropbox_token.rds&quot;</span>, </a>
+<a class="sourceLine" id="cb90-17" data-line-number="17">               <span class="dt">private_key_path =</span> private_key_file)</a>
+<a class="sourceLine" id="cb90-18" data-line-number="18">  </a>
+<a class="sourceLine" id="cb90-19" data-line-number="19">  token &lt;&lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;temporary_dropbox_token.rds&quot;</span>)</a>
+<a class="sourceLine" id="cb90-20" data-line-number="20">  </a>
+<a class="sourceLine" id="cb90-21" data-line-number="21">  <span class="kw">system</span>(<span class="st">&quot;rm temporary_dropbox_token.rds&quot;</span>)</a>
+<a class="sourceLine" id="cb90-22" data-line-number="22">}</a>
+<a class="sourceLine" id="cb90-23" data-line-number="23"> </a>
+<a class="sourceLine" id="cb90-24" data-line-number="24"><span class="kw">safely_extract_dropbox_token</span>(<span class="dt">encrypted_db_token =</span> <span class="st">&quot;droptoken.rds.encryptr.bin&quot;</span>, </a>
+<a class="sourceLine" id="cb90-25" data-line-number="25">                             <span class="dt">private_key_file =</span> <span class="st">&quot;id_rsa&quot;</span>)</a>
+<a class="sourceLine" id="cb90-26" data-line-number="26"> </a>
+<a class="sourceLine" id="cb90-27" data-line-number="27"><span class="co"># Then pass the token to each drop_ function</span></a>
+<a class="sourceLine" id="cb90-28" data-line-number="28"><span class="kw">drop_acc</span>(<span class="dt">dtoken =</span> token)</a>
+<a class="sourceLine" id="cb90-29" data-line-number="29"> </a>
+<a class="sourceLine" id="cb90-30" data-line-number="30"><span class="co"># The path is the Dropbox file location</span></a>
+<a class="sourceLine" id="cb90-31" data-line-number="31"><span class="kw">drop_download</span>(<span class="dt">path =</span> <span class="st">&quot;My_Dropbox_Home_Directory/Zotero Library/my.bib&quot;</span>, </a>
+<a class="sourceLine" id="cb90-32" data-line-number="32">              <span class="dt">local_path =</span> <span class="st">&quot;my.bib&quot;</span>, </a>
+<a class="sourceLine" id="cb90-33" data-line-number="33">              <span class="dt">dtoken =</span> token,</a>
+<a class="sourceLine" id="cb90-34" data-line-number="34">              <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Now that the <code>.bib</code> file has been created and is stored as “my.bib” in the local directory, it should update whenever the token is loaded and drop_download() is run. The <code>.bib</code> file should be listed in the <code>.rmd</code> YAML.</p>
 </div>
 </div>
 <div id="citing-r-packages" class="section level2">
 <h2><span class="header-section-number">10.7</span> Citing R Packages</h2>
 <p>When citing R packages a separate <code>.bib</code> file can be created. The following code could be added to an <code>index.rmd</code> file in <code>bookdown</code> or in a setup chunk in a stand-alone <code>.rmd</code>.</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1"><span class="co"># automatically create a bib database for R packages</span></a>
-<a class="sourceLine" id="cb77-2" data-line-number="2">knitr<span class="op">::</span><span class="kw">write_bib</span>(<span class="kw">c</span>(</a>
-<a class="sourceLine" id="cb77-3" data-line-number="3">  <span class="kw">.packages</span>(), <span class="st">&#39;encryptr&#39;</span>, <span class="st">&#39;knitr&#39;</span>, <span class="st">&#39;rmarkdown&#39;</span></a>
-<a class="sourceLine" id="cb77-4" data-line-number="4">), <span class="st">&#39;packages.bib&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="co"># automatically create a bib database for R packages</span></a>
+<a class="sourceLine" id="cb91-2" data-line-number="2">knitr<span class="op">::</span><span class="kw">write_bib</span>(<span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb91-3" data-line-number="3">  <span class="kw">.packages</span>(), <span class="st">&#39;encryptr&#39;</span>, <span class="st">&#39;knitr&#39;</span>, <span class="st">&#39;rmarkdown&#39;</span></a>
+<a class="sourceLine" id="cb91-4" data-line-number="4">), <span class="st">&#39;packages.bib&#39;</span>)</a></code></pre></div>
 
 </div>
 </div>
@@ -473,7 +475,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapaper": false,
+"instapper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -483,10 +485,6 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": null,
-"text": null
-},
-"history": {
 "link": null,
 "text": null
 },

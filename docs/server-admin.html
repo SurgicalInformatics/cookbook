@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html >
+
 <head>
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 9 Server admin | The Surgical Informatics Cookbook</title>
-  <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>The Surgical Informatics Cookbook</title>
+  <meta name="description" content="All the brilliant bits of code we don’t want to forget.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 9 Server admin | The Surgical Informatics Cookbook" />
+  <meta property="og:title" content="The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
   
   
@@ -16,26 +17,25 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 9 Server admin | The Surgical Informatics Cookbook" />
+  <meta name="twitter:title" content="The Surgical Informatics Cookbook" />
   
   <meta name="twitter:description" content="All the brilliant bits of code we don’t want to forget." />
   
 
-<meta name="author" content="Surgical Informatics, University of Edinburgh" />
+<meta name="author" content="Surgical Informatics, University of Edinburgh">
 
 
-<meta name="date" content="2020-02-25" />
+<meta name="date" content="2020-02-26">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
 <link rel="prev" href="programming-in-rlang.html">
 <link rel="next" href="citations-with-r-markdown.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -55,6 +55,7 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -157,6 +158,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation</a><ul>
 <li class="chapter" data-level="3.1" data-path="data-manipulation.html"><a href="data-manipulation.html#collapse-multiple-no-and-yes-options"><i class="fa fa-check"></i><b>3.1</b> Collapse multiple “no” and “yes” options</a></li>
+<li class="chapter" data-level="3.2" data-path="data-manipulation.html"><a href="data-manipulation.html#filter-na-dropping-rows-where-all-specified-variables-are-na"><i class="fa fa-check"></i><b>3.2</b> Filter NA: Dropping rows where all specified variables are NA</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>4</b> Machine learning</a><ul>
 <li class="chapter" data-level="4.1" data-path="machine-learning.html"><a href="machine-learning.html#deep-learning"><i class="fa fa-check"></i><b>4.1</b> Deep learning</a><ul>
@@ -257,19 +259,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">9.1</span> RStudio Connect: argoshare</h2>
 <div id="delete-user" class="section level3">
 <h3><span class="header-section-number">9.1.1</span> Delete user</h3>
-<div class="sourceCode" id="cb74"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="co"># Delete user from argoshare</span></a>
-<a class="sourceLine" id="cb74-2" data-line-number="2"><span class="co">## Connect must be stopped first</span></a>
-<a class="sourceLine" id="cb74-3" data-line-number="3"><span class="fu">sudo</span> systemctl stop rstudio-connect</a>
-<a class="sourceLine" id="cb74-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb74-5" data-line-number="5"><span class="co">## List all users</span></a>
-<a class="sourceLine" id="cb74-6" data-line-number="6"><span class="fu">sudo</span> /opt/rstudio-connect/bin/usermanager list</a>
-<a class="sourceLine" id="cb74-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb74-8" data-line-number="8"><span class="co">## Find guid for the user you want to delete, looks like below. </span></a>
-<a class="sourceLine" id="cb74-9" data-line-number="9"><span class="co">## Delete user - need to say y/n</span></a>
-<a class="sourceLine" id="cb74-10" data-line-number="10"><span class="fu">sudo</span> /opt/rstudio-connect/bin/usermanager delete --users --user-guid 46cb5adb-4036-451f-9f08-0da3197dbc6c</a>
-<a class="sourceLine" id="cb74-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb74-12" data-line-number="12"><span class="co">## Restart connect</span></a>
-<a class="sourceLine" id="cb74-13" data-line-number="13"><span class="fu">sudo</span> systemctl start rstudio-connect</a></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="co"># Delete user from argoshare</span></a>
+<a class="sourceLine" id="cb88-2" data-line-number="2"><span class="co">## Connect must be stopped first</span></a>
+<a class="sourceLine" id="cb88-3" data-line-number="3"><span class="fu">sudo</span> systemctl stop rstudio-connect</a>
+<a class="sourceLine" id="cb88-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb88-5" data-line-number="5"><span class="co">## List all users</span></a>
+<a class="sourceLine" id="cb88-6" data-line-number="6"><span class="fu">sudo</span> /opt/rstudio-connect/bin/usermanager list</a>
+<a class="sourceLine" id="cb88-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb88-8" data-line-number="8"><span class="co">## Find guid for the user you want to delete, looks like below. </span></a>
+<a class="sourceLine" id="cb88-9" data-line-number="9"><span class="co">## Delete user - need to say y/n</span></a>
+<a class="sourceLine" id="cb88-10" data-line-number="10"><span class="fu">sudo</span> /opt/rstudio-connect/bin/usermanager delete --users --user-guid 46cb5adb-4036-451f-9f08-0da3197dbc6c</a>
+<a class="sourceLine" id="cb88-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb88-12" data-line-number="12"><span class="co">## Restart connect</span></a>
+<a class="sourceLine" id="cb88-13" data-line-number="13"><span class="fu">sudo</span> systemctl start rstudio-connect</a></code></pre></div>
 
 </div>
 </div>
@@ -300,7 +302,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapaper": false,
+"instapper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -310,10 +312,6 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": null,
-"text": null
-},
-"history": {
 "link": null,
 "text": null
 },
