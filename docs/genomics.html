@@ -47,6 +47,7 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -139,7 +140,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="snippets.html"><a href="snippets.html"><i class="fa fa-check"></i><b>2</b> Snippets</a><ul>
-<li class="chapter" data-level="2.1" data-path="snippets.html"><a href="snippets.html#exporting-tables-that-work-in-both-pdf-and-word"><i class="fa fa-check"></i><b>2.1</b> Exporting tables that work in both PDF and Word</a></li>
+<li class="chapter" data-level="2.1" data-path="snippets.html"><a href="snippets.html#exporting-tables-that-work-in-both-pdf-and-word"><i class="fa fa-check"></i><b>2.1</b> Exporting tables that work in both PDF and Word</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="snippets.html"><a href="snippets.html#warning-in-kableextra.-please-specify-format-in-kable.-kableextra-can-customize-either-html-or-latex-outputs."><i class="fa fa-check"></i><b>2.1.1</b> Warning in kableExtra. Please specify format in kable. kableExtra can customize either HTML or LaTeX outputs.</a></li>
+</ul></li>
 <li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker"><i class="fa fa-check"></i><b>2.2</b> Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="snippets.html"><a href="snippets.html#create-basic-reproducible-examples"><i class="fa fa-check"></i><b>2.2.1</b> Create Basic Reproducible Examples</a></li>
 <li class="chapter" data-level="2.2.2" data-path="snippets.html"><a href="snippets.html#holepunch---complex-reproducible-examples"><i class="fa fa-check"></i><b>2.2.2</b> <code>holepunch</code> - Complex Reproducible Examples</a></li>
@@ -260,32 +263,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="minimising-the-size-of-a-seurat-object" class="section level3">
 <h3><span class="header-section-number">7.1.1</span> Minimising the size of a Seurat Object</h3>
 <p>Single cell analyses are ofetn collated in Seurat objects which can be huge. We reduced the size of our Seurat object by pulling the relevant sections using the code below reducing the object to &lt;20% of its original size. This works by only including the sparse matrices. This is not a workable example, but the PBMC dataset could be used if necessary.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="co">#library(Seurat)</span></a>
-<a class="sourceLine" id="cb88-2" data-line-number="2"><span class="co">#library(dplyr)</span></a>
-<a class="sourceLine" id="cb88-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb88-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb88-5" data-line-number="5"><span class="co">#Load in the data</span></a>
-<a class="sourceLine" id="cb88-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb88-7" data-line-number="7">pathtoglobaldata &lt;-<span class="st">&quot;mac_shiny/data/Global_sc_object&quot;</span></a>
-<a class="sourceLine" id="cb88-8" data-line-number="8">object_global&lt;-<span class="kw">readRDS</span>(pathtoglobaldata)</a>
-<a class="sourceLine" id="cb88-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb88-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb88-11" data-line-number="11"><span class="co"># Get sparse assay data</span></a>
-<a class="sourceLine" id="cb88-12" data-line-number="12">sizetest_global&lt;-<span class="kw">GetAssayData</span>(<span class="dt">object =</span> object_global, <span class="dt">slot =</span> <span class="st">&quot;data&quot;</span>) <span class="co"># counts don’t work, scaled breaks my pc with memory errors, not sure it matters that much</span></a>
-<a class="sourceLine" id="cb88-13" data-line-number="13">object_global_small&lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(sizetest_global)</a>
-<a class="sourceLine" id="cb88-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb88-15" data-line-number="15"><span class="co"># Add in classifications. </span></a>
-<a class="sourceLine" id="cb88-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb88-17" data-line-number="17">object_global_small<span class="op">@</span>reductions<span class="op">$</span>tsne&lt;-object_global<span class="op">@</span>reductions<span class="op">$</span>tsne <span class="co"># reduction embeddings for tsnegraph</span></a>
-<a class="sourceLine" id="cb88-18" data-line-number="18">object_global_small<span class="op">$</span>Phenotype&lt;-<span class="st"> </span>object_global<span class="op">$</span>Phenotype</a>
-<a class="sourceLine" id="cb88-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb88-20" data-line-number="20">object_global_small<span class="op">@</span>meta.data<span class="op">$</span>final_classification&lt;-<span class="st"> </span>object_global<span class="op">@</span>meta.data<span class="op">$</span>final_classification</a>
-<a class="sourceLine" id="cb88-21" data-line-number="21">object_global_small<span class="op">$</span>final_classificaiton&lt;-<span class="st"> </span>object_global<span class="op">$</span>final_classification <span class="co">#cell classifications</span></a>
-<a class="sourceLine" id="cb88-22" data-line-number="22"><span class="kw">Idents</span>(<span class="dt">object =</span> object_global_small) &lt;-<span class="st"> &quot;final_classificaiton&quot;</span> <span class="co">#set forever</span></a>
-<a class="sourceLine" id="cb88-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb88-24" data-line-number="24"></a>
-<a class="sourceLine" id="cb88-25" data-line-number="25"><span class="co">#same</span></a>
-<a class="sourceLine" id="cb88-26" data-line-number="26"><span class="kw">saveRDS</span>(object_global_small,<span class="st">&quot;mac_shiny/data/global_object_sml&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="co">#library(Seurat)</span></a>
+<a class="sourceLine" id="cb87-2" data-line-number="2"><span class="co">#library(dplyr)</span></a>
+<a class="sourceLine" id="cb87-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb87-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb87-5" data-line-number="5"><span class="co">#Load in the data</span></a>
+<a class="sourceLine" id="cb87-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb87-7" data-line-number="7">pathtoglobaldata &lt;-<span class="st">&quot;mac_shiny/data/Global_sc_object&quot;</span></a>
+<a class="sourceLine" id="cb87-8" data-line-number="8">object_global&lt;-<span class="kw">readRDS</span>(pathtoglobaldata)</a>
+<a class="sourceLine" id="cb87-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb87-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb87-11" data-line-number="11"><span class="co"># Get sparse assay data</span></a>
+<a class="sourceLine" id="cb87-12" data-line-number="12">sizetest_global&lt;-<span class="kw">GetAssayData</span>(<span class="dt">object =</span> object_global, <span class="dt">slot =</span> <span class="st">&quot;data&quot;</span>) <span class="co"># counts don’t work, scaled breaks my pc with memory errors, not sure it matters that much</span></a>
+<a class="sourceLine" id="cb87-13" data-line-number="13">object_global_small&lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(sizetest_global)</a>
+<a class="sourceLine" id="cb87-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb87-15" data-line-number="15"><span class="co"># Add in classifications. </span></a>
+<a class="sourceLine" id="cb87-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb87-17" data-line-number="17">object_global_small<span class="op">@</span>reductions<span class="op">$</span>tsne&lt;-object_global<span class="op">@</span>reductions<span class="op">$</span>tsne <span class="co"># reduction embeddings for tsnegraph</span></a>
+<a class="sourceLine" id="cb87-18" data-line-number="18">object_global_small<span class="op">$</span>Phenotype&lt;-<span class="st"> </span>object_global<span class="op">$</span>Phenotype</a>
+<a class="sourceLine" id="cb87-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb87-20" data-line-number="20">object_global_small<span class="op">@</span>meta.data<span class="op">$</span>final_classification&lt;-<span class="st"> </span>object_global<span class="op">@</span>meta.data<span class="op">$</span>final_classification</a>
+<a class="sourceLine" id="cb87-21" data-line-number="21">object_global_small<span class="op">$</span>final_classificaiton&lt;-<span class="st"> </span>object_global<span class="op">$</span>final_classification <span class="co">#cell classifications</span></a>
+<a class="sourceLine" id="cb87-22" data-line-number="22"><span class="kw">Idents</span>(<span class="dt">object =</span> object_global_small) &lt;-<span class="st"> &quot;final_classificaiton&quot;</span> <span class="co">#set forever</span></a>
+<a class="sourceLine" id="cb87-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb87-24" data-line-number="24"></a>
+<a class="sourceLine" id="cb87-25" data-line-number="25"><span class="co">#same</span></a>
+<a class="sourceLine" id="cb87-26" data-line-number="26"><span class="kw">saveRDS</span>(object_global_small,<span class="st">&quot;mac_shiny/data/global_object_sml&quot;</span>)</a></code></pre></div>
 
 </div>
 </div>

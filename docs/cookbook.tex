@@ -285,7 +285,7 @@ We can define our own table printing function that uses kableExtra or flextable 
 \CommentTok{# This makes table resize or continue over multiple pages in all output types}
 \CommentTok{# PDF powered by kableExtra, Word by flextable}
 \NormalTok{mytable =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, }\DataTypeTok{caption =} \StringTok{""}\NormalTok{, }\DataTypeTok{longtable =} \OtherTok{FALSE}\NormalTok{, ...)\{}
-  
+  \KeywordTok{library}\NormalTok{(kableExtra)}
   \CommentTok{# if not latex or html then else is Word}
   \ControlFlowTok{if}\NormalTok{ (knitr}\OperatorTok{::}\KeywordTok{is_latex_output}\NormalTok{() }\OperatorTok{|}\StringTok{ }\NormalTok{knitr}\OperatorTok{::}\KeywordTok{is_html_output}\NormalTok{())\{}
 \NormalTok{    knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(x, }\DataTypeTok{row.names =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{align =} \KeywordTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"l"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{), }
@@ -325,6 +325,13 @@ speed & dist\\
 \bottomrule
 \end{tabular}}
 \end{table}
+
+\hypertarget{warning-in-kableextra.-please-specify-format-in-kable.-kableextra-can-customize-either-html-or-latex-outputs.}{%
+\subsection{Warning in kableExtra. Please specify format in kable. kableExtra can customize either HTML or LaTeX outputs.}\label{warning-in-kableextra.-please-specify-format-in-kable.-kableextra-can-customize-either-html-or-latex-outputs.}}
+
+This warning goes away when you load \texttt{library(kableExtra)} in your script, instead of just using \texttt{kableExtra::function()}.
+
+What happens when you load \texttt{library(kableExtra)} is that it sets that specifies the format for the R session, so that Warning goes away. It does mean that the \texttt{render()} function may fail since it knits in the same environment you have, rather than a new one like the Knit button does.
 
 \hypertarget{creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker}{%
 \section{Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)}\label{creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker}}

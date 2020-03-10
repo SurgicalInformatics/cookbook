@@ -14,7 +14,7 @@ We can define our own table printing function that uses kableExtra or flextable 
 # This makes table resize or continue over multiple pages in all output types
 # PDF powered by kableExtra, Word by flextable
 mytable = function(x, caption = "", longtable = FALSE, ...){
-  
+  library(kableExtra)
   # if not latex or html then else is Word
   if (knitr::is_latex_output() | knitr::is_html_output()){
     knitr::kable(x, row.names = FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r", "r"), 
@@ -34,6 +34,12 @@ cars %>%
   head() %>% 
   mytable()
 ```
+
+### Warning in kableExtra. Please specify format in kable. kableExtra can customize either HTML or LaTeX outputs.
+
+This warning goes away when you load `library(kableExtra)` in your script, instead of just using `kableExtra::function()`.
+
+What happens when you load `library(kableExtra)` is that it sets that specifies the format for the R session, so that Warning goes away. It does mean that the `render()` function may fail since it knits in the same environment you have, rather than a new one like the Knit button does.
 
 
 
