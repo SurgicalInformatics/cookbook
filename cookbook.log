@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.7.9)  10 MAR 2020 15:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.7.9)  10 MAR 2020 16:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -932,29 +932,7 @@ Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibsep=\skip60
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count136
-) (./cookbook.aux
-
-LaTeX Warning: Label `intro' multiply defined.
-
-
-LaTeX Warning: Label `fig:nice-fig' multiply defined.
-
-
-LaTeX Warning: Label `tab:nice-tab' multiply defined.
-
-
-LaTeX Warning: Label `fig:add-on-install' multiply defined.
-
-
-LaTeX Warning: Label `fig:zotfile-preferences' multiply defined.
-
-
-LaTeX Warning: Label `fig:zotfile-renaming' multiply defined.
-
-
-LaTeX Warning: Label `fig:zotfile-citation-key' multiply defined.
-
-)
+) (./cookbook.aux)
 \openout1 = `cookbook.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 130.
@@ -1092,14 +1070,12 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    Try loading font information for T1+lmtt on input line 61.
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [3] [4])
+) [3])
 \tf@toc=\write5
 \openout5 = `cookbook.toc'.
 
-[5] [6
-
-]
-</home/rots/cookbook/img/surgical_informatics_minibanner.png, id=432, 1119.1812
+[4]
+</home/rots/cookbook/img/surgical_informatics_minibanner.png, id=227, 1119.1812
 4pt x 439.6425pt>
 File: /home/rots/cookbook/img/surgical_informatics_minibanner.png Graphic file 
 (type png)
@@ -1112,11 +1088,13 @@ Overfull \hbox (774.21266pt too wide) in paragraph at lines 141--142
 [] 
  []
 
-[7 </home/rots/cookbook/img/surgical_informatics_minibanner.png>] [8
+[5
+
+ </home/rots/cookbook/img/surgical_informatics_minibanner.png>] [6
 
 ]
 Chapter 1.
-[9]
+[7]
 
 Package xcolor Warning: Incompatible color definition on input line 202.
 
@@ -1134,7 +1112,7 @@ Package xcolor Warning: Incompatible color definition on input line 207.
 Package xcolor Warning: Incompatible color definition on input line 207.
 
 
-<01-intro_files/figure-latex/nice-fig-1.pdf, id=461, 464.73625pt x 351.3125pt>
+<01-intro_files/figure-latex/nice-fig-1.pdf, id=256, 464.73625pt x 351.3125pt>
 File: 01-intro_files/figure-latex/nice-fig-1.pdf Graphic file (type pdf)
 <use 01-intro_files/figure-latex/nice-fig-1.pdf>
 Package pdftex.def Info: 01-intro_files/figure-latex/nice-fig-1.pdf used on inp
@@ -1149,21 +1127,21 @@ Package xcolor Warning: Incompatible color definition on input line 227.
 
 Package xcolor Warning: Incompatible color definition on input line 227.
 
-[10]
+[8]
 
 Package xcolor Warning: Incompatible color definition on input line 227.
 
 
 Package xcolor Warning: Incompatible color definition on input line 227.
 
-[11pdfTeX warning (ext4): destination with the same identifier (name{figure.1.1
-}) has been already used, duplicate ignored
+[9pdfTeX warning (ext4): destination with the same identifier (name{figure.1.1}
+) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.270 \chapter{Snippets}\label{snippets}}
                                           <./01-intro_files/figure-latex/nice-f
-ig-1.pdf>] [12pdfTeX warning (ext4): destination with the same identifier (name
+ig-1.pdf>] [10pdfTeX warning (ext4): destination with the same identifier (name
 {table.1.1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
@@ -1183,7 +1161,7 @@ Package xcolor Warning: Incompatible color definition on input line 308.
 
 Package xcolor Warning: Incompatible color definition on input line 308.
 
-[13
+[11
 
 ]
 
@@ -1212,9 +1190,9 @@ Package xcolor Warning: Incompatible color definition on input line 353.
 
 Package xcolor Warning: Incompatible color definition on input line 353.
 
-[14]
+[12]
 
-LaTeX Warning: Text page 15 contains only floats.
+LaTeX Warning: Text page 13 contains only floats.
 
 
 Underfull \vbox (badness 3302) has occurred while \output is active []
@@ -1222,10 +1200,10 @@ Underfull \vbox (badness 3302) has occurred while \output is active []
 
 Overfull \hbox (215.4479pt too wide) has occurred while \output is active
 \T1/lmr/m/sl/10 2.2.  CREATING REPRODUCIBLE R EXAMPLES TO SHARE IN THE GROUP (B
-INDER, HOLEPUNCH AND DOCKER) \T1/lmr/m/n/10 15
+INDER, HOLEPUNCH AND DOCKER) \T1/lmr/m/n/10 13
  []
 
-[15pdfTeX warning (ext4): destination with the same identifier (name{table.2.1}
+[13pdfTeX warning (ext4): destination with the same identifier (name{table.2.1}
 ) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
@@ -1261,7 +1239,7 @@ Package xcolor Warning: Incompatible color definition on input line 390.
 
 Underfull \vbox (badness 1210) has occurred while \output is active []
 
-[16]
+[14]
 
 Package xcolor Warning: Incompatible color definition on input line 412.
 
@@ -1286,7 +1264,7 @@ Package xcolor Warning: Incompatible color definition on input line 461.
 
 Underfull \vbox (badness 3872) has occurred while \output is active []
 
-[17]
+[15]
 
 Package xcolor Warning: Incompatible color definition on input line 472.
 
@@ -1320,7 +1298,7 @@ Package xcolor Warning: Incompatible color definition on input line 527.
 
 Package xcolor Warning: Incompatible color definition on input line 527.
 
-[18]
+[16]
 
 Package xcolor Warning: Incompatible color definition on input line 527.
 
@@ -1357,7 +1335,7 @@ Package xcolor Warning: Incompatible color definition on input line 591.
 
 Package xcolor Warning: Incompatible color definition on input line 591.
 
-[19]
+[17]
 
 Package xcolor Warning: Incompatible color definition on input line 591.
 
@@ -1394,7 +1372,7 @@ Package xcolor Warning: Incompatible color definition on input line 659.
 
 Package xcolor Warning: Incompatible color definition on input line 659.
 
-[20]
+[18]
 
 Package xcolor Warning: Incompatible color definition on input line 659.
 
@@ -1467,7 +1445,7 @@ Package xcolor Warning: Incompatible color definition on input line 727.
 
 Package xcolor Warning: Incompatible color definition on input line 727.
 
-[21]
+[19]
 
 Package xcolor Warning: Incompatible color definition on input line 727.
 
@@ -1477,7 +1455,7 @@ Package xcolor Warning: Incompatible color definition on input line 727.
 
 Package xcolor Warning: Incompatible color definition on input line 760.
 
-[22]
+[20]
 
 Package xcolor Warning: Incompatible color definition on input line 769.
 
@@ -1493,7 +1471,7 @@ Package xcolor Warning: Incompatible color definition on input line 813.
 
 Package xcolor Warning: Incompatible color definition on input line 813.
 
-[23]
+[21]
 
 Package xcolor Warning: Incompatible color definition on input line 830.
 
@@ -1521,7 +1499,7 @@ Overfull \hbox (27.74892pt too wide) in paragraph at lines 844--844
 , p=0.786)[] 
  []
 
-[24]
+[22]
 Chapter 3.
 
 Package xcolor Warning: Incompatible color definition on input line 854.
@@ -1535,7 +1513,7 @@ Package xcolor Warning: Incompatible color definition on input line 891.
 
 Package xcolor Warning: Incompatible color definition on input line 891.
 
-[25
+[23
 
 ]
 
@@ -1562,7 +1540,7 @@ Package xcolor Warning: Incompatible color definition on input line 933.
 
 Package xcolor Warning: Incompatible color definition on input line 933.
 
-[26]
+[24]
 
 Package xcolor Warning: Incompatible color definition on input line 955.
 
@@ -1608,10 +1586,10 @@ Package xcolor Warning: Incompatible color definition on input line 1025.
 
 Overfull \hbox (55.10515pt too wide) has occurred while \output is active
 \T1/lmr/m/sl/10 3.2.  FILTER NA: DROPPING ROWS WHERE ALL SPECIFIED VARIABLES AR
-E NA \T1/lmr/m/n/10 27
+E NA \T1/lmr/m/n/10 25
  []
 
-[27]
+[25]
 
 Package xcolor Warning: Incompatible color definition on input line 1049.
 
@@ -1630,7 +1608,7 @@ Package xcolor Warning: Incompatible color definition on input line 1082.
 
 Package xcolor Warning: Incompatible color definition on input line 1082.
 
-[28]
+[26]
 Chapter 4.
 
 Package xcolor Warning: Incompatible color definition on input line 1105.
@@ -1648,7 +1626,7 @@ Overfull \vbox (0.15363pt too high) detected at line 1136
 
 Package xcolor Warning: Incompatible color definition on input line 1136.
 
-[29
+[27
 
 ]
 
@@ -1666,13 +1644,13 @@ Package xcolor Warning: Incompatible color definition on input line 1173.
 
 Package xcolor Warning: Incompatible color definition on input line 1173.
 
-[30]
+[28]
 Chapter 5.
 LaTeX Font Info:    Try loading font information for TS1+lmr on input line 1193
 .
 (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [31
+) [29
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 1211--1213
@@ -1694,7 +1672,7 @@ Package xcolor Warning: Incompatible color definition on input line 1224.
 
 Package xcolor Warning: Incompatible color definition on input line 1224.
 
-[32]
+[30]
 
 Package xcolor Warning: Incompatible color definition on input line 1251.
 
@@ -1716,7 +1694,7 @@ Package xcolor Warning: Incompatible color definition on input line 1269.
 
 Package xcolor Warning: Incompatible color definition on input line 1273.
 
-[33]
+[31]
 
 Package xcolor Warning: Incompatible color definition on input line 1277.
 
@@ -1750,7 +1728,7 @@ Package xcolor Warning: Incompatible color definition on input line 1307.
 
 Package xcolor Warning: Incompatible color definition on input line 1307.
 
-[34]
+[32]
 
 Package xcolor Warning: Incompatible color definition on input line 1322.
 
@@ -1772,7 +1750,7 @@ Package xcolor Warning: Incompatible color definition on input line 1342.
 
 Package xcolor Warning: Incompatible color definition on input line 1353.
 
-[35]
+[33]
 
 Package xcolor Warning: Incompatible color definition on input line 1357.
 
@@ -1800,14 +1778,14 @@ Package xcolor Warning: Incompatible color definition on input line 1398.
 
 Package xcolor Warning: Incompatible color definition on input line 1398.
 
-[36]
+[34]
 
 Package xcolor Warning: Incompatible color definition on input line 1398.
 
 
 Package xcolor Warning: Incompatible color definition on input line 1398.
 
-[37]
+[35]
 
 Package xcolor Warning: Incompatible color definition on input line 1428.
 
@@ -1820,7 +1798,7 @@ Package xcolor Warning: Incompatible color definition on input line 1476.
 
 Package xcolor Warning: Incompatible color definition on input line 1476.
 
-[38]
+[36]
 
 Package xcolor Warning: Incompatible color definition on input line 1476.
 
@@ -1836,7 +1814,7 @@ Package xcolor Warning: Incompatible color definition on input line 1493.
 
 Package xcolor Warning: Incompatible color definition on input line 1493.
 
-[39]
+[37]
 Underfull \hbox (badness 1292) in paragraph at lines 1504--1505
 \T1/lmr/m/n/10 (+20) which may be \T1/lmtt/m/n/10 /exports/applications/apps/SL
 7/R/3.5.3/lib64/R/etc/\T1/lmr/m/n/10 (+20) .
@@ -1867,7 +1845,7 @@ Overfull \vbox (1.1417pt too high) detected at line 1574
 
 Package xcolor Warning: Incompatible color definition on input line 1574.
 
-[40]
+[38]
 
 Package xcolor Warning: Incompatible color definition on input line 1574.
 
@@ -1886,7 +1864,7 @@ Package xcolor Warning: Incompatible color definition on input line 1584.
 
 Underfull \vbox (badness 1077) has occurred while \output is active []
 
-[41]
+[39]
 
 Package xcolor Warning: Incompatible color definition on input line 1593.
 
@@ -1896,7 +1874,7 @@ Package xcolor Warning: Incompatible color definition on input line 1598.
 
 Package xcolor Warning: Incompatible color definition on input line 1598.
 
-[42]
+[40]
 Chapter 6.
 
 Package xcolor Warning: Incompatible color definition on input line 1618.
@@ -1908,7 +1886,7 @@ Package xcolor Warning: Incompatible color definition on input line 1635.
 Package xcolor Warning: Incompatible color definition on input line 1635.
 
 
-<06-plotting_files/figure-latex/gghighlight-1.pdf, id=736, 455.7025pt x 315.177
+<06-plotting_files/figure-latex/gghighlight-1.pdf, id=531, 455.7025pt x 315.177
 5pt>
 File: 06-plotting_files/figure-latex/gghighlight-1.pdf Graphic file (type pdf)
 <use 06-plotting_files/figure-latex/gghighlight-1.pdf>
@@ -1918,7 +1896,7 @@ on input line 1637.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[43
+[41
 
 ]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <14.4> not available
@@ -1933,7 +1911,7 @@ Package xcolor Warning: Incompatible color definition on input line 1652.
 Package xcolor Warning: Incompatible color definition on input line 1652.
 
 
-<06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf, id=743, 453.695pt x 313.
+<06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf, id=537, 453.695pt x 313.
 17pt>
 File: 06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type p
 df)
@@ -1947,7 +1925,7 @@ Package xcolor Warning: Incompatible color definition on input line 1656.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[44 <./06-plotting_files/figure-latex/gghighlight-1.pdf>]
+[42 <./06-plotting_files/figure-latex/gghighlight-1.pdf>]
 
 Package xcolor Warning: Incompatible color definition on input line 1666.
 
@@ -1955,7 +1933,7 @@ Package xcolor Warning: Incompatible color definition on input line 1666.
 Package xcolor Warning: Incompatible color definition on input line 1666.
 
 
-<06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf, id=760, 453.695pt x 313.
+<06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf, id=554, 453.695pt x 313.
 17pt>
 File: 06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf Graphic file (type p
 df)
@@ -1969,7 +1947,7 @@ Package xcolor Warning: Incompatible color definition on input line 1670.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[45 <./06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf>]
+[43 <./06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf>]
 
 Package xcolor Warning: Incompatible color definition on input line 1684.
 
@@ -1977,7 +1955,7 @@ Package xcolor Warning: Incompatible color definition on input line 1684.
 Package xcolor Warning: Incompatible color definition on input line 1684.
 
 
-<06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf, id=773, 453.695pt x 313.
+<06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf, id=568, 453.695pt x 313.
 17pt>
 File: 06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf Graphic file (type p
 df)
@@ -1988,7 +1966,7 @@ sed on input line 1686.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[46 <./06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf>]
+[44 <./06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf>]
 
 Package xcolor Warning: Incompatible color definition on input line 1691.
 
@@ -1999,7 +1977,7 @@ Package xcolor Warning: Incompatible color definition on input line 1713.
 Package xcolor Warning: Incompatible color definition on input line 1713.
 
 
-<06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf, id=785, 199.74625pt x 13
+<06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf, id=580, 199.74625pt x 13
 6.51pt>
 File: 06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type p
 df)
@@ -2013,20 +1991,20 @@ Package xcolor Warning: Incompatible color definition on input line 1717.
 
 Underfull \vbox (badness 2285) has occurred while \output is active []
 
-[47 <./06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf>]
+[45 <./06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf>]
 
 Package xcolor Warning: Incompatible color definition on input line 1729.
 
 
 Package xcolor Warning: Incompatible color definition on input line 1729.
 
-</home/rots/cookbook/img/barplot_5x4.png, id=798, 361.35pt x 289.08pt>
+</home/rots/cookbook/img/barplot_5x4.png, id=593, 361.35pt x 289.08pt>
 File: /home/rots/cookbook/img/barplot_5x4.png Graphic file (type png)
 <use /home/rots/cookbook/img/barplot_5x4.png>
 Package pdftex.def Info: /home/rots/cookbook/img/barplot_5x4.png used on input 
 line 1733.
 (pdftex.def)             Requested size: 172.49767pt x 137.99812pt.
-</home/rots/cookbook/img/barplot_10x8.png, id=799, 722.7pt x 578.16pt>
+</home/rots/cookbook/img/barplot_10x8.png, id=594, 722.7pt x 578.16pt>
 File: /home/rots/cookbook/img/barplot_10x8.png Graphic file (type png)
 <use /home/rots/cookbook/img/barplot_10x8.png>
 Package pdftex.def Info: /home/rots/cookbook/img/barplot_10x8.png used on input
@@ -2037,7 +2015,7 @@ Overfull \hbox (2.21202pt too wide) in paragraph at lines 1733--1735
 [][] [] 
  []
 
-[48 <./06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf> </home/rots/cookbo
+[46 <./06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf> </home/rots/cookbo
 ok/img/barplot_5x4.png (PNG copy)> </home/rots/cookbook/img/barplot_10x8.png (P
 NG copy)>]
 Chapter 7.
@@ -2053,7 +2031,7 @@ Package xcolor Warning: Incompatible color definition on input line 1776.
 
 Package xcolor Warning: Incompatible color definition on input line 1776.
 
-[49
+[47
 
 ]
 
@@ -2062,7 +2040,7 @@ Package xcolor Warning: Incompatible color definition on input line 1776.
 
 Package xcolor Warning: Incompatible color definition on input line 1776.
 
-[50]
+[48]
 Chapter 8.
 
 Package xcolor Warning: Incompatible color definition on input line 1798.
@@ -2076,7 +2054,7 @@ Package xcolor Warning: Incompatible color definition on input line 1842.
 
 Package xcolor Warning: Incompatible color definition on input line 1842.
 
-[51
+[49
 
 ]
 
@@ -2085,7 +2063,7 @@ Package xcolor Warning: Incompatible color definition on input line 1842.
 
 Package xcolor Warning: Incompatible color definition on input line 1842.
 
-[52]
+[50]
 Chapter 9.
 
 Package xcolor Warning: Incompatible color definition on input line 1853.
@@ -2096,13 +2074,13 @@ Package xcolor Warning: Incompatible color definition on input line 1869.
 
 Package xcolor Warning: Incompatible color definition on input line 1869.
 
-[53
+[51
 
-] [54
+] [52
 
 ]
 Chapter 10.
-<img/zotero_add_on_install.png, id=855, 797.379pt x 502.87875pt>
+<img/zotero_add_on_install.png, id=649, 797.379pt x 502.87875pt>
 File: img/zotero_add_on_install.png Graphic file (type png)
 <use img/zotero_add_on_install.png>
 Package pdftex.def Info: img/zotero_add_on_install.png used on input line 1890.
@@ -2116,14 +2094,14 @@ Overfull \hbox (452.37706pt too wide) in paragraph at lines 1890--1890
 
 Underfull \vbox (badness 1102) has occurred while \output is active []
 
-[55] [56pdfTeX warning (ext4): destination with the same identifier (name{figur
+[53] [54pdfTeX warning (ext4): destination with the same identifier (name{figur
 e.10.1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.1899 
-        <./img/zotero_add_on_install.png>] [57] <img/zotfile_preferences.png, i
-d=886, 963.6pt x 510.10574pt>
+        <./img/zotero_add_on_install.png>] [55] <img/zotfile_preferences.png, i
+d=681, 963.6pt x 510.10574pt>
 File: img/zotfile_preferences.png Graphic file (type png)
 <use img/zotfile_preferences.png>
 Package pdftex.def Info: img/zotfile_preferences.png used on input line 1929.
@@ -2139,7 +2117,7 @@ Overfull \hbox (49.53105pt too wide) in paragraph at lines 1932--1933
 _Disease.pdf\T1/lmr/m/n/10 (-20) .
  []
 
-<img/zotfile_renaming.png, id=887, 964.20226pt x 513.117pt>
+<img/zotfile_renaming.png, id=682, 964.20226pt x 513.117pt>
 File: img/zotfile_renaming.png Graphic file (type png)
 <use img/zotfile_renaming.png>
 Package pdftex.def Info: img/zotfile_renaming.png used on input line 1935.
@@ -2149,13 +2127,13 @@ Overfull \hbox (619.28818pt too wide) in paragraph at lines 1935--1935
 [][]
  []
 
-[58] [59pdfTeX warning (ext4): destination with the same identifier (name{figur
+[56] [57pdfTeX warning (ext4): destination with the same identifier (name{figur
 e.10.2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.1976 
-        <./img/zotfile_preferences.png>] [60pdfTeX warning (ext4): destination 
+        <./img/zotfile_preferences.png>] [58pdfTeX warning (ext4): destination 
 with the same identifier (name{figure.10.3}) has been already used, duplicate i
 gnored
 
@@ -2175,7 +2153,7 @@ Overfull \hbox (89.5249pt too wide) in paragraph at lines 1977--1979
 num]
  []
 
-<img/zotero_citation_key.png, id=905, 962.99776pt x 511.9125pt>
+<img/zotero_citation_key.png, id=700, 962.99776pt x 511.9125pt>
 File: img/zotero_citation_key.png Graphic file (type png)
 <use img/zotero_citation_key.png>
 Package pdftex.def Info: img/zotero_citation_key.png used on input line 1983.
@@ -2185,7 +2163,7 @@ Overfull \hbox (617.9954pt too wide) in paragraph at lines 1983--1983
 [][]
  []
 
-[61] [62pdfTeX warning (ext4): destination with the same identifier (name{figur
+[59] [60pdfTeX warning (ext4): destination with the same identifier (name{figur
 e.10.4}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
@@ -2204,7 +2182,7 @@ Package xcolor Warning: Incompatible color definition on input line 2041.
 
 Package xcolor Warning: Incompatible color definition on input line 2041.
 
-[63]
+[61]
 
 Package xcolor Warning: Incompatible color definition on input line 2041.
 
@@ -2223,7 +2201,7 @@ Package xcolor Warning: Incompatible color definition on input line 2095.
 
 Package xcolor Warning: Incompatible color definition on input line 2095.
 
-[64]
+[62]
 
 Package xcolor Warning: Incompatible color definition on input line 2095.
 
@@ -2239,1155 +2217,25 @@ Package xcolor Warning: Incompatible color definition on input line 2111.
 
 Package xcolor Warning: Incompatible color definition on input line 2111.
 
-[65] [66
-
-]
-File: /home/rots/cookbook/img/surgical_informatics_minibanner.png Graphic file 
-(type png)
-<use /home/rots/cookbook/img/surgical_informatics_minibanner.png>
-Package pdftex.def Info: /home/rots/cookbook/img/surgical_informatics_minibanne
-r.png used on input line 2117.
-(pdftex.def)             Requested size: 1119.21266pt x 439.65483pt.
-
-Overfull \hbox (774.21266pt too wide) in paragraph at lines 2117--2118
-[] 
- []
-
-pdfTeX warning (ext4): destination with the same identifier (name{intro}) has b
-een already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.2120 \chapter{Introduction}\label{intro}}
-                                            [67] [68
-
-]
-Chapter 11.
-[69]
-
-Package xcolor Warning: Incompatible color definition on input line 2178.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2183.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2183.
-
-
-<cookbook_files/figure-latex/nice-fig-1.pdf, id=968, 464.73625pt x 351.3125pt>
-File: cookbook_files/figure-latex/nice-fig-1.pdf Graphic file (type pdf)
-<use cookbook_files/figure-latex/nice-fig-1.pdf>
-Package pdftex.def Info: cookbook_files/figure-latex/nice-fig-1.pdf used on inp
-ut line 2187.
-(pdftex.def)             Requested size: 276.00737pt x 208.64488pt.
-
-Package xcolor Warning: Incompatible color definition on input line 2196.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2203.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2203.
-
-[70]
-
-Package xcolor Warning: Incompatible color definition on input line 2203.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2203.
-
-[71pdfTeX warning (ext4): destination with the same identifier (name{figure.11.
-1}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.2246 \chapter{Snippets}\label{snippets-1}}
-                                             <./cookbook_files/figure-latex/nic
-e-fig-1.pdf>] [72pdfTeX warning (ext4): destination with the same identifier (n
-ame{table.11.1}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.2246 \chapter{Snippets}\label{snippets-1}}
-                                            ]
-Chapter 12.
-
-Package xcolor Warning: Incompatible color definition on input line 2259.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2284.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2284.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2284.
-
-[73
-
-]
-
-Package xcolor Warning: Incompatible color definition on input line 2284.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2284.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Underfull \hbox (badness 1810) in paragraph at lines 2306--2306
-[]\T1/lmr/bx/n/14.4 Creating Re-pro-ducible R Ex-am-ples to
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 2317.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2329.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2329.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2329.
-
-[74]
-
-LaTeX Warning: Text page 75 contains only floats.
-
-
-Underfull \vbox (badness 3302) has occurred while \output is active []
-
-
-Overfull \hbox (220.4479pt too wide) has occurred while \output is active
-\T1/lmr/m/sl/10 12.2.  CREATING REPRODUCIBLE R EXAMPLES TO SHARE IN THE GROUP (
-BINDER, HOLEPUNCH AND DOCKER) \T1/lmr/m/n/10 75
- []
-
-[75pdfTeX warning (ext4): destination with the same identifier (name{table.12.1
-}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.2329 \end{Shaded}
-                   ]
-
-Package xcolor Warning: Incompatible color definition on input line 2329.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2329.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2340.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2356.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2356.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2360.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2366.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2366.
-
-
-Underfull \vbox (badness 1210) has occurred while \output is active []
-
-[76]
-
-Package xcolor Warning: Incompatible color definition on input line 2388.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2406.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2406.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2412.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2420.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2420.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2437.
-
-
-Underfull \vbox (badness 3872) has occurred while \output is active []
-
-[77]
-
-Package xcolor Warning: Incompatible color definition on input line 2448.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2448.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2454.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2463.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2463.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2479.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2491.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2491.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2497.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2503.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2503.
-
-[78]
-
-Package xcolor Warning: Incompatible color definition on input line 2503.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2503.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2509.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2517.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2517.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2523.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2533.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2533.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2549.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2567.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2567.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2567.
-
-[79]
-
-Package xcolor Warning: Incompatible color definition on input line 2567.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2567.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2573.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2584.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2584.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2604.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2613.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2613.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2624.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2635.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2635.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2635.
-
-[80]
-
-Package xcolor Warning: Incompatible color definition on input line 2635.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2635.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2649.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2660.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2660.
-
-
-Overfull \hbox (59.24883pt too wide) in paragraph at lines 2673--2673
-[]\T1/lmtt/m/n/10 ##      id medication start.date stop.date  start_date_diff m
-edication_period[] 
- []
-
-
-Overfull \hbox (1.499pt too wide) in paragraph at lines 2673--2673
-[]\T1/lmtt/m/n/10 ##   <dbl> <chr>      <date>     <date>     <drtn>          <
-drtn>[] 
- []
-
-
-Overfull \hbox (6.74898pt too wide) in paragraph at lines 2673--2673
-[]\T1/lmtt/m/n/10 ## 1     2 aspirin    2017-05-01 2017-05-04 NA days          
-3 days[] 
- []
-
-
-Overfull \hbox (6.74898pt too wide) in paragraph at lines 2673--2673
-[]\T1/lmtt/m/n/10 ## 2     2 aspirin    2017-05-30 2017-06-10 29 days         1
-1 days[] 
- []
-
-
-Overfull \hbox (6.74898pt too wide) in paragraph at lines 2673--2673
-[]\T1/lmtt/m/n/10 ## 3     2 aspirin    2017-07-15 2017-07-27 46 days         1
-2 days[] 
- []
-
-
-Overfull \hbox (6.74898pt too wide) in paragraph at lines 2673--2673
-[]\T1/lmtt/m/n/10 ## 4     2 tylenol    2017-05-01 2017-05-15 NA days         1
-4 days[] 
- []
-
-
-Overfull \hbox (6.74898pt too wide) in paragraph at lines 2673--2673
-[]\T1/lmtt/m/n/10 ## 5     3 lipitor    2017-05-06 2017-05-12 NA days          
-6 days[] 
- []
-
-
-Overfull \hbox (6.74898pt too wide) in paragraph at lines 2673--2673
-[]\T1/lmtt/m/n/10 ## 6     5 advil      2017-05-28 2017-06-13 NA days         1
-6 days[] 
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 2683.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2703.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2703.
-
-[81]
-
-Package xcolor Warning: Incompatible color definition on input line 2703.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2703.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2736.
-
-[82]
-
-Package xcolor Warning: Incompatible color definition on input line 2745.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2745.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2776.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2789.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2789.
-
-[83]
-
-Package xcolor Warning: Incompatible color definition on input line 2806.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2811.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2811.
-
-
-Overfull \hbox (27.74892pt too wide) in paragraph at lines 2820--2820
-[]\T1/lmtt/m/n/10 ##  Dependent: Surv(time, status)         all          HR (un
-ivariable)[] 
- []
-
-
-Overfull \hbox (27.74892pt too wide) in paragraph at lines 2820--2820
-[]\T1/lmtt/m/n/10 ##                          group 0 2 (100.0)                
-         -[] 
- []
-
-
-Overfull \hbox (27.74892pt too wide) in paragraph at lines 2820--2820
-[]\T1/lmtt/m/n/10 ##                                1 3 (100.0) 0.76 (0.10-5.51
-, p=0.786)[] 
- []
-
-[84]
-Chapter 13.
-
-Package xcolor Warning: Incompatible color definition on input line 2830.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2867.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2867.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2867.
-
-[85
-
-]
-
-Package xcolor Warning: Incompatible color definition on input line 2867.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2867.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2879.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2887.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2887.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2899.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2909.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2909.
-
-[86]
-
-Package xcolor Warning: Incompatible color definition on input line 2931.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2936.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2936.
-
-
-Overfull \hbox (80.24876pt too wide) in paragraph at lines 2941--2941
-[]\T1/lmtt/m/n/10 ## # ... with 3 variables: important_a <chr>, important_b <ch
-r>, whatever_c <chr>[] 
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 2953.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2958.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2958.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2977.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2982.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2982.
-
-
-Package xcolor Warning: Incompatible color definition on input line 2996.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3001.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3001.
-
-
-Overfull \hbox (60.10515pt too wide) has occurred while \output is active
-\T1/lmr/m/sl/10 13.2.  FILTER NA: DROPPING ROWS WHERE ALL SPECIFIED VARIABLES A
-RE NA \T1/lmr/m/n/10 87
- []
-
-[87]
-
-Package xcolor Warning: Incompatible color definition on input line 3025.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3030.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3030.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3053.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3058.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3058.
-
-[88]
-Chapter 14.
-
-Package xcolor Warning: Incompatible color definition on input line 3081.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3112.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3112.
-
-
-Overfull \vbox (0.15363pt too high) detected at line 3112
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 3112.
-
-[89
-
-]
-
-Package xcolor Warning: Incompatible color definition on input line 3112.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3112.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3117.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3149.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3149.
-
-[90]
-Chapter 15.
-[91
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 3187--3189
-\T1/lmr/m/n/10 (+20) uk / information -[] services / computing / desktop -[] pe
-rsonal / vpn / vpn -[] service -[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3187--3189
-
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 3196.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3200.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3200.
-
-[92]
-
-Package xcolor Warning: Incompatible color definition on input line 3227.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3231.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3231.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3241.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3245.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3245.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3249.
-
-[93]
-
-Package xcolor Warning: Incompatible color definition on input line 3253.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3253.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3257.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3261.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3261.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3265.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3269.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3269.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3279.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3283.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3283.
-
-[94]
-
-Package xcolor Warning: Incompatible color definition on input line 3298.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3305.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3305.
-
-
-Underfull \hbox (badness 1038) in paragraph at lines 3310--3310
-[]\T1/lmr/bx/n/14.4 The Sur-gi-cal In-for-mat-ics Group Folder
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 3314.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3318.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3318.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3329.
-
-[95]
-
-Package xcolor Warning: Incompatible color definition on input line 3333.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3333.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3349.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3353.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3353.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3364.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3374.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3374.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3374.
-
-[96]
-
-Package xcolor Warning: Incompatible color definition on input line 3374.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3374.
-
-[97]
-
-Package xcolor Warning: Incompatible color definition on input line 3404.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3452.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3452.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3452.
-
-[98]
-
-Package xcolor Warning: Incompatible color definition on input line 3452.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3452.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3465.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3469.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3469.
-
-[99]
-Underfull \hbox (badness 1292) in paragraph at lines 3480--3481
-\T1/lmr/m/n/10 (+20) which may be \T1/lmtt/m/n/10 /exports/applications/apps/SL
-7/R/3.5.3/lib64/R/etc/\T1/lmr/m/n/10 (+20) .
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 3482.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3487.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3487.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3491.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3550.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3550.
-
-
-Overfull \vbox (1.1417pt too high) detected at line 3550
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 3550.
-
-[100]
-
-Package xcolor Warning: Incompatible color definition on input line 3550.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3550.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3554.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3560.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3560.
-
-
-Underfull \vbox (badness 1077) has occurred while \output is active []
-
-[101]
-
-Package xcolor Warning: Incompatible color definition on input line 3569.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3574.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3574.
-
-[102]
-Chapter 16.
-
-Package xcolor Warning: Incompatible color definition on input line 3594.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3611.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3611.
-
-
-<cookbook_files/figure-latex/gghighlight-1.pdf, id=1234, 455.7025pt x 315.1775p
-t>
-File: cookbook_files/figure-latex/gghighlight-1.pdf Graphic file (type pdf)
-<use cookbook_files/figure-latex/gghighlight-1.pdf>
-Package pdftex.def Info: cookbook_files/figure-latex/gghighlight-1.pdf used on 
-input line 3613.
-(pdftex.def)             Requested size: 345.00937pt x 238.61882pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[103
-
-]
-
-Package xcolor Warning: Incompatible color definition on input line 3618.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3628.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3628.
-
-
-<cookbook_files/figure-latex/unnamed-chunk-45-1.pdf, id=1241, 453.695pt x 313.1
-7pt>
-File: cookbook_files/figure-latex/unnamed-chunk-45-1.pdf Graphic file (type pdf
-)
-<use cookbook_files/figure-latex/unnamed-chunk-45-1.pdf>
-Package pdftex.def Info: cookbook_files/figure-latex/unnamed-chunk-45-1.pdf use
-d on input line 3630.
-(pdftex.def)             Requested size: 344.9987pt x 238.14069pt.
-
-Package xcolor Warning: Incompatible color definition on input line 3632.
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[104 <./cookbook_files/figure-latex/gghighlight-1.pdf>]
-
-Package xcolor Warning: Incompatible color definition on input line 3642.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3642.
-
-
-<cookbook_files/figure-latex/unnamed-chunk-45-2.pdf, id=1258, 453.695pt x 313.1
-7pt>
-File: cookbook_files/figure-latex/unnamed-chunk-45-2.pdf Graphic file (type pdf
-)
-<use cookbook_files/figure-latex/unnamed-chunk-45-2.pdf>
-Package pdftex.def Info: cookbook_files/figure-latex/unnamed-chunk-45-2.pdf use
-d on input line 3644.
-(pdftex.def)             Requested size: 344.9987pt x 238.14069pt.
-
-Package xcolor Warning: Incompatible color definition on input line 3646.
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[105 <./cookbook_files/figure-latex/unnamed-chunk-45-1.pdf>]
-
-Package xcolor Warning: Incompatible color definition on input line 3660.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3660.
-
-
-<cookbook_files/figure-latex/unnamed-chunk-45-3.pdf, id=1270, 453.695pt x 313.1
-7pt>
-File: cookbook_files/figure-latex/unnamed-chunk-45-3.pdf Graphic file (type pdf
-)
-<use cookbook_files/figure-latex/unnamed-chunk-45-3.pdf>
-Package pdftex.def Info: cookbook_files/figure-latex/unnamed-chunk-45-3.pdf use
-d on input line 3662.
-(pdftex.def)             Requested size: 344.9987pt x 238.14069pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[106 <./cookbook_files/figure-latex/unnamed-chunk-45-2.pdf>]
-
-Package xcolor Warning: Incompatible color definition on input line 3667.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3689.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3689.
-
-
-<cookbook_files/figure-latex/unnamed-chunk-46-1.pdf, id=1282, 199.74625pt x 136
-.51pt>
-File: cookbook_files/figure-latex/unnamed-chunk-46-1.pdf Graphic file (type pdf
-)
-<use cookbook_files/figure-latex/unnamed-chunk-46-1.pdf>
-Package pdftex.def Info: cookbook_files/figure-latex/unnamed-chunk-46-1.pdf use
-d on input line 3691.
-(pdftex.def)             Requested size: 199.7549pt x 136.5159pt.
-
-Package xcolor Warning: Incompatible color definition on input line 3693.
-
-
-Underfull \vbox (badness 2285) has occurred while \output is active []
-
-[107 <./cookbook_files/figure-latex/unnamed-chunk-45-3.pdf>]
-
-Package xcolor Warning: Incompatible color definition on input line 3705.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3705.
-
-File: /home/rots/cookbook/img/barplot_5x4.png Graphic file (type png)
-<use /home/rots/cookbook/img/barplot_5x4.png>
-Package pdftex.def Info: /home/rots/cookbook/img/barplot_5x4.png used on input 
-line 3709.
-(pdftex.def)             Requested size: 172.49767pt x 137.99812pt.
-File: /home/rots/cookbook/img/barplot_10x8.png Graphic file (type png)
-<use /home/rots/cookbook/img/barplot_10x8.png>
-Package pdftex.def Info: /home/rots/cookbook/img/barplot_10x8.png used on input
- line 3710.
-(pdftex.def)             Requested size: 172.49214pt x 137.99371pt.
-
-Overfull \hbox (2.21202pt too wide) in paragraph at lines 3709--3711
-[][] [] 
- []
-
-[108 <./cookbook_files/figure-latex/unnamed-chunk-46-1.pdf>]
-Chapter 17.
-
-Package xcolor Warning: Incompatible color definition on input line 3723.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3752.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3752.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3752.
-
-[109
-
-]
-
-Package xcolor Warning: Incompatible color definition on input line 3752.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3752.
-
-[110]
-Chapter 18.
-
-Package xcolor Warning: Incompatible color definition on input line 3774.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3818.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3818.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3818.
-
-[111
-
-]
-
-Package xcolor Warning: Incompatible color definition on input line 3818.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3818.
-
-[112]
-Chapter 19.
-
-Package xcolor Warning: Incompatible color definition on input line 3829.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3845.
-
-
-Package xcolor Warning: Incompatible color definition on input line 3845.
-
-[113
-
-] [114
-
-]
-Chapter 20.
-File: img/zotero_add_on_install.png Graphic file (type png)
-<use img/zotero_add_on_install.png>
-Package pdftex.def Info: img/zotero_add_on_install.png used on input line 3866.
-
-(pdftex.def)             Requested size: 797.37706pt x 502.87752pt.
-
-Overfull \hbox (452.37706pt too wide) in paragraph at lines 3866--3866
-[][]
- []
-
-
-Underfull \vbox (badness 1102) has occurred while \output is active []
-
-[115] [116pdfTeX warning (ext4): destination with the same identifier (name{fig
-ure.20.1}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.3875 
-       ] [117]
-File: img/zotfile_preferences.png Graphic file (type png)
-<use img/zotfile_preferences.png>
-Package pdftex.def Info: img/zotfile_preferences.png used on input line 3905.
-(pdftex.def)             Requested size: 963.61235pt x 510.11227pt.
-
-Overfull \hbox (618.61235pt too wide) in paragraph at lines 3905--3905
-[][]
- []
-
-
-Overfull \hbox (49.53105pt too wide) in paragraph at lines 3908--3909
-\T1/lmtt/m/n/10 Fairfield_2019_Gallstone_Disease_and_the_Risk_of_Cardiovascular
-_Disease.pdf\T1/lmr/m/n/10 (-20) .
- []
-
-File: img/zotfile_renaming.png Graphic file (type png)
-<use img/zotfile_renaming.png>
-Package pdftex.def Info: img/zotfile_renaming.png used on input line 3911.
-(pdftex.def)             Requested size: 964.28818pt x 513.16272pt.
-
-Overfull \hbox (619.28818pt too wide) in paragraph at lines 3911--3911
-[][]
- []
-
-[118] [119pdfTeX warning (ext4): destination with the same identifier (name{fig
-ure.20.2}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.3952 
-       ] [120pdfTeX warning (ext4): destination with the same identifier (name{
-figure.20.3}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.3952 
-       ]
-Underfull \hbox (badness 1533) in paragraph at lines 3953--3955
-[]\T1/lmr/bx/n/10 Better Bib-Tex: \T1/lmr/m/n/10 (+20) + In this sec-tion set t
-he Ci-ta-tion Key for-mat to
- []
-
-
-Overfull \hbox (89.5249pt too wide) in paragraph at lines 3953--3955
-\T1/lmr/m/n/10 (-20) [auth:lower:alphanum]\T1/lmr/m/it/10 (-20) [year:alphanum]
-\T1/lmr/m/n/10 (-20) [veryshorttitle:lower:alphanum]_[journal:lower:clean:alpha
-num]
- []
-
-File: img/zotero_citation_key.png Graphic file (type png)
-<use img/zotero_citation_key.png>
-Package pdftex.def Info: img/zotero_citation_key.png used on input line 3959.
-(pdftex.def)             Requested size: 962.9954pt x 511.91125pt.
-
-Overfull \hbox (617.9954pt too wide) in paragraph at lines 3959--3959
-[][]
- []
-
-[121] [122pdfTeX warning (ext4): destination with the same identifier (name{fig
-ure.20.4}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.3977 
-       ]
-
-Package xcolor Warning: Incompatible color definition on input line 3990.
-
-
-Package xcolor Warning: Incompatible color definition on input line 4017.
-
-
-Package xcolor Warning: Incompatible color definition on input line 4017.
-
-
-Package xcolor Warning: Incompatible color definition on input line 4017.
-
-[123]
-
-Package xcolor Warning: Incompatible color definition on input line 4017.
-
-
-Package xcolor Warning: Incompatible color definition on input line 4017.
-
-
-Package xcolor Warning: Incompatible color definition on input line 4034.
-
-
-Package xcolor Warning: Incompatible color definition on input line 4071.
-
-
-Package xcolor Warning: Incompatible color definition on input line 4071.
-
-
-Package xcolor Warning: Incompatible color definition on input line 4071.
-
-[124]
-
-Package xcolor Warning: Incompatible color definition on input line 4071.
-
-
-Package xcolor Warning: Incompatible color definition on input line 4071.
-
-
-Package xcolor Warning: Incompatible color definition on input line 4080.
-
-
-Package xcolor Warning: Incompatible color definition on input line 4087.
-
-
-Package xcolor Warning: Incompatible color definition on input line 4087.
-
-(./cookbook.bbl [125] [126
+(./cookbook.bbl [63] [64
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 4091.
-[127]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 4091.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2115.
+[65]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2115.
 (./cookbook.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 4091.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 4091.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2115.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2115.
 
 Package rerunfilecheck Info: File `cookbook.out' has not changed.
-(rerunfilecheck)             Checksum: 83663FF090C0C270EEB2AEA31F4F8983;14002.
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 4091.
+(rerunfilecheck)             Checksum: 6FC647CDE40BF2CB168883A78EBE1300;6971.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2115.
  ) 
 Here is how much of TeX's memory you used:
- 15494 strings out of 494953
- 226182 string characters out of 6180978
- 330436 words of memory out of 5000000
- 17888 multiletter control sequences out of 15000+600000
+ 15085 strings out of 494953
+ 217588 string characters out of 6180978
+ 323856 words of memory out of 5000000
+ 17737 multiletter control sequences out of 15000+600000
  76415 words of font info for 120 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  34i,10n,35p,1181b,455s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -3400,10 +2248,10 @@ m/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf
 /type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb>
 </usr/share/texmf/fonts/type1/public/lm/lmtti10.pfb></usr/share/texmf/fonts/typ
 e1/public/lm/lmtto10.pfb>
-Output written on cookbook.pdf (127 pages, 2070040 bytes).
+Output written on cookbook.pdf (65 pages, 1922668 bytes).
 PDF statistics:
- 1594 PDF objects out of 1728 (max. 8388607)
- 1395 compressed objects within 14 object streams
- 525 named destinations out of 1000 (max. 500000)
- 15056 words of extra memory for PDF output out of 17280 (max. 10000000)
+ 844 PDF objects out of 1000 (max. 8388607)
+ 731 compressed objects within 8 object streams
+ 267 named destinations out of 1000 (max. 500000)
+ 14714 words of extra memory for PDF output out of 17280 (max. 10000000)
 

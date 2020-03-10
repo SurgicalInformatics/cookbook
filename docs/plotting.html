@@ -129,13 +129,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li><a href="index.html#section"></a></li>
-<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#how-to-contribute"><i class="fa fa-check"></i><b>1.1</b> How to contribute</a></li>
-<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#indexing"><i class="fa fa-check"></i><b>1.2</b> Indexing</a><ul>
-<li class="chapter" data-level="1.2.1" data-path="intro.html"><a href="intro.html#index"><i class="fa fa-check"></i><b>1.2.1</b> Index</a></li>
-<li class="chapter" data-level="1.2.2" data-path="intro.html"><a href="intro.html#chapter-and-section-references"><i class="fa fa-check"></i><b>1.2.2</b> Chapter and section references</a></li>
-<li class="chapter" data-level="1.2.3" data-path="intro.html"><a href="intro.html#figure-and-table-references"><i class="fa fa-check"></i><b>1.2.3</b> Figure and table references</a></li>
-<li class="chapter" data-level="1.2.4" data-path="intro.html"><a href="intro.html#citations"><i class="fa fa-check"></i><b>1.2.4</b> Citations</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#how-to-contribute"><i class="fa fa-check"></i><b>1.1</b> How to contribute</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#indexing"><i class="fa fa-check"></i><b>1.2</b> Indexing</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="introduction.html"><a href="introduction.html#index"><i class="fa fa-check"></i><b>1.2.1</b> Index</a></li>
+<li class="chapter" data-level="1.2.2" data-path="introduction.html"><a href="introduction.html#chapter-and-section-references"><i class="fa fa-check"></i><b>1.2.2</b> Chapter and section references</a></li>
+<li class="chapter" data-level="1.2.3" data-path="introduction.html"><a href="introduction.html#figure-and-table-references"><i class="fa fa-check"></i><b>1.2.3</b> Figure and table references</a></li>
+<li class="chapter" data-level="1.2.4" data-path="introduction.html"><a href="introduction.html#citations"><i class="fa fa-check"></i><b>1.2.4</b> Citations</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="snippets.html"><a href="snippets.html"><i class="fa fa-check"></i><b>2</b> Snippets</a><ul>
@@ -272,7 +272,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb82-12" data-line-number="12"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span> <span class="st">&quot;gghighlight: Filter for countries with Life Expectancy &gt;75 and GDP &lt; mean&quot;</span> )  </a>
 <a class="sourceLine" id="cb82-13" data-line-number="13"></a>
 <a class="sourceLine" id="cb82-14" data-line-number="14">plot <span class="op">+</span><span class="st"> </span><span class="kw">geom_label_repel</span>(<span class="kw">aes</span>(<span class="dt">label=</span> country), <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="co">#only needed if you use  use_direct_label = FALSE. This allows you to have a colour legend as well. </span></a></code></pre></div>
-<p><img src="cookbook_files/figure-html/gghighlight-1.png" width="672" /></p>
+<p><img src="06-plotting_files/figure-html/gghighlight-1.png" width="672" /></p>
 </div>
 <div id="coord_flip-factor-orders" class="section level2">
 <h2><span class="header-section-number">6.2</span> <code>coord_flip()</code> factor orders</h2>
@@ -283,7 +283,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb83-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> continent, <span class="dt">fill =</span> <span class="kw">factor</span>(year))) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb83-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb83-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>)</a></code></pre></div>
-<p><img src="cookbook_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p><img src="06-plotting_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="co"># flipped</span></a>
 <a class="sourceLine" id="cb84-2" data-line-number="2">gapminder <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb84-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">fct_rev</span>(continent), <span class="dt">fill =</span> <span class="kw">factor</span>(year))) <span class="op">+</span><span class="st"> </span></a>
@@ -291,7 +291,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb84-5" data-line-number="5"><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb84-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>, <span class="dt">breaks =</span> rev) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb84-7" data-line-number="7"><span class="st">  </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="kw">guide_legend</span>(<span class="dt">reverse =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
-<p><img src="cookbook_files/figure-html/unnamed-chunk-45-2.png" width="672" /></p>
+<p><img src="06-plotting_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="co">## This is actually the same as the previous plot so is achieving the aim. </span></a>
 <a class="sourceLine" id="cb85-2" data-line-number="2"><span class="co">## But the unflipped plot isn&#39;t that great given the order of the year</span></a>
 <a class="sourceLine" id="cb85-3" data-line-number="3"><span class="co">## Hence why wanting to flip</span></a>
@@ -303,7 +303,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb85-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb85-10" data-line-number="10"><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb85-11" data-line-number="11"><span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>, <span class="dt">breaks =</span> rev, <span class="dt">direction =</span> <span class="dv">-1</span>)</a></code></pre></div>
-<p><img src="cookbook_files/figure-html/unnamed-chunk-45-3.png" width="672" /></p>
+<p><img src="06-plotting_files/figure-html/unnamed-chunk-1-3.png" width="672" /></p>
 </div>
 <div id="axis-font-size" class="section level2">
 <h2><span class="header-section-number">6.3</span> Axis font size</h2>
@@ -326,7 +326,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb86-17" data-line-number="17"><span class="st">  </span><span class="co"># OPTION 1: change font with theme()</span></a>
 <a class="sourceLine" id="cb86-18" data-line-number="18"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text  =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">12</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>),</a>
 <a class="sourceLine" id="cb86-19" data-line-number="19">        <span class="dt">axis.title =</span> <span class="kw">element_blank</span>())</a></code></pre></div>
-<p><img src="cookbook_files/figure-html/unnamed-chunk-46-1.png" width="288" /></p>
+<p><img src="06-plotting_files/figure-html/unnamed-chunk-2-1.png" width="288" /></p>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="co"># OPTION 2: play around with export size. Since PDF will always have max resolution anyway</span></a>
 <a class="sourceLine" id="cb87-2" data-line-number="2"><span class="co"># but changing width and height modifies text size</span></a>
 <a class="sourceLine" id="cb87-3" data-line-number="3">mywidth  =<span class="st"> </span><span class="dv">5</span></a>
