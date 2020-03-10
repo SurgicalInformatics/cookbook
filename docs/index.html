@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>The Surgical Informatics Cookbook</title>
-  <meta name="description" content="All the brilliant bits of code we don’t want to forget.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
   <meta property="og:title" content="The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
@@ -22,20 +21,21 @@
   <meta name="twitter:description" content="All the brilliant bits of code we don’t want to forget." />
   
 
-<meta name="author" content="Surgical Informatics, University of Edinburgh">
+<meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2020-02-26">
+<meta name="date" content="2020-03-10" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 
 <link rel="next" href="intro.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -55,7 +55,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -140,20 +139,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="snippets.html"><a href="snippets.html"><i class="fa fa-check"></i><b>2</b> Snippets</a><ul>
-<li class="chapter" data-level="2.1" data-path="snippets.html"><a href="snippets.html#creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker"><i class="fa fa-check"></i><b>2.1</b> Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)</a><ul>
-<li class="chapter" data-level="2.1.1" data-path="snippets.html"><a href="snippets.html#create-basic-reproducible-examples"><i class="fa fa-check"></i><b>2.1.1</b> Create Basic Reproducible Examples</a></li>
-<li class="chapter" data-level="2.1.2" data-path="snippets.html"><a href="snippets.html#holepunch---complex-reproducible-examples"><i class="fa fa-check"></i><b>2.1.2</b> <code>holepunch</code> - Complex Reproducible Examples</a></li>
+<li class="chapter" data-level="2.1" data-path="snippets.html"><a href="snippets.html#exporting-tables-that-work-in-both-pdf-and-word"><i class="fa fa-check"></i><b>2.1</b> Exporting tables that work in both PDF and Word</a></li>
+<li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker"><i class="fa fa-check"></i><b>2.2</b> Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="snippets.html"><a href="snippets.html#create-basic-reproducible-examples"><i class="fa fa-check"></i><b>2.2.1</b> Create Basic Reproducible Examples</a></li>
+<li class="chapter" data-level="2.2.2" data-path="snippets.html"><a href="snippets.html#holepunch---complex-reproducible-examples"><i class="fa fa-check"></i><b>2.2.2</b> <code>holepunch</code> - Complex Reproducible Examples</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#working-with-chis"><i class="fa fa-check"></i><b>2.2</b> Working with CHIs</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="snippets.html"><a href="snippets.html#chi_dob---extract-date-of-birth-from-chi"><i class="fa fa-check"></i><b>2.2.1</b> <code>chi_dob()</code> - Extract date of birth from CHI</a></li>
-<li class="chapter" data-level="2.2.2" data-path="snippets.html"><a href="snippets.html#chi_gender---extract-gender-from-chi"><i class="fa fa-check"></i><b>2.2.2</b> <code>chi_gender()</code> - Extract gender from CHI</a></li>
-<li class="chapter" data-level="2.2.3" data-path="snippets.html"><a href="snippets.html#chi_age---extract-age-from-chi"><i class="fa fa-check"></i><b>2.2.3</b> <code>chi_age()</code> - Extract age from CHI</a></li>
-<li class="chapter" data-level="2.2.4" data-path="snippets.html"><a href="snippets.html#chi_valid---logical-test-for-valid-chi"><i class="fa fa-check"></i><b>2.2.4</b> <code>chi_valid()</code> - Logical test for valid CHI</a></li>
+<li class="chapter" data-level="2.3" data-path="snippets.html"><a href="snippets.html#working-with-chis"><i class="fa fa-check"></i><b>2.3</b> Working with CHIs</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="snippets.html"><a href="snippets.html#chi_dob---extract-date-of-birth-from-chi"><i class="fa fa-check"></i><b>2.3.1</b> <code>chi_dob()</code> - Extract date of birth from CHI</a></li>
+<li class="chapter" data-level="2.3.2" data-path="snippets.html"><a href="snippets.html#chi_gender---extract-gender-from-chi"><i class="fa fa-check"></i><b>2.3.2</b> <code>chi_gender()</code> - Extract gender from CHI</a></li>
+<li class="chapter" data-level="2.3.3" data-path="snippets.html"><a href="snippets.html#chi_age---extract-age-from-chi"><i class="fa fa-check"></i><b>2.3.3</b> <code>chi_age()</code> - Extract age from CHI</a></li>
+<li class="chapter" data-level="2.3.4" data-path="snippets.html"><a href="snippets.html#chi_valid---logical-test-for-valid-chi"><i class="fa fa-check"></i><b>2.3.4</b> <code>chi_valid()</code> - Logical test for valid CHI</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.3</b> Working with dates</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.3.1</b> Difference between two dates</a></li>
-<li class="chapter" data-level="2.3.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.3.2</b> Lags</a></li>
-<li class="chapter" data-level="2.3.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.3.3</b> Pulling out “change in status” data</a></li>
+<li class="chapter" data-level="2.4" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.4</b> Working with dates</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.4.1</b> Difference between two dates</a></li>
+<li class="chapter" data-level="2.4.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.4.2</b> Lags</a></li>
+<li class="chapter" data-level="2.4.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.4.3</b> Pulling out “change in status” data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation</a><ul>
@@ -233,6 +233,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.7" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#citing-r-packages"><i class="fa fa-check"></i><b>10.7</b> Citing R Packages</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li><a href="section-1.html#section-1"></a><ul>
+<li class="chapter" data-level="10.8" data-path="section-1.html"><a href="section-1.html"><i class="fa fa-check"></i><b>10.8</b> How to contribute</a></li>
+<li class="chapter" data-level="10.9" data-path="section-1.html"><a href="section-1.html#indexing-1"><i class="fa fa-check"></i><b>10.9</b> Indexing</a><ul>
+<li class="chapter" data-level="10.9.1" data-path="section-1.html"><a href="section-1.html#index-1"><i class="fa fa-check"></i><b>10.9.1</b> Index</a></li>
+<li class="chapter" data-level="10.9.2" data-path="section-1.html"><a href="section-1.html#chapter-and-section-references-1"><i class="fa fa-check"></i><b>10.9.2</b> Chapter and section references</a></li>
+<li class="chapter" data-level="10.9.3" data-path="section-1.html"><a href="section-1.html#figure-and-table-references-1"><i class="fa fa-check"></i><b>10.9.3</b> Figure and table references</a></li>
+<li class="chapter" data-level="10.9.4" data-path="section-1.html"><a href="section-1.html#citations-1"><i class="fa fa-check"></i><b>10.9.4</b> Citations</a></li>
+</ul></li>
+<li class="chapter" data-level="10.10" data-path="section-1.html"><a href="section-1.html#exporting-tables-that-work-in-both-pdf-and-word-1"><i class="fa fa-check"></i><b>10.10</b> Exporting tables that work in both PDF and Word</a></li>
+<li class="chapter" data-level="10.11" data-path="section-1.html"><a href="section-1.html#creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker-1"><i class="fa fa-check"></i><b>10.11</b> Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)</a><ul>
+<li class="chapter" data-level="10.11.1" data-path="section-1.html"><a href="section-1.html#create-basic-reproducible-examples-1"><i class="fa fa-check"></i><b>10.11.1</b> Create Basic Reproducible Examples</a></li>
+<li class="chapter" data-level="10.11.2" data-path="section-1.html"><a href="section-1.html#holepunch---complex-reproducible-examples-1"><i class="fa fa-check"></i><b>10.11.2</b> <code>holepunch</code> - Complex Reproducible Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="10.12" data-path="section-1.html"><a href="section-1.html#working-with-chis-1"><i class="fa fa-check"></i><b>10.12</b> Working with CHIs</a><ul>
+<li class="chapter" data-level="10.12.1" data-path="section-1.html"><a href="section-1.html#chi_dob---extract-date-of-birth-from-chi-1"><i class="fa fa-check"></i><b>10.12.1</b> <code>chi_dob()</code> - Extract date of birth from CHI</a></li>
+<li class="chapter" data-level="10.12.2" data-path="section-1.html"><a href="section-1.html#chi_gender---extract-gender-from-chi-1"><i class="fa fa-check"></i><b>10.12.2</b> <code>chi_gender()</code> - Extract gender from CHI</a></li>
+<li class="chapter" data-level="10.12.3" data-path="section-1.html"><a href="section-1.html#chi_age---extract-age-from-chi-1"><i class="fa fa-check"></i><b>10.12.3</b> <code>chi_age()</code> - Extract age from CHI</a></li>
+<li class="chapter" data-level="10.12.4" data-path="section-1.html"><a href="section-1.html#chi_valid---logical-test-for-valid-chi-1"><i class="fa fa-check"></i><b>10.12.4</b> <code>chi_valid()</code> - Logical test for valid CHI</a></li>
+</ul></li>
+<li class="chapter" data-level="10.13" data-path="section-1.html"><a href="section-1.html#working-with-dates-1"><i class="fa fa-check"></i><b>10.13</b> Working with dates</a><ul>
+<li class="chapter" data-level="10.13.1" data-path="section-1.html"><a href="section-1.html#difference-between-two-dates-1"><i class="fa fa-check"></i><b>10.13.1</b> Difference between two dates</a></li>
+<li class="chapter" data-level="10.13.2" data-path="section-1.html"><a href="section-1.html#lags-1"><i class="fa fa-check"></i><b>10.13.2</b> Lags</a></li>
+<li class="chapter" data-level="10.13.3" data-path="section-1.html"><a href="section-1.html#pulling-out-change-in-status-data-1"><i class="fa fa-check"></i><b>10.13.3</b> Pulling out “change in status” data</a></li>
+</ul></li>
+<li class="chapter" data-level="10.14" data-path="section-1.html"><a href="section-1.html#collapse-multiple-no-and-yes-options-1"><i class="fa fa-check"></i><b>10.14</b> Collapse multiple “no” and “yes” options</a></li>
+<li class="chapter" data-level="10.15" data-path="section-1.html"><a href="section-1.html#filter-na-dropping-rows-where-all-specified-variables-are-na-1"><i class="fa fa-check"></i><b>10.15</b> Filter NA: Dropping rows where all specified variables are NA</a></li>
+<li class="chapter" data-level="10.16" data-path="section-1.html"><a href="section-1.html#deep-learning-1"><i class="fa fa-check"></i><b>10.16</b> Deep learning</a><ul>
+<li class="chapter" data-level="10.16.1" data-path="section-1.html"><a href="section-1.html#pulling-images-from-redcap-directly-to-argodeep-1"><i class="fa fa-check"></i><b>10.16.1</b> Pulling images from REDCap directly to argodeep</a></li>
+</ul></li>
+<li class="chapter" data-level="10.17" data-path="section-1.html"><a href="section-1.html#uploading-and-downloading-data-the-easy-way-1"><i class="fa fa-check"></i><b>10.17</b> Uploading and Downloading Data the Easy Way</a></li>
+<li class="chapter" data-level="10.18" data-path="section-1.html"><a href="section-1.html#alternative-methods-when-the-easy-way-wont-work-1"><i class="fa fa-check"></i><b>10.18</b> Alternative Methods when the Easy Way won’t work</a><ul>
+<li class="chapter" data-level="10.18.1" data-path="section-1.html"><a href="section-1.html#what-is-eddie-1"><i class="fa fa-check"></i><b>10.18.1</b> What is Eddie?</a></li>
+</ul></li>
+<li class="chapter" data-level="10.19" data-path="section-1.html"><a href="section-1.html#using-the-command-line-1"><i class="fa fa-check"></i><b>10.19</b> Using the Command Line</a><ul>
+<li class="chapter" data-level="10.19.1" data-path="section-1.html"><a href="section-1.html#downloads-and-setup---eddie-example-1"><i class="fa fa-check"></i><b>10.19.1</b> Downloads and Setup - Eddie Example</a></li>
+<li class="chapter" data-level="10.19.2" data-path="section-1.html"><a href="section-1.html#copy-and-paste-with-putty-1"><i class="fa fa-check"></i><b>10.19.2</b> Copy and Paste with PuTTY</a></li>
+<li class="chapter" data-level="10.19.3" data-path="section-1.html"><a href="section-1.html#closing-a-session-in-putty-1"><i class="fa fa-check"></i><b>10.19.3</b> Closing a Session in PuTTY</a></li>
+<li class="chapter" data-level="10.19.4" data-path="section-1.html"><a href="section-1.html#eddie-file-structure-1"><i class="fa fa-check"></i><b>10.19.4</b> Eddie File Structure</a></li>
+</ul></li>
+<li class="chapter" data-level="10.20" data-path="section-1.html"><a href="section-1.html#copying-data-from-eddie-into-rstudio-server-1"><i class="fa fa-check"></i><b>10.20</b> Copying Data from Eddie into RStudio server</a><ul>
+<li class="chapter" data-level="10.20.1" data-path="section-1.html"><a href="section-1.html#method-1-using-putty-or-another-terminalshell-connected-to-eddie-1"><i class="fa fa-check"></i><b>10.20.1</b> Method 1: Using PuTTY (or another terminal/shell connected to Eddie)</a></li>
+<li class="chapter" data-level="10.20.2" data-path="section-1.html"><a href="section-1.html#method-2-using-the-rstudio-server-terminal-1"><i class="fa fa-check"></i><b>10.20.2</b> Method 2: Using the RStudio Server Terminal</a></li>
+</ul></li>
+<li class="chapter" data-level="10.21" data-path="section-1.html"><a href="section-1.html#the-surgical-informatics-group-folder-on-eddie-1"><i class="fa fa-check"></i><b>10.21</b> The Surgical Informatics Group Folder (On Eddie)</a><ul>
+<li class="chapter" data-level="10.21.1" data-path="section-1.html"><a href="section-1.html#the-scratch-space-1"><i class="fa fa-check"></i><b>10.21.1</b> The Scratch Space</a></li>
+<li class="chapter" data-level="10.21.2" data-path="section-1.html"><a href="section-1.html#other-spaces-1"><i class="fa fa-check"></i><b>10.21.2</b> Other Spaces</a></li>
+<li class="chapter" data-level="10.21.3" data-path="section-1.html"><a href="section-1.html#running-eddie-from-rstudio-server-1"><i class="fa fa-check"></i><b>10.21.3</b> Running Eddie from RStudio Server</a></li>
+<li class="chapter" data-level="10.21.4" data-path="section-1.html"><a href="section-1.html#modules-applications-in-eddie-1"><i class="fa fa-check"></i><b>10.21.4</b> Modules (Applications) in Eddie</a></li>
+<li class="chapter" data-level="10.21.5" data-path="section-1.html"><a href="section-1.html#working-with-r-in-eddie-1"><i class="fa fa-check"></i><b>10.21.5</b> Working with R in Eddie</a></li>
+<li class="chapter" data-level="10.21.6" data-path="section-1.html"><a href="section-1.html#specific-r-package-versions-1"><i class="fa fa-check"></i><b>10.21.6</b> Specific R Package Versions</a></li>
+<li class="chapter" data-level="10.21.7" data-path="section-1.html"><a href="section-1.html#general-eddie-etiquette-1"><i class="fa fa-check"></i><b>10.21.7</b> General Eddie Etiquette</a></li>
+</ul></li>
+<li class="chapter" data-level="10.22" data-path="section-1.html"><a href="section-1.html#unix-tutorials-1"><i class="fa fa-check"></i><b>10.22</b> Unix Tutorials</a></li>
+<li class="chapter" data-level="10.23" data-path="section-1.html"><a href="section-1.html#gghighlight-example-1"><i class="fa fa-check"></i><b>10.23</b> GGHighlight Example</a></li>
+<li class="chapter" data-level="10.24" data-path="section-1.html"><a href="section-1.html#coord_flip-factor-orders-1"><i class="fa fa-check"></i><b>10.24</b> <code>coord_flip()</code> factor orders</a></li>
+<li class="chapter" data-level="10.25" data-path="section-1.html"><a href="section-1.html#axis-font-size-1"><i class="fa fa-check"></i><b>10.25</b> Axis font size</a></li>
+<li class="chapter" data-level="10.26" data-path="section-1.html"><a href="section-1.html#single-cell-analysis-1"><i class="fa fa-check"></i><b>10.26</b> Single Cell Analysis</a><ul>
+<li class="chapter" data-level="10.26.1" data-path="section-1.html"><a href="section-1.html#minimising-the-size-of-a-seurat-object-1"><i class="fa fa-check"></i><b>10.26.1</b> Minimising the size of a Seurat Object</a></li>
+</ul></li>
+<li class="chapter" data-level="10.27" data-path="section-1.html"><a href="section-1.html#rlang-1"><i class="fa fa-check"></i><b>10.27</b> rlang</a><ul>
+<li class="chapter" data-level="10.27.1" data-path="section-1.html"><a href="section-1.html#what-is-rlang-1"><i class="fa fa-check"></i><b>10.27.1</b> What is rlang?</a></li>
+<li class="chapter" data-level="10.27.2" data-path="section-1.html"><a href="section-1.html#dynamic-calling-of-variables-using-dplyr-1"><i class="fa fa-check"></i><b>10.27.2</b> Dynamic calling of variables using dplyr</a></li>
+</ul></li>
+<li class="chapter" data-level="10.28" data-path="section-1.html"><a href="section-1.html#rstudio-connect-argoshare-1"><i class="fa fa-check"></i><b>10.28</b> RStudio Connect: argoshare</a><ul>
+<li class="chapter" data-level="10.28.1" data-path="section-1.html"><a href="section-1.html#delete-user-1"><i class="fa fa-check"></i><b>10.28.1</b> Delete user</a></li>
+</ul></li>
+<li class="chapter" data-level="10.29" data-path="section-1.html"><a href="section-1.html#zotero-set-up-1"><i class="fa fa-check"></i><b>10.29</b> Zotero Set-up</a></li>
+<li class="chapter" data-level="10.30" data-path="section-1.html"><a href="section-1.html#file-storage-set-up-1"><i class="fa fa-check"></i><b>10.30</b> File Storage Set-up</a></li>
+<li class="chapter" data-level="10.31" data-path="section-1.html"><a href="section-1.html#folder-set-up-1"><i class="fa fa-check"></i><b>10.31</b> Folder Set-up</a><ul>
+<li class="chapter" data-level="10.31.1" data-path="section-1.html"><a href="section-1.html#storing-pdfs-1"><i class="fa fa-check"></i><b>10.31.1</b> Storing PDFs</a></li>
+<li class="chapter" data-level="10.31.2" data-path="section-1.html"><a href="section-1.html#storing-bibliographies-1"><i class="fa fa-check"></i><b>10.31.2</b> Storing Bibliographies</a></li>
+<li class="chapter" data-level="10.31.3" data-path="section-1.html"><a href="section-1.html#subfolder-for-references-1"><i class="fa fa-check"></i><b>10.31.3</b> Subfolder for References</a></li>
+</ul></li>
+<li class="chapter" data-level="10.32" data-path="section-1.html"><a href="section-1.html#configuring-zotero-1"><i class="fa fa-check"></i><b>10.32</b> Configuring Zotero</a><ul>
+<li class="chapter" data-level="10.32.1" data-path="section-1.html"><a href="section-1.html#zotfile-pdf-preferences-1"><i class="fa fa-check"></i><b>10.32.1</b> ZotFile PDF Preferences</a></li>
+<li class="chapter" data-level="10.32.2" data-path="section-1.html"><a href="section-1.html#general-zotero-settings-1"><i class="fa fa-check"></i><b>10.32.2</b> General Zotero Settings</a></li>
+<li class="chapter" data-level="10.32.3" data-path="section-1.html"><a href="section-1.html#refresh-bibtex-citation-key-1"><i class="fa fa-check"></i><b>10.32.3</b> Refresh BibTex Citation Key</a></li>
+</ul></li>
+<li class="chapter" data-level="10.33" data-path="section-1.html"><a href="section-1.html#generating-a-.bib-file-1"><i class="fa fa-check"></i><b>10.33</b> Generating a .bib File</a></li>
+<li class="chapter" data-level="10.34" data-path="section-1.html"><a href="section-1.html#linking-dropbox-and-rstudio-server-1"><i class="fa fa-check"></i><b>10.34</b> Linking DropBox and Rstudio Server</a><ul>
+<li class="chapter" data-level="10.34.1" data-path="section-1.html"><a href="section-1.html#token-creation-1"><i class="fa fa-check"></i><b>10.34.1</b> Token Creation</a></li>
+<li class="chapter" data-level="10.34.2" data-path="section-1.html"><a href="section-1.html#dropbox-linkage-1"><i class="fa fa-check"></i><b>10.34.2</b> DropBox Linkage</a></li>
+</ul></li>
+<li class="chapter" data-level="10.35" data-path="section-1.html"><a href="section-1.html#citing-r-packages-1"><i class="fa fa-check"></i><b>10.35</b> Citing R Packages</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -255,8 +340,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="header">
 <h1 class="title">The Surgical Informatics Cookbook</h1>
-<h4 class="author"><em>Surgical Informatics, University of Edinburgh</em></h4>
-<h4 class="date"><em>2020-02-26</em></h4>
+<p class="author"><em>Surgical Informatics, University of Edinburgh</em></p>
+<p class="date"><em>2020-03-10</em></p>
 </div>
 <div id="section" class="section level1 unnumbered">
 <h1></h1>
@@ -289,7 +374,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -299,6 +384,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
 "link": null,
 "text": null
 },

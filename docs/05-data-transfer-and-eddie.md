@@ -1,0 +1,381 @@
+# Data Transfer and Eddie
+
+Often it is necessary to transfer data into and out of RStudio server. This can be done from personal laptops (as long as you have permission for the data!), university supported desktops, Eddie and a number of other devices or servers.
+
+
+## Uploading and Downloading Data the Easy Way
+Often the GUI in RStudio is sufficient. In the `Files` pane click upload to move data from your current computer into RStudio server. To download select the file and then click `More > Export`. As always this should be done only when appropriate.
+
+Sometimes this isn't possible either with large files or files stored remotely on other servers such as Eddie.
+
+## Alternative Methods when the Easy Way won't work
+
+### What is Eddie?
+
+Eddie Mark 3 is the third iteration of the University's compute cluster and is available to all University of Edinburgh researchers. It consists of some 7000 Intel® Xeon® cores with up to 3 TB of memory available per compute node.
+
+The surgical informatics group has a shared folder in the Eddie cluster which can be accessed to store data and perform analyses which might be too large or complex for RStudio server. Every task in Eddie is controlled through the command line interface - those familiar with Linux/Unix will be familiar with this.
+
+## Using the Command Line
+Sometimes the command line is the only possible way to copy data to and from RStudio server. Argonaut and Argosafe are `SSH`-enabled (Secure SHell) meaning that you can securely copy data to and from them using the command line editor on another device. It is also possible to use the RStudio terminal to copy to another device or server that is `SSH`-enabled although this isn't currently recommended due to issues with RStudio server's websockets (when you type in the terminal you have to do so very slowly for characters to appear in the right order or you have to use a script - described below).
+
+First, if you don't have a command line editor or SSH client installed (often the case for earlier Windows versions although there is talk of a native client becoming default) then you will need to install one. For working on a Windows device generally PuTTY is the recommended SSH client (allows you connect to other servers) and a reasonable command line editor to work with files on the local device is GitBash.
+
+### Downloads and Setup - Eddie Example
+1. Make sure you have the University VPN downloaded for your own computer to access Eddie if needed. The link is at: https://www.ed.ac.uk/information-services/computing/desktop-personal/vpn/vpn-service-using. It is the Cisco Connect Any Client which logs into the VPN (the password should be different to your EASE password).  
+1. Download the PuTTY terminal software: https://www.putty.org/.
+
+
+Open up PuTTY and you will see a configuration screen. On this screen make sure to enter `eddie3.ecdf.ed.ac.uk` into the box and tick SSH as your method for connection. The PuTTY terminal will launch (assuming you are connected to the University VPN already) and ask `login as` at which point you should enter your EASE username. You will then be asked for your EASE password and you should now see that you are logged into Eddie3. 
+
+
+If you are logging in from RStudio Server or another terminal software you should enter on the command line: 
+
+```sh
+ssh <UUN>@eddie3.ecdf.ed.ac.uk
+```
+
+<UUN> is your university username for EASE. You will then be asked for your password.
+
+
+More information on Eddie basics can also be found at: https://www.wiki.ed.ac.uk/display/ResearchServices/Quickstart.
+
+
+### Copy and Paste with PuTTY
+Like many other command line interfaces PuTTY can be made to work more easily with copy and paste. This is done simply through highlighting and clicking and not with traditional `ctrl-c` and `ctrl-v` commands like typical word processors.
+
+__To copy text from PuTTY__: Highlight the text. That's it! No need to click anything or type / press anything, highlighting is enough. You can then paste the text elsewhere.
+
+__To copy text into PuTTY__: Once you've copied text (either by highlighting in PuTTY itself or by using `ctrl-c` in another programme, just right-click. The text will appear at the command line. If you copy several lines separated by `\newline` then PuTTY will run each line up until the last one copied and leave the last line at the command line (if you highlight large sections of text in PuTTY and right-click it will try to run all of them). 
+
+
+### Closing a Session in PuTTY
+To close a session use `ctrl-d`.
+
+### Eddie File Structure
+Once you have logged into Eddie there are several directories (folders/places) where you can store and manipulate files. Moving between these directories is usually done using the `cd` command. The same idea is applicable to your own machine
+
+
+When you first log in you will default to your home directory. In order to see the "path" to that directory enter the command:
+
+```sh
+pwd
+```
+
+The terminal should print out something like:
+
+```{}
+/home/<UUN>
+```
+
+To get back to this directory at any point enter one of the following (they are both equivalent):
+
+```sh
+cd /home/<UUN>
+```
+
+or
+
+
+```sh
+cd ~
+```
+
+When inside your home folder to see any of the files or subdirectories in your home directory enter:
+
+```sh
+ls -a
+```
+
+The `-a` argument to ls shows hidden files which begin with a `.` such as `.Renviron` if you have created this. There are several other arguments which can be passed to ls such as `-l` which will should the permissions for the file or subdirectory. When using the `-l` argument the files start with `-` and are followed by 7 characters or `-` which explain whether different groups of people can write, read or execute the files. The first three are for the file owner, the next three for the group and the next three for any else with access to the directory. For example the following printed after running `ls -l` would indicate that the owner could read, write and execute a file, the group could read and execute it and that others could only read it:
+
+
+```sh
+-rwxr-xr-- ... ... ... ... my_file.txt
+```
+
+## Copying Data from Eddie into RStudio server
+### Method 1: Using PuTTY (or another terminal/shell connected to Eddie)
+To copy data from another server or device into RStudio Server use the following code in the command line editor (e.g. PuTTY, GitBash etc.):
+
+
+```sh
+scp <file_path_on_other_device_or_server>new_file.txt <RStudio_Server_Username>@argonaut.is.ed.ac.uk:<RStudio_path>/<project_directory>/
+```
+
+You will be asked for your RStudio server (Argonaut etc.) password. If you are unsure of the file path enter `pwd` when you are working in the directory with the file before copying and pasting.
+
+If you are not sure of the path to the directory in which you wish to copy the data to or from then use `getwd()` in RStudio when inside the project you wish to copy to (you many need to add a subdirectory folder to the `getwd()` output if you are using subdirectories in your RStudio projects).
+
+The `scp` command will work with Argonaut and Argosafe as the ability to allow SSH connections has been activated. This may need to be established separately for other RStudio servers within the department.
+
+
+### Method 2: Using the RStudio Server Terminal
+To use the RStudio server terminal to copy data in and out of Eddie do not SSH into Eddie as described above but instead use the `scp` command. If you are using RStudio's terminal for accessing Eddie instead of PuTTY or something equivalent then you will need to either temporarily disconnect from Eddie (`ctrl-d`) or open a new terminal if using RStudio server Pro which allows multiple terminals.
+
+In the terminal enter the following command to copy a single file from Eddie into RStudio server from a project subdirectory in the SurgInfGrp directory:
+
+```sh
+scp <UUN>@eddie3.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/<project_subdirectory>/my_file.txt /home/<RStudio_Server_Username>/<RStudio_Project>/
+
+# Or adapt to copy entire directory contents (drop the * to copy the directory/folder as well as the contents)
+scp -r <UUN>@eddie3.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/<project_subdirectory>/* /home/<RStudio_Server_Username>/<RStudio_Project>/
+```
+
+On entering the command to the terminal you will be asked to enter your EASE password (type this slowly if using RStudio Server Pro prior to web sockets issue being fixed). In order to move data in the other direction simply change the order of the file paths.
+
+
+## The Surgical Informatics Group Folder (On Eddie)
+To get to the Surgical Informatics shared group directory enter:
+
+
+```sh
+cd /exports/cmvm/eddie/edmed/groups/SurgInfGrp
+```
+If you don't have access then Riinu or Ewen can provide this as they have admin rights.
+
+This directory should be the place to store any group projects or apps or other files which are somewhat (but not very) large. The group space has 200GB of memory allocated by default which is much greater than your home directory (10GB) but much less than the group space on the datastore which is up to 1TB. The group space should be used to store bulk files which can be staged into Eddie for an active session but will not be permanently stored in Eddie. 
+
+
+### The Scratch Space
+Your own personal scratch space is where you should work on active projects during a session after staging them in from the datastore and/or shared Surgical Informatics group directory. The scratch space has 2TB of storage per user but this is cleaned up after one month. This means large datasets can be analysed here but not stored in the long-term. To find your own personal scratch space enter:
+
+```sh
+cd /exports/eddie/scratch/<UUN>
+```
+
+Finally there is also a temporary directory ($TMPDIR) which is only present and accessible whilst a job is running in Eddie. This has 1TB of available storage.
+
+
+### Other Spaces
+Occasionally group members may have access to other directories to share / collaborate on projects. These are most often found at the path: `cd /exports/<COLLEGE>/eddie/<SCHOOL>/groups/<GROUP>` although for IGMM it may be: `cd /exports/igmm/eddie/<GROUP>`.
+
+### Running Eddie from RStudio Server
+It is possible to log in to Eddie from RStudio server and use Shell Scripts stored in RStudio to perform tasks in Eddie. This may be helpful if you plan to modify shell scripts a lot and want to have the benefit of the RStudio interface. `ctrl-alt-enter` sends data to the terminal in the same way that it would the console without the `alt`.
+
+To connect initially enter:
+
+```sh
+ssh <UUN>@eddie3.ecdf.ed.ac.uk
+```
+
+You will then be asked for your password which has to be typed (currently slowly and carefully!) into the terminal. Afterwards you can send any commands from a script using `ctrl-alt-enter`. This will not work with `Rmd` or `notebooks`.
+
+### Modules (Applications) in Eddie
+Eddie has several modules (applications) which can be run such as R, python, cuda, java, intel, fastqc etc. etc. The best way to see which modules you have available is to run `module avail`. To see which modules are loaded is to run `module list`.
+
+
+To load in a new module to use run the following:
+
+```sh
+module load <module>
+
+# For example:
+module load R/3.5.3
+
+# Note that the default R version is 3.3.2 (as of 13th June 2019) and is loaded using:
+module load R
+```
+
+Once you have loaded modules that you will need for your analysis you may need to create new files or establish a library of packages for those modules. There are a default set of packages available for R when loaded from either the main applications library or from other installations on the IGMM paths but these are read-only meaning that for any customisation and installation of new packages, a separate library must be maintained and that the R options must be amended to point to this library. This can be done by creating a personal `.Rprofile` file in your home directory in Eddie which points to the Surgical Informatics Group Rlibrary.
+
+
+It is not advised to create a separate library in your own Eddie space as this will quickly use up your disc quota. Theoretically a separate installation of a package could be stored in your own space if working on developer edition or github branch / fork of a package.
+
+### Working with R in Eddie
+#### .Rprofile File
+When you load up R an `.Rprofile` file is sourced and anything contained within the file will be run for the current R session. This is particularly useful in Eddie because the defaults are not very helpful:  
+
++ The R package library is the Eddie default library which cannot be added to
++ The CRAN mirror is not specified so every session will ask you to select a new CRAN mirror to install packages in a temporary library
+
+
+The `.Rprofile` file also has other options which can be customised to improve how your current R session will run on Eddie. There are a number of possible customisations but be careful as not all are helpful if you end up collaborating with other research teams, some of these customisations such as `stringsAsFactors=FALSE` by default could be used in a project-specific `.Rprofile` file with caution but if you are working with another research group who rely on `read.csv` and have scripts established which assume that all strings are factors then having that customisation in your home directory may generate bugs when collaborating on projects.
+
+
+R will automatically look for a `.Rprofile` file when R is started during each Eddie session and will look for this file in three places with an order of preference. The first place is the current working directory of a project so an `.Rprofile` file could be stored here to generate very specific customisations for a project if necessary. The next place it will look is in your own home directory (`/home/<UUN>/` or `/~/`), this is where you should create a `.Rprofile` file which will be your default for all sessions, it is recommended to use this sparingly but that certain key features are used such as setting up your main library location as the Surgical Informatics Group and setting up a default CRAN mirror e.g. the RStudio CRAN mirror. Finally, if there is not a `.Rprofile` file here then R will attempt to source a file in the R home directory (found in R using `.R.home()`) and if there is no file here then no customisation will occur. Some servers also have a `.Rprofile.site` file although this is not currently present in Eddie.
+
+
+*Important*: Always leave the final line of an `.Rprofile` file blank.
+
+
+A possible `.Rprofile` file for using in Eddie as part of the Surgical Informatics Group is:
+
+```r
+## Rprofile template
+
+
+## Stop being asked for CRAN mirror every time
+options("repos" = c(CRAN = "http://cran.rstudio.com/"))
+
+
+## Change the default editor to nano
+options(editor="nano")
+
+## Change the terminal prompt to make it clear R is loaded
+options(prompt="R > ")
+
+## Prevent default saving of workspace image (similar to recommended RStudio server settings)
+q <- function(save="no", ...) {
+        quit(save=save, ...)
+}
+
+
+## Clever code to allow tab-completion of package names used in library()
+utils::rc.settings(ipck=TRUE)
+
+
+## Add some colour to the console if colourout is available
+if(Sys.Getenv("TERM") == "xterm-256color")
+        library("colorout")
+
+## Create a new envisible environment which can be used to create new functions
+## Benefit of this is that all new functions here are hidden in environment and not rmeoved by rm(list = ls())
+.env <- new.env()
+
+
+## Set library path to make sure packages are loaded from SurgInfGrp
+.libPaths("/exports/cmvm/eddie/edmed/groups/SurgInfGrp/R/Rlibrary")
+
+
+## If working on a particular project e.g. the gwas_pipeline from IGMM best to create a new library due to R version issues in that project
+## Just copy the .Rprofile file from your own home directory into the project working directory and edit to change library
+
+
+## Attach all the variables created
+attach(.env)
+
+
+## Remember that an .Rprofile file always silently ignores the last line so don't forget to leave empty newlines
+```
+
+
+The above configuration should generate minimal portability issues when working on other projects.
+
+
+There are a few explanations of the benefits and side effects of having a `.Rprofile` file as well as ways to temporarily mask them for specific projects which will be shared with other collaborators in this blog post: https://www.r-bloggers.com/fun-with-Rprofile-and-customizing-r-startup/. 
+
+
+Should you wish to have an entire directory of startup files (e.g. one file for CRAN, one file for library, one file for custom function etc. etc.) so that segments of the customisation can be shared quickly without modifying / dropping all of the other elements of the `.Rprofile` file then this is described here: https://cran.r-project.org/web/packages/startup/vignettes/startup-intro.html. This relies on the `startup` package. Other options such as having secure directories with GitHub tokens and other content which is protected from access by other Eddie users is also discussed there. 
+
+
+#### Creating an .Rprofile File
+When you first use Eddie there will not be any `.Rprofile` file generated by default and a blank file will need to be created. This can be done by entering the following into the terminal after loading R. To load R enter `module load R/3.5.3` (or the currently available R versions seen on `module avail`) into the terminal followed by `R`. This will start an active R session. Then enter the following code (please do not change the path to the shared group folder! If you need to change the path to a project be sure to include the subdirectory otherwise R will use your `.Rprofile` file for all SurgInfGrp users which won't be popular):  
+
+```r
+file.create("~/.Rprofile")
+```
+
+
+This will create a blank `.Rprofile` file in your home directory on Eddie which should be edited to customise the R configuration. 
+
+
+In order to edit the file it is suggested that you use the nano Unix-based editor. Firstly quit the current R session as that has not yet been configured to use the editor. Enter `q()` as you would normally do when closing R and enter `n` if asked about saving workspace image.
+
+Navigagte to your home directory and using `ls -a` you should see the `.Rprofile` file which is currently blank. 
+
+
+
+
+#### .Renviron File
+In addition to changing the `.Rprofile` file you will most likely need to change the `.Renviron` file. The default for this is probably located in the R home directory which may be `/exports/applications/apps/SL7/R/3.5.3/lib64/R/etc/`. The `.Renviron` file is searched for in the same order by R as the `.Rprofile` file with R first aiming to find the file in the project directory and if not able to find it there looking in the user home directory and finally looking to the R home directory. To copy the `Renviron` file in the R home directory into a `.Renviron` file in your home directory enter the following code in the terminal:
+
+```sh
+# Path will need edited if future installations of R replace 3.5.3
+cp /exports/applications/apps/SL7/R/3.5.3/lib64/R/etc/Renviron ~/.Renviron
+```
+
+
+The following is a reasonable starting point for the `.Renviron` file in your own profile:
+
+```r
+### etc/Renviron.  Generated from Renviron.in by configure.
+###
+### ${R_HOME}/etc/Renviron
+###
+### Record R system environment variables.
+
+R_PLATFORM=${R_PLATFORM-'x86_64-pc-linux-gnu'}
+## Default printer paper size: first record if user set R_PAPERSIZE
+R_PAPERSIZE_USER=${R_PAPERSIZE}
+R_PAPERSIZE=${R_PAPERSIZE-'a4'}
+## Default print command
+R_PRINTCMD=${R_PRINTCMD-''}
+# for Rd2pdf, reference manual
+R_RD4PDF=${R_RD4PDF-'times,hyper'}
+## used for options("texi2dvi")
+R_TEXI2DVICMD=${R_TEXI2DVICMD-${TEXI2DVI-'texi2dvi'}}
+## used by untar and installing grDevices
+R_GZIPCMD=${R_GZIPCMD-'/usr/bin/gzip'}
+## Default zip/unzip commands
+R_UNZIPCMD=${R_UNZIPCMD-'/usr/bin/unzip'}
+R_ZIPCMD=${R_ZIPCMD-'/usr/bin/zip'}
+R_BZIPCMD=${R_BZIPCMD-'/usr/bin/bzip2'}
+## Default browser
+R_BROWSER=${R_BROWSER-'/usr/bin/xdg-open'}
+## Default pager
+PAGER=${PAGER-'/usr/bin/less'}
+## Default PDF viewer
+R_PDFVIEWER=${R_PDFVIEWER-'/usr/bin/xdg-open'}
+## Used by libtool
+LN_S='ln -s'
+MAKE=${MAKE-'make'}
+## Prefer a POSIX-compliant sed on e.g. Solaris
+SED=${SED-'/usr/bin/sed'}
+## Prefer a tar that can automagically read compressed archives
+TAR=${TAR-'/usr/bin/gtar'}
+
+## System and compiler types.
+R_SYSTEM_ABI='linux,gcc,gxx,gfortran,?'
+
+
+## Change the default R libraries and directories
+R_DOC_DIR=/exports/applications/apps/SL7/R/3.5.3/lib64/R/doc
+R_INCLUDE_DIR=/exports/applications/apps/SL7/R/3.5.3/lib64/R/include
+R_SHARE_DIR=/exports/applications/apps/SL7/R/3.5.3/lib64/R/share
+RBIN=/exports/applications/apps/SL7/R/3.5.3/bin
+RDIR=/exports/applications/apps/SL7/R/3.5.3/3.3.3
+R_LIBS=/exports/cmvm/eddie/edmed/groups/SurgInfGrp/R/Rlibrary
+R_LIBS_SITE=/exports/cmvm/eddie/edmed/groups/SurgInfGrp/R/Rlibrary
+R_LIBS_USER=/exports/cmvm/eddie/edmed/groups/SurgInfGrp/R/Rlibrary
+
+
+
+
+### Local Variables: ***
+### mode: sh ***
+### sh-indentation: 2 ***
+```
+
+
+
+The `.Renviron` file can be copied to specific projects when specific R files / directories (or files / directories for other languages) are needed to run a particular analysis. For example, to use the GCC compiler from IGMM the following could be added to the file: 
+
+```r
+## Change the Clang variables
+CC=igmm/compilers/gcc/5.5.0 -fopenmp
+CXX=igmm/compilers/gcc/5.5.0 -fopenmp
+```
+
+The `.Rprofile` files and `.Renviron` files should be as generic as possible in your own profile so as to avoid issues when sharing scripts. They can be tailored for specific projects when needed in the local working directory. Typically this should be to alter the paths to directories etc. and not to create bespoke functions which should be done in scripts.
+
+
+
+### Specific R Package Versions
+When working with other teams it is often necessary to work with particular R package versions. One effective way to ensure you do this is using the remotes package:
+
+```r
+# Install the GenABEL package from CRAN but as no longer supporte need the 1.8-0 version from the archive
+remotes::install_version("GenABEL", version = "1.8-0")
+```
+
+
+### General Eddie Etiquette
+Don't overwrite or change other users files without permission and set up your own files to prevent others doing that if appropriate. Please don't leave configuration files like `.Renviron` files in the shared space as this can play havoc with other users R tasks in Eddie - if you need a particular configuration (e.g. a default package library for a project) then best to leave the config files in the directory for that project (or in your own home directory).
+
+
+## Unix Tutorials
+The University Digital Skills Framework offers a three-part tutorial covering Unix which is free. If you use a lot of Eddie etc. this may be helpful:https://www.digitalskills.ed.ac.uk/all-resources/?wdt_column_filter%5B1%5D=Classroom
+
+
+

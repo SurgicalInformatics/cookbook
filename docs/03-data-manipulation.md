@@ -1,0 +1,215 @@
+# Data manipulation
+
+## Collapse multiple "no" and "yes" options
+
+Common to have to do this in GlobalSurg projects:
+
+
+```r
+library(dplyr)
+mydata = tibble(
+  ssi.factor = c("No", "Yes, no treatment/wound opened only (CD 1)",    
+                 "Yes, antibiotics only (CD 2)", "Yes, return to operating theatre (CD 3)", 
+                 "Yes, requiring critical care admission (CD 4)", 
+                 "Yes, resulting in death (CD 5)",
+                 "Unknown") %>%
+    factor(),
+  mri.factor = c("No, not available", "No, not indicated", 
+                 "No, indicated and facilities available, but patient not able to pay",
+                 "Yes", "Unknown", "Unknown", "Unknown") %>% 
+    factor()
+)
+
+# Two functions make this work
+fct_collapse_yn = function(.f){
+  .f %>% 
+    forcats::fct_relabel(~ gsub("^No.*", "No", .)) %>% 
+    forcats::fct_relabel(~ gsub("^Yes.*", "Yes", .))
+}
+
+is.yn = function(.data){
+  .f = is.factor(.data)
+  .yn = .data %>% 
+    levels() %>% 
+    grepl("No|Yes", .) %>% 
+    any()
+  all(.f, .yn)
+}
+
+# Raw variable
+mydata %>% 
+  pull(ssi.factor) %>% 
+  levels()
+```
+
+```
+## [1] "No"                                           
+## [2] "Unknown"                                      
+## [3] "Yes, antibiotics only (CD 2)"                 
+## [4] "Yes, no treatment/wound opened only (CD 1)"   
+## [5] "Yes, requiring critical care admission (CD 4)"
+## [6] "Yes, resulting in death (CD 5)"               
+## [7] "Yes, return to operating theatre (CD 3)"
+```
+
+```r
+# Collapse to _yn version
+mydata %>% 
+  mutate_if(is.yn, list(yn = fct_collapse_yn)) %>% 
+  pull(ssi.factor_yn) %>% 
+  levels()
+```
+
+```
+## [1] "No"      "Unknown" "Yes"
+```
+
+
+## Filter NA: Dropping rows where all specified variables are NA
+
+
+I want to keep rows that have a value for `important_a` and/or `important_b` (so rows 1, 3, 4).
+I don't care whether `whatever_c` is empty or not, but I do want to keep it.
+
+
+```r
+library(tidyverse)
+
+mydata  = tibble(important_a = c("Value", NA, "Value", NA, NA),
+                 important_b = c(NA, NA, "Value", "Value", NA),
+                 whatever_c  = c(NA, "Value", NA, NA, NA))
+
+mydata
+```
+
+```
+## # A tibble: 5 x 3
+##   important_a important_b whatever_c
+##   <chr>       <chr>       <chr>     
+## 1 Value       <NA>        <NA>      
+## 2 <NA>        <NA>        Value     
+## 3 Value       Value       <NA>      
+## 4 <NA>        Value       <NA>      
+## 5 <NA>        <NA>        <NA>
+```
+
+
+
+Functions for missing values that are very useful, but don't do what I want are:
+
+(1) This keeps complete cases based on all columns:
+
+```r
+mydata %>% 
+  drop_na()
+```
+
+```
+## # A tibble: 0 x 3
+## # ... with 3 variables: important_a <chr>, important_b <chr>, whatever_c <chr>
+```
+
+(Returns 0 as we don't have rows where all 3 columns have a value).
+
+(2) This keeps complete cases based on specified columns:
+
+
+```r
+mydata %>% 
+  drop_na(important_a, important_b)
+```
+
+```
+## # A tibble: 1 x 3
+##   important_a important_b whatever_c
+##   <chr>       <chr>       <chr>     
+## 1 Value       Value       <NA>
+```
+This only keeps the row where both a and b have a value.
+
+
+(3) This keeps rows that have a value in any column:
+
+
+```r
+mydata %>% 
+  filter_all(any_vars(! is.na(.)))
+```
+
+```
+## # A tibble: 4 x 3
+##   important_a important_b whatever_c
+##   <chr>       <chr>       <chr>     
+## 1 Value       <NA>        <NA>      
+## 2 <NA>        <NA>        Value     
+## 3 Value       Value       <NA>      
+## 4 <NA>        Value       <NA>
+```
+
+
+The third example is better achieved using the janitor package:
+
+
+```r
+mydata %>% 
+  janitor::remove_empty()
+```
+
+```
+## # A tibble: 4 x 3
+##   important_a important_b whatever_c
+##   <chr>       <chr>       <chr>     
+## 1 Value       <NA>        <NA>      
+## 2 <NA>        <NA>        Value     
+## 3 Value       Value       <NA>      
+## 4 <NA>        Value       <NA>
+```
+
+Now, (3) is pretty close, but still, I'm not interested in row 2 - where both a and b are empty but c has a value (which is why it's kept).
+
+(4) Simple solution
+
+A quick solution is to use `! is.na()` for each variable inside a `filter()`:
+
+
+```r
+mydata %>% 
+  filter(! is.na(important_a) | ! is.na(important_b))
+```
+
+```
+## # A tibble: 3 x 3
+##   important_a important_b whatever_c
+##   <chr>       <chr>       <chr>     
+## 1 Value       <NA>        <NA>      
+## 2 Value       Value       <NA>      
+## 3 <NA>        Value       <NA>
+```
+
+And this is definitely what I do when I only have a couple of these variables. But if you have tens, then the filtering logic becomes horrendously long and it's easy to miss one out/make a mistake.
+
+(5) Powerful solution:
+
+A scalable solution is to use `filter_at()` with `vars()` with a select helper (e.g., `starts with()`), and then the `any_vars(! is.na(.))` that was introduced in (3).
+
+
+```r
+mydata %>% 
+  filter_at(vars(starts_with("important_")), any_vars(! is.na(.)))
+```
+
+```
+## # A tibble: 3 x 3
+##   important_a important_b whatever_c
+##   <chr>       <chr>       <chr>     
+## 1 Value       <NA>        <NA>      
+## 2 Value       Value       <NA>      
+## 3 <NA>        Value       <NA>
+```
+
+
+
+
+
+
+

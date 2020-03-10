@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>The Surgical Informatics Cookbook</title>
-  <meta name="description" content="All the brilliant bits of code we don’t want to forget.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Data manipulation | The Surgical Informatics Cookbook</title>
+  <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="The Surgical Informatics Cookbook" />
+  <meta property="og:title" content="Chapter 3 Data manipulation | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
   
   
@@ -17,25 +16,26 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="The Surgical Informatics Cookbook" />
+  <meta name="twitter:title" content="Chapter 3 Data manipulation | The Surgical Informatics Cookbook" />
   
   <meta name="twitter:description" content="All the brilliant bits of code we don’t want to forget." />
   
 
-<meta name="author" content="Surgical Informatics, University of Edinburgh">
+<meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2020-02-26">
+<meta name="date" content="2020-03-10" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="snippets.html">
 <link rel="next" href="machine-learning.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -55,7 +55,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -140,20 +139,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="snippets.html"><a href="snippets.html"><i class="fa fa-check"></i><b>2</b> Snippets</a><ul>
-<li class="chapter" data-level="2.1" data-path="snippets.html"><a href="snippets.html#creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker"><i class="fa fa-check"></i><b>2.1</b> Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)</a><ul>
-<li class="chapter" data-level="2.1.1" data-path="snippets.html"><a href="snippets.html#create-basic-reproducible-examples"><i class="fa fa-check"></i><b>2.1.1</b> Create Basic Reproducible Examples</a></li>
-<li class="chapter" data-level="2.1.2" data-path="snippets.html"><a href="snippets.html#holepunch---complex-reproducible-examples"><i class="fa fa-check"></i><b>2.1.2</b> <code>holepunch</code> - Complex Reproducible Examples</a></li>
+<li class="chapter" data-level="2.1" data-path="snippets.html"><a href="snippets.html#exporting-tables-that-work-in-both-pdf-and-word"><i class="fa fa-check"></i><b>2.1</b> Exporting tables that work in both PDF and Word</a></li>
+<li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker"><i class="fa fa-check"></i><b>2.2</b> Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="snippets.html"><a href="snippets.html#create-basic-reproducible-examples"><i class="fa fa-check"></i><b>2.2.1</b> Create Basic Reproducible Examples</a></li>
+<li class="chapter" data-level="2.2.2" data-path="snippets.html"><a href="snippets.html#holepunch---complex-reproducible-examples"><i class="fa fa-check"></i><b>2.2.2</b> <code>holepunch</code> - Complex Reproducible Examples</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#working-with-chis"><i class="fa fa-check"></i><b>2.2</b> Working with CHIs</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="snippets.html"><a href="snippets.html#chi_dob---extract-date-of-birth-from-chi"><i class="fa fa-check"></i><b>2.2.1</b> <code>chi_dob()</code> - Extract date of birth from CHI</a></li>
-<li class="chapter" data-level="2.2.2" data-path="snippets.html"><a href="snippets.html#chi_gender---extract-gender-from-chi"><i class="fa fa-check"></i><b>2.2.2</b> <code>chi_gender()</code> - Extract gender from CHI</a></li>
-<li class="chapter" data-level="2.2.3" data-path="snippets.html"><a href="snippets.html#chi_age---extract-age-from-chi"><i class="fa fa-check"></i><b>2.2.3</b> <code>chi_age()</code> - Extract age from CHI</a></li>
-<li class="chapter" data-level="2.2.4" data-path="snippets.html"><a href="snippets.html#chi_valid---logical-test-for-valid-chi"><i class="fa fa-check"></i><b>2.2.4</b> <code>chi_valid()</code> - Logical test for valid CHI</a></li>
+<li class="chapter" data-level="2.3" data-path="snippets.html"><a href="snippets.html#working-with-chis"><i class="fa fa-check"></i><b>2.3</b> Working with CHIs</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="snippets.html"><a href="snippets.html#chi_dob---extract-date-of-birth-from-chi"><i class="fa fa-check"></i><b>2.3.1</b> <code>chi_dob()</code> - Extract date of birth from CHI</a></li>
+<li class="chapter" data-level="2.3.2" data-path="snippets.html"><a href="snippets.html#chi_gender---extract-gender-from-chi"><i class="fa fa-check"></i><b>2.3.2</b> <code>chi_gender()</code> - Extract gender from CHI</a></li>
+<li class="chapter" data-level="2.3.3" data-path="snippets.html"><a href="snippets.html#chi_age---extract-age-from-chi"><i class="fa fa-check"></i><b>2.3.3</b> <code>chi_age()</code> - Extract age from CHI</a></li>
+<li class="chapter" data-level="2.3.4" data-path="snippets.html"><a href="snippets.html#chi_valid---logical-test-for-valid-chi"><i class="fa fa-check"></i><b>2.3.4</b> <code>chi_valid()</code> - Logical test for valid CHI</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.3</b> Working with dates</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.3.1</b> Difference between two dates</a></li>
-<li class="chapter" data-level="2.3.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.3.2</b> Lags</a></li>
-<li class="chapter" data-level="2.3.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.3.3</b> Pulling out “change in status” data</a></li>
+<li class="chapter" data-level="2.4" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.4</b> Working with dates</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.4.1</b> Difference between two dates</a></li>
+<li class="chapter" data-level="2.4.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.4.2</b> Lags</a></li>
+<li class="chapter" data-level="2.4.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.4.3</b> Pulling out “change in status” data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation</a><ul>
@@ -258,40 +258,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="collapse-multiple-no-and-yes-options" class="section level2">
 <h2><span class="header-section-number">3.1</span> Collapse multiple “no” and “yes” options</h2>
 <p>Common to have to do this in GlobalSurg projects:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb41-2" data-line-number="2">mydata =<span class="st"> </span><span class="kw">tibble</span>(</a>
-<a class="sourceLine" id="cb41-3" data-line-number="3">  <span class="dt">ssi.factor =</span> <span class="kw">c</span>(<span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes, no treatment/wound opened only (CD 1)&quot;</span>,    </a>
-<a class="sourceLine" id="cb41-4" data-line-number="4">                 <span class="st">&quot;Yes, antibiotics only (CD 2)&quot;</span>, <span class="st">&quot;Yes, return to operating theatre (CD 3)&quot;</span>, </a>
-<a class="sourceLine" id="cb41-5" data-line-number="5">                 <span class="st">&quot;Yes, requiring critical care admission (CD 4)&quot;</span>, </a>
-<a class="sourceLine" id="cb41-6" data-line-number="6">                 <span class="st">&quot;Yes, resulting in death (CD 5)&quot;</span>,</a>
-<a class="sourceLine" id="cb41-7" data-line-number="7">                 <span class="st">&quot;Unknown&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb41-8" data-line-number="8"><span class="st">    </span><span class="kw">factor</span>(),</a>
-<a class="sourceLine" id="cb41-9" data-line-number="9">  <span class="dt">mri.factor =</span> <span class="kw">c</span>(<span class="st">&quot;No, not available&quot;</span>, <span class="st">&quot;No, not indicated&quot;</span>, </a>
-<a class="sourceLine" id="cb41-10" data-line-number="10">                 <span class="st">&quot;No, indicated and facilities available, but patient not able to pay&quot;</span>,</a>
-<a class="sourceLine" id="cb41-11" data-line-number="11">                 <span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;Unknown&quot;</span>, <span class="st">&quot;Unknown&quot;</span>, <span class="st">&quot;Unknown&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb41-12" data-line-number="12"><span class="st">    </span><span class="kw">factor</span>()</a>
-<a class="sourceLine" id="cb41-13" data-line-number="13">)</a>
-<a class="sourceLine" id="cb41-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb41-15" data-line-number="15"><span class="co"># Two functions make this work</span></a>
-<a class="sourceLine" id="cb41-16" data-line-number="16">fct_collapse_yn =<span class="st"> </span><span class="cf">function</span>(.f){</a>
-<a class="sourceLine" id="cb41-17" data-line-number="17">  .f <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb41-18" data-line-number="18"><span class="st">    </span>forcats<span class="op">::</span><span class="kw">fct_relabel</span>(<span class="op">~</span><span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;^No.*&quot;</span>, <span class="st">&quot;No&quot;</span>, .)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb41-19" data-line-number="19"><span class="st">    </span>forcats<span class="op">::</span><span class="kw">fct_relabel</span>(<span class="op">~</span><span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;^Yes.*&quot;</span>, <span class="st">&quot;Yes&quot;</span>, .))</a>
-<a class="sourceLine" id="cb41-20" data-line-number="20">}</a>
-<a class="sourceLine" id="cb41-21" data-line-number="21"></a>
-<a class="sourceLine" id="cb41-22" data-line-number="22">is.yn =<span class="st"> </span><span class="cf">function</span>(.data){</a>
-<a class="sourceLine" id="cb41-23" data-line-number="23">  .f =<span class="st"> </span><span class="kw">is.factor</span>(.data)</a>
-<a class="sourceLine" id="cb41-24" data-line-number="24">  .yn =<span class="st"> </span>.data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb41-25" data-line-number="25"><span class="st">    </span><span class="kw">levels</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb41-26" data-line-number="26"><span class="st">    </span><span class="kw">grepl</span>(<span class="st">&quot;No|Yes&quot;</span>, .) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb41-27" data-line-number="27"><span class="st">    </span><span class="kw">any</span>()</a>
-<a class="sourceLine" id="cb41-28" data-line-number="28">  <span class="kw">all</span>(.f, .yn)</a>
-<a class="sourceLine" id="cb41-29" data-line-number="29">}</a>
-<a class="sourceLine" id="cb41-30" data-line-number="30"></a>
-<a class="sourceLine" id="cb41-31" data-line-number="31"><span class="co"># Raw variable</span></a>
-<a class="sourceLine" id="cb41-32" data-line-number="32">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb41-33" data-line-number="33"><span class="st">  </span><span class="kw">pull</span>(ssi.factor) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb41-34" data-line-number="34"><span class="st">  </span><span class="kw">levels</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2">mydata =<span class="st"> </span><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb43-3" data-line-number="3">  <span class="dt">ssi.factor =</span> <span class="kw">c</span>(<span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes, no treatment/wound opened only (CD 1)&quot;</span>,    </a>
+<a class="sourceLine" id="cb43-4" data-line-number="4">                 <span class="st">&quot;Yes, antibiotics only (CD 2)&quot;</span>, <span class="st">&quot;Yes, return to operating theatre (CD 3)&quot;</span>, </a>
+<a class="sourceLine" id="cb43-5" data-line-number="5">                 <span class="st">&quot;Yes, requiring critical care admission (CD 4)&quot;</span>, </a>
+<a class="sourceLine" id="cb43-6" data-line-number="6">                 <span class="st">&quot;Yes, resulting in death (CD 5)&quot;</span>,</a>
+<a class="sourceLine" id="cb43-7" data-line-number="7">                 <span class="st">&quot;Unknown&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb43-8" data-line-number="8"><span class="st">    </span><span class="kw">factor</span>(),</a>
+<a class="sourceLine" id="cb43-9" data-line-number="9">  <span class="dt">mri.factor =</span> <span class="kw">c</span>(<span class="st">&quot;No, not available&quot;</span>, <span class="st">&quot;No, not indicated&quot;</span>, </a>
+<a class="sourceLine" id="cb43-10" data-line-number="10">                 <span class="st">&quot;No, indicated and facilities available, but patient not able to pay&quot;</span>,</a>
+<a class="sourceLine" id="cb43-11" data-line-number="11">                 <span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;Unknown&quot;</span>, <span class="st">&quot;Unknown&quot;</span>, <span class="st">&quot;Unknown&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-12" data-line-number="12"><span class="st">    </span><span class="kw">factor</span>()</a>
+<a class="sourceLine" id="cb43-13" data-line-number="13">)</a>
+<a class="sourceLine" id="cb43-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb43-15" data-line-number="15"><span class="co"># Two functions make this work</span></a>
+<a class="sourceLine" id="cb43-16" data-line-number="16">fct_collapse_yn =<span class="st"> </span><span class="cf">function</span>(.f){</a>
+<a class="sourceLine" id="cb43-17" data-line-number="17">  .f <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-18" data-line-number="18"><span class="st">    </span>forcats<span class="op">::</span><span class="kw">fct_relabel</span>(<span class="op">~</span><span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;^No.*&quot;</span>, <span class="st">&quot;No&quot;</span>, .)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-19" data-line-number="19"><span class="st">    </span>forcats<span class="op">::</span><span class="kw">fct_relabel</span>(<span class="op">~</span><span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;^Yes.*&quot;</span>, <span class="st">&quot;Yes&quot;</span>, .))</a>
+<a class="sourceLine" id="cb43-20" data-line-number="20">}</a>
+<a class="sourceLine" id="cb43-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb43-22" data-line-number="22">is.yn =<span class="st"> </span><span class="cf">function</span>(.data){</a>
+<a class="sourceLine" id="cb43-23" data-line-number="23">  .f =<span class="st"> </span><span class="kw">is.factor</span>(.data)</a>
+<a class="sourceLine" id="cb43-24" data-line-number="24">  .yn =<span class="st"> </span>.data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-25" data-line-number="25"><span class="st">    </span><span class="kw">levels</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-26" data-line-number="26"><span class="st">    </span><span class="kw">grepl</span>(<span class="st">&quot;No|Yes&quot;</span>, .) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-27" data-line-number="27"><span class="st">    </span><span class="kw">any</span>()</a>
+<a class="sourceLine" id="cb43-28" data-line-number="28">  <span class="kw">all</span>(.f, .yn)</a>
+<a class="sourceLine" id="cb43-29" data-line-number="29">}</a>
+<a class="sourceLine" id="cb43-30" data-line-number="30"></a>
+<a class="sourceLine" id="cb43-31" data-line-number="31"><span class="co"># Raw variable</span></a>
+<a class="sourceLine" id="cb43-32" data-line-number="32">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-33" data-line-number="33"><span class="st">  </span><span class="kw">pull</span>(ssi.factor) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb43-34" data-line-number="34"><span class="st">  </span><span class="kw">levels</span>()</a></code></pre></div>
 <pre><code>## [1] &quot;No&quot;                                           
 ## [2] &quot;Unknown&quot;                                      
 ## [3] &quot;Yes, antibiotics only (CD 2)&quot;                 
@@ -299,24 +299,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [5] &quot;Yes, requiring critical care admission (CD 4)&quot;
 ## [6] &quot;Yes, resulting in death (CD 5)&quot;               
 ## [7] &quot;Yes, return to operating theatre (CD 3)&quot;</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="co"># Collapse to _yn version</span></a>
-<a class="sourceLine" id="cb43-2" data-line-number="2">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb43-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate_if</span>(is.yn, <span class="kw">list</span>(<span class="dt">yn =</span> fct_collapse_yn)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb43-4" data-line-number="4"><span class="st">  </span><span class="kw">pull</span>(ssi.factor_yn) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb43-5" data-line-number="5"><span class="st">  </span><span class="kw">levels</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="co"># Collapse to _yn version</span></a>
+<a class="sourceLine" id="cb45-2" data-line-number="2">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb45-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate_if</span>(is.yn, <span class="kw">list</span>(<span class="dt">yn =</span> fct_collapse_yn)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb45-4" data-line-number="4"><span class="st">  </span><span class="kw">pull</span>(ssi.factor_yn) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb45-5" data-line-number="5"><span class="st">  </span><span class="kw">levels</span>()</a></code></pre></div>
 <pre><code>## [1] &quot;No&quot;      &quot;Unknown&quot; &quot;Yes&quot;</code></pre>
 </div>
 <div id="filter-na-dropping-rows-where-all-specified-variables-are-na" class="section level2">
 <h2><span class="header-section-number">3.2</span> Filter NA: Dropping rows where all specified variables are NA</h2>
 <p>I want to keep rows that have a value for <code>important_a</code> and/or <code>important_b</code> (so rows 1, 3, 4).
 I don’t care whether <code>whatever_c</code> is empty or not, but I do want to keep it.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb45-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb45-3" data-line-number="3">mydata  =<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">important_a =</span> <span class="kw">c</span>(<span class="st">&quot;Value&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="ot">NA</span>, <span class="ot">NA</span>),</a>
-<a class="sourceLine" id="cb45-4" data-line-number="4">                 <span class="dt">important_b =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="ot">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="st">&quot;Value&quot;</span>, <span class="ot">NA</span>),</a>
-<a class="sourceLine" id="cb45-5" data-line-number="5">                 <span class="dt">whatever_c  =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="ot">NA</span>, <span class="ot">NA</span>, <span class="ot">NA</span>))</a>
-<a class="sourceLine" id="cb45-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb45-7" data-line-number="7">mydata</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb47-3" data-line-number="3">mydata  =<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">important_a =</span> <span class="kw">c</span>(<span class="st">&quot;Value&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="ot">NA</span>, <span class="ot">NA</span>),</a>
+<a class="sourceLine" id="cb47-4" data-line-number="4">                 <span class="dt">important_b =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="ot">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="st">&quot;Value&quot;</span>, <span class="ot">NA</span>),</a>
+<a class="sourceLine" id="cb47-5" data-line-number="5">                 <span class="dt">whatever_c  =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="ot">NA</span>, <span class="ot">NA</span>, <span class="ot">NA</span>))</a>
+<a class="sourceLine" id="cb47-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb47-7" data-line-number="7">mydata</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 3
 ##   important_a important_b whatever_c
 ##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
@@ -329,17 +329,16 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 <ol style="list-style-type: decimal">
 <li>This keeps complete cases based on all columns:</li>
 </ol>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb47-2" data-line-number="2"><span class="st">  </span><span class="kw">drop_na</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="st">  </span><span class="kw">drop_na</span>()</a></code></pre></div>
 <pre><code>## # A tibble: 0 x 3
-## # … with 3 variables: important_a &lt;chr&gt;, important_b &lt;chr&gt;,
-## #   whatever_c &lt;chr&gt;</code></pre>
+## # … with 3 variables: important_a &lt;chr&gt;, important_b &lt;chr&gt;, whatever_c &lt;chr&gt;</code></pre>
 <p>(Returns 0 as we don’t have rows where all 3 columns have a value).</p>
 <ol start="2" style="list-style-type: decimal">
 <li>This keeps complete cases based on specified columns:</li>
 </ol>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="st">  </span><span class="kw">drop_na</span>(important_a, important_b)</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="st">  </span><span class="kw">drop_na</span>(important_a, important_b)</a></code></pre></div>
 <pre><code>## # A tibble: 1 x 3
 ##   important_a important_b whatever_c
 ##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
@@ -348,8 +347,8 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 <ol start="3" style="list-style-type: decimal">
 <li>This keeps rows that have a value in any column:</li>
 </ol>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="st">  </span><span class="kw">filter_all</span>(<span class="kw">any_vars</span>(<span class="op">!</span><span class="st"> </span><span class="kw">is.na</span>(.)))</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="st">  </span><span class="kw">filter_all</span>(<span class="kw">any_vars</span>(<span class="op">!</span><span class="st"> </span><span class="kw">is.na</span>(.)))</a></code></pre></div>
 <pre><code>## # A tibble: 4 x 3
 ##   important_a important_b whatever_c
 ##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
@@ -358,8 +357,8 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 ## 3 Value       Value       &lt;NA&gt;      
 ## 4 &lt;NA&gt;        Value       &lt;NA&gt;</code></pre>
 <p>The third example is better achieved using the janitor package:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="st">  </span>janitor<span class="op">::</span><span class="kw">remove_empty</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="st">  </span>janitor<span class="op">::</span><span class="kw">remove_empty</span>()</a></code></pre></div>
 <pre><code>## # A tibble: 4 x 3
 ##   important_a important_b whatever_c
 ##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
@@ -372,8 +371,8 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 <li>Simple solution</li>
 </ol>
 <p>A quick solution is to use <code>! is.na()</code> for each variable inside a <code>filter()</code>:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="st"> </span><span class="kw">is.na</span>(important_a) <span class="op">|</span><span class="st"> </span><span class="op">!</span><span class="st"> </span><span class="kw">is.na</span>(important_b))</a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="st"> </span><span class="kw">is.na</span>(important_a) <span class="op">|</span><span class="st"> </span><span class="op">!</span><span class="st"> </span><span class="kw">is.na</span>(important_b))</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   important_a important_b whatever_c
 ##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
@@ -385,8 +384,8 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 <li>Powerful solution:</li>
 </ol>
 <p>A scalable solution is to use <code>filter_at()</code> with <code>vars()</code> with a select helper (e.g., <code>starts with()</code>), and then the <code>any_vars(! is.na(.))</code> that was introduced in (3).</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="st">  </span><span class="kw">filter_at</span>(<span class="kw">vars</span>(<span class="kw">starts_with</span>(<span class="st">&quot;important_&quot;</span>)), <span class="kw">any_vars</span>(<span class="op">!</span><span class="st"> </span><span class="kw">is.na</span>(.)))</a></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">mydata <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb59-2" data-line-number="2"><span class="st">  </span><span class="kw">filter_at</span>(<span class="kw">vars</span>(<span class="kw">starts_with</span>(<span class="st">&quot;important_&quot;</span>)), <span class="kw">any_vars</span>(<span class="op">!</span><span class="st"> </span><span class="kw">is.na</span>(.)))</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   important_a important_b whatever_c
 ##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
@@ -422,7 +421,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -432,6 +431,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
 "link": null,
 "text": null
 },
