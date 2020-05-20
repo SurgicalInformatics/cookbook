@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.7.9)  10 MAR 2020 16:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.7.9)  20 MAY 2020 12:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1075,13 +1075,15 @@ File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 \openout5 = `cookbook.toc'.
 
 [4]
-</home/rots/cookbook/img/surgical_informatics_minibanner.png, id=227, 1119.1812
-4pt x 439.6425pt>
-File: /home/rots/cookbook/img/surgical_informatics_minibanner.png Graphic file 
-(type png)
-<use /home/rots/cookbook/img/surgical_informatics_minibanner.png>
-Package pdftex.def Info: /home/rots/cookbook/img/surgical_informatics_minibanne
-r.png used on input line 141.
+</home/common/users/cfairfield/cookbook/img/surgical_informatics_minibanner.png
+, id=227, 1119.18124pt x 439.6425pt>
+File: /home/common/users/cfairfield/cookbook/img/surgical_informatics_minibanne
+r.png Graphic file (type png)
+
+<use /home/common/users/cfairfield/cookbook/img/surgical_informatics_minibanner
+.png>
+Package pdftex.def Info: /home/common/users/cfairfield/cookbook/img/surgical_in
+formatics_minibanner.png used on input line 141.
 (pdftex.def)             Requested size: 1119.21266pt x 439.65483pt.
 
 Overfull \hbox (774.21266pt too wide) in paragraph at lines 141--142
@@ -1090,7 +1092,8 @@ Overfull \hbox (774.21266pt too wide) in paragraph at lines 141--142
 
 [5
 
- </home/rots/cookbook/img/surgical_informatics_minibanner.png>] [6
+ </home/common/users/cfairfield/cookbook/img/surgical_informatics_minibanner.pn
+g>] [6
 
 ]
 Chapter 1.
@@ -1989,26 +1992,32 @@ Package xcolor Warning: Incompatible color definition on input line 1736.
 
 Package xcolor Warning: Incompatible color definition on input line 1736.
 
-</home/rots/cookbook/img/barplot_5x4.png, id=595, 361.35pt x 289.08pt>
-File: /home/rots/cookbook/img/barplot_5x4.png Graphic file (type png)
-<use /home/rots/cookbook/img/barplot_5x4.png>
-Package pdftex.def Info: /home/rots/cookbook/img/barplot_5x4.png used on input 
-line 1740.
+
+</home/common/users/cfairfield/cookbook/img/barplot_5x4.png, id=595, 361.35pt x
+ 289.08pt>
+File: /home/common/users/cfairfield/cookbook/img/barplot_5x4.png Graphic file (
+type png)
+<use /home/common/users/cfairfield/cookbook/img/barplot_5x4.png>
+Package pdftex.def Info: /home/common/users/cfairfield/cookbook/img/barplot_5x4
+.png used on input line 1740.
 (pdftex.def)             Requested size: 172.49767pt x 137.99812pt.
-</home/rots/cookbook/img/barplot_10x8.png, id=596, 722.7pt x 578.16pt>
-File: /home/rots/cookbook/img/barplot_10x8.png Graphic file (type png)
-<use /home/rots/cookbook/img/barplot_10x8.png>
-Package pdftex.def Info: /home/rots/cookbook/img/barplot_10x8.png used on input
- line 1741.
+
+</home/common/users/cfairfield/cookbook/img/barplot_10x8.png, id=596, 722.7pt x
+ 578.16pt>
+File: /home/common/users/cfairfield/cookbook/img/barplot_10x8.png Graphic file 
+(type png)
+<use /home/common/users/cfairfield/cookbook/img/barplot_10x8.png>
+Package pdftex.def Info: /home/common/users/cfairfield/cookbook/img/barplot_10x
+8.png used on input line 1741.
 (pdftex.def)             Requested size: 172.49214pt x 137.99371pt.
 
 Overfull \hbox (2.21202pt too wide) in paragraph at lines 1740--1742
 [][] [] 
  []
 
-[46 <./06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf> </home/rots/cookbo
-ok/img/barplot_5x4.png (PNG copy)> </home/rots/cookbook/img/barplot_10x8.png (P
-NG copy)>]
+[46 <./06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf> </home/common/user
+s/cfairfield/cookbook/img/barplot_5x4.png (PNG copy)> </home/common/users/cfair
+field/cookbook/img/barplot_10x8.png (PNG copy)>]
 Chapter 7.
 
 Package xcolor Warning: Incompatible color definition on input line 1754.
@@ -2224,7 +2233,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2122.
  ) 
 Here is how much of TeX's memory you used:
  15088 strings out of 494953
- 217824 string characters out of 6180978
+ 218052 string characters out of 6180978
  324999 words of memory out of 5000000
  17738 multiletter control sequences out of 15000+600000
  76415 words of font info for 120 fonts, out of 8000000 for 9000
@@ -2239,7 +2248,7 @@ m/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf
 /type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb>
 </usr/share/texmf/fonts/type1/public/lm/lmtti10.pfb></usr/share/texmf/fonts/typ
 e1/public/lm/lmtto10.pfb>
-Output written on cookbook.pdf (65 pages, 1923589 bytes).
+Output written on cookbook.pdf (65 pages, 1923471 bytes).
 PDF statistics:
  846 PDF objects out of 1000 (max. 8388607)
  733 compressed objects within 8 object streams

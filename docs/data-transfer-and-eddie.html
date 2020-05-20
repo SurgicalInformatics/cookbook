@@ -24,7 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2020-03-10" />
+<meta name="date" content="2020-05-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -283,9 +283,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
 <li>Download the PuTTY terminal software: <a href="https://www.putty.org/" class="uri">https://www.putty.org/</a>.</li>
 </ol>
-<p>Open up PuTTY and you will see a configuration screen. On this screen make sure to enter <code>eddie3.ecdf.ed.ac.uk</code> into the box and tick SSH as your method for connection. The PuTTY terminal will launch (assuming you are connected to the University VPN already) and ask <code>login as</code> at which point you should enter your EASE username. You will then be asked for your EASE password and you should now see that you are logged into Eddie3.</p>
+<p>Open up PuTTY and you will see a configuration screen. On this screen make sure to enter <code>eddie.ecdf.ed.ac.uk</code> into the box and tick SSH as your method for connection. The PuTTY terminal will launch (assuming you are connected to the University VPN already) and ask <code>login as</code> at which point you should enter your EASE username. You will then be asked for your EASE password and you should now see that you are logged into Eddie.</p>
 <p>If you are logging in from RStudio Server or another terminal software you should enter on the command line:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="fu">ssh</span> <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie3.ecdf.ed.ac.uk</a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="fu">ssh</span> <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie.ecdf.ed.ac.uk</a></code></pre></div>
 <p><UUN> is your university username for EASE. You will then be asked for your password.</p>
 <p>More information on Eddie basics can also be found at: <a href="https://www.wiki.ed.ac.uk/display/ResearchServices/Quickstart" class="uri">https://www.wiki.ed.ac.uk/display/ResearchServices/Quickstart</a>.</p>
 </div>
@@ -330,10 +330,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">5.4.2</span> Method 2: Using the RStudio Server Terminal</h3>
 <p>To use the RStudio server terminal to copy data in and out of Eddie do not SSH into Eddie as described above but instead use the <code>scp</code> command. If you are using RStudio’s terminal for accessing Eddie instead of PuTTY or something equivalent then you will need to either temporarily disconnect from Eddie (<code>ctrl-d</code>) or open a new terminal if using RStudio server Pro which allows multiple terminals.</p>
 <p>In the terminal enter the following command to copy a single file from Eddie into RStudio server from a project subdirectory in the SurgInfGrp directory:</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="fu">scp</span> <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie3.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/<span class="op">&lt;</span>project_subdirectory<span class="op">&gt;</span>/my_file.txt /home/<span class="op">&lt;</span>RStudio_Server_Username<span class="op">&gt;</span>/<span class="op">&lt;</span>RStudio_Project<span class="op">&gt;</span>/</a>
+<div class="sourceCode" id="cb70"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="fu">scp</span> <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/<span class="op">&lt;</span>project_subdirectory<span class="op">&gt;</span>/my_file.txt /home/<span class="op">&lt;</span>RStudio_Server_Username<span class="op">&gt;</span>/<span class="op">&lt;</span>RStudio_Project<span class="op">&gt;</span>/</a>
 <a class="sourceLine" id="cb70-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb70-3" data-line-number="3"><span class="co"># Or adapt to copy entire directory contents (drop the * to copy the directory/folder as well as the contents)</span></a>
-<a class="sourceLine" id="cb70-4" data-line-number="4"><span class="fu">scp</span> -r <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie3.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/<span class="op">&lt;</span>project_subdirectory<span class="op">&gt;</span>/* /home/<span class="op">&lt;</span>RStudio_Server_Username<span class="op">&gt;</span>/<span class="op">&lt;</span>RStudio_Project<span class="op">&gt;</span>/</a></code></pre></div>
+<a class="sourceLine" id="cb70-4" data-line-number="4"><span class="fu">scp</span> -r <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/<span class="op">&lt;</span>project_subdirectory<span class="op">&gt;</span>/* /home/<span class="op">&lt;</span>RStudio_Server_Username<span class="op">&gt;</span>/<span class="op">&lt;</span>RStudio_Project<span class="op">&gt;</span>/</a></code></pre></div>
 <p>On entering the command to the terminal you will be asked to enter your EASE password (type this slowly if using RStudio Server Pro prior to web sockets issue being fixed). In order to move data in the other direction simply change the order of the file paths.</p>
 </div>
 </div>
@@ -357,7 +357,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">5.5.3</span> Running Eddie from RStudio Server</h3>
 <p>It is possible to log in to Eddie from RStudio server and use Shell Scripts stored in RStudio to perform tasks in Eddie. This may be helpful if you plan to modify shell scripts a lot and want to have the benefit of the RStudio interface. <code>ctrl-alt-enter</code> sends data to the terminal in the same way that it would the console without the <code>alt</code>.</p>
 <p>To connect initially enter:</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="fu">ssh</span> <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie3.ecdf.ed.ac.uk</a></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="fu">ssh</span> <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie.ecdf.ed.ac.uk</a></code></pre></div>
 <p>You will then be asked for your password which has to be typed (currently slowly and carefully!) into the terminal. Afterwards you can send any commands from a script using <code>ctrl-alt-enter</code>. This will not work with <code>Rmd</code> or <code>notebooks</code>.</p>
 </div>
 <div id="modules-applications-in-eddie" class="section level3">

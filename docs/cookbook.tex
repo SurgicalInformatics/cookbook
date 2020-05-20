@@ -125,7 +125,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2020-03-10}
+\date{2020-05-20}
 
 \begin{document}
 \maketitle
@@ -138,7 +138,7 @@
 \chapter*{}\label{section}}
 \addcontentsline{toc}{chapter}{}
 
-\includegraphics[width=30.97in]{/home/rots/cookbook/img/surgical_informatics_minibanner}
+\includegraphics[width=30.97in]{/home/common/users/cfairfield/cookbook/img/surgical_informatics_minibanner}
 
 \hypertarget{introduction}{%
 \chapter{Introduction}\label{introduction}}
@@ -522,7 +522,7 @@ Works for a single date or a vector of dates.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 49 76 70
+## [1] 49 76 71
 \end{verbatim}
 
 \begin{Shaded}
@@ -569,7 +569,7 @@ Works for a single date or a vector of dates.
 ##   <chr>      <date>     <chr>  <dbl>
 ## 1 1009701234 1970-09-10 Male      49
 ## 2 1811431232 1943-11-18 Male      76
-## 3 1304496368 1949-04-13 Female    70
+## 3 1304496368 1949-04-13 Female    71
 \end{verbatim}
 
 \hypertarget{chi_valid---logical-test-for-valid-chi}{%
@@ -620,7 +620,7 @@ The final digit of the CHI can be used to test that the number is correct via th
 ##   <chr>      <date>     <chr>  <dbl> <lgl>    
 ## 1 1009701234 1970-09-10 Male      49 FALSE    
 ## 2 1811431232 1943-11-18 Male      76 TRUE     
-## 3 1304496368 1949-04-13 Female    70 TRUE
+## 3 1304496368 1949-04-13 Female    71 TRUE
 \end{verbatim}
 
 \hypertarget{working-with-dates}{%
@@ -1220,13 +1220,13 @@ First, if you don't have a command line editor or SSH client installed (often th
   Download the PuTTY terminal software: \url{https://www.putty.org/}.
 \end{enumerate}
 
-Open up PuTTY and you will see a configuration screen. On this screen make sure to enter \texttt{eddie3.ecdf.ed.ac.uk} into the box and tick SSH as your method for connection. The PuTTY terminal will launch (assuming you are connected to the University VPN already) and ask \texttt{login\ as} at which point you should enter your EASE username. You will then be asked for your EASE password and you should now see that you are logged into Eddie3.
+Open up PuTTY and you will see a configuration screen. On this screen make sure to enter \texttt{eddie.ecdf.ed.ac.uk} into the box and tick SSH as your method for connection. The PuTTY terminal will launch (assuming you are connected to the University VPN already) and ask \texttt{login\ as} at which point you should enter your EASE username. You will then be asked for your EASE password and you should now see that you are logged into Eddie.
 
 If you are logging in from RStudio Server or another terminal software you should enter on the command line:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ssh} \OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie3.ecdf.ed.ac.uk}
+\FunctionTok{ssh} \OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie.ecdf.ed.ac.uk}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1328,10 +1328,10 @@ In the terminal enter the following command to copy a single file from Eddie int
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{scp} \OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie3.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/}\OperatorTok{<}\NormalTok{project_subdirectory}\OperatorTok{>}\NormalTok{/my_file.txt /home/}\OperatorTok{<}\NormalTok{RStudio_Server_Username}\OperatorTok{>}\NormalTok{/}\OperatorTok{<}\NormalTok{RStudio_Project}\OperatorTok{>}\NormalTok{/}
+\FunctionTok{scp} \OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/}\OperatorTok{<}\NormalTok{project_subdirectory}\OperatorTok{>}\NormalTok{/my_file.txt /home/}\OperatorTok{<}\NormalTok{RStudio_Server_Username}\OperatorTok{>}\NormalTok{/}\OperatorTok{<}\NormalTok{RStudio_Project}\OperatorTok{>}\NormalTok{/}
 
 \CommentTok{# Or adapt to copy entire directory contents (drop the * to copy the directory/folder as well as the contents)}
-\FunctionTok{scp}\NormalTok{ -r }\OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie3.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/}\OperatorTok{<}\NormalTok{project_subdirectory}\OperatorTok{>}\NormalTok{/* /home/}\OperatorTok{<}\NormalTok{RStudio_Server_Username}\OperatorTok{>}\NormalTok{/}\OperatorTok{<}\NormalTok{RStudio_Project}\OperatorTok{>}\NormalTok{/}
+\FunctionTok{scp}\NormalTok{ -r }\OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/}\OperatorTok{<}\NormalTok{project_subdirectory}\OperatorTok{>}\NormalTok{/* /home/}\OperatorTok{<}\NormalTok{RStudio_Server_Username}\OperatorTok{>}\NormalTok{/}\OperatorTok{<}\NormalTok{RStudio_Project}\OperatorTok{>}\NormalTok{/}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1379,7 +1379,7 @@ To connect initially enter:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ssh} \OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie3.ecdf.ed.ac.uk}
+\FunctionTok{ssh} \OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie.ecdf.ed.ac.uk}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1737,8 +1737,8 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 
 Same plot 5x4 inches vs 10x8 inches:
 
-\includegraphics[width=0.5\linewidth]{/home/rots/cookbook/img/barplot_5x4}
-\includegraphics[width=0.5\linewidth]{/home/rots/cookbook/img/barplot_10x8}
+\includegraphics[width=0.5\linewidth]{/home/common/users/cfairfield/cookbook/img/barplot_5x4}
+\includegraphics[width=0.5\linewidth]{/home/common/users/cfairfield/cookbook/img/barplot_10x8}
 
 \hypertarget{genomics}{%
 \chapter{Genomics}\label{genomics}}
