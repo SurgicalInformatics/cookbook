@@ -24,7 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2020-02-25" />
+<meta name="date" content="2020-06-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -209,6 +209,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1" data-path="server-admin.html"><a href="server-admin.html#rstudio-connect-argoshare"><i class="fa fa-check"></i><b>9.1</b> RStudio Connect: argoshare</a><ul>
 <li class="chapter" data-level="9.1.1" data-path="server-admin.html"><a href="server-admin.html#delete-user"><i class="fa fa-check"></i><b>9.1.1</b> Delete user</a></li>
 </ul></li>
+<li class="chapter" data-level="9.2" data-path="server-admin.html"><a href="server-admin.html#shiny-server-setup---uoe"><i class="fa fa-check"></i><b>9.2</b> Shiny server setup - UoE</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="server-admin.html"><a href="server-admin.html#setting-up-ubuntu-instance"><i class="fa fa-check"></i><b>9.2.1</b> Setting up Ubuntu Instance</a></li>
+<li class="chapter" data-level="9.2.2" data-path="server-admin.html"><a href="server-admin.html#install-nginx"><i class="fa fa-check"></i><b>9.2.2</b> Install Nginx</a></li>
+<li class="chapter" data-level="9.2.3" data-path="server-admin.html"><a href="server-admin.html#installing-r"><i class="fa fa-check"></i><b>9.2.3</b> Installing R</a></li>
+<li class="chapter" data-level="9.2.4" data-path="server-admin.html"><a href="server-admin.html#installing-shiny-server"><i class="fa fa-check"></i><b>9.2.4</b> Installing Shiny Server</a></li>
+<li class="chapter" data-level="9.2.5" data-path="server-admin.html"><a href="server-admin.html#installing-other-linux-packages"><i class="fa fa-check"></i><b>9.2.5</b> Installing other Linux packages</a></li>
+<li class="chapter" data-level="9.2.6" data-path="server-admin.html"><a href="server-admin.html#installing-r-packages"><i class="fa fa-check"></i><b>9.2.6</b> Installing R packages</a></li>
+<li class="chapter" data-level="9.2.7" data-path="server-admin.html"><a href="server-admin.html#loading-your-app"><i class="fa fa-check"></i><b>9.2.7</b> Loading your app</a></li>
+<li class="chapter" data-level="9.2.8" data-path="server-admin.html"><a href="server-admin.html#make-your-app-the-default-index-page"><i class="fa fa-check"></i><b>9.2.8</b> Make your app the default index page</a></li>
+<li class="chapter" data-level="9.2.9" data-path="server-admin.html"><a href="server-admin.html#getting-a-user-friendly-domain-name"><i class="fa fa-check"></i><b>9.2.9</b> Getting a user-friendly domain name</a></li>
+<li class="chapter" data-level="9.2.10" data-path="server-admin.html"><a href="server-admin.html#appendix-1-password-protecting-your-site"><i class="fa fa-check"></i><b>9.2.10</b> Appendix 1 – Password protecting your site</a></li>
+<li class="chapter" data-level="9.2.11" data-path="server-admin.html"><a href="server-admin.html#appendix-2-setting-up-a-swap-file"><i class="fa fa-check"></i><b>9.2.11</b> APPENDIX 2 – Setting up a swap file</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html"><i class="fa fa-check"></i><b>10</b> Citations with R Markdown</a><ul>
 <li class="chapter" data-level="10.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#zotero-set-up"><i class="fa fa-check"></i><b>10.1</b> Zotero Set-up</a></li>
@@ -373,7 +386,7 @@ A test for even is <code>x modulus 2 == 0</code>.</p>
 <a class="sourceLine" id="cb15-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co"># Today</span></a>
 <a class="sourceLine" id="cb15-9" data-line-number="9"><span class="kw">chi_age</span>(chi, <span class="kw">Sys.time</span>())</a></code></pre></div>
-<pre><code>## [1] 49 76 70</code></pre>
+<pre><code>## [1] 49 76 71</code></pre>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># Single date</span></a>
 <a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw">library</span>(lubridate)</a>
 <a class="sourceLine" id="cb17-3" data-line-number="3"><span class="kw">chi_age</span>(chi, <span class="kw">dmy</span>(<span class="st">&quot;11/09/2018&quot;</span>))</a></code></pre></div>
@@ -396,7 +409,7 @@ A test for even is <code>x modulus 2 == 0</code>.</p>
 ##   &lt;chr&gt;      &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt;
 ## 1 1009701234 1970-09-10 Male      49
 ## 2 1811431232 1943-11-18 Male      76
-## 3 1304496368 1949-04-13 Female    70</code></pre>
+## 3 1304496368 1949-04-13 Female    71</code></pre>
 </div>
 <div id="chi_valid---logical-test-for-valid-chi" class="section level3">
 <h3><span class="header-section-number">2.2.4</span> <code>chi_valid()</code> - Logical test for valid CHI</h3>
@@ -430,7 +443,7 @@ A test for even is <code>x modulus 2 == 0</code>.</p>
 ##   &lt;chr&gt;      &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt;    
 ## 1 1009701234 1970-09-10 Male      49 FALSE    
 ## 2 1811431232 1943-11-18 Male      76 TRUE     
-## 3 1304496368 1949-04-13 Female    70 TRUE</code></pre>
+## 3 1304496368 1949-04-13 Female    71 TRUE</code></pre>
 </div>
 </div>
 <div id="working-with-dates" class="section level2">

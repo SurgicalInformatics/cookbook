@@ -25,3 +25,250 @@ sudo /opt/rstudio-connect/bin/usermanager delete --users --user-guid 46cb5adb-40
 ## Restart connect
 sudo systemctl start rstudio-connect
 ```
+
+## Shiny server setup - UoE
+
+
+This guide assumes you’re already on the University of Edinburgh local network. If you’re working from home, you’ll first need to connect the UoE VPN. It also assumes you already have storage allocated to your project on Eleanor, and that your own computer is either Linux-based or a Mac.
+
+### Setting up Ubuntu Instance
+- Log into the Openstack dashboard on Horizon - https://horizon.ecdf.ed.ac.uk/dashboard/
+- Click on Instances and launch a new instance (Ubuntu 18.4, t1.small (free tier))
+- Click on key pairs and create an SSH keypair, for securely logging on to the new instance.
+-  Save the private key to a secure place on your computer (~/.ssh is the usual spot for these things). Change the files permissions to make it secure. Eleanor will not let you SSH without this step. In a local terminal, type: 
+
+
+```{bash eval=FALSE, include=TRUE}
+chmod 400 PATH-TO-PRIVATE-KEY
+```
+
+-  Click on Network > Floating IPs and create a new floating IP. Associate it with your new instance. Make a note of your floating IP – this is the address you’ll use to access your instance from now on.
+-  Click on Security Groups and create a new security group. Add new rules to this group, allowing TCP ingress and egress on the following ports: 80 (HTTP), 22 (SSH), 3838 (Shiny Server).
+- Log into your instance using SSH. In a local terminal type:
+
+```{bash eval=FALSE, include=TRUE}
+ssh -i PATH-TO-PRIVATE-KEY ubuntu@YOUR-FLOATING-IP
+
+#All being well, you’ll now have a terminal for your lovely new Ububtu instance.
+#Get your instance up-to-date. Run:
+
+sudo apt-get update && sudo apt-get upgrade
+```
+
+### Install Nginx 
+Nginx is the fast and light webserver that will host you Shiny code.
+
+```{bash eval=FALSE, include=TRUE}
+
+#Install nginx
+sudo apt-get -y install nginx
+```
+
+- In a browser, enter your floating IP address. All being well, you should now get a "Welcome to Nginx" page.
+
+###  Installing R
+Installing the latest version of R isn’t as easy as apt-get R. Sources and keys need to be added to the source.list file, then R can be installed (the latest version). The first command sets the sources to the RStudio mirror, then grabs keys to authenticate the installation. Enter the following commands in order:
+
+```{bash eval=FALSE, include=TRUE}
+
+sudo sh -c 'echo "deb http://cran.rstudio.com/bin/linux/ubuntu bionic-cran35/" >> /etc/apt/sources.list'
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+
+sudo apt-get update
+sudo apt-get -y install r-base
+
+
+#Now load R
+R
+#Enter the following in the R console
+sessionInfo()
+quit()
+
+```
+
+### Installing Shiny Server
+There are a few external libraries that are required to use Shiny Server. Let’s install those, the R package shiny then move on to installing Shiny Server itself.
+
+```{bash eval=FALSE, include=TRUE}
+
+sudo apt-get -y install gdebi-core
+sudo su - -c "R -e \"install.packages('shiny', repos='http://cran.rstudio.com/')\""
+wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.13.944-amd64.deb
+sudo gdebi shiny-server-1.5.13.944-amd64.deb
+
+```
+
+Back in your browser, go to: YOUR-FLOATING-IP:3838
+All being well, you’ll get a Shiny Server test page.
+
+### Installing other Linux packages
+You’ve got base-R installed and running now, but it’s likely your Shiny app will have other unmet dependencies. Here are a few common packages you’ll probably need, and the command needed to install them. Depending on your app, there may be others.
+
+```{bash eval=FALSE, include=TRUE}
+
+sudo apt-get install -y \
+    pandoc \
+    pandoc-citeproc \
+    libssl-dev \
+    libcurl4-gnutls-dev \
+    libcairo2-dev \
+    libgdal-dev \
+    libgeos-dev \
+    libproj-dev \
+    libxml2-dev \
+    libxt-dev \
+    libv8-dev \
+    git
+
+```
+
+### Installing R packages
+You’ll probably also need a bunch of extra libraries in R (we’ve already installed Shiny, but that’s it). You install these from within R, rather than via apt-get. This is the syntax for installing R packages on the server – just replace the package names with the ones your app requires.
+
+```{bash eval=FALSE, include=TRUE}
+
+sudo su - -c "R -e \"install.packages(c('rmarkdown', 'ggplot2', 'dplyr', 'sp', 'rgdal', 'rgeos'), repos='http://cran.rstudio.com/')\""
+```
+
+NB: Installing R packages can take a long time. As we’re only using the small, free instance in this guide, you may find it grinds to a halt completely when trying to compile large libraries like seurat. This probably means you’ve run out of system memory. If that happens - see Setting up a swap file at the end of this guide.
+
+### Loading your app
+
+Assuming you’ve developed your app on a local R-Studio server, getting it onto its new home can be surprisingly tricky. I’ve found by far the easiest way is to use an SFTP client, such as Cyberduck, giving it the username and key pair you’ve already set up and just sending the files straight into your home directory. 
+
+Once you’ve transferred them, you’ll need to move them, including subdirectories, into /srv/shiny-server/.
+Again, in your browser, go to YOUR-FLOATING-IP:3838. You’ll either see your working app, or an error page listing missing dependencies. If it’s the latter, follow the instructions above for installing R packages.
+
+If you’re not getting any useful error messages on the site, check out the app-specific log files in /var/log/shiny-server/
+
+### Make your app the default index page
+You probably don’t want visitors to your site to specify that they want port 3838, so now we’re going to tell nginx to send visitors directly to your app. 
+First, we’re going to edit the nginx config file.
+
+```{bash eval=FALSE, include=TRUE}
+sudo nano /etc/nginx/sites-available/default
+
+# Comment out (#) any other active server config lines, and add this…
+
+server {
+    listen 80;
+
+    location / {
+        proxy_pass http://127.0.0.1:3838/;
+        proxy_redirect http://127.0.0.1:3838/ $scheme://$host/;
+        # note, the following 3 lines added 2016-07-11, see updates section
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+     }
+    }
+
+```
+
+Next, we’re going to update the Shiny server config file
+
+```{bash eval=FALSE, include=TRUE}
+
+sudo nano /etc/shiny-server/shiny-server.conf
+
+#Add the following (if it’s not already there, which it may well be):
+
+server{
+    listen 3838 127.0.0.1;
+
+    location / {
+      site_dir /srv/shiny-server;
+      log_dir /var/log/shiny-server;
+      directory_index on;
+    }
+}
+
+```
+
+Go to your floating IP in the browser, without the 3838, and all should be well.
+
+### Getting a user-friendly domain name
+If you want to share your app with the outside world, you’ll need to open it up beyond the UoE network and, preferably, give it a catchy URL.
+
+Making your site public:  Back in OpenStack, under the Network menu, click on Floating IP and disassociate your floating IP. 
+Now go up to Router and click clear gateway. Click Set Gateway and select Floating Network Public.
+Back in Floating IPs, click Associate and select the external IP address (probably starting 129.x.x.x). Under port, select your instance.
+Enter your external IP address into your browser, and your website should appear. It is now available outside the University network. 
+
+Setting up your domain name: 
+Your first step here is obviously to buy a domain name from one of the many providers on the internet.Once you have this, use your domain provider’s dashboard to edit DNS settings. You’re looking to change the ANAME or CNAME settings – delete what’s already there and set up a new ANAME record, with the public IP address of your site.
+
+### Appendix 1 – Password protecting your site
+You may want to add a basic password to your site. This is easily accomplished (though there are more robust password protection mechanisms out there, if you’re dealing with potentially sensitive data).
+
+First, make sure you have Apache2-utils installed:
+```{bash eval=FALSE, include=TRUE}
+#First, make sure you have Apache2-utils installed:
+sudo apt-get install apache2-utils
+
+#Now, stop nginx and shiny:
+sudo service nginx stop
+sudo stop shiny-server
+
+#Next, you’ll need to go back into that Nginx config file, with 
+sudo nano /etc/nginx/sites-available/default
+
+# Add the following two lines in the "location" section
+location / {
+      proxy_pass http://127.0.0.1:3838/;
+      proxy_redirect http://127.0.0.1:3838/ $scheme://$host/;
+      auth_basic "Username and Password are required"; 
+      auth_basic_user_file /etc/nginx/.htpasswd;
+    }
+
+```
+
+Once that’s done, you’ll need to edit Shiny Server’s conf file so it only serves to loaclhost. Otherwise users would be able to creep around your authentication by going to port 3838.
+
+```{bash eval=FALSE, include=TRUE}
+sudo nano /etc/shiny-server/shiny-server.conf
+
+#Copy and paste the below to your shiny-server.conf.
+server{
+    listen 3838 127.0.0.1;
+    
+    location / {
+    site_dir /srv/shiny-server;
+    log_dir /var/log/shiny-server;
+    directory_index on;
+    }
+}
+
+```
+
+You’re now ready to create the username and password visitors must enter to view your site. 
+
+```{bash eval=FALSE, include=TRUE}
+
+cd /etc/nginx
+sudo htpasswd -c /etc/nginx/.htpasswd USERNAME
+
+#Restart Nginx and Shiny and you’re good to go.
+sudo service nginx start
+sudo start shiny-server
+
+```
+
+
+### APPENDIX 2 – Setting up a swap file
+If your instance grinds to a halt while compiling R packages, you’ve most likely run out of memory and will need to set up a swap file. Just enter the following commands:
+
+```{bash eval=FALSE, include=TRUE}
+
+sudo fallocate -l 2G /swapfile
+sudo dd if=/dev/zero of=/swapfile bs=1024 count=1048576
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+
+#Finally, make sure everything as it should be by running:
+sudo free -h
+
+```
+
+

@@ -111,7 +111,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2020-02-25}
+\date{2020-06-18}
 
 \begin{document}
 \maketitle
@@ -446,7 +446,7 @@ Works for a single date or a vector of dates.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 49 76 70
+## [1] 49 76 71
 \end{verbatim}
 
 \begin{Shaded}
@@ -493,7 +493,7 @@ Works for a single date or a vector of dates.
 ##   <chr>      <date>     <chr>  <dbl>
 ## 1 1009701234 1970-09-10 Male      49
 ## 2 1811431232 1943-11-18 Male      76
-## 3 1304496368 1949-04-13 Female    70
+## 3 1304496368 1949-04-13 Female    71
 \end{verbatim}
 
 \hypertarget{chi_valid---logical-test-for-valid-chi}{%
@@ -544,7 +544,7 @@ The final digit of the CHI can be used to test that the number is correct via th
 ##   <chr>      <date>     <chr>  <dbl> <lgl>    
 ## 1 1009701234 1970-09-10 Male      49 FALSE    
 ## 2 1811431232 1943-11-18 Male      76 TRUE     
-## 3 1304496368 1949-04-13 Female    70 TRUE
+## 3 1304496368 1949-04-13 Female    71 TRUE
 \end{verbatim}
 
 \hypertarget{working-with-dates}{%
@@ -1620,6 +1620,305 @@ We'll use an example where we want to summarise by different outcomes in a dynam
 
 \CommentTok{## Restart connect}
 \FunctionTok{sudo}\NormalTok{ systemctl start rstudio-connect}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{shiny-server-setup---uoe}{%
+\section{Shiny server setup - UoE}\label{shiny-server-setup---uoe}}
+
+This guide assumes you're already on the University of Edinburgh local network. If you're working from home, you'll first need to connect the UoE VPN. It also assumes you already have storage allocated to your project on Eleanor, and that your own computer is either Linux-based or a Mac.
+
+\hypertarget{setting-up-ubuntu-instance}{%
+\subsection{Setting up Ubuntu Instance}\label{setting-up-ubuntu-instance}}
+
+\begin{itemize}
+\tightlist
+\item
+  Log into the Openstack dashboard on Horizon - \url{https://horizon.ecdf.ed.ac.uk/dashboard/}
+\item
+  Click on Instances and launch a new instance (Ubuntu 18.4, t1.small (free tier))
+\item
+  Click on key pairs and create an SSH keypair, for securely logging on to the new instance.
+\item
+  Save the private key to a secure place on your computer (\textasciitilde{}/.ssh is the usual spot for these things). Change the files permissions to make it secure. Eleanor will not let you SSH without this step. In a local terminal, type:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{chmod}\NormalTok{ 400 PATH-TO-PRIVATE-KEY}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Click on Network \textgreater{} Floating IPs and create a new floating IP. Associate it with your new instance. Make a note of your floating IP -- this is the address you'll use to access your instance from now on.
+\item
+  Click on Security Groups and create a new security group. Add new rules to this group, allowing TCP ingress and egress on the following ports: 80 (HTTP), 22 (SSH), 3838 (Shiny Server).
+\item
+  Log into your instance using SSH. In a local terminal type:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ssh}\NormalTok{ -i PATH-TO-PRIVATE-KEY ubuntu@YOUR-FLOATING-IP}
+
+\CommentTok{#All being well, you’ll now have a terminal for your lovely new Ububtu instance.}
+\CommentTok{#Get your instance up-to-date. Run:}
+
+\FunctionTok{sudo}\NormalTok{ apt-get update }\KeywordTok{&&} \FunctionTok{sudo}\NormalTok{ apt-get upgrade}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{install-nginx}{%
+\subsection{Install Nginx}\label{install-nginx}}
+
+Nginx is the fast and light webserver that will host you Shiny code.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\CommentTok{#Install nginx}
+\FunctionTok{sudo}\NormalTok{ apt-get -y install nginx}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  In a browser, enter your floating IP address. All being well, you should now get a ``Welcome to Nginx'' page.
+\end{itemize}
+
+\hypertarget{installing-r}{%
+\subsection{Installing R}\label{installing-r}}
+
+Installing the latest version of R isn't as easy as apt-get R. Sources and keys need to be added to the source.list file, then R can be installed (the latest version). The first command sets the sources to the RStudio mirror, then grabs keys to authenticate the installation. Enter the following commands in order:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{sudo}\NormalTok{ sh -c }\StringTok{'echo "deb http://cran.rstudio.com/bin/linux/ubuntu bionic-cran35/" >> /etc/apt/sources.list'}
+\FunctionTok{sudo}\NormalTok{ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9}
+
+\FunctionTok{sudo}\NormalTok{ apt-get update}
+\FunctionTok{sudo}\NormalTok{ apt-get -y install r-base}
+
+
+\CommentTok{#Now load R}
+\ExtensionTok{R}
+\CommentTok{#Enter the following in the R console}
+\FunctionTok{sessionInfo()}
+\FunctionTok{quit()}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{installing-shiny-server}{%
+\subsection{Installing Shiny Server}\label{installing-shiny-server}}
+
+There are a few external libraries that are required to use Shiny Server. Let's install those, the R package shiny then move on to installing Shiny Server itself.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{sudo}\NormalTok{ apt-get -y install gdebi-core}
+\FunctionTok{sudo}\NormalTok{ su - -c }\StringTok{"R -e }\DataTypeTok{\textbackslash{}"}\StringTok{install.packages('shiny', repos='http://cran.rstudio.com/')}\DataTypeTok{\textbackslash{}"}\StringTok{"}
+\FunctionTok{wget}\NormalTok{ https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.13.944-amd64.deb}
+\FunctionTok{sudo}\NormalTok{ gdebi shiny-server-1.5.13.944-amd64.deb}
+\end{Highlighting}
+\end{Shaded}
+
+Back in your browser, go to: YOUR-FLOATING-IP:3838
+All being well, you'll get a Shiny Server test page.
+
+\hypertarget{installing-other-linux-packages}{%
+\subsection{Installing other Linux packages}\label{installing-other-linux-packages}}
+
+You've got base-R installed and running now, but it's likely your Shiny app will have other unmet dependencies. Here are a few common packages you'll probably need, and the command needed to install them. Depending on your app, there may be others.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{sudo}\NormalTok{ apt-get install -y \textbackslash{}}
+\NormalTok{    pandoc \textbackslash{}}
+\NormalTok{    pandoc-citeproc \textbackslash{}}
+\NormalTok{    libssl-dev \textbackslash{}}
+\NormalTok{    libcurl4-gnutls-dev \textbackslash{}}
+\NormalTok{    libcairo2-dev \textbackslash{}}
+\NormalTok{    libgdal-dev \textbackslash{}}
+\NormalTok{    libgeos-dev \textbackslash{}}
+\NormalTok{    libproj-dev \textbackslash{}}
+\NormalTok{    libxml2-dev \textbackslash{}}
+\NormalTok{    libxt-dev \textbackslash{}}
+\NormalTok{    libv8-dev \textbackslash{}}
+\NormalTok{    git}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{installing-r-packages}{%
+\subsection{Installing R packages}\label{installing-r-packages}}
+
+You'll probably also need a bunch of extra libraries in R (we've already installed Shiny, but that's it). You install these from within R, rather than via apt-get. This is the syntax for installing R packages on the server -- just replace the package names with the ones your app requires.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{sudo}\NormalTok{ su - -c }\StringTok{"R -e }\DataTypeTok{\textbackslash{}"}\StringTok{install.packages(c('rmarkdown', 'ggplot2', 'dplyr', 'sp', 'rgdal', 'rgeos'), repos='http://cran.rstudio.com/')}\DataTypeTok{\textbackslash{}"}\StringTok{"}
+\end{Highlighting}
+\end{Shaded}
+
+NB: Installing R packages can take a long time. As we're only using the small, free instance in this guide, you may find it grinds to a halt completely when trying to compile large libraries like seurat. This probably means you've run out of system memory. If that happens - see Setting up a swap file at the end of this guide.
+
+\hypertarget{loading-your-app}{%
+\subsection{Loading your app}\label{loading-your-app}}
+
+Assuming you've developed your app on a local R-Studio server, getting it onto its new home can be surprisingly tricky. I've found by far the easiest way is to use an SFTP client, such as Cyberduck, giving it the username and key pair you've already set up and just sending the files straight into your home directory.
+
+Once you've transferred them, you'll need to move them, including subdirectories, into /srv/shiny-server/.
+Again, in your browser, go to YOUR-FLOATING-IP:3838. You'll either see your working app, or an error page listing missing dependencies. If it's the latter, follow the instructions above for installing R packages.
+
+If you're not getting any useful error messages on the site, check out the app-specific log files in /var/log/shiny-server/
+
+\hypertarget{make-your-app-the-default-index-page}{%
+\subsection{Make your app the default index page}\label{make-your-app-the-default-index-page}}
+
+You probably don't want visitors to your site to specify that they want port 3838, so now we're going to tell nginx to send visitors directly to your app.
+First, we're going to edit the nginx config file.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sudo}\NormalTok{ nano /etc/nginx/sites-available/default}
+
+\CommentTok{# Comment out (#) any other active server config lines, and add this…}
+
+\ExtensionTok{server}\NormalTok{ \{}
+    \ExtensionTok{listen}\NormalTok{ 80}\KeywordTok{;}
+
+    \ExtensionTok{location}\NormalTok{ / \{}
+        \ExtensionTok{proxy_pass}\NormalTok{ http://127.0.0.1:3838/}\KeywordTok{;}
+        \ExtensionTok{proxy_redirect}\NormalTok{ http://127.0.0.1:3838/ }\VariableTok{$scheme}\NormalTok{://}\VariableTok{$host}\NormalTok{/}\KeywordTok{;}
+        \CommentTok{# note, the following 3 lines added 2016-07-11, see updates section}
+        \ExtensionTok{proxy_http_version}\NormalTok{ 1.1}\KeywordTok{;}
+        \ExtensionTok{proxy_set_header}\NormalTok{ Upgrade }\VariableTok{$http_upgrade}\KeywordTok{;}
+        \ExtensionTok{proxy_set_header}\NormalTok{ Connection }\StringTok{"upgrade"}\KeywordTok{;}
+\NormalTok{     \}}
+\NormalTok{    \}}
+\end{Highlighting}
+\end{Shaded}
+
+Next, we're going to update the Shiny server config file
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{sudo}\NormalTok{ nano /etc/shiny-server/shiny-server.conf}
+
+\CommentTok{#Add the following (if it’s not already there, which it may well be):}
+
+\ExtensionTok{server}\NormalTok{\{}
+    \ExtensionTok{listen}\NormalTok{ 3838 127.0.0.1}\KeywordTok{;}
+
+    \ExtensionTok{location}\NormalTok{ / \{}
+      \ExtensionTok{site_dir}\NormalTok{ /srv/shiny-server}\KeywordTok{;}
+      \ExtensionTok{log_dir}\NormalTok{ /var/log/shiny-server}\KeywordTok{;}
+      \ExtensionTok{directory_index}\NormalTok{ on}\KeywordTok{;}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Go to your floating IP in the browser, without the 3838, and all should be well.
+
+\hypertarget{getting-a-user-friendly-domain-name}{%
+\subsection{Getting a user-friendly domain name}\label{getting-a-user-friendly-domain-name}}
+
+If you want to share your app with the outside world, you'll need to open it up beyond the UoE network and, preferably, give it a catchy URL.
+
+Making your site public: Back in OpenStack, under the Network menu, click on Floating IP and disassociate your floating IP.
+Now go up to Router and click clear gateway. Click Set Gateway and select Floating Network Public.
+Back in Floating IPs, click Associate and select the external IP address (probably starting 129.x.x.x). Under port, select your instance.
+Enter your external IP address into your browser, and your website should appear. It is now available outside the University network.
+
+Setting up your domain name:
+Your first step here is obviously to buy a domain name from one of the many providers on the internet.Once you have this, use your domain provider's dashboard to edit DNS settings. You're looking to change the ANAME or CNAME settings -- delete what's already there and set up a new ANAME record, with the public IP address of your site.
+
+\hypertarget{appendix-1-password-protecting-your-site}{%
+\subsection{Appendix 1 -- Password protecting your site}\label{appendix-1-password-protecting-your-site}}
+
+You may want to add a basic password to your site. This is easily accomplished (though there are more robust password protection mechanisms out there, if you're dealing with potentially sensitive data).
+
+First, make sure you have Apache2-utils installed:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#First, make sure you have Apache2-utils installed:}
+\FunctionTok{sudo}\NormalTok{ apt-get install apache2-utils}
+
+\CommentTok{#Now, stop nginx and shiny:}
+\FunctionTok{sudo}\NormalTok{ service nginx stop}
+\FunctionTok{sudo}\NormalTok{ stop shiny-server}
+
+\CommentTok{#Next, you’ll need to go back into that Nginx config file, with }
+\FunctionTok{sudo}\NormalTok{ nano /etc/nginx/sites-available/default}
+
+\CommentTok{# Add the following two lines in the "location" section}
+\ExtensionTok{location}\NormalTok{ / \{}
+      \ExtensionTok{proxy_pass}\NormalTok{ http://127.0.0.1:3838/}\KeywordTok{;}
+      \ExtensionTok{proxy_redirect}\NormalTok{ http://127.0.0.1:3838/ }\VariableTok{$scheme}\NormalTok{://}\VariableTok{$host}\NormalTok{/}\KeywordTok{;}
+      \ExtensionTok{auth_basic} \StringTok{"Username and Password are required"}\KeywordTok{;} 
+      \ExtensionTok{auth_basic_user_file}\NormalTok{ /etc/nginx/.htpasswd}\KeywordTok{;}
+\NormalTok{    \}}
+\end{Highlighting}
+\end{Shaded}
+
+Once that's done, you'll need to edit Shiny Server's conf file so it only serves to loaclhost. Otherwise users would be able to creep around your authentication by going to port 3838.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sudo}\NormalTok{ nano /etc/shiny-server/shiny-server.conf}
+
+\CommentTok{#Copy and paste the below to your shiny-server.conf.}
+\ExtensionTok{server}\NormalTok{\{}
+    \ExtensionTok{listen}\NormalTok{ 3838 127.0.0.1}\KeywordTok{;}
+    
+    \ExtensionTok{location}\NormalTok{ / \{}
+    \ExtensionTok{site_dir}\NormalTok{ /srv/shiny-server}\KeywordTok{;}
+    \ExtensionTok{log_dir}\NormalTok{ /var/log/shiny-server}\KeywordTok{;}
+    \ExtensionTok{directory_index}\NormalTok{ on}\KeywordTok{;}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+You're now ready to create the username and password visitors must enter to view your site.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\BuiltInTok{cd}\NormalTok{ /etc/nginx}
+\FunctionTok{sudo}\NormalTok{ htpasswd -c /etc/nginx/.htpasswd USERNAME}
+
+\CommentTok{#Restart Nginx and Shiny and you’re good to go.}
+\FunctionTok{sudo}\NormalTok{ service nginx start}
+\FunctionTok{sudo}\NormalTok{ start shiny-server}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{appendix-2-setting-up-a-swap-file}{%
+\subsection{APPENDIX 2 -- Setting up a swap file}\label{appendix-2-setting-up-a-swap-file}}
+
+If your instance grinds to a halt while compiling R packages, you've most likely run out of memory and will need to set up a swap file. Just enter the following commands:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{sudo}\NormalTok{ fallocate -l 2G /swapfile}
+\FunctionTok{sudo}\NormalTok{ dd if=/dev/zero of=/swapfile bs=1024 count=1048576}
+\FunctionTok{sudo}\NormalTok{ chmod 600 /swapfile}
+\FunctionTok{sudo}\NormalTok{ mkswap /swapfile}
+\FunctionTok{sudo}\NormalTok{ swapon /swapfile}
+
+\CommentTok{#Finally, make sure everything as it should be by running:}
+\FunctionTok{sudo}\NormalTok{ free -h}
 \end{Highlighting}
 \end{Shaded}
 
