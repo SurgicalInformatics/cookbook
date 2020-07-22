@@ -1,39 +1,46 @@
-\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 %
-\documentclass[]{book}
+\documentclass[
+]{book}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provides euro and other symbols
-\else % if luatex or xelatex
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
   \usepackage{unicode-math}
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% use upquote if available, for straight quotes in verbatim environments
+% Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-\usepackage[]{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
-\usepackage{hyperref}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-            pdftitle={The Surgical Informatics Cookbook},
-            pdfauthor={Surgical Informatics, University of Edinburgh},
-            pdfborder={0 0 0},
-            breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
+  pdftitle={The Surgical Informatics Cookbook},
+  pdfauthor={Surgical Informatics, University of Edinburgh},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -75,8 +82,14 @@
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs}
-% Fix footnotes in tables (requires footnote package)
-\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -86,25 +99,14 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-
-% set default figure placement to htbp
+% Set default figure placement to htbp
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
 \usepackage{booktabs}
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -125,7 +127,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2020-05-20}
+\date{2020-07-22}
 
 \begin{document}
 \maketitle
@@ -138,7 +140,7 @@
 \chapter*{}\label{section}}
 \addcontentsline{toc}{chapter}{}
 
-\includegraphics[width=30.97in]{/home/common/users/cfairfield/cookbook/img/surgical_informatics_minibanner}
+\includegraphics[width=30.97in]{/home/tdrake/cookbook/img/surgical_informatics_minibanner}
 
 \hypertarget{introduction}{%
 \chapter{Introduction}\label{introduction}}
@@ -271,6 +273,49 @@ You can write citations, too. For example, we are using the \textbf{bookdown} pa
 
 Random useful snippets that do not fit anywhere else.
 
+\hypertarget{useful-rstudio-functions}{%
+\section{Useful RStudio functions}\label{useful-rstudio-functions}}
+
+\hypertarget{clean-restart}{%
+\subsection{Clean restart}\label{clean-restart}}
+
+Cleans current environment and restarts R session (no code can run past this). Indicate objects to leave alone by supplying string to \texttt{leave} argument.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{clean_restart =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(}\DataTypeTok{leave =} \OtherTok{NULL}\NormalTok{)\{}
+  \KeywordTok{rm}\NormalTok{(}\DataTypeTok{list=}\KeywordTok{setdiff}\NormalTok{(}\KeywordTok{ls}\NormalTok{(}\DataTypeTok{envir =}\NormalTok{ .GlobalEnv), leave), }\DataTypeTok{envir =}\NormalTok{ .GlobalEnv)}
+  \KeywordTok{invisible}\NormalTok{(}\KeywordTok{.rs.restartR}\NormalTok{())}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{remove-duplicated-packages-between-personal-and-system-libraries}{%
+\subsection{Remove duplicated packages between personal and system libraries}\label{remove-duplicated-packages-between-personal-and-system-libraries}}
+
+This removes any user library packages that are also present in the system library. Use this to minimise loading conflicts. Change \texttt{tdrake} in example to your rstudio username.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+
+\NormalTok{tdrake_packages =}\StringTok{ }\KeywordTok{installed.packages}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\CommentTok{#change 'tdrake' to your rstudio username}
+\StringTok{  }\KeywordTok{as_tibble}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(LibPath }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_detect}\NormalTok{(}\StringTok{"tdrake"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{pull}\NormalTok{(Package)}
+
+\NormalTok{system_packages =}\StringTok{ }\KeywordTok{installed.packages}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{as_tibble}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(LibPath }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_detect}\NormalTok{(}\StringTok{"local"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{pull}\NormalTok{(Package)}
+
+\NormalTok{to_remove =}\StringTok{ }\NormalTok{tdrake_packages[tdrake_packages }\OperatorTok{%in%}\StringTok{ }\NormalTok{system_packages]}
+
+\KeywordTok{remove.packages}\NormalTok{(to_remove)}
+\ErrorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{exporting-tables-that-work-in-both-pdf-and-word}{%
 \section{Exporting tables that work in both PDF and Word}\label{exporting-tables-that-work-in-both-pdf-and-word}}
 
@@ -309,7 +354,7 @@ We can define our own table printing function that uses kableExtra or flextable 
 
 \begin{table}[!h]
 
-\caption{\label{tab:unnamed-chunk-1}}
+\caption{\label{tab:unnamed-chunk-3}}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{ll}
@@ -360,7 +405,9 @@ If you have a small (and confidential) set of data in a tibble or data frame cal
 \end{Shaded}
 
 \begin{verbatim}
-## Error in a/b: non-numeric argument to binary operator
+## Error: Problem with `mutate()` input `newvar`.
+## x non-numeric argument to binary operator
+## i Input `newvar` is `a/b`.
 \end{verbatim}
 
 \hypertarget{holepunch---complex-reproducible-examples}{%
@@ -1230,7 +1277,7 @@ If you are logging in from RStudio Server or another terminal software you shoul
 \end{Highlighting}
 \end{Shaded}
 
- is your university username for EASE. You will then be asked for your password.
+is your university username for EASE. You will then be asked for your password.
 
 More information on Eddie basics can also be found at: \url{https://www.wiki.ed.ac.uk/display/ResearchServices/Quickstart}.
 
@@ -1737,8 +1784,8 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 
 Same plot 5x4 inches vs 10x8 inches:
 
-\includegraphics[width=0.5\linewidth]{/home/common/users/cfairfield/cookbook/img/barplot_5x4}
-\includegraphics[width=0.5\linewidth]{/home/common/users/cfairfield/cookbook/img/barplot_10x8}
+\includegraphics[width=0.5\linewidth]{/home/tdrake/cookbook/img/barplot_5x4}
+\includegraphics[width=0.5\linewidth]{/home/tdrake/cookbook/img/barplot_10x8}
 
 \hypertarget{genomics}{%
 \chapter{Genomics}\label{genomics}}
@@ -1749,7 +1796,7 @@ Same plot 5x4 inches vs 10x8 inches:
 \hypertarget{minimising-the-size-of-a-seurat-object}{%
 \subsection{Minimising the size of a Seurat Object}\label{minimising-the-size-of-a-seurat-object}}
 
-Single cell analyses are ofetn collated in Seurat objects which can be huge. We reduced the size of our Seurat object by pulling the relevant sections using the code below reducing the object to \textless{}20\% of its original size. This works by only including the sparse matrices. This is not a workable example, but the PBMC dataset could be used if necessary.
+Single cell analyses are ofetn collated in Seurat objects which can be huge. We reduced the size of our Seurat object by pulling the relevant sections using the code below reducing the object to \textless20\% of its original size. This works by only including the sparse matrices. This is not a workable example, but the PBMC dataset could be used if necessary.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1826,7 +1873,7 @@ We'll use an example where we want to summarise by different outcomes in a dynam
 
 \NormalTok{  df }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{group_by}\NormalTok{(...) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\OperatorTok{!!}\NormalTok{summary_nm_sum }\OperatorTok{:}\ErrorTok{=}\StringTok{ }\KeywordTok{sum}\NormalTok{(\{\{col_var\}\}))}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\OperatorTok{!!}\DataTypeTok{summary_nm_sum :=} \KeywordTok{sum}\NormalTok{(\{\{col_var\}\}))}
 \NormalTok{\}}
 
 
@@ -1844,7 +1891,7 @@ We'll use an example where we want to summarise by different outcomes in a dynam
 
 \NormalTok{example_data }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{summarise_feature}\NormalTok{(Death_from_guns, region) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\OperatorTok{!!}\NormalTok{metric_mutate }\OperatorTok{:}\ErrorTok{=}\StringTok{ }\OperatorTok{!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{sym}\NormalTok{(metric) }\OperatorTok{*}\StringTok{ }\DecValTok{2}\NormalTok{)}\CommentTok{#apply arbitary multiplication by two}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\OperatorTok{!!}\DataTypeTok{metric_mutate :=} \OperatorTok{!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{sym}\NormalTok{(metric) }\OperatorTok{*}\StringTok{ }\DecValTok{2}\NormalTok{)}\CommentTok{#apply arbitary multiplication by two}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1930,7 +1977,7 @@ Generally a parent folder will be used to generate a bibliography file and anyth
 \hypertarget{zotfile-pdf-preferences}{%
 \subsection{ZotFile PDF Preferences}\label{zotfile-pdf-preferences}}
 
-To setup Zotero so that retrieved PDFs are automatically stored and renamed in the cloud storage without consuming the Zotero storage quota go to ``Tools → ZotFile Preferences'' and on the first tab: \textbf{General Settings} and set the folder and subfolder naming strategy for PDFs. Set the location of the files to a Custom location in cloud storage e.g.(``\textasciitilde{}\textbackslash{}Google Drive\textbackslash{}Zotero PDF Library''). ZotFile will also store retrieved PDFs in subfolders to help with finding PDFs at a later date. A reasonable setup is to create a subfolder with the first author surname so that all papers authored by one (or more) author with the same name are stored together using the \textbackslash{}\%a in the subfolder field. Other alternatives are to store PDFs in subfolders using year (\textbackslash{}\%y); journal or publisher (\textbackslash{}\%w); or item type (\textbackslash{}\%T).
+To setup Zotero so that retrieved PDFs are automatically stored and renamed in the cloud storage without consuming the Zotero storage quota go to ``Tools → ZotFile Preferences'' and on the first tab: \textbf{General Settings} and set the folder and subfolder naming strategy for PDFs. Set the location of the files to a Custom location in cloud storage e.g.(``\textasciitilde\textbackslash Google Drive\textbackslash Zotero PDF Library''). ZotFile will also store retrieved PDFs in subfolders to help with finding PDFs at a later date. A reasonable setup is to create a subfolder with the first author surname so that all papers authored by one (or more) author with the same name are stored together using the \textbackslash\%a in the subfolder field. Other alternatives are to store PDFs in subfolders using year (\textbackslash\%y); journal or publisher (\textbackslash\%w); or item type (\textbackslash\%T).
 
 \begin{figure}
 \includegraphics[width=44.44in]{img/zotfile_preferences} \caption{ZotFile PDF Storage Preferences}\label{fig:zotfile-preferences}
@@ -2117,6 +2164,6 @@ When citing R packages a separate \texttt{.bib} file can be created. The followi
 \end{Highlighting}
 \end{Shaded}
 
-\bibliography{book.bib,packages.bib}
+  \bibliography{book.bib,packages.bib}
 
 \end{document}

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Genomics | The Surgical Informatics Cookbook</title>
   <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Genomics | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
@@ -24,15 +24,15 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2020-05-20" />
+<meta name="date" content="2020-07-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="plotting.html">
-<link rel="next" href="programming-in-rlang.html">
+<link rel="prev" href="plotting.html"/>
+<link rel="next" href="programming-in-rlang.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -51,9 +54,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -62,14 +65,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -78,9 +83,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -140,23 +145,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="snippets.html"><a href="snippets.html"><i class="fa fa-check"></i><b>2</b> Snippets</a><ul>
-<li class="chapter" data-level="2.1" data-path="snippets.html"><a href="snippets.html#exporting-tables-that-work-in-both-pdf-and-word"><i class="fa fa-check"></i><b>2.1</b> Exporting tables that work in both PDF and Word</a><ul>
-<li class="chapter" data-level="2.1.1" data-path="snippets.html"><a href="snippets.html#warning-in-kableextra.-please-specify-format-in-kable.-kableextra-can-customize-either-html-or-latex-outputs."><i class="fa fa-check"></i><b>2.1.1</b> Warning in kableExtra. Please specify format in kable. kableExtra can customize either HTML or LaTeX outputs.</a></li>
+<li class="chapter" data-level="2.1" data-path="snippets.html"><a href="snippets.html#useful-rstudio-functions"><i class="fa fa-check"></i><b>2.1</b> Useful RStudio functions</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="snippets.html"><a href="snippets.html#clean-restart"><i class="fa fa-check"></i><b>2.1.1</b> Clean restart</a></li>
+<li class="chapter" data-level="2.1.2" data-path="snippets.html"><a href="snippets.html#remove-duplicated-packages-between-personal-and-system-libraries"><i class="fa fa-check"></i><b>2.1.2</b> Remove duplicated packages between personal and system libraries</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker"><i class="fa fa-check"></i><b>2.2</b> Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="snippets.html"><a href="snippets.html#create-basic-reproducible-examples"><i class="fa fa-check"></i><b>2.2.1</b> Create Basic Reproducible Examples</a></li>
-<li class="chapter" data-level="2.2.2" data-path="snippets.html"><a href="snippets.html#holepunch---complex-reproducible-examples"><i class="fa fa-check"></i><b>2.2.2</b> <code>holepunch</code> - Complex Reproducible Examples</a></li>
+<li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#exporting-tables-that-work-in-both-pdf-and-word"><i class="fa fa-check"></i><b>2.2</b> Exporting tables that work in both PDF and Word</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="snippets.html"><a href="snippets.html#warning-in-kableextra.-please-specify-format-in-kable.-kableextra-can-customize-either-html-or-latex-outputs."><i class="fa fa-check"></i><b>2.2.1</b> Warning in kableExtra. Please specify format in kable. kableExtra can customize either HTML or LaTeX outputs.</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="snippets.html"><a href="snippets.html#working-with-chis"><i class="fa fa-check"></i><b>2.3</b> Working with CHIs</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="snippets.html"><a href="snippets.html#chi_dob---extract-date-of-birth-from-chi"><i class="fa fa-check"></i><b>2.3.1</b> <code>chi_dob()</code> - Extract date of birth from CHI</a></li>
-<li class="chapter" data-level="2.3.2" data-path="snippets.html"><a href="snippets.html#chi_gender---extract-gender-from-chi"><i class="fa fa-check"></i><b>2.3.2</b> <code>chi_gender()</code> - Extract gender from CHI</a></li>
-<li class="chapter" data-level="2.3.3" data-path="snippets.html"><a href="snippets.html#chi_age---extract-age-from-chi"><i class="fa fa-check"></i><b>2.3.3</b> <code>chi_age()</code> - Extract age from CHI</a></li>
-<li class="chapter" data-level="2.3.4" data-path="snippets.html"><a href="snippets.html#chi_valid---logical-test-for-valid-chi"><i class="fa fa-check"></i><b>2.3.4</b> <code>chi_valid()</code> - Logical test for valid CHI</a></li>
+<li class="chapter" data-level="2.3" data-path="snippets.html"><a href="snippets.html#creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker"><i class="fa fa-check"></i><b>2.3</b> Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="snippets.html"><a href="snippets.html#create-basic-reproducible-examples"><i class="fa fa-check"></i><b>2.3.1</b> Create Basic Reproducible Examples</a></li>
+<li class="chapter" data-level="2.3.2" data-path="snippets.html"><a href="snippets.html#holepunch---complex-reproducible-examples"><i class="fa fa-check"></i><b>2.3.2</b> <code>holepunch</code> - Complex Reproducible Examples</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.4</b> Working with dates</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.4.1</b> Difference between two dates</a></li>
-<li class="chapter" data-level="2.4.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.4.2</b> Lags</a></li>
-<li class="chapter" data-level="2.4.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.4.3</b> Pulling out “change in status” data</a></li>
+<li class="chapter" data-level="2.4" data-path="snippets.html"><a href="snippets.html#working-with-chis"><i class="fa fa-check"></i><b>2.4</b> Working with CHIs</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="snippets.html"><a href="snippets.html#chi_dob---extract-date-of-birth-from-chi"><i class="fa fa-check"></i><b>2.4.1</b> <code>chi_dob()</code> - Extract date of birth from CHI</a></li>
+<li class="chapter" data-level="2.4.2" data-path="snippets.html"><a href="snippets.html#chi_gender---extract-gender-from-chi"><i class="fa fa-check"></i><b>2.4.2</b> <code>chi_gender()</code> - Extract gender from CHI</a></li>
+<li class="chapter" data-level="2.4.3" data-path="snippets.html"><a href="snippets.html#chi_age---extract-age-from-chi"><i class="fa fa-check"></i><b>2.4.3</b> <code>chi_age()</code> - Extract age from CHI</a></li>
+<li class="chapter" data-level="2.4.4" data-path="snippets.html"><a href="snippets.html#chi_valid---logical-test-for-valid-chi"><i class="fa fa-check"></i><b>2.4.4</b> <code>chi_valid()</code> - Logical test for valid CHI</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.5</b> Working with dates</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.5.1</b> Difference between two dates</a></li>
+<li class="chapter" data-level="2.5.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.5.2</b> Lags</a></li>
+<li class="chapter" data-level="2.5.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.5.3</b> Pulling out “change in status” data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation</a><ul>
@@ -263,32 +272,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="minimising-the-size-of-a-seurat-object" class="section level3">
 <h3><span class="header-section-number">7.1.1</span> Minimising the size of a Seurat Object</h3>
 <p>Single cell analyses are ofetn collated in Seurat objects which can be huge. We reduced the size of our Seurat object by pulling the relevant sections using the code below reducing the object to &lt;20% of its original size. This works by only including the sparse matrices. This is not a workable example, but the PBMC dataset could be used if necessary.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="co">#library(Seurat)</span></a>
-<a class="sourceLine" id="cb87-2" data-line-number="2"><span class="co">#library(dplyr)</span></a>
-<a class="sourceLine" id="cb87-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb87-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb87-5" data-line-number="5"><span class="co">#Load in the data</span></a>
-<a class="sourceLine" id="cb87-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb87-7" data-line-number="7">pathtoglobaldata &lt;-<span class="st">&quot;mac_shiny/data/Global_sc_object&quot;</span></a>
-<a class="sourceLine" id="cb87-8" data-line-number="8">object_global&lt;-<span class="kw">readRDS</span>(pathtoglobaldata)</a>
-<a class="sourceLine" id="cb87-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb87-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb87-11" data-line-number="11"><span class="co"># Get sparse assay data</span></a>
-<a class="sourceLine" id="cb87-12" data-line-number="12">sizetest_global&lt;-<span class="kw">GetAssayData</span>(<span class="dt">object =</span> object_global, <span class="dt">slot =</span> <span class="st">&quot;data&quot;</span>) <span class="co"># counts don’t work, scaled breaks my pc with memory errors, not sure it matters that much</span></a>
-<a class="sourceLine" id="cb87-13" data-line-number="13">object_global_small&lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(sizetest_global)</a>
-<a class="sourceLine" id="cb87-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb87-15" data-line-number="15"><span class="co"># Add in classifications. </span></a>
-<a class="sourceLine" id="cb87-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb87-17" data-line-number="17">object_global_small<span class="op">@</span>reductions<span class="op">$</span>tsne&lt;-object_global<span class="op">@</span>reductions<span class="op">$</span>tsne <span class="co"># reduction embeddings for tsnegraph</span></a>
-<a class="sourceLine" id="cb87-18" data-line-number="18">object_global_small<span class="op">$</span>Phenotype&lt;-<span class="st"> </span>object_global<span class="op">$</span>Phenotype</a>
-<a class="sourceLine" id="cb87-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb87-20" data-line-number="20">object_global_small<span class="op">@</span>meta.data<span class="op">$</span>final_classification&lt;-<span class="st"> </span>object_global<span class="op">@</span>meta.data<span class="op">$</span>final_classification</a>
-<a class="sourceLine" id="cb87-21" data-line-number="21">object_global_small<span class="op">$</span>final_classificaiton&lt;-<span class="st"> </span>object_global<span class="op">$</span>final_classification <span class="co">#cell classifications</span></a>
-<a class="sourceLine" id="cb87-22" data-line-number="22"><span class="kw">Idents</span>(<span class="dt">object =</span> object_global_small) &lt;-<span class="st"> &quot;final_classificaiton&quot;</span> <span class="co">#set forever</span></a>
-<a class="sourceLine" id="cb87-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb87-24" data-line-number="24"></a>
-<a class="sourceLine" id="cb87-25" data-line-number="25"><span class="co">#same</span></a>
-<a class="sourceLine" id="cb87-26" data-line-number="26"><span class="kw">saveRDS</span>(object_global_small,<span class="st">&quot;mac_shiny/data/global_object_sml&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="genomics.html#cb89-1"></a><span class="co">#library(Seurat)</span></span>
+<span id="cb89-2"><a href="genomics.html#cb89-2"></a><span class="co">#library(dplyr)</span></span>
+<span id="cb89-3"><a href="genomics.html#cb89-3"></a></span>
+<span id="cb89-4"><a href="genomics.html#cb89-4"></a></span>
+<span id="cb89-5"><a href="genomics.html#cb89-5"></a><span class="co">#Load in the data</span></span>
+<span id="cb89-6"><a href="genomics.html#cb89-6"></a></span>
+<span id="cb89-7"><a href="genomics.html#cb89-7"></a>pathtoglobaldata &lt;-<span class="st">&quot;mac_shiny/data/Global_sc_object&quot;</span></span>
+<span id="cb89-8"><a href="genomics.html#cb89-8"></a>object_global&lt;-<span class="kw">readRDS</span>(pathtoglobaldata)</span>
+<span id="cb89-9"><a href="genomics.html#cb89-9"></a></span>
+<span id="cb89-10"><a href="genomics.html#cb89-10"></a></span>
+<span id="cb89-11"><a href="genomics.html#cb89-11"></a><span class="co"># Get sparse assay data</span></span>
+<span id="cb89-12"><a href="genomics.html#cb89-12"></a>sizetest_global&lt;-<span class="kw">GetAssayData</span>(<span class="dt">object =</span> object_global, <span class="dt">slot =</span> <span class="st">&quot;data&quot;</span>) <span class="co"># counts don’t work, scaled breaks my pc with memory errors, not sure it matters that much</span></span>
+<span id="cb89-13"><a href="genomics.html#cb89-13"></a>object_global_small&lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(sizetest_global)</span>
+<span id="cb89-14"><a href="genomics.html#cb89-14"></a></span>
+<span id="cb89-15"><a href="genomics.html#cb89-15"></a><span class="co"># Add in classifications. </span></span>
+<span id="cb89-16"><a href="genomics.html#cb89-16"></a></span>
+<span id="cb89-17"><a href="genomics.html#cb89-17"></a>object_global_small<span class="op">@</span>reductions<span class="op">$</span>tsne&lt;-object_global<span class="op">@</span>reductions<span class="op">$</span>tsne <span class="co"># reduction embeddings for tsnegraph</span></span>
+<span id="cb89-18"><a href="genomics.html#cb89-18"></a>object_global_small<span class="op">$</span>Phenotype&lt;-<span class="st"> </span>object_global<span class="op">$</span>Phenotype</span>
+<span id="cb89-19"><a href="genomics.html#cb89-19"></a></span>
+<span id="cb89-20"><a href="genomics.html#cb89-20"></a>object_global_small<span class="op">@</span>meta.data<span class="op">$</span>final_classification&lt;-<span class="st"> </span>object_global<span class="op">@</span>meta.data<span class="op">$</span>final_classification</span>
+<span id="cb89-21"><a href="genomics.html#cb89-21"></a>object_global_small<span class="op">$</span>final_classificaiton&lt;-<span class="st"> </span>object_global<span class="op">$</span>final_classification <span class="co">#cell classifications</span></span>
+<span id="cb89-22"><a href="genomics.html#cb89-22"></a><span class="kw">Idents</span>(<span class="dt">object =</span> object_global_small) &lt;-<span class="st"> &quot;final_classificaiton&quot;</span> <span class="co">#set forever</span></span>
+<span id="cb89-23"><a href="genomics.html#cb89-23"></a></span>
+<span id="cb89-24"><a href="genomics.html#cb89-24"></a></span>
+<span id="cb89-25"><a href="genomics.html#cb89-25"></a><span class="co">#same</span></span>
+<span id="cb89-26"><a href="genomics.html#cb89-26"></a><span class="kw">saveRDS</span>(object_global_small,<span class="st">&quot;mac_shiny/data/global_object_sml&quot;</span>)</span></code></pre></div>
 
 </div>
 </div>
@@ -304,11 +313,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -316,12 +327,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -333,6 +343,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },

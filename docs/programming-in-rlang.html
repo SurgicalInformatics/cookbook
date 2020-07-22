@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Programming in rlang | The Surgical Informatics Cookbook</title>
   <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Programming in rlang | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
@@ -24,15 +24,15 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2020-05-20" />
+<meta name="date" content="2020-07-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="genomics.html">
-<link rel="next" href="server-admin.html">
+<link rel="prev" href="genomics.html"/>
+<link rel="next" href="server-admin.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -51,9 +54,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -62,14 +65,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -78,9 +83,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -140,23 +145,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="snippets.html"><a href="snippets.html"><i class="fa fa-check"></i><b>2</b> Snippets</a><ul>
-<li class="chapter" data-level="2.1" data-path="snippets.html"><a href="snippets.html#exporting-tables-that-work-in-both-pdf-and-word"><i class="fa fa-check"></i><b>2.1</b> Exporting tables that work in both PDF and Word</a><ul>
-<li class="chapter" data-level="2.1.1" data-path="snippets.html"><a href="snippets.html#warning-in-kableextra.-please-specify-format-in-kable.-kableextra-can-customize-either-html-or-latex-outputs."><i class="fa fa-check"></i><b>2.1.1</b> Warning in kableExtra. Please specify format in kable. kableExtra can customize either HTML or LaTeX outputs.</a></li>
+<li class="chapter" data-level="2.1" data-path="snippets.html"><a href="snippets.html#useful-rstudio-functions"><i class="fa fa-check"></i><b>2.1</b> Useful RStudio functions</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="snippets.html"><a href="snippets.html#clean-restart"><i class="fa fa-check"></i><b>2.1.1</b> Clean restart</a></li>
+<li class="chapter" data-level="2.1.2" data-path="snippets.html"><a href="snippets.html#remove-duplicated-packages-between-personal-and-system-libraries"><i class="fa fa-check"></i><b>2.1.2</b> Remove duplicated packages between personal and system libraries</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker"><i class="fa fa-check"></i><b>2.2</b> Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="snippets.html"><a href="snippets.html#create-basic-reproducible-examples"><i class="fa fa-check"></i><b>2.2.1</b> Create Basic Reproducible Examples</a></li>
-<li class="chapter" data-level="2.2.2" data-path="snippets.html"><a href="snippets.html#holepunch---complex-reproducible-examples"><i class="fa fa-check"></i><b>2.2.2</b> <code>holepunch</code> - Complex Reproducible Examples</a></li>
+<li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#exporting-tables-that-work-in-both-pdf-and-word"><i class="fa fa-check"></i><b>2.2</b> Exporting tables that work in both PDF and Word</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="snippets.html"><a href="snippets.html#warning-in-kableextra.-please-specify-format-in-kable.-kableextra-can-customize-either-html-or-latex-outputs."><i class="fa fa-check"></i><b>2.2.1</b> Warning in kableExtra. Please specify format in kable. kableExtra can customize either HTML or LaTeX outputs.</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="snippets.html"><a href="snippets.html#working-with-chis"><i class="fa fa-check"></i><b>2.3</b> Working with CHIs</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="snippets.html"><a href="snippets.html#chi_dob---extract-date-of-birth-from-chi"><i class="fa fa-check"></i><b>2.3.1</b> <code>chi_dob()</code> - Extract date of birth from CHI</a></li>
-<li class="chapter" data-level="2.3.2" data-path="snippets.html"><a href="snippets.html#chi_gender---extract-gender-from-chi"><i class="fa fa-check"></i><b>2.3.2</b> <code>chi_gender()</code> - Extract gender from CHI</a></li>
-<li class="chapter" data-level="2.3.3" data-path="snippets.html"><a href="snippets.html#chi_age---extract-age-from-chi"><i class="fa fa-check"></i><b>2.3.3</b> <code>chi_age()</code> - Extract age from CHI</a></li>
-<li class="chapter" data-level="2.3.4" data-path="snippets.html"><a href="snippets.html#chi_valid---logical-test-for-valid-chi"><i class="fa fa-check"></i><b>2.3.4</b> <code>chi_valid()</code> - Logical test for valid CHI</a></li>
+<li class="chapter" data-level="2.3" data-path="snippets.html"><a href="snippets.html#creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker"><i class="fa fa-check"></i><b>2.3</b> Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="snippets.html"><a href="snippets.html#create-basic-reproducible-examples"><i class="fa fa-check"></i><b>2.3.1</b> Create Basic Reproducible Examples</a></li>
+<li class="chapter" data-level="2.3.2" data-path="snippets.html"><a href="snippets.html#holepunch---complex-reproducible-examples"><i class="fa fa-check"></i><b>2.3.2</b> <code>holepunch</code> - Complex Reproducible Examples</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.4</b> Working with dates</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.4.1</b> Difference between two dates</a></li>
-<li class="chapter" data-level="2.4.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.4.2</b> Lags</a></li>
-<li class="chapter" data-level="2.4.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.4.3</b> Pulling out “change in status” data</a></li>
+<li class="chapter" data-level="2.4" data-path="snippets.html"><a href="snippets.html#working-with-chis"><i class="fa fa-check"></i><b>2.4</b> Working with CHIs</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="snippets.html"><a href="snippets.html#chi_dob---extract-date-of-birth-from-chi"><i class="fa fa-check"></i><b>2.4.1</b> <code>chi_dob()</code> - Extract date of birth from CHI</a></li>
+<li class="chapter" data-level="2.4.2" data-path="snippets.html"><a href="snippets.html#chi_gender---extract-gender-from-chi"><i class="fa fa-check"></i><b>2.4.2</b> <code>chi_gender()</code> - Extract gender from CHI</a></li>
+<li class="chapter" data-level="2.4.3" data-path="snippets.html"><a href="snippets.html#chi_age---extract-age-from-chi"><i class="fa fa-check"></i><b>2.4.3</b> <code>chi_age()</code> - Extract age from CHI</a></li>
+<li class="chapter" data-level="2.4.4" data-path="snippets.html"><a href="snippets.html#chi_valid---logical-test-for-valid-chi"><i class="fa fa-check"></i><b>2.4.4</b> <code>chi_valid()</code> - Logical test for valid CHI</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.5</b> Working with dates</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.5.1</b> Difference between two dates</a></li>
+<li class="chapter" data-level="2.5.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.5.2</b> Lags</a></li>
+<li class="chapter" data-level="2.5.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.5.3</b> Pulling out “change in status” data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation</a><ul>
@@ -269,47 +278,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">8.1.2</span> Dynamic calling of variables using dplyr</h3>
 <p>In this example, say we have a tibble of variables, but we want to apply dynamic changes to it (so we feed R a variable, that can change, either using another function like <code>purr::map</code> or in a ShinyApp). In this instance, specifying each variable and each different possible consequence using different logical functions would take forever and be very clunky. So we can use rlang to simply put a dynamic variable/object through the same function.</p>
 <p>We’ll use an example where we want to summarise by different outcomes in a dynamic way.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb88-2" data-line-number="2"><span class="co">#Make data - here nonsense numbers on deaths per 100k from guns say</span></a>
-<a class="sourceLine" id="cb88-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb88-4" data-line-number="4">example_data =<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">countries =</span> <span class="kw">c</span>(<span class="st">&#39;UK&#39;</span>, <span class="st">&#39;USA&#39;</span>, <span class="st">&#39;Pakistan&#39;</span>, <span class="st">&#39;Mexico&#39;</span>, <span class="st">&#39;Ireland&#39;</span>, <span class="st">&#39;Estonia&#39;</span>),</a>
-<a class="sourceLine" id="cb88-5" data-line-number="5">                      <span class="dt">region =</span> <span class="kw">c</span>(<span class="st">&#39;Europe&#39;</span>, <span class="st">&#39;Americas&#39;</span>, <span class="st">&#39;Asia&#39;</span>, <span class="st">&#39;Americas&#39;</span>, <span class="st">&#39;Europe&#39;</span>, <span class="st">&#39;Europe&#39;</span>),</a>
-<a class="sourceLine" id="cb88-6" data-line-number="6">                      <span class="dt">Death_from_guns =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">200</span>, <span class="dv">150</span>, <span class="dv">450</span>, <span class="dv">3</span>, <span class="fl">3.5</span>),</a>
-<a class="sourceLine" id="cb88-7" data-line-number="7">                      <span class="dt">Death_from_smoking =</span> <span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">300</span>, <span class="dv">140</span>, <span class="dv">150</span>, <span class="dv">120</span>, <span class="dv">300</span>))</a>
-<a class="sourceLine" id="cb88-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb88-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb88-10" data-line-number="10"><span class="co">#example function for summarising using dynamic variables and bang bangs</span></a>
-<a class="sourceLine" id="cb88-11" data-line-number="11"><span class="co">#note metric must be numeric</span></a>
-<a class="sourceLine" id="cb88-12" data-line-number="12">summarise_feature =<span class="st"> </span><span class="cf">function</span>(df, col_var, ...){</a>
-<a class="sourceLine" id="cb88-13" data-line-number="13">  <span class="kw">require</span>(tidyverse)</a>
-<a class="sourceLine" id="cb88-14" data-line-number="14">  </a>
-<a class="sourceLine" id="cb88-15" data-line-number="15">  wurly_curly =<span class="st"> </span><span class="cf">function</span>(.){<span class="co">#The wurly_curly function makes things nicer</span></a>
-<a class="sourceLine" id="cb88-16" data-line-number="16">  <span class="kw">require</span>(rlang)</a>
-<a class="sourceLine" id="cb88-17" data-line-number="17">  <span class="op">!!</span><span class="kw">quo_name</span>(<span class="kw">enquo</span>(.))}</a>
-<a class="sourceLine" id="cb88-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb88-19" data-line-number="19">  summary_nm_sum &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;metric_&quot;</span>, <span class="kw">wurly_curly</span>(col_var))<span class="co">#The new LHS variable must have a different name from that on the RHS</span></a>
-<a class="sourceLine" id="cb88-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb88-21" data-line-number="21">  df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb88-22" data-line-number="22"><span class="st">    </span><span class="kw">group_by</span>(...) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb88-23" data-line-number="23"><span class="st">    </span><span class="kw">summarise</span>(<span class="op">!!</span>summary_nm_sum <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">sum</span>({{col_var}}))</a>
-<a class="sourceLine" id="cb88-24" data-line-number="24">}</a>
-<a class="sourceLine" id="cb88-25" data-line-number="25"></a>
-<a class="sourceLine" id="cb88-26" data-line-number="26"></a>
-<a class="sourceLine" id="cb88-27" data-line-number="27"><span class="co">#output new variable</span></a>
-<a class="sourceLine" id="cb88-28" data-line-number="28">example_data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb88-29" data-line-number="29"><span class="st">  </span><span class="kw">summarise_feature</span>(Death_from_guns, region) </a>
-<a class="sourceLine" id="cb88-30" data-line-number="30"></a>
-<a class="sourceLine" id="cb88-31" data-line-number="31"><span class="co">#How to dynamically change names using mutate and rlang</span></a>
-<a class="sourceLine" id="cb88-32" data-line-number="32"><span class="co">#Bang bang variables into mutate/tidyverse(so they can be dynamically changed)</span></a>
-<a class="sourceLine" id="cb88-33" data-line-number="33"></a>
-<a class="sourceLine" id="cb88-34" data-line-number="34"><span class="co">#Select metric</span></a>
-<a class="sourceLine" id="cb88-35" data-line-number="35">metric =<span class="st"> &#39;metric_Death_from_guns&#39;</span> <span class="co">#example but can be any named column</span></a>
-<a class="sourceLine" id="cb88-36" data-line-number="36"></a>
-<a class="sourceLine" id="cb88-37" data-line-number="37">metric_mutate =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;prefix_&#39;</span>, metric) <span class="co">#some reason doesn&#39;t take these within the mutate function so has to be outside</span></a>
-<a class="sourceLine" id="cb88-38" data-line-number="38"></a>
-<a class="sourceLine" id="cb88-39" data-line-number="39">example_data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb88-40" data-line-number="40"><span class="st">  </span><span class="kw">summarise_feature</span>(Death_from_guns, region) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb88-41" data-line-number="41"><span class="st">  </span><span class="kw">mutate</span>(<span class="op">!!</span>metric_mutate <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="op">!!</span>rlang<span class="op">::</span><span class="kw">sym</span>(metric) <span class="op">*</span><span class="st"> </span><span class="dv">2</span>)<span class="co">#apply arbitary multiplication by two</span></a></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="programming-in-rlang.html#cb90-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb90-2"><a href="programming-in-rlang.html#cb90-2"></a><span class="co">#Make data - here nonsense numbers on deaths per 100k from guns say</span></span>
+<span id="cb90-3"><a href="programming-in-rlang.html#cb90-3"></a></span>
+<span id="cb90-4"><a href="programming-in-rlang.html#cb90-4"></a>example_data =<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">countries =</span> <span class="kw">c</span>(<span class="st">&#39;UK&#39;</span>, <span class="st">&#39;USA&#39;</span>, <span class="st">&#39;Pakistan&#39;</span>, <span class="st">&#39;Mexico&#39;</span>, <span class="st">&#39;Ireland&#39;</span>, <span class="st">&#39;Estonia&#39;</span>),</span>
+<span id="cb90-5"><a href="programming-in-rlang.html#cb90-5"></a>                      <span class="dt">region =</span> <span class="kw">c</span>(<span class="st">&#39;Europe&#39;</span>, <span class="st">&#39;Americas&#39;</span>, <span class="st">&#39;Asia&#39;</span>, <span class="st">&#39;Americas&#39;</span>, <span class="st">&#39;Europe&#39;</span>, <span class="st">&#39;Europe&#39;</span>),</span>
+<span id="cb90-6"><a href="programming-in-rlang.html#cb90-6"></a>                      <span class="dt">Death_from_guns =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">200</span>, <span class="dv">150</span>, <span class="dv">450</span>, <span class="dv">3</span>, <span class="fl">3.5</span>),</span>
+<span id="cb90-7"><a href="programming-in-rlang.html#cb90-7"></a>                      <span class="dt">Death_from_smoking =</span> <span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">300</span>, <span class="dv">140</span>, <span class="dv">150</span>, <span class="dv">120</span>, <span class="dv">300</span>))</span>
+<span id="cb90-8"><a href="programming-in-rlang.html#cb90-8"></a></span>
+<span id="cb90-9"><a href="programming-in-rlang.html#cb90-9"></a></span>
+<span id="cb90-10"><a href="programming-in-rlang.html#cb90-10"></a><span class="co">#example function for summarising using dynamic variables and bang bangs</span></span>
+<span id="cb90-11"><a href="programming-in-rlang.html#cb90-11"></a><span class="co">#note metric must be numeric</span></span>
+<span id="cb90-12"><a href="programming-in-rlang.html#cb90-12"></a>summarise_feature =<span class="st"> </span><span class="cf">function</span>(df, col_var, ...){</span>
+<span id="cb90-13"><a href="programming-in-rlang.html#cb90-13"></a>  <span class="kw">require</span>(tidyverse)</span>
+<span id="cb90-14"><a href="programming-in-rlang.html#cb90-14"></a>  </span>
+<span id="cb90-15"><a href="programming-in-rlang.html#cb90-15"></a>  wurly_curly =<span class="st"> </span><span class="cf">function</span>(.){<span class="co">#The wurly_curly function makes things nicer</span></span>
+<span id="cb90-16"><a href="programming-in-rlang.html#cb90-16"></a>  <span class="kw">require</span>(rlang)</span>
+<span id="cb90-17"><a href="programming-in-rlang.html#cb90-17"></a>  <span class="op">!!</span><span class="kw">quo_name</span>(<span class="kw">enquo</span>(.))}</span>
+<span id="cb90-18"><a href="programming-in-rlang.html#cb90-18"></a></span>
+<span id="cb90-19"><a href="programming-in-rlang.html#cb90-19"></a>  summary_nm_sum &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;metric_&quot;</span>, <span class="kw">wurly_curly</span>(col_var))<span class="co">#The new LHS variable must have a different name from that on the RHS</span></span>
+<span id="cb90-20"><a href="programming-in-rlang.html#cb90-20"></a></span>
+<span id="cb90-21"><a href="programming-in-rlang.html#cb90-21"></a>  df <span class="op">%&gt;%</span></span>
+<span id="cb90-22"><a href="programming-in-rlang.html#cb90-22"></a><span class="st">    </span><span class="kw">group_by</span>(...) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb90-23"><a href="programming-in-rlang.html#cb90-23"></a><span class="st">    </span><span class="kw">summarise</span>(<span class="op">!!</span><span class="dt">summary_nm_sum :=</span> <span class="kw">sum</span>({{col_var}}))</span>
+<span id="cb90-24"><a href="programming-in-rlang.html#cb90-24"></a>}</span>
+<span id="cb90-25"><a href="programming-in-rlang.html#cb90-25"></a></span>
+<span id="cb90-26"><a href="programming-in-rlang.html#cb90-26"></a></span>
+<span id="cb90-27"><a href="programming-in-rlang.html#cb90-27"></a><span class="co">#output new variable</span></span>
+<span id="cb90-28"><a href="programming-in-rlang.html#cb90-28"></a>example_data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb90-29"><a href="programming-in-rlang.html#cb90-29"></a><span class="st">  </span><span class="kw">summarise_feature</span>(Death_from_guns, region) </span>
+<span id="cb90-30"><a href="programming-in-rlang.html#cb90-30"></a></span>
+<span id="cb90-31"><a href="programming-in-rlang.html#cb90-31"></a><span class="co">#How to dynamically change names using mutate and rlang</span></span>
+<span id="cb90-32"><a href="programming-in-rlang.html#cb90-32"></a><span class="co">#Bang bang variables into mutate/tidyverse(so they can be dynamically changed)</span></span>
+<span id="cb90-33"><a href="programming-in-rlang.html#cb90-33"></a></span>
+<span id="cb90-34"><a href="programming-in-rlang.html#cb90-34"></a><span class="co">#Select metric</span></span>
+<span id="cb90-35"><a href="programming-in-rlang.html#cb90-35"></a>metric =<span class="st"> &#39;metric_Death_from_guns&#39;</span> <span class="co">#example but can be any named column</span></span>
+<span id="cb90-36"><a href="programming-in-rlang.html#cb90-36"></a></span>
+<span id="cb90-37"><a href="programming-in-rlang.html#cb90-37"></a>metric_mutate =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;prefix_&#39;</span>, metric) <span class="co">#some reason doesn&#39;t take these within the mutate function so has to be outside</span></span>
+<span id="cb90-38"><a href="programming-in-rlang.html#cb90-38"></a></span>
+<span id="cb90-39"><a href="programming-in-rlang.html#cb90-39"></a>example_data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb90-40"><a href="programming-in-rlang.html#cb90-40"></a><span class="st">  </span><span class="kw">summarise_feature</span>(Death_from_guns, region) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb90-41"><a href="programming-in-rlang.html#cb90-41"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="op">!!</span><span class="dt">metric_mutate :=</span> <span class="op">!!</span>rlang<span class="op">::</span><span class="kw">sym</span>(metric) <span class="op">*</span><span class="st"> </span><span class="dv">2</span>)<span class="co">#apply arbitary multiplication by two</span></span></code></pre></div>
 
 </div>
 </div>
@@ -325,11 +334,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -337,12 +348,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -354,6 +364,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
