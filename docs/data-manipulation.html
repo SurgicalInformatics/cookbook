@@ -24,7 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2020-07-22" />
+<meta name="date" content="2020-07-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,6 +50,7 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
@@ -295,28 +296,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb44-23"><a href="data-manipulation.html#cb44-23"></a>  .f =<span class="st"> </span><span class="kw">is.factor</span>(.data)</span>
 <span id="cb44-24"><a href="data-manipulation.html#cb44-24"></a>  .yn =<span class="st"> </span>.data <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb44-25"><a href="data-manipulation.html#cb44-25"></a><span class="st">    </span><span class="kw">levels</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb44-26"><a href="data-manipulation.html#cb44-26"></a><span class="st">    </span><span class="kw">grepl</span>(<span class="st">&quot;No|Yes&quot;</span>, .) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb44-26"><a href="data-manipulation.html#cb44-26"></a><span class="st">    </span><span class="kw">grepl</span>(<span class="st">&quot;(No.+)|(Yes.+)&quot;</span>, .) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb44-27"><a href="data-manipulation.html#cb44-27"></a><span class="st">    </span><span class="kw">any</span>()</span>
 <span id="cb44-28"><a href="data-manipulation.html#cb44-28"></a>  <span class="kw">all</span>(.f, .yn)</span>
 <span id="cb44-29"><a href="data-manipulation.html#cb44-29"></a>}</span>
 <span id="cb44-30"><a href="data-manipulation.html#cb44-30"></a></span>
 <span id="cb44-31"><a href="data-manipulation.html#cb44-31"></a><span class="co"># Raw variable</span></span>
 <span id="cb44-32"><a href="data-manipulation.html#cb44-32"></a>mydata <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb44-33"><a href="data-manipulation.html#cb44-33"></a><span class="st">  </span><span class="kw">pull</span>(ssi.factor) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb44-34"><a href="data-manipulation.html#cb44-34"></a><span class="st">  </span><span class="kw">levels</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;No&quot;                                           
-## [2] &quot;Unknown&quot;                                      
-## [3] &quot;Yes, antibiotics only (CD 2)&quot;                 
-## [4] &quot;Yes, no treatment/wound opened only (CD 1)&quot;   
-## [5] &quot;Yes, requiring critical care admission (CD 4)&quot;
-## [6] &quot;Yes, resulting in death (CD 5)&quot;               
-## [7] &quot;Yes, return to operating theatre (CD 3)&quot;</code></pre>
+<span id="cb44-33"><a href="data-manipulation.html#cb44-33"></a><span class="st">  </span><span class="kw">count</span>(ssi.factor)</span></code></pre></div>
+<pre><code>## # A tibble: 7 x 2
+##   ssi.factor                                        n
+##   &lt;fct&gt;                                         &lt;int&gt;
+## 1 No                                                1
+## 2 Unknown                                           1
+## 3 Yes, antibiotics only (CD 2)                      1
+## 4 Yes, no treatment/wound opened only (CD 1)        1
+## 5 Yes, requiring critical care admission (CD 4)     1
+## 6 Yes, resulting in death (CD 5)                    1
+## 7 Yes, return to operating theatre (CD 3)           1</code></pre>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="data-manipulation.html#cb46-1"></a><span class="co"># Collapse to _yn version</span></span>
 <span id="cb46-2"><a href="data-manipulation.html#cb46-2"></a>mydata <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb46-3"><a href="data-manipulation.html#cb46-3"></a><span class="st">  </span><span class="kw">mutate_if</span>(is.yn, <span class="kw">list</span>(<span class="dt">yn =</span> fct_collapse_yn)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb46-4"><a href="data-manipulation.html#cb46-4"></a><span class="st">  </span><span class="kw">pull</span>(ssi.factor_yn) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb46-5"><a href="data-manipulation.html#cb46-5"></a><span class="st">  </span><span class="kw">levels</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;No&quot;      &quot;Unknown&quot; &quot;Yes&quot;</code></pre>
+<span id="cb46-3"><a href="data-manipulation.html#cb46-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">where</span>(is.yn), fct_collapse_yn, <span class="dt">.names =</span> <span class="st">&quot;{col}_yn&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb46-4"><a href="data-manipulation.html#cb46-4"></a><span class="st">  </span><span class="kw">count</span>(ssi.factor_yn)</span></code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   ssi.factor_yn     n
+##   &lt;fct&gt;         &lt;int&gt;
+## 1 No                1
+## 2 Unknown           1
+## 3 Yes               5</code></pre>
 </div>
 <div id="filter-na-dropping-rows-where-all-specified-variables-are-na" class="section level2">
 <h2><span class="header-section-number">3.2</span> Filter NA: Dropping rows where all specified variables are NA</h2>

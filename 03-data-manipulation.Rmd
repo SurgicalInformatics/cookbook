@@ -30,21 +30,20 @@ is.yn = function(.data){
   .f = is.factor(.data)
   .yn = .data %>% 
     levels() %>% 
-    grepl("No|Yes", .) %>% 
+    grepl("(No.+)|(Yes.+)", .) %>% 
     any()
   all(.f, .yn)
 }
 
 # Raw variable
 mydata %>% 
-  pull(ssi.factor) %>% 
-  levels()
+  count(ssi.factor)
 
 # Collapse to _yn version
 mydata %>% 
-  mutate_if(is.yn, list(yn = fct_collapse_yn)) %>% 
-  pull(ssi.factor_yn) %>% 
-  levels()
+  mutate(across(where(is.yn), fct_collapse_yn, .names = "{col}_yn")) %>% 
+  count(ssi.factor_yn)
+
 ```
 
 

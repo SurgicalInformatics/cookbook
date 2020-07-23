@@ -127,7 +127,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2020-07-22}
+\date{2020-07-23}
 
 \begin{document}
 \maketitle
@@ -140,7 +140,7 @@
 \chapter*{}\label{section}}
 \addcontentsline{toc}{chapter}{}
 
-\includegraphics[width=30.97in]{/home/tdrake/cookbook/img/surgical_informatics_minibanner}
+\includegraphics[width=30.97in]{/home/rots/cookbook/img/surgical_informatics_minibanner}
 
 \hypertarget{introduction}{%
 \chapter{Introduction}\label{introduction}}
@@ -932,40 +932,46 @@ Common to have to do this in GlobalSurg projects:
 \NormalTok{  .f =}\StringTok{ }\KeywordTok{is.factor}\NormalTok{(.data)}
 \NormalTok{  .yn =}\StringTok{ }\NormalTok{.data }\OperatorTok{%>%}\StringTok{ }
 \StringTok{    }\KeywordTok{levels}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{grepl}\NormalTok{(}\StringTok{"No|Yes"}\NormalTok{, .) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{grepl}\NormalTok{(}\StringTok{"(No.+)|(Yes.+)"}\NormalTok{, .) }\OperatorTok{%>%}\StringTok{ }
 \StringTok{    }\KeywordTok{any}\NormalTok{()}
   \KeywordTok{all}\NormalTok{(.f, .yn)}
 \NormalTok{\}}
 
 \CommentTok{# Raw variable}
 \NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{pull}\NormalTok{(ssi.factor) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{levels}\NormalTok{()}
+\StringTok{  }\KeywordTok{count}\NormalTok{(ssi.factor)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "No"                                           
-## [2] "Unknown"                                      
-## [3] "Yes, antibiotics only (CD 2)"                 
-## [4] "Yes, no treatment/wound opened only (CD 1)"   
-## [5] "Yes, requiring critical care admission (CD 4)"
-## [6] "Yes, resulting in death (CD 5)"               
-## [7] "Yes, return to operating theatre (CD 3)"
+## # A tibble: 7 x 2
+##   ssi.factor                                        n
+##   <fct>                                         <int>
+## 1 No                                                1
+## 2 Unknown                                           1
+## 3 Yes, antibiotics only (CD 2)                      1
+## 4 Yes, no treatment/wound opened only (CD 1)        1
+## 5 Yes, requiring critical care admission (CD 4)     1
+## 6 Yes, resulting in death (CD 5)                    1
+## 7 Yes, return to operating theatre (CD 3)           1
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# Collapse to _yn version}
 \NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate_if}\NormalTok{(is.yn, }\KeywordTok{list}\NormalTok{(}\DataTypeTok{yn =}\NormalTok{ fct_collapse_yn)) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{pull}\NormalTok{(ssi.factor_yn) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{levels}\NormalTok{()}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\KeywordTok{across}\NormalTok{(}\KeywordTok{where}\NormalTok{(is.yn), fct_collapse_yn, }\DataTypeTok{.names =} \StringTok{"\{col\}_yn"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{count}\NormalTok{(ssi.factor_yn)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "No"      "Unknown" "Yes"
+## # A tibble: 3 x 2
+##   ssi.factor_yn     n
+##   <fct>         <int>
+## 1 No                1
+## 2 Unknown           1
+## 3 Yes               5
 \end{verbatim}
 
 \hypertarget{filter-na-dropping-rows-where-all-specified-variables-are-na}{%
@@ -1784,8 +1790,8 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 
 Same plot 5x4 inches vs 10x8 inches:
 
-\includegraphics[width=0.5\linewidth]{/home/tdrake/cookbook/img/barplot_5x4}
-\includegraphics[width=0.5\linewidth]{/home/tdrake/cookbook/img/barplot_10x8}
+\includegraphics[width=0.5\linewidth]{/home/rots/cookbook/img/barplot_5x4}
+\includegraphics[width=0.5\linewidth]{/home/rots/cookbook/img/barplot_10x8}
 
 \hypertarget{genomics}{%
 \chapter{Genomics}\label{genomics}}
