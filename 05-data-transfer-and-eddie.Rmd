@@ -366,5 +366,8 @@ Don't overwrite or change other users files without permission and set up your o
 ## Unix Tutorials
 The University Digital Skills Framework offers a three-part tutorial covering Unix which is free. If you use a lot of Eddie etc. this may be helpful:https://www.digitalskills.ed.ac.uk/all-resources/?wdt_column_filter%5B1%5D=Classroom
 
+## Additional Resources
+The following resource covers some of the commands needed for the Univa Grid Enginge scheduler which is used to submit jobs on Eddie:
 
+https://angus.readthedocs.io/en/2019/Intro_to_Cluster.html#
 
