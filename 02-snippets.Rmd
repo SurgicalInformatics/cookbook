@@ -1,6 +1,42 @@
 # Snippets
 
-Random useful snippets that do not fit anywhere else. 
+Random useful snippets that do not fit anywhere else.
+
+## Useful RStudio functions
+
+### Clean restart
+Cleans current environment and restarts R session (no code can run past this). Indicate objects to leave alone by supplying string to `leave` argument.
+
+```{r message=FALSE, eval=FALSE}
+clean_restart = function(leave = NULL){
+  rm(list=setdiff(ls(envir = .GlobalEnv), leave), envir = .GlobalEnv)
+  invisible(.rs.restartR())
+}
+```
+
+### Remove duplicated packages between personal and system libraries
+
+This removes any user library packages that are also present in the system library. Use this to minimise loading conflicts. Change `tdrake` in example to your rstudio username.
+
+```{r message=FALSE, eval=FALSE}
+library(tidyverse)
+
+tdrake_packages = installed.packages() %>% #change 'tdrake' to your rstudio username
+  as_tibble() %>% 
+  filter(LibPath %>% str_detect("tdrake")) %>% 
+  pull(Package)
+
+system_packages = installed.packages() %>% 
+  as_tibble() %>% 
+  filter(LibPath %>% str_detect("local")) %>% 
+  pull(Package)
+
+to_remove = tdrake_packages[tdrake_packages %in% system_packages]
+
+remove.packages(to_remove)
+}
+```
+
 
 ## Exporting tables that work in both PDF and Word
 

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 1 Introduction | The Surgical Informatics Cookbook</title>
   <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 1 Introduction | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
@@ -24,19 +24,23 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD:docs/intro.html
 <meta name="date" content="2020-06-18" />
 =======
 <meta name="date" content="2020-05-20" />
 >>>>>>> d6c2195ad893fb00bf8e9b77e7bed7abdf9b84ca:docs/introduction.html
+=======
+<meta name="date" content="2020-07-24" />
+>>>>>>> f2239af42949a60b2e672738bc7357c2392bdc24
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="snippets.html">
+<link rel="prev" href="index.html"/>
+<link rel="next" href="snippets.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -44,6 +48,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -51,13 +56,16 @@
 
 
 
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -66,14 +74,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -82,9 +92,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -144,23 +154,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="snippets.html"><a href="snippets.html"><i class="fa fa-check"></i><b>2</b> Snippets</a><ul>
-<li class="chapter" data-level="2.1" data-path="snippets.html"><a href="snippets.html#exporting-tables-that-work-in-both-pdf-and-word"><i class="fa fa-check"></i><b>2.1</b> Exporting tables that work in both PDF and Word</a><ul>
-<li class="chapter" data-level="2.1.1" data-path="snippets.html"><a href="snippets.html#warning-in-kableextra.-please-specify-format-in-kable.-kableextra-can-customize-either-html-or-latex-outputs."><i class="fa fa-check"></i><b>2.1.1</b> Warning in kableExtra. Please specify format in kable. kableExtra can customize either HTML or LaTeX outputs.</a></li>
+<li class="chapter" data-level="2.1" data-path="snippets.html"><a href="snippets.html#useful-rstudio-functions"><i class="fa fa-check"></i><b>2.1</b> Useful RStudio functions</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="snippets.html"><a href="snippets.html#clean-restart"><i class="fa fa-check"></i><b>2.1.1</b> Clean restart</a></li>
+<li class="chapter" data-level="2.1.2" data-path="snippets.html"><a href="snippets.html#remove-duplicated-packages-between-personal-and-system-libraries"><i class="fa fa-check"></i><b>2.1.2</b> Remove duplicated packages between personal and system libraries</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker"><i class="fa fa-check"></i><b>2.2</b> Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="snippets.html"><a href="snippets.html#create-basic-reproducible-examples"><i class="fa fa-check"></i><b>2.2.1</b> Create Basic Reproducible Examples</a></li>
-<li class="chapter" data-level="2.2.2" data-path="snippets.html"><a href="snippets.html#holepunch---complex-reproducible-examples"><i class="fa fa-check"></i><b>2.2.2</b> <code>holepunch</code> - Complex Reproducible Examples</a></li>
+<li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#exporting-tables-that-work-in-both-pdf-and-word"><i class="fa fa-check"></i><b>2.2</b> Exporting tables that work in both PDF and Word</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="snippets.html"><a href="snippets.html#warning-in-kableextra.-please-specify-format-in-kable.-kableextra-can-customize-either-html-or-latex-outputs."><i class="fa fa-check"></i><b>2.2.1</b> Warning in kableExtra. Please specify format in kable. kableExtra can customize either HTML or LaTeX outputs.</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="snippets.html"><a href="snippets.html#working-with-chis"><i class="fa fa-check"></i><b>2.3</b> Working with CHIs</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="snippets.html"><a href="snippets.html#chi_dob---extract-date-of-birth-from-chi"><i class="fa fa-check"></i><b>2.3.1</b> <code>chi_dob()</code> - Extract date of birth from CHI</a></li>
-<li class="chapter" data-level="2.3.2" data-path="snippets.html"><a href="snippets.html#chi_gender---extract-gender-from-chi"><i class="fa fa-check"></i><b>2.3.2</b> <code>chi_gender()</code> - Extract gender from CHI</a></li>
-<li class="chapter" data-level="2.3.3" data-path="snippets.html"><a href="snippets.html#chi_age---extract-age-from-chi"><i class="fa fa-check"></i><b>2.3.3</b> <code>chi_age()</code> - Extract age from CHI</a></li>
-<li class="chapter" data-level="2.3.4" data-path="snippets.html"><a href="snippets.html#chi_valid---logical-test-for-valid-chi"><i class="fa fa-check"></i><b>2.3.4</b> <code>chi_valid()</code> - Logical test for valid CHI</a></li>
+<li class="chapter" data-level="2.3" data-path="snippets.html"><a href="snippets.html#creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker"><i class="fa fa-check"></i><b>2.3</b> Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="snippets.html"><a href="snippets.html#create-basic-reproducible-examples"><i class="fa fa-check"></i><b>2.3.1</b> Create Basic Reproducible Examples</a></li>
+<li class="chapter" data-level="2.3.2" data-path="snippets.html"><a href="snippets.html#holepunch---complex-reproducible-examples"><i class="fa fa-check"></i><b>2.3.2</b> <code>holepunch</code> - Complex Reproducible Examples</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.4</b> Working with dates</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.4.1</b> Difference between two dates</a></li>
-<li class="chapter" data-level="2.4.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.4.2</b> Lags</a></li>
-<li class="chapter" data-level="2.4.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.4.3</b> Pulling out “change in status” data</a></li>
+<li class="chapter" data-level="2.4" data-path="snippets.html"><a href="snippets.html#working-with-chis"><i class="fa fa-check"></i><b>2.4</b> Working with CHIs</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="snippets.html"><a href="snippets.html#chi_dob---extract-date-of-birth-from-chi"><i class="fa fa-check"></i><b>2.4.1</b> <code>chi_dob()</code> - Extract date of birth from CHI</a></li>
+<li class="chapter" data-level="2.4.2" data-path="snippets.html"><a href="snippets.html#chi_gender---extract-gender-from-chi"><i class="fa fa-check"></i><b>2.4.2</b> <code>chi_gender()</code> - Extract gender from CHI</a></li>
+<li class="chapter" data-level="2.4.3" data-path="snippets.html"><a href="snippets.html#chi_age---extract-age-from-chi"><i class="fa fa-check"></i><b>2.4.3</b> <code>chi_age()</code> - Extract age from CHI</a></li>
+<li class="chapter" data-level="2.4.4" data-path="snippets.html"><a href="snippets.html#chi_valid---logical-test-for-valid-chi"><i class="fa fa-check"></i><b>2.4.4</b> <code>chi_valid()</code> - Logical test for valid CHI</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.5</b> Working with dates</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.5.1</b> Difference between two dates</a></li>
+<li class="chapter" data-level="2.5.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.5.2</b> Lags</a></li>
+<li class="chapter" data-level="2.5.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.5.3</b> Pulling out “change in status” data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation</a><ul>
@@ -197,6 +211,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5.7" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#general-eddie-etiquette"><i class="fa fa-check"></i><b>5.5.7</b> General Eddie Etiquette</a></li>
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#unix-tutorials"><i class="fa fa-check"></i><b>5.6</b> Unix Tutorials</a></li>
+<li class="chapter" data-level="5.7" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#additional-resources"><i class="fa fa-check"></i><b>5.7</b> Additional Resources</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>6</b> Plotting</a><ul>
 <li class="chapter" data-level="6.1" data-path="plotting.html"><a href="plotting.html#gghighlight-example"><i class="fa fa-check"></i><b>6.1</b> GGHighlight Example</a></li>
@@ -312,8 +327,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="figure-and-table-references" class="section level3">
 <h3><span class="header-section-number">1.2.3</span> Figure and table references</h3>
 <p>Figures and tables with captions will be placed in <code>figure</code> and <code>table</code> environments, respectively.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">.1</span>, <span class="fl">.1</span>))</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">plot</span>(pressure, <span class="dt">type =</span> <span class="st">&#39;b&#39;</span>, <span class="dt">pch =</span> <span class="dv">19</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction.html#cb1-1"></a><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">.1</span>, <span class="fl">.1</span>))</span>
+<span id="cb1-2"><a href="introduction.html#cb1-2"></a><span class="kw">plot</span>(pressure, <span class="dt">type =</span> <span class="st">&#39;b&#39;</span>, <span class="dt">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:nice-fig"></span>
 <img src="01-intro_files/figure-html/nice-fig-1.png" alt="Here is a nice figure!" width="80%" />
 <p class="caption">
@@ -321,10 +336,10 @@ Figure 1.1: Here is a nice figure!
 </p>
 </div>
 <p>Reference a figure by its code chunk label with the <code>fig:</code> prefix, e.g., see Figure <code>\@ref(fig:nice-fig)</code>. Similarly, you can reference tables generated from <code>knitr::kable()</code>, e.g., see Table <code>\@ref(tab:nice-tab)</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">knitr<span class="op">::</span><span class="kw">kable</span>(</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="kw">head</span>(iris, <span class="dv">20</span>), <span class="dt">caption =</span> <span class="st">&#39;Here is a nice table!&#39;</span>,</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="dt">booktabs =</span> <span class="ot">TRUE</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="introduction.html#cb2-1"></a>knitr<span class="op">::</span><span class="kw">kable</span>(</span>
+<span id="cb2-2"><a href="introduction.html#cb2-2"></a>  <span class="kw">head</span>(iris, <span class="dv">20</span>), <span class="dt">caption =</span> <span class="st">&#39;Here is a nice table!&#39;</span>,</span>
+<span id="cb2-3"><a href="introduction.html#cb2-3"></a>  <span class="dt">booktabs =</span> <span class="ot">TRUE</span></span>
+<span id="cb2-4"><a href="introduction.html#cb2-4"></a>)</span></code></pre></div>
 <table>
 <caption><span id="tab:nice-tab">Table 1.1: </span>Here is a nice table!</caption>
 <thead>
@@ -482,7 +497,7 @@ Figure 1.1: Here is a nice figure!
 </div>
 <div id="citations" class="section level3">
 <h3><span class="header-section-number">1.2.4</span> Citations</h3>
-<p>You can write citations, too. For example, we are using the <strong>bookdown</strong> package <span class="citation">(Xie <a href="#ref-R-bookdown">2019</a>)</span> in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015">2015</a>)</span>.</p>
+<p>You can write citations, too. For example, we are using the <strong>bookdown</strong> package <span class="citation">(Xie <a href="#ref-R-bookdown" role="doc-biblioref">2020</a>)</span> in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015" role="doc-biblioref">2015</a>)</span>.</p>
 
 </div>
 </div>
@@ -493,7 +508,7 @@ Figure 1.1: Here is a nice figure!
 <p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
 </div>
 <div id="ref-R-bookdown">
-<p>Xie, Yihui. 2019. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
+<p>Xie, Yihui. 2020. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
 </div>
 </div>
             </section>
@@ -507,11 +522,13 @@ Figure 1.1: Here is a nice figure!
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -519,12 +536,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -536,6 +552,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
