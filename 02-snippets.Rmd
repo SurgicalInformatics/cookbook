@@ -2,6 +2,46 @@
 
 Random useful snippets that do not fit anywhere else. 
 
+## Exporting tables that work in both PDF and Word
+
+The `kable()` function from `library(knitr)` formats tables for all 3 output formats, but it is a bit limited.
+`library(kableExtra)` is great for table customisations that work in PDF and HTML.
+`kableExtra` functions do not work for Word output, but `library(flextable)` does work for Word (but not for PDF).
+
+We can define our own table printing function that uses kableExtra or flextable based on output type:
+
+```{r message=FALSE}
+# This makes table resize or continue over multiple pages in all output types
+# PDF powered by kableExtra, Word by flextable
+mytable = function(x, caption = "", longtable = FALSE, ...){
+  library(kableExtra)
+  # if not latex or html then else is Word
+  if (knitr::is_latex_output() | knitr::is_html_output()){
+    knitr::kable(x, row.names = FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r", "r"), 
+          booktabs = TRUE, caption = caption, longtable = longtable,
+          linesep = "", ...) %>%
+    kableExtra::kable_styling(latex_options = c("scale_down", "hold_position"))
+  }else{
+    flextable::flextable(x) %>% 
+      flextable::autofit() %>% 
+      flextable::width(j = 1, width = 1.5) %>% 
+      flextable::height(i = 1, height = 0.5, part = "header")
+  }
+  
+}
+library(dplyr)
+cars %>% 
+  head() %>% 
+  mytable()
+```
+
+### Warning in kableExtra. Please specify format in kable. kableExtra can customize either HTML or LaTeX outputs.
+
+This warning goes away when you load `library(kableExtra)` in your script, instead of just using `kableExtra::function()`.
+
+What happens when you load `library(kableExtra)` is that it sets that specifies the format for the R session, so that Warning goes away. It does mean that the `render()` function may fail since it knits in the same environment you have, rather than a new one like the Knit button does.
+
+
 
 ## Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)
 

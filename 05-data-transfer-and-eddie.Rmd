@@ -26,12 +26,12 @@ First, if you don't have a command line editor or SSH client installed (often th
 1. Download the PuTTY terminal software: https://www.putty.org/.
 
 
-Open up PuTTY and you will see a configuration screen. On this screen make sure to enter `eddie3.ecdf.ed.ac.uk` into the box and tick SSH as your method for connection. The PuTTY terminal will launch (assuming you are connected to the University VPN already) and ask `login as` at which point you should enter your EASE username. You will then be asked for your EASE password and you should now see that you are logged into Eddie3. 
+Open up PuTTY and you will see a configuration screen. On this screen make sure to enter `eddie.ecdf.ed.ac.uk` into the box and tick SSH as your method for connection. The PuTTY terminal will launch (assuming you are connected to the University VPN already) and ask `login as` at which point you should enter your EASE username. You will then be asked for your EASE password and you should now see that you are logged into Eddie. 
 
 
 If you are logging in from RStudio Server or another terminal software you should enter on the command line: 
 ```{sh, eval = FALSE}
-ssh <UUN>@eddie3.ecdf.ed.ac.uk
+ssh <UUN>@eddie.ecdf.ed.ac.uk
 ```
 
 <UUN> is your university username for EASE. You will then be asked for your password.
@@ -108,10 +108,10 @@ To use the RStudio server terminal to copy data in and out of Eddie do not SSH i
 
 In the terminal enter the following command to copy a single file from Eddie into RStudio server from a project subdirectory in the SurgInfGrp directory:
 ```{sh, eval = FALSE}
-scp <UUN>@eddie3.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/<project_subdirectory>/my_file.txt /home/<RStudio_Server_Username>/<RStudio_Project>/
+scp <UUN>@eddie.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/<project_subdirectory>/my_file.txt /home/<RStudio_Server_Username>/<RStudio_Project>/
 
 # Or adapt to copy entire directory contents (drop the * to copy the directory/folder as well as the contents)
-scp -r <UUN>@eddie3.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/<project_subdirectory>/* /home/<RStudio_Server_Username>/<RStudio_Project>/
+scp -r <UUN>@eddie.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/<project_subdirectory>/* /home/<RStudio_Server_Username>/<RStudio_Project>/
 ```
 
 On entering the command to the terminal you will be asked to enter your EASE password (type this slowly if using RStudio Server Pro prior to web sockets issue being fixed). In order to move data in the other direction simply change the order of the file paths.
@@ -145,7 +145,7 @@ It is possible to log in to Eddie from RStudio server and use Shell Scripts stor
 
 To connect initially enter:
 ```{sh, eval = FALSE}
-ssh <UUN>@eddie3.ecdf.ed.ac.uk
+ssh <UUN>@eddie.ecdf.ed.ac.uk
 ```
 
 You will then be asked for your password which has to be typed (currently slowly and carefully!) into the terminal. Afterwards you can send any commands from a script using `ctrl-alt-enter`. This will not work with `Rmd` or `notebooks`.

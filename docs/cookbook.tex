@@ -106,12 +106,30 @@
 \makeatother
 
 \usepackage{booktabs}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 \usepackage[]{natbib}
 \bibliographystyle{apalike}
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
+<<<<<<< HEAD
 \date{2020-06-18}
+=======
+\date{2020-05-20}
+>>>>>>> d6c2195ad893fb00bf8e9b77e7bed7abdf9b84ca
 
 \begin{document}
 \maketitle
@@ -124,10 +142,10 @@
 \chapter*{}\label{section}}
 \addcontentsline{toc}{chapter}{}
 
-\includegraphics[width=30.97in]{/home/eharrison/cookbook/img/surgical_informatics_minibanner}
+\includegraphics[width=30.97in]{/home/common/users/cfairfield/cookbook/img/surgical_informatics_minibanner}
 
-\hypertarget{intro}{%
-\chapter{Introduction}\label{intro}}
+\hypertarget{introduction}{%
+\chapter{Introduction}\label{introduction}}
 
 \hypertarget{how-to-contribute}{%
 \section{How to contribute}\label{how-to-contribute}}
@@ -194,7 +212,7 @@ Figures and tables with captions will be placed in \texttt{figure} and \texttt{t
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{cookbook_files/figure-latex/nice-fig-1} 
+{\centering \includegraphics[width=0.8\linewidth]{01-intro_files/figure-latex/nice-fig-1} 
 
 }
 
@@ -256,6 +274,68 @@ You can write citations, too. For example, we are using the \textbf{bookdown} pa
 \chapter{Snippets}\label{snippets}}
 
 Random useful snippets that do not fit anywhere else.
+
+\hypertarget{exporting-tables-that-work-in-both-pdf-and-word}{%
+\section{Exporting tables that work in both PDF and Word}\label{exporting-tables-that-work-in-both-pdf-and-word}}
+
+The \texttt{kable()} function from \texttt{library(knitr)} formats tables for all 3 output formats, but it is a bit limited.
+\texttt{library(kableExtra)} is great for table customisations that work in PDF and HTML.
+\texttt{kableExtra} functions do not work for Word output, but \texttt{library(flextable)} does work for Word (but not for PDF).
+
+We can define our own table printing function that uses kableExtra or flextable based on output type:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# This makes table resize or continue over multiple pages in all output types}
+\CommentTok{# PDF powered by kableExtra, Word by flextable}
+\NormalTok{mytable =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, }\DataTypeTok{caption =} \StringTok{""}\NormalTok{, }\DataTypeTok{longtable =} \OtherTok{FALSE}\NormalTok{, ...)\{}
+  \KeywordTok{library}\NormalTok{(kableExtra)}
+  \CommentTok{# if not latex or html then else is Word}
+  \ControlFlowTok{if}\NormalTok{ (knitr}\OperatorTok{::}\KeywordTok{is_latex_output}\NormalTok{() }\OperatorTok{|}\StringTok{ }\NormalTok{knitr}\OperatorTok{::}\KeywordTok{is_html_output}\NormalTok{())\{}
+\NormalTok{    knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(x, }\DataTypeTok{row.names =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{align =} \KeywordTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"l"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{), }
+          \DataTypeTok{booktabs =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{caption =}\NormalTok{ caption, }\DataTypeTok{longtable =}\NormalTok{ longtable,}
+          \DataTypeTok{linesep =} \StringTok{""}\NormalTok{, ...) }\OperatorTok{%>%}
+\StringTok{    }\NormalTok{kableExtra}\OperatorTok{::}\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \KeywordTok{c}\NormalTok{(}\StringTok{"scale_down"}\NormalTok{, }\StringTok{"hold_position"}\NormalTok{))}
+\NormalTok{  \}}\ControlFlowTok{else}\NormalTok{\{}
+\NormalTok{    flextable}\OperatorTok{::}\KeywordTok{flextable}\NormalTok{(x) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\NormalTok{flextable}\OperatorTok{::}\KeywordTok{autofit}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\NormalTok{flextable}\OperatorTok{::}\KeywordTok{width}\NormalTok{(}\DataTypeTok{j =} \DecValTok{1}\NormalTok{, }\DataTypeTok{width =} \FloatTok{1.5}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\NormalTok{flextable}\OperatorTok{::}\KeywordTok{height}\NormalTok{(}\DataTypeTok{i =} \DecValTok{1}\NormalTok{, }\DataTypeTok{height =} \FloatTok{0.5}\NormalTok{, }\DataTypeTok{part =} \StringTok{"header"}\NormalTok{)}
+\NormalTok{  \}}
+  
+\NormalTok{\}}
+\KeywordTok{library}\NormalTok{(dplyr)}
+\NormalTok{cars }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{head}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mytable}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[!h]
+
+\caption{\label{tab:unnamed-chunk-1}}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{ll}
+\toprule
+speed & dist\\
+\midrule
+4 & 2\\
+4 & 10\\
+7 & 4\\
+7 & 22\\
+8 & 16\\
+9 & 10\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\hypertarget{warning-in-kableextra.-please-specify-format-in-kable.-kableextra-can-customize-either-html-or-latex-outputs.}{%
+\subsection{Warning in kableExtra. Please specify format in kable. kableExtra can customize either HTML or LaTeX outputs.}\label{warning-in-kableextra.-please-specify-format-in-kable.-kableextra-can-customize-either-html-or-latex-outputs.}}
+
+This warning goes away when you load \texttt{library(kableExtra)} in your script, instead of just using \texttt{kableExtra::function()}.
+
+What happens when you load \texttt{library(kableExtra)} is that it sets that specifies the format for the R session, so that Warning goes away. It does mean that the \texttt{render()} function may fail since it knits in the same environment you have, rather than a new one like the Knit button does.
 
 \hypertarget{creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker}{%
 \section{Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)}\label{creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker}}
@@ -780,7 +860,7 @@ If you have a number of episodes per patient, each with a status and a time, the
 \hypertarget{collapse-multiple-no-and-yes-options}{%
 \section{Collapse multiple ``no'' and ``yes'' options}\label{collapse-multiple-no-and-yes-options}}
 
-Common to have to do this in globalsurg projects
+Common to have to do this in GlobalSurg projects:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -843,6 +923,182 @@ Common to have to do this in globalsurg projects
 
 \begin{verbatim}
 ## [1] "No"      "Unknown" "Yes"
+\end{verbatim}
+
+\hypertarget{filter-na-dropping-rows-where-all-specified-variables-are-na}{%
+\section{Filter NA: Dropping rows where all specified variables are NA}\label{filter-na-dropping-rows-where-all-specified-variables-are-na}}
+
+I want to keep rows that have a value for \texttt{important\_a} and/or \texttt{important\_b} (so rows 1, 3, 4).
+I don't care whether \texttt{whatever\_c} is empty or not, but I do want to keep it.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+
+\NormalTok{mydata  =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{important_a =} \KeywordTok{c}\NormalTok{(}\StringTok{"Value"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\StringTok{"Value"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{),}
+                 \DataTypeTok{important_b =} \KeywordTok{c}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\StringTok{"Value"}\NormalTok{, }\StringTok{"Value"}\NormalTok{, }\OtherTok{NA}\NormalTok{),}
+                 \DataTypeTok{whatever_c  =} \KeywordTok{c}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\StringTok{"Value"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{))}
+
+\NormalTok{mydata}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 3
+##   important_a important_b whatever_c
+##   <chr>       <chr>       <chr>     
+## 1 Value       <NA>        <NA>      
+## 2 <NA>        <NA>        Value     
+## 3 Value       Value       <NA>      
+## 4 <NA>        Value       <NA>      
+## 5 <NA>        <NA>        <NA>
+\end{verbatim}
+
+Functions for missing values that are very useful, but don't do what I want are:
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\tightlist
+\item
+  This keeps complete cases based on all columns:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{drop_na}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 0 x 3
+## # ... with 3 variables: important_a <chr>, important_b <chr>, whatever_c <chr>
+\end{verbatim}
+
+(Returns 0 as we don't have rows where all 3 columns have a value).
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  This keeps complete cases based on specified columns:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{drop_na}\NormalTok{(important_a, important_b)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 3
+##   important_a important_b whatever_c
+##   <chr>       <chr>       <chr>     
+## 1 Value       Value       <NA>
+\end{verbatim}
+
+This only keeps the row where both a and b have a value.
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  This keeps rows that have a value in any column:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter_all}\NormalTok{(}\KeywordTok{any_vars}\NormalTok{(}\OperatorTok{!}\StringTok{ }\KeywordTok{is.na}\NormalTok{(.)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 3
+##   important_a important_b whatever_c
+##   <chr>       <chr>       <chr>     
+## 1 Value       <NA>        <NA>      
+## 2 <NA>        <NA>        Value     
+## 3 Value       Value       <NA>      
+## 4 <NA>        Value       <NA>
+\end{verbatim}
+
+The third example is better achieved using the janitor package:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{janitor}\OperatorTok{::}\KeywordTok{remove_empty}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 3
+##   important_a important_b whatever_c
+##   <chr>       <chr>       <chr>     
+## 1 Value       <NA>        <NA>      
+## 2 <NA>        <NA>        Value     
+## 3 Value       Value       <NA>      
+## 4 <NA>        Value       <NA>
+\end{verbatim}
+
+Now, (3) is pretty close, but still, I'm not interested in row 2 - where both a and b are empty but c has a value (which is why it's kept).
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Simple solution
+\end{enumerate}
+
+A quick solution is to use \texttt{!\ is.na()} for each variable inside a \texttt{filter()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\StringTok{ }\KeywordTok{is.na}\NormalTok{(important_a) }\OperatorTok{|}\StringTok{ }\OperatorTok{!}\StringTok{ }\KeywordTok{is.na}\NormalTok{(important_b))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 3
+##   important_a important_b whatever_c
+##   <chr>       <chr>       <chr>     
+## 1 Value       <NA>        <NA>      
+## 2 Value       Value       <NA>      
+## 3 <NA>        Value       <NA>
+\end{verbatim}
+
+And this is definitely what I do when I only have a couple of these variables. But if you have tens, then the filtering logic becomes horrendously long and it's easy to miss one out/make a mistake.
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Powerful solution:
+\end{enumerate}
+
+A scalable solution is to use \texttt{filter\_at()} with \texttt{vars()} with a select helper (e.g., \texttt{starts\ with()}), and then the \texttt{any\_vars(!\ is.na(.))} that was introduced in (3).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter_at}\NormalTok{(}\KeywordTok{vars}\NormalTok{(}\KeywordTok{starts_with}\NormalTok{(}\StringTok{"important_"}\NormalTok{)), }\KeywordTok{any_vars}\NormalTok{(}\OperatorTok{!}\StringTok{ }\KeywordTok{is.na}\NormalTok{(.)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 3
+##   important_a important_b whatever_c
+##   <chr>       <chr>       <chr>     
+## 1 Value       <NA>        <NA>      
+## 2 Value       Value       <NA>      
+## 3 <NA>        Value       <NA>
 \end{verbatim}
 
 \hypertarget{machine-learning}{%
@@ -968,13 +1224,13 @@ First, if you don't have a command line editor or SSH client installed (often th
   Download the PuTTY terminal software: \url{https://www.putty.org/}.
 \end{enumerate}
 
-Open up PuTTY and you will see a configuration screen. On this screen make sure to enter \texttt{eddie3.ecdf.ed.ac.uk} into the box and tick SSH as your method for connection. The PuTTY terminal will launch (assuming you are connected to the University VPN already) and ask \texttt{login\ as} at which point you should enter your EASE username. You will then be asked for your EASE password and you should now see that you are logged into Eddie3.
+Open up PuTTY and you will see a configuration screen. On this screen make sure to enter \texttt{eddie.ecdf.ed.ac.uk} into the box and tick SSH as your method for connection. The PuTTY terminal will launch (assuming you are connected to the University VPN already) and ask \texttt{login\ as} at which point you should enter your EASE username. You will then be asked for your EASE password and you should now see that you are logged into Eddie.
 
 If you are logging in from RStudio Server or another terminal software you should enter on the command line:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ssh} \OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie3.ecdf.ed.ac.uk}
+\FunctionTok{ssh} \OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie.ecdf.ed.ac.uk}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1076,10 +1332,10 @@ In the terminal enter the following command to copy a single file from Eddie int
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{scp} \OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie3.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/}\OperatorTok{<}\NormalTok{project_subdirectory}\OperatorTok{>}\NormalTok{/my_file.txt /home/}\OperatorTok{<}\NormalTok{RStudio_Server_Username}\OperatorTok{>}\NormalTok{/}\OperatorTok{<}\NormalTok{RStudio_Project}\OperatorTok{>}\NormalTok{/}
+\FunctionTok{scp} \OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/}\OperatorTok{<}\NormalTok{project_subdirectory}\OperatorTok{>}\NormalTok{/my_file.txt /home/}\OperatorTok{<}\NormalTok{RStudio_Server_Username}\OperatorTok{>}\NormalTok{/}\OperatorTok{<}\NormalTok{RStudio_Project}\OperatorTok{>}\NormalTok{/}
 
 \CommentTok{# Or adapt to copy entire directory contents (drop the * to copy the directory/folder as well as the contents)}
-\FunctionTok{scp}\NormalTok{ -r }\OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie3.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/}\OperatorTok{<}\NormalTok{project_subdirectory}\OperatorTok{>}\NormalTok{/* /home/}\OperatorTok{<}\NormalTok{RStudio_Server_Username}\OperatorTok{>}\NormalTok{/}\OperatorTok{<}\NormalTok{RStudio_Project}\OperatorTok{>}\NormalTok{/}
+\FunctionTok{scp}\NormalTok{ -r }\OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/}\OperatorTok{<}\NormalTok{project_subdirectory}\OperatorTok{>}\NormalTok{/* /home/}\OperatorTok{<}\NormalTok{RStudio_Server_Username}\OperatorTok{>}\NormalTok{/}\OperatorTok{<}\NormalTok{RStudio_Project}\OperatorTok{>}\NormalTok{/}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1127,7 +1383,7 @@ To connect initially enter:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ssh} \OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie3.ecdf.ed.ac.uk}
+\FunctionTok{ssh} \OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie.ecdf.ed.ac.uk}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1389,7 +1645,7 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{cookbook_files/figure-latex/gghighlight-1.pdf}
+\includegraphics{06-plotting_files/figure-latex/gghighlight-1.pdf}
 
 \hypertarget{coord_flip-factor-orders}{%
 \section{\texorpdfstring{\texttt{coord\_flip()} factor orders}{coord\_flip() factor orders}}\label{coord_flip-factor-orders}}
@@ -1406,7 +1662,7 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{cookbook_files/figure-latex/unnamed-chunk-37-1.pdf}
+\includegraphics{06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1420,7 +1676,7 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{cookbook_files/figure-latex/unnamed-chunk-37-2.pdf}
+\includegraphics{06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1438,7 +1694,7 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{cookbook_files/figure-latex/unnamed-chunk-37-3.pdf}
+\includegraphics{06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf}
 
 \hypertarget{axis-font-size}{%
 \section{Axis font size}\label{axis-font-size}}
@@ -1467,7 +1723,7 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{cookbook_files/figure-latex/unnamed-chunk-38-1.pdf}
+\includegraphics{06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1485,8 +1741,8 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 
 Same plot 5x4 inches vs 10x8 inches:
 
-\includegraphics[width=0.5\linewidth]{/home/eharrison/cookbook/img/barplot_5x4}
-\includegraphics[width=0.5\linewidth]{/home/eharrison/cookbook/img/barplot_10x8}
+\includegraphics[width=0.5\linewidth]{/home/common/users/cfairfield/cookbook/img/barplot_5x4}
+\includegraphics[width=0.5\linewidth]{/home/common/users/cfairfield/cookbook/img/barplot_10x8}
 
 \hypertarget{genomics}{%
 \chapter{Genomics}\label{genomics}}
