@@ -127,15 +127,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-<<<<<<< HEAD
-<<<<<<< HEAD
-\date{2020-06-18}
-=======
-\date{2020-05-20}
->>>>>>> d6c2195ad893fb00bf8e9b77e7bed7abdf9b84ca
-=======
-\date{2020-07-24}
->>>>>>> f2239af42949a60b2e672738bc7357c2392bdc24
+\date{2020-10-17}
 
 \begin{document}
 \maketitle
@@ -148,7 +140,7 @@
 \chapter*{}\label{section}}
 \addcontentsline{toc}{chapter}{}
 
-\includegraphics[width=30.97in]{/home/common/users/cfairfield/cookbook/img/surgical_informatics_minibanner}
+\includegraphics[width=30.97in]{/home/eharrison/cookbook/img/surgical_informatics_minibanner}
 
 \hypertarget{introduction}{%
 \chapter{Introduction}\label{introduction}}
@@ -354,6 +346,16 @@ We can define our own table printing function that uses kableExtra or flextable 
   
 \NormalTok{\}}
 \KeywordTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: replacing previous import 'vctrs::data_frame' by 'tibble::data_frame'
+## when loading 'dplyr'
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{cars }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{head}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{mytable}\NormalTok{()}
@@ -577,7 +579,7 @@ Works for a single date or a vector of dates.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 49 76 71
+## [1] 50 76 71
 \end{verbatim}
 
 \begin{Shaded}
@@ -622,7 +624,7 @@ Works for a single date or a vector of dates.
 ## # A tibble: 3 x 4
 ##   chi        dob        gender   age
 ##   <chr>      <date>     <chr>  <dbl>
-## 1 1009701234 1970-09-10 Male      49
+## 1 1009701234 1970-09-10 Male      50
 ## 2 1811431232 1943-11-18 Male      76
 ## 3 1304496368 1949-04-13 Female    71
 \end{verbatim}
@@ -673,7 +675,7 @@ The final digit of the CHI can be used to test that the number is correct via th
 ## # A tibble: 3 x 5
 ##   chi        dob        gender   age chi_valid
 ##   <chr>      <date>     <chr>  <dbl> <lgl>    
-## 1 1009701234 1970-09-10 Male      49 FALSE    
+## 1 1009701234 1970-09-10 Male      50 FALSE    
 ## 2 1811431232 1943-11-18 Male      76 TRUE     
 ## 3 1304496368 1949-04-13 Female    71 TRUE
 \end{verbatim}
@@ -916,6 +918,16 @@ Common to have to do this in GlobalSurg projects:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: replacing previous import 'vctrs::data_frame' by 'tibble::data_frame'
+## when loading 'dplyr'
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{mydata =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}
   \DataTypeTok{ssi.factor =} \KeywordTok{c}\NormalTok{(}\StringTok{"No"}\NormalTok{, }\StringTok{"Yes, no treatment/wound opened only (CD 1)"}\NormalTok{,    }
                  \StringTok{"Yes, antibiotics only (CD 2)"}\NormalTok{, }\StringTok{"Yes, return to operating theatre (CD 3)"}\NormalTok{, }
@@ -1805,8 +1817,8 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 
 Same plot 5x4 inches vs 10x8 inches:
 
-\includegraphics[width=0.5\linewidth]{/home/common/users/cfairfield/cookbook/img/barplot_5x4}
-\includegraphics[width=0.5\linewidth]{/home/common/users/cfairfield/cookbook/img/barplot_10x8}
+\includegraphics[width=0.5\linewidth]{/home/eharrison/cookbook/img/barplot_5x4}
+\includegraphics[width=0.5\linewidth]{/home/eharrison/cookbook/img/barplot_10x8}
 
 \hypertarget{genomics}{%
 \chapter{Genomics}\label{genomics}}
@@ -1919,6 +1931,43 @@ We'll use an example where we want to summarise by different outcomes in a dynam
 \hypertarget{server-admin}{%
 \chapter{Server admin}\label{server-admin}}
 
+\hypertarget{rstudio-argonaut-and-argosafe}{%
+\section{RStudio (argonaut and argosafe)}\label{rstudio-argonaut-and-argosafe}}
+
+\hypertarget{scheduled-script-cron}{%
+\subsection{Scheduled script (CRON)}\label{scheduled-script-cron}}
+
+Most scheduling is best done using RStudio Connect (argoshare), see below.
+For certain applications, it may be desirable to do this on argonaut or argosafe.
+For instance, if a scheduled job is required to be done in a trusted research environment.
+
+This can be done by adding a cron job.
+
+The following will execute the \texttt{R} script at 7AM everyday. A log file is written within the project.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{crontab}\NormalTok{ -e}
+
+\CommentTok{# Add line (using e.g. nano editor)}
+\ExtensionTok{00}\NormalTok{ 07 * * * Rscript /home/user/project/script.R }\OperatorTok{&>>}\NormalTok{ /home/user/project/cron.log}
+\end{Highlighting}
+\end{Shaded}
+
+The cronjob does not load the user envirionment.
+If you are using environment variables in R, e.g.~API tokens, then these can be loaded within the R script.
+Include this at the top of your script.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Log}
+\KeywordTok{print}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"Start:"}\NormalTok{, }\KeywordTok{Sys.time}\NormalTok{()))}
+
+\CommentTok{# Environment variables}
+\KeywordTok{readRenviron}\NormalTok{(}\StringTok{"/home/user/.Renviron"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{rstudio-connect-argoshare}{%
 \section{RStudio Connect: argoshare}\label{rstudio-connect-argoshare}}
 
@@ -1960,7 +2009,7 @@ This guide assumes you're already on the University of Edinburgh local network. 
 \item
   Click on key pairs and create an SSH keypair, for securely logging on to the new instance.
 \item
-  Save the private key to a secure place on your computer (\textasciitilde{}/.ssh is the usual spot for these things). Change the files permissions to make it secure. Eleanor will not let you SSH without this step. In a local terminal, type:
+  Save the private key to a secure place on your computer (\textasciitilde/.ssh is the usual spot for these things). Change the files permissions to make it secure. Eleanor will not let you SSH without this step. In a local terminal, type:
 \end{itemize}
 
 \begin{Shaded}

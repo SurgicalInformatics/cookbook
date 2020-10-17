@@ -6,6 +6,39 @@ knitr::opts_chunk$set(
 )
 ```
 
+
+## RStudio (argonaut and argosafe)
+
+### Scheduled script (CRON)
+
+Most scheduling is best done using RStudio Connect (argoshare), see below. 
+For certain applications, it may be desirable to do this on argonaut or argosafe. 
+For instance, if a scheduled job is required to be done in a trusted research environment. 
+
+This can be done by adding a cron job.
+
+The following will execute the `R` script at 7AM everyday. A log file is written within the project. 
+
+```{bash eval=FALSE, include=TRUE}
+crontab -e
+
+# Add line (using e.g. nano editor)
+00 07 * * * Rscript /home/user/project/script.R &>> /home/user/project/cron.log
+```
+
+The cronjob does not load the user environment. 
+If you are using environment variables in R, e.g. API tokens, then these can be loaded within the R script. 
+Include this at the top of your script. 
+
+```{r eval=FALSE, include=TRUE}
+# Log
+print(paste("Start:", Sys.time()))
+
+# Environment variables
+readRenviron("/home/user/.Renviron")
+```
+
+
 ## RStudio Connect: argoshare
 
 ### Delete user
