@@ -371,3 +371,20 @@ The following resource covers some of the commands needed for the Univa Grid Eng
 
 https://angus.readthedocs.io/en/2019/Intro_to_Cluster.html#
 
+## Using RStudio directly in Eddie
+
+Eddie is not meant for GUIs, but the good people at IGMM have installed RStudio installed on Eddie. It is terribly slow, but better than nothing and can be useful when you need to have a quick look and are really tired of doing command line R.
+
+Make sure you have X11 forwarding installed/enabled. On a Windows computer use MobaXterm. In macOS, install XQuarts, but then use the Terminal as usual.
+
+```
+ssh -Y username@eddie.ecdf.ed.ac.uk
+qlogin -l h_vmem=8G
+module load igmm/apps/RStudio/1.1.383
+module load igmm/apps/R/3.6.3
+rstudio
+```
+
+Of the qlogin line requesting an interactive session times out then try `qlogin -l h_vmem=4G` instead. 2GB is the absolute minimum that will work.
+
+Use `module avail` to check what the latest installed RStudio and R versions are.

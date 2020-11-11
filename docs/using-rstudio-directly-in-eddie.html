@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | The Surgical Informatics Cookbook</title>
+  <title>Chapter 6 Using RStudio directly in Eddie | The Surgical Informatics Cookbook</title>
   <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
   <meta name="generator" content="bookdown 0.20.2 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | The Surgical Informatics Cookbook" />
+  <meta property="og:title" content="Chapter 6 Using RStudio directly in Eddie | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | The Surgical Informatics Cookbook" />
+  <meta name="twitter:title" content="Chapter 6 Using RStudio directly in Eddie | The Surgical Informatics Cookbook" />
   
   <meta name="twitter:description" content="All the brilliant bits of code we don’t want to forget." />
   
@@ -24,15 +24,15 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2020-11-11" />
+<meta name="date" content="2020-07-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="citations-with-r-markdown.html"/>
-
+<link rel="prev" href="data-transfer-and-eddie.html"/>
+<link rel="next" href="plotting.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,7 +51,6 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -204,64 +203,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#unix-tutorials"><i class="fa fa-check"></i><b>5.6</b> Unix Tutorials</a></li>
 <li class="chapter" data-level="5.7" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#additional-resources"><i class="fa fa-check"></i><b>5.7</b> Additional Resources</a></li>
-<li class="chapter" data-level="5.8" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#using-rstudio-directly-in-eddie"><i class="fa fa-check"></i><b>5.8</b> Using RStudio directly in Eddie</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>6</b> Plotting</a><ul>
-<li class="chapter" data-level="6.1" data-path="plotting.html"><a href="plotting.html#gghighlight-example"><i class="fa fa-check"></i><b>6.1</b> GGHighlight Example</a></li>
-<li class="chapter" data-level="6.2" data-path="plotting.html"><a href="plotting.html#coord_flip-factor-orders"><i class="fa fa-check"></i><b>6.2</b> <code>coord_flip()</code> factor orders</a></li>
-<li class="chapter" data-level="6.3" data-path="plotting.html"><a href="plotting.html#axis-font-size"><i class="fa fa-check"></i><b>6.3</b> Axis font size</a></li>
+<li class="chapter" data-level="6" data-path="using-rstudio-directly-in-eddie.html"><a href="using-rstudio-directly-in-eddie.html"><i class="fa fa-check"></i><b>6</b> Using RStudio directly in Eddie</a></li>
+<li class="chapter" data-level="7" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>7</b> Plotting</a><ul>
+<li class="chapter" data-level="7.1" data-path="plotting.html"><a href="plotting.html#gghighlight-example"><i class="fa fa-check"></i><b>7.1</b> GGHighlight Example</a></li>
+<li class="chapter" data-level="7.2" data-path="plotting.html"><a href="plotting.html#coord_flip-factor-orders"><i class="fa fa-check"></i><b>7.2</b> <code>coord_flip()</code> factor orders</a></li>
+<li class="chapter" data-level="7.3" data-path="plotting.html"><a href="plotting.html#axis-font-size"><i class="fa fa-check"></i><b>7.3</b> Axis font size</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="genomics.html"><a href="genomics.html"><i class="fa fa-check"></i><b>7</b> Genomics</a><ul>
-<li class="chapter" data-level="7.1" data-path="genomics.html"><a href="genomics.html#single-cell-analysis"><i class="fa fa-check"></i><b>7.1</b> Single Cell Analysis</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="genomics.html"><a href="genomics.html#minimising-the-size-of-a-seurat-object"><i class="fa fa-check"></i><b>7.1.1</b> Minimising the size of a Seurat Object</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html"><i class="fa fa-check"></i><b>8</b> Programming in rlang</a><ul>
-<li class="chapter" data-level="8.1" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html#rlang"><i class="fa fa-check"></i><b>8.1</b> rlang</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html#what-is-rlang"><i class="fa fa-check"></i><b>8.1.1</b> What is rlang?</a></li>
-<li class="chapter" data-level="8.1.2" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html#dynamic-calling-of-variables-using-dplyr"><i class="fa fa-check"></i><b>8.1.2</b> Dynamic calling of variables using dplyr</a></li>
+<li class="chapter" data-level="8" data-path="genomics.html"><a href="genomics.html"><i class="fa fa-check"></i><b>8</b> Genomics</a><ul>
+<li class="chapter" data-level="8.1" data-path="genomics.html"><a href="genomics.html#single-cell-analysis"><i class="fa fa-check"></i><b>8.1</b> Single Cell Analysis</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="genomics.html"><a href="genomics.html#minimising-the-size-of-a-seurat-object"><i class="fa fa-check"></i><b>8.1.1</b> Minimising the size of a Seurat Object</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="server-admin.html"><a href="server-admin.html"><i class="fa fa-check"></i><b>9</b> Server admin</a><ul>
-<li class="chapter" data-level="9.1" data-path="server-admin.html"><a href="server-admin.html#rstudio-argonaut-and-argosafe"><i class="fa fa-check"></i><b>9.1</b> RStudio (argonaut and argosafe)</a><ul>
-<li class="chapter" data-level="9.1.1" data-path="server-admin.html"><a href="server-admin.html#scheduled-script-cron"><i class="fa fa-check"></i><b>9.1.1</b> Scheduled script (CRON)</a></li>
-</ul></li>
-<li class="chapter" data-level="9.2" data-path="server-admin.html"><a href="server-admin.html#rstudio-connect-argoshare"><i class="fa fa-check"></i><b>9.2</b> RStudio Connect: argoshare</a><ul>
-<li class="chapter" data-level="9.2.1" data-path="server-admin.html"><a href="server-admin.html#delete-user"><i class="fa fa-check"></i><b>9.2.1</b> Delete user</a></li>
-</ul></li>
-<li class="chapter" data-level="9.3" data-path="server-admin.html"><a href="server-admin.html#shiny-server-setup---uoe"><i class="fa fa-check"></i><b>9.3</b> Shiny server setup - UoE</a><ul>
-<li class="chapter" data-level="9.3.1" data-path="server-admin.html"><a href="server-admin.html#setting-up-ubuntu-instance"><i class="fa fa-check"></i><b>9.3.1</b> Setting up Ubuntu Instance</a></li>
-<li class="chapter" data-level="9.3.2" data-path="server-admin.html"><a href="server-admin.html#install-nginx"><i class="fa fa-check"></i><b>9.3.2</b> Install Nginx</a></li>
-<li class="chapter" data-level="9.3.3" data-path="server-admin.html"><a href="server-admin.html#installing-r"><i class="fa fa-check"></i><b>9.3.3</b> Installing R</a></li>
-<li class="chapter" data-level="9.3.4" data-path="server-admin.html"><a href="server-admin.html#installing-shiny-server"><i class="fa fa-check"></i><b>9.3.4</b> Installing Shiny Server</a></li>
-<li class="chapter" data-level="9.3.5" data-path="server-admin.html"><a href="server-admin.html#installing-other-linux-packages"><i class="fa fa-check"></i><b>9.3.5</b> Installing other Linux packages</a></li>
-<li class="chapter" data-level="9.3.6" data-path="server-admin.html"><a href="server-admin.html#installing-r-packages"><i class="fa fa-check"></i><b>9.3.6</b> Installing R packages</a></li>
-<li class="chapter" data-level="9.3.7" data-path="server-admin.html"><a href="server-admin.html#loading-your-app"><i class="fa fa-check"></i><b>9.3.7</b> Loading your app</a></li>
-<li class="chapter" data-level="9.3.8" data-path="server-admin.html"><a href="server-admin.html#make-your-app-the-default-index-page"><i class="fa fa-check"></i><b>9.3.8</b> Make your app the default index page</a></li>
-<li class="chapter" data-level="9.3.9" data-path="server-admin.html"><a href="server-admin.html#getting-a-user-friendly-domain-name"><i class="fa fa-check"></i><b>9.3.9</b> Getting a user-friendly domain name</a></li>
-<li class="chapter" data-level="9.3.10" data-path="server-admin.html"><a href="server-admin.html#appendix-1-password-protecting-your-site"><i class="fa fa-check"></i><b>9.3.10</b> Appendix 1 – Password protecting your site</a></li>
-<li class="chapter" data-level="9.3.11" data-path="server-admin.html"><a href="server-admin.html#appendix-2-setting-up-a-swap-file"><i class="fa fa-check"></i><b>9.3.11</b> APPENDIX 2 – Setting up a swap file</a></li>
+<li class="chapter" data-level="9" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html"><i class="fa fa-check"></i><b>9</b> Programming in rlang</a><ul>
+<li class="chapter" data-level="9.1" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html#rlang"><i class="fa fa-check"></i><b>9.1</b> rlang</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html#what-is-rlang"><i class="fa fa-check"></i><b>9.1.1</b> What is rlang?</a></li>
+<li class="chapter" data-level="9.1.2" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html#dynamic-calling-of-variables-using-dplyr"><i class="fa fa-check"></i><b>9.1.2</b> Dynamic calling of variables using dplyr</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html"><i class="fa fa-check"></i><b>10</b> Citations with R Markdown</a><ul>
-<li class="chapter" data-level="10.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#zotero-set-up"><i class="fa fa-check"></i><b>10.1</b> Zotero Set-up</a></li>
-<li class="chapter" data-level="10.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#file-storage-set-up"><i class="fa fa-check"></i><b>10.2</b> File Storage Set-up</a></li>
-<li class="chapter" data-level="10.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#folder-set-up"><i class="fa fa-check"></i><b>10.3</b> Folder Set-up</a><ul>
-<li class="chapter" data-level="10.3.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#storing-pdfs"><i class="fa fa-check"></i><b>10.3.1</b> Storing PDFs</a></li>
-<li class="chapter" data-level="10.3.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#storing-bibliographies"><i class="fa fa-check"></i><b>10.3.2</b> Storing Bibliographies</a></li>
-<li class="chapter" data-level="10.3.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#subfolder-for-references"><i class="fa fa-check"></i><b>10.3.3</b> Subfolder for References</a></li>
+<li class="chapter" data-level="10" data-path="server-admin.html"><a href="server-admin.html"><i class="fa fa-check"></i><b>10</b> Server admin</a><ul>
+<li class="chapter" data-level="10.1" data-path="server-admin.html"><a href="server-admin.html#rstudio-connect-argoshare"><i class="fa fa-check"></i><b>10.1</b> RStudio Connect: argoshare</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="server-admin.html"><a href="server-admin.html#delete-user"><i class="fa fa-check"></i><b>10.1.1</b> Delete user</a></li>
 </ul></li>
-<li class="chapter" data-level="10.4" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#configuring-zotero"><i class="fa fa-check"></i><b>10.4</b> Configuring Zotero</a><ul>
-<li class="chapter" data-level="10.4.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#zotfile-pdf-preferences"><i class="fa fa-check"></i><b>10.4.1</b> ZotFile PDF Preferences</a></li>
-<li class="chapter" data-level="10.4.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#general-zotero-settings"><i class="fa fa-check"></i><b>10.4.2</b> General Zotero Settings</a></li>
-<li class="chapter" data-level="10.4.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#refresh-bibtex-citation-key"><i class="fa fa-check"></i><b>10.4.3</b> Refresh BibTex Citation Key</a></li>
 </ul></li>
-<li class="chapter" data-level="10.5" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#generating-a-.bib-file"><i class="fa fa-check"></i><b>10.5</b> Generating a .bib File</a></li>
-<li class="chapter" data-level="10.6" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#linking-dropbox-and-rstudio-server"><i class="fa fa-check"></i><b>10.6</b> Linking DropBox and Rstudio Server</a><ul>
-<li class="chapter" data-level="10.6.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#token-creation"><i class="fa fa-check"></i><b>10.6.1</b> Token Creation</a></li>
-<li class="chapter" data-level="10.6.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#dropbox-linkage"><i class="fa fa-check"></i><b>10.6.2</b> DropBox Linkage</a></li>
+<li class="chapter" data-level="11" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html"><i class="fa fa-check"></i><b>11</b> Citations with R Markdown</a><ul>
+<li class="chapter" data-level="11.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#zotero-set-up"><i class="fa fa-check"></i><b>11.1</b> Zotero Set-up</a></li>
+<li class="chapter" data-level="11.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#file-storage-set-up"><i class="fa fa-check"></i><b>11.2</b> File Storage Set-up</a></li>
+<li class="chapter" data-level="11.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#folder-set-up"><i class="fa fa-check"></i><b>11.3</b> Folder Set-up</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#storing-pdfs"><i class="fa fa-check"></i><b>11.3.1</b> Storing PDFs</a></li>
+<li class="chapter" data-level="11.3.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#storing-bibliographies"><i class="fa fa-check"></i><b>11.3.2</b> Storing Bibliographies</a></li>
+<li class="chapter" data-level="11.3.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#subfolder-for-references"><i class="fa fa-check"></i><b>11.3.3</b> Subfolder for References</a></li>
 </ul></li>
-<li class="chapter" data-level="10.7" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#citing-r-packages"><i class="fa fa-check"></i><b>10.7</b> Citing R Packages</a></li>
+<li class="chapter" data-level="11.4" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#configuring-zotero"><i class="fa fa-check"></i><b>11.4</b> Configuring Zotero</a><ul>
+<li class="chapter" data-level="11.4.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#zotfile-pdf-preferences"><i class="fa fa-check"></i><b>11.4.1</b> ZotFile PDF Preferences</a></li>
+<li class="chapter" data-level="11.4.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#general-zotero-settings"><i class="fa fa-check"></i><b>11.4.2</b> General Zotero Settings</a></li>
+<li class="chapter" data-level="11.4.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#refresh-bibtex-citation-key"><i class="fa fa-check"></i><b>11.4.3</b> Refresh BibTex Citation Key</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#generating-a-.bib-file"><i class="fa fa-check"></i><b>11.5</b> Generating a .bib File</a></li>
+<li class="chapter" data-level="11.6" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#linking-dropbox-and-rstudio-server"><i class="fa fa-check"></i><b>11.6</b> Linking DropBox and Rstudio Server</a><ul>
+<li class="chapter" data-level="11.6.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#token-creation"><i class="fa fa-check"></i><b>11.6.1</b> Token Creation</a></li>
+<li class="chapter" data-level="11.6.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#dropbox-linkage"><i class="fa fa-check"></i><b>11.6.2</b> DropBox Linkage</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#citing-r-packages"><i class="fa fa-check"></i><b>11.7</b> Citing R Packages</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -284,25 +267,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
+<div id="using-rstudio-directly-in-eddie" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Using RStudio directly in Eddie</h1>
+<p>Eddie is not meant for GUIs, but good people at the IGMM have managed to install RStudio installed on it. It is terribly slow, but better than nothing and can be useful when you need to have a quick look and are really tired of the command line R.</p>
+<p>Make sure you have X11 forwarding installed/enabled. On macOS this means installing XQuarts (but connecting via the Terminal). On Windows use MobaXterm.</p>
+<pre><code>ssh -Y username@eddie.ecdf.ed.ac.uk
+qlogin -l h_vmem=8G
+module load igmm/apps/RStudio/1.1.383
+module load igmm/apps/R/3.6.3
+rstudio</code></pre>
+<p>Of the qlogin line requesting an interactive session times out then try <code>qlogin -l h_vmem=4G</code> instead. 2GB is the absolute minimum that will work.</p>
+<p>Use <code>module avail</code> to check what the latest installed RStudio and R versions are.</p>
 
-<div id="refs" class="references">
-<div>
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
-</div>
-<div>
-<p>———. 2020. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.</p>
-</div>
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="citations-with-r-markdown.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="data-transfer-and-eddie.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="plotting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

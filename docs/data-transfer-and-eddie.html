@@ -24,7 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2020-10-17" />
+<meta name="date" content="2020-11-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -204,6 +204,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#unix-tutorials"><i class="fa fa-check"></i><b>5.6</b> Unix Tutorials</a></li>
 <li class="chapter" data-level="5.7" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#additional-resources"><i class="fa fa-check"></i><b>5.7</b> Additional Resources</a></li>
+<li class="chapter" data-level="5.8" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#using-rstudio-directly-in-eddie"><i class="fa fa-check"></i><b>5.8</b> Using RStudio directly in Eddie</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>6</b> Plotting</a><ul>
 <li class="chapter" data-level="6.1" data-path="plotting.html"><a href="plotting.html#gghighlight-example"><i class="fa fa-check"></i><b>6.1</b> GGHighlight Example</a></li>
@@ -312,7 +313,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>Open up PuTTY and you will see a configuration screen. On this screen make sure to enter <code>eddie.ecdf.ed.ac.uk</code> into the box and tick SSH as your method for connection. The PuTTY terminal will launch (assuming you are connected to the University VPN already) and ask <code>login as</code> at which point you should enter your EASE username. You will then be asked for your EASE password and you should now see that you are logged into Eddie.</p>
 <p>If you are logging in from RStudio Server or another terminal software you should enter on the command line:</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb68-1"><a href="data-transfer-and-eddie.html#cb68-1"></a><span class="fu">ssh</span> <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie.ecdf.ed.ac.uk</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb64-1"><a href="data-transfer-and-eddie.html#cb64-1"></a><span class="fu">ssh</span> <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie.ecdf.ed.ac.uk</span></code></pre></div>
 <p><UUN> is your university username for EASE. You will then be asked for your password.</p>
 <p>More information on Eddie basics can also be found at: <a href="https://www.wiki.ed.ac.uk/display/ResearchServices/Quickstart" class="uri">https://www.wiki.ed.ac.uk/display/ResearchServices/Quickstart</a>.</p>
 </div>
@@ -330,17 +331,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">5.3.4</span> Eddie File Structure</h3>
 <p>Once you have logged into Eddie there are several directories (folders/places) where you can store and manipulate files. Moving between these directories is usually done using the <code>cd</code> command. The same idea is applicable to your own machine</p>
 <p>When you first log in you will default to your home directory. In order to see the “path” to that directory enter the command:</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb69-1"><a href="data-transfer-and-eddie.html#cb69-1"></a><span class="bu">pwd</span></span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb65-1"><a href="data-transfer-and-eddie.html#cb65-1"></a><span class="bu">pwd</span></span></code></pre></div>
 <p>The terminal should print out something like:</p>
 <pre><code>/home/&lt;UUN&gt;</code></pre>
 <p>To get back to this directory at any point enter one of the following (they are both equivalent):</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb71-1"><a href="data-transfer-and-eddie.html#cb71-1"></a><span class="bu">cd</span> /home/<span class="op">&lt;</span>UUN<span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb67-1"><a href="data-transfer-and-eddie.html#cb67-1"></a><span class="bu">cd</span> /home/<span class="op">&lt;</span>UUN<span class="op">&gt;</span></span></code></pre></div>
 <p>or</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb72-1"><a href="data-transfer-and-eddie.html#cb72-1"></a><span class="bu">cd</span> ~</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb68-1"><a href="data-transfer-and-eddie.html#cb68-1"></a><span class="bu">cd</span> ~</span></code></pre></div>
 <p>When inside your home folder to see any of the files or subdirectories in your home directory enter:</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb73-1"><a href="data-transfer-and-eddie.html#cb73-1"></a><span class="fu">ls</span> -a</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb69-1"><a href="data-transfer-and-eddie.html#cb69-1"></a><span class="fu">ls</span> -a</span></code></pre></div>
 <p>The <code>-a</code> argument to ls shows hidden files which begin with a <code>.</code> such as <code>.Renviron</code> if you have created this. There are several other arguments which can be passed to ls such as <code>-l</code> which will should the permissions for the file or subdirectory. When using the <code>-l</code> argument the files start with <code>-</code> and are followed by 7 characters or <code>-</code> which explain whether different groups of people can write, read or execute the files. The first three are for the file owner, the next three for the group and the next three for any else with access to the directory. For example the following printed after running <code>ls -l</code> would indicate that the owner could read, write and execute a file, the group could read and execute it and that others could only read it:</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb74-1"><a href="data-transfer-and-eddie.html#cb74-1"></a><span class="ex">-rwxr-xr--</span> ... ... ... ... my_file.txt</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb70-1"><a href="data-transfer-and-eddie.html#cb70-1"></a><span class="ex">-rwxr-xr--</span> ... ... ... ... my_file.txt</span></code></pre></div>
 </div>
 </div>
 <div id="copying-data-from-eddie-into-rstudio-server" class="section level2">
@@ -348,7 +349,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="method-1-using-putty-or-another-terminalshell-connected-to-eddie" class="section level3">
 <h3><span class="header-section-number">5.4.1</span> Method 1: Using PuTTY (or another terminal/shell connected to Eddie)</h3>
 <p>To copy data from another server or device into RStudio Server use the following code in the command line editor (e.g. PuTTY, GitBash etc.):</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb75-1"><a href="data-transfer-and-eddie.html#cb75-1"></a><span class="fu">scp</span> <span class="op">&lt;</span>file_path_on_other_device_or_server<span class="op">&gt;</span>new_file.txt <span class="op">&lt;</span>RStudio_Server_Username<span class="op">&gt;</span>@argonaut.is.ed.ac.uk:<span class="op">&lt;</span>RStudio_path<span class="op">&gt;</span>/<span class="op">&lt;</span>project_directory<span class="op">&gt;</span>/</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb71-1"><a href="data-transfer-and-eddie.html#cb71-1"></a><span class="fu">scp</span> <span class="op">&lt;</span>file_path_on_other_device_or_server<span class="op">&gt;</span>new_file.txt <span class="op">&lt;</span>RStudio_Server_Username<span class="op">&gt;</span>@argonaut.is.ed.ac.uk:<span class="op">&lt;</span>RStudio_path<span class="op">&gt;</span>/<span class="op">&lt;</span>project_directory<span class="op">&gt;</span>/</span></code></pre></div>
 <p>You will be asked for your RStudio server (Argonaut etc.) password. If you are unsure of the file path enter <code>pwd</code> when you are working in the directory with the file before copying and pasting.</p>
 <p>If you are not sure of the path to the directory in which you wish to copy the data to or from then use <code>getwd()</code> in RStudio when inside the project you wish to copy to (you many need to add a subdirectory folder to the <code>getwd()</code> output if you are using subdirectories in your RStudio projects).</p>
 <p>The <code>scp</code> command will work with Argonaut and Argosafe as the ability to allow SSH connections has been activated. This may need to be established separately for other RStudio servers within the department.</p>
@@ -357,23 +358,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">5.4.2</span> Method 2: Using the RStudio Server Terminal</h3>
 <p>To use the RStudio server terminal to copy data in and out of Eddie do not SSH into Eddie as described above but instead use the <code>scp</code> command. If you are using RStudio’s terminal for accessing Eddie instead of PuTTY or something equivalent then you will need to either temporarily disconnect from Eddie (<code>ctrl-d</code>) or open a new terminal if using RStudio server Pro which allows multiple terminals.</p>
 <p>In the terminal enter the following command to copy a single file from Eddie into RStudio server from a project subdirectory in the SurgInfGrp directory:</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb76-1"><a href="data-transfer-and-eddie.html#cb76-1"></a><span class="fu">scp</span> <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/<span class="op">&lt;</span>project_subdirectory<span class="op">&gt;</span>/my_file.txt /home/<span class="op">&lt;</span>RStudio_Server_Username<span class="op">&gt;</span>/<span class="op">&lt;</span>RStudio_Project<span class="op">&gt;</span>/</span>
-<span id="cb76-2"><a href="data-transfer-and-eddie.html#cb76-2"></a></span>
-<span id="cb76-3"><a href="data-transfer-and-eddie.html#cb76-3"></a><span class="co"># Or adapt to copy entire directory contents (drop the * to copy the directory/folder as well as the contents)</span></span>
-<span id="cb76-4"><a href="data-transfer-and-eddie.html#cb76-4"></a><span class="fu">scp</span> -r <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/<span class="op">&lt;</span>project_subdirectory<span class="op">&gt;</span>/* /home/<span class="op">&lt;</span>RStudio_Server_Username<span class="op">&gt;</span>/<span class="op">&lt;</span>RStudio_Project<span class="op">&gt;</span>/</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb72-1"><a href="data-transfer-and-eddie.html#cb72-1"></a><span class="fu">scp</span> <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/<span class="op">&lt;</span>project_subdirectory<span class="op">&gt;</span>/my_file.txt /home/<span class="op">&lt;</span>RStudio_Server_Username<span class="op">&gt;</span>/<span class="op">&lt;</span>RStudio_Project<span class="op">&gt;</span>/</span>
+<span id="cb72-2"><a href="data-transfer-and-eddie.html#cb72-2"></a></span>
+<span id="cb72-3"><a href="data-transfer-and-eddie.html#cb72-3"></a><span class="co"># Or adapt to copy entire directory contents (drop the * to copy the directory/folder as well as the contents)</span></span>
+<span id="cb72-4"><a href="data-transfer-and-eddie.html#cb72-4"></a><span class="fu">scp</span> -r <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/<span class="op">&lt;</span>project_subdirectory<span class="op">&gt;</span>/* /home/<span class="op">&lt;</span>RStudio_Server_Username<span class="op">&gt;</span>/<span class="op">&lt;</span>RStudio_Project<span class="op">&gt;</span>/</span></code></pre></div>
 <p>On entering the command to the terminal you will be asked to enter your EASE password (type this slowly if using RStudio Server Pro prior to web sockets issue being fixed). In order to move data in the other direction simply change the order of the file paths.</p>
 </div>
 </div>
 <div id="the-surgical-informatics-group-folder-on-eddie" class="section level2">
 <h2><span class="header-section-number">5.5</span> The Surgical Informatics Group Folder (On Eddie)</h2>
 <p>To get to the Surgical Informatics shared group directory enter:</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb77-1"><a href="data-transfer-and-eddie.html#cb77-1"></a><span class="bu">cd</span> /exports/cmvm/eddie/edmed/groups/SurgInfGrp</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb73-1"><a href="data-transfer-and-eddie.html#cb73-1"></a><span class="bu">cd</span> /exports/cmvm/eddie/edmed/groups/SurgInfGrp</span></code></pre></div>
 <p>If you don’t have access then Riinu or Ewen can provide this as they have admin rights.</p>
 <p>This directory should be the place to store any group projects or apps or other files which are somewhat (but not very) large. The group space has 200GB of memory allocated by default which is much greater than your home directory (10GB) but much less than the group space on the datastore which is up to 1TB. The group space should be used to store bulk files which can be staged into Eddie for an active session but will not be permanently stored in Eddie.</p>
 <div id="the-scratch-space" class="section level3">
 <h3><span class="header-section-number">5.5.1</span> The Scratch Space</h3>
 <p>Your own personal scratch space is where you should work on active projects during a session after staging them in from the datastore and/or shared Surgical Informatics group directory. The scratch space has 2TB of storage per user but this is cleaned up after one month. This means large datasets can be analysed here but not stored in the long-term. To find your own personal scratch space enter:</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb78-1"><a href="data-transfer-and-eddie.html#cb78-1"></a><span class="bu">cd</span> /exports/eddie/scratch/<span class="op">&lt;</span>UUN<span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb74-1"><a href="data-transfer-and-eddie.html#cb74-1"></a><span class="bu">cd</span> /exports/eddie/scratch/<span class="op">&lt;</span>UUN<span class="op">&gt;</span></span></code></pre></div>
 <p>Finally there is also a temporary directory ($TMPDIR) which is only present and accessible whilst a job is running in Eddie. This has 1TB of available storage.</p>
 </div>
 <div id="other-spaces" class="section level3">
@@ -384,20 +385,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">5.5.3</span> Running Eddie from RStudio Server</h3>
 <p>It is possible to log in to Eddie from RStudio server and use Shell Scripts stored in RStudio to perform tasks in Eddie. This may be helpful if you plan to modify shell scripts a lot and want to have the benefit of the RStudio interface. <code>ctrl-alt-enter</code> sends data to the terminal in the same way that it would the console without the <code>alt</code>.</p>
 <p>To connect initially enter:</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb79-1"><a href="data-transfer-and-eddie.html#cb79-1"></a><span class="fu">ssh</span> <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie.ecdf.ed.ac.uk</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb75-1"><a href="data-transfer-and-eddie.html#cb75-1"></a><span class="fu">ssh</span> <span class="op">&lt;</span>UUN<span class="op">&gt;</span>@eddie.ecdf.ed.ac.uk</span></code></pre></div>
 <p>You will then be asked for your password which has to be typed (currently slowly and carefully!) into the terminal. Afterwards you can send any commands from a script using <code>ctrl-alt-enter</code>. This will not work with <code>Rmd</code> or <code>notebooks</code>.</p>
 </div>
 <div id="modules-applications-in-eddie" class="section level3">
 <h3><span class="header-section-number">5.5.4</span> Modules (Applications) in Eddie</h3>
 <p>Eddie has several modules (applications) which can be run such as R, python, cuda, java, intel, fastqc etc. etc. The best way to see which modules you have available is to run <code>module avail</code>. To see which modules are loaded is to run <code>module list</code>.</p>
 <p>To load in a new module to use run the following:</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb80-1"><a href="data-transfer-and-eddie.html#cb80-1"></a><span class="ex">module</span> load <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb80-2"><a href="data-transfer-and-eddie.html#cb80-2"></a></span>
-<span id="cb80-3"><a href="data-transfer-and-eddie.html#cb80-3"></a><span class="co"># For example:</span></span>
-<span id="cb80-4"><a href="data-transfer-and-eddie.html#cb80-4"></a><span class="ex">module</span> load R/3.5.3</span>
-<span id="cb80-5"><a href="data-transfer-and-eddie.html#cb80-5"></a></span>
-<span id="cb80-6"><a href="data-transfer-and-eddie.html#cb80-6"></a><span class="co"># Note that the default R version is 3.3.2 (as of 13th June 2019) and is loaded using:</span></span>
-<span id="cb80-7"><a href="data-transfer-and-eddie.html#cb80-7"></a><span class="ex">module</span> load R</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb76-1"><a href="data-transfer-and-eddie.html#cb76-1"></a><span class="ex">module</span> load <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb76-2"><a href="data-transfer-and-eddie.html#cb76-2"></a></span>
+<span id="cb76-3"><a href="data-transfer-and-eddie.html#cb76-3"></a><span class="co"># For example:</span></span>
+<span id="cb76-4"><a href="data-transfer-and-eddie.html#cb76-4"></a><span class="ex">module</span> load R/3.5.3</span>
+<span id="cb76-5"><a href="data-transfer-and-eddie.html#cb76-5"></a></span>
+<span id="cb76-6"><a href="data-transfer-and-eddie.html#cb76-6"></a><span class="co"># Note that the default R version is 3.3.2 (as of 13th June 2019) and is loaded using:</span></span>
+<span id="cb76-7"><a href="data-transfer-and-eddie.html#cb76-7"></a><span class="ex">module</span> load R</span></code></pre></div>
 <p>Once you have loaded modules that you will need for your analysis you may need to create new files or establish a library of packages for those modules. There are a default set of packages available for R when loaded from either the main applications library or from other installations on the IGMM paths but these are read-only meaning that for any customisation and installation of new packages, a separate library must be maintained and that the R options must be amended to point to this library. This can be done by creating a personal <code>.Rprofile</code> file in your home directory in Eddie which points to the Surgical Informatics Group Rlibrary.</p>
 <p>It is not advised to create a separate library in your own Eddie space as this will quickly use up your disc quota. Theoretically a separate installation of a package could be stored in your own space if working on developer edition or github branch / fork of a package.</p>
 </div>
@@ -414,51 +415,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>R will automatically look for a <code>.Rprofile</code> file when R is started during each Eddie session and will look for this file in three places with an order of preference. The first place is the current working directory of a project so an <code>.Rprofile</code> file could be stored here to generate very specific customisations for a project if necessary. The next place it will look is in your own home directory (<code>/home/&lt;UUN&gt;/</code> or <code>/~/</code>), this is where you should create a <code>.Rprofile</code> file which will be your default for all sessions, it is recommended to use this sparingly but that certain key features are used such as setting up your main library location as the Surgical Informatics Group and setting up a default CRAN mirror e.g. the RStudio CRAN mirror. Finally, if there is not a <code>.Rprofile</code> file here then R will attempt to source a file in the R home directory (found in R using <code>.R.home()</code>) and if there is no file here then no customisation will occur. Some servers also have a <code>.Rprofile.site</code> file although this is not currently present in Eddie.</p>
 <p><em>Important</em>: Always leave the final line of an <code>.Rprofile</code> file blank.</p>
 <p>A possible <code>.Rprofile</code> file for using in Eddie as part of the Surgical Informatics Group is:</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="data-transfer-and-eddie.html#cb81-1"></a><span class="co">## Rprofile template</span></span>
-<span id="cb81-2"><a href="data-transfer-and-eddie.html#cb81-2"></a></span>
-<span id="cb81-3"><a href="data-transfer-and-eddie.html#cb81-3"></a></span>
-<span id="cb81-4"><a href="data-transfer-and-eddie.html#cb81-4"></a><span class="co">## Stop being asked for CRAN mirror every time</span></span>
-<span id="cb81-5"><a href="data-transfer-and-eddie.html#cb81-5"></a><span class="kw">options</span>(<span class="st">&quot;repos&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dt">CRAN =</span> <span class="st">&quot;http://cran.rstudio.com/&quot;</span>))</span>
-<span id="cb81-6"><a href="data-transfer-and-eddie.html#cb81-6"></a></span>
-<span id="cb81-7"><a href="data-transfer-and-eddie.html#cb81-7"></a></span>
-<span id="cb81-8"><a href="data-transfer-and-eddie.html#cb81-8"></a><span class="co">## Change the default editor to nano</span></span>
-<span id="cb81-9"><a href="data-transfer-and-eddie.html#cb81-9"></a><span class="kw">options</span>(<span class="dt">editor=</span><span class="st">&quot;nano&quot;</span>)</span>
-<span id="cb81-10"><a href="data-transfer-and-eddie.html#cb81-10"></a></span>
-<span id="cb81-11"><a href="data-transfer-and-eddie.html#cb81-11"></a><span class="co">## Change the terminal prompt to make it clear R is loaded</span></span>
-<span id="cb81-12"><a href="data-transfer-and-eddie.html#cb81-12"></a><span class="kw">options</span>(<span class="dt">prompt=</span><span class="st">&quot;R &gt; &quot;</span>)</span>
-<span id="cb81-13"><a href="data-transfer-and-eddie.html#cb81-13"></a></span>
-<span id="cb81-14"><a href="data-transfer-and-eddie.html#cb81-14"></a><span class="co">## Prevent default saving of workspace image (similar to recommended RStudio server settings)</span></span>
-<span id="cb81-15"><a href="data-transfer-and-eddie.html#cb81-15"></a>q &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">save=</span><span class="st">&quot;no&quot;</span>, ...) {</span>
-<span id="cb81-16"><a href="data-transfer-and-eddie.html#cb81-16"></a>        <span class="kw">quit</span>(<span class="dt">save=</span>save, ...)</span>
-<span id="cb81-17"><a href="data-transfer-and-eddie.html#cb81-17"></a>}</span>
-<span id="cb81-18"><a href="data-transfer-and-eddie.html#cb81-18"></a></span>
-<span id="cb81-19"><a href="data-transfer-and-eddie.html#cb81-19"></a></span>
-<span id="cb81-20"><a href="data-transfer-and-eddie.html#cb81-20"></a><span class="co">## Clever code to allow tab-completion of package names used in library()</span></span>
-<span id="cb81-21"><a href="data-transfer-and-eddie.html#cb81-21"></a>utils<span class="op">::</span><span class="kw">rc.settings</span>(<span class="dt">ipck=</span><span class="ot">TRUE</span>)</span>
-<span id="cb81-22"><a href="data-transfer-and-eddie.html#cb81-22"></a></span>
-<span id="cb81-23"><a href="data-transfer-and-eddie.html#cb81-23"></a></span>
-<span id="cb81-24"><a href="data-transfer-and-eddie.html#cb81-24"></a><span class="co">## Add some colour to the console if colourout is available</span></span>
-<span id="cb81-25"><a href="data-transfer-and-eddie.html#cb81-25"></a><span class="cf">if</span>(<span class="kw">Sys.Getenv</span>(<span class="st">&quot;TERM&quot;</span>) <span class="op">==</span><span class="st"> &quot;xterm-256color&quot;</span>)</span>
-<span id="cb81-26"><a href="data-transfer-and-eddie.html#cb81-26"></a>        <span class="kw">library</span>(<span class="st">&quot;colorout&quot;</span>)</span>
-<span id="cb81-27"><a href="data-transfer-and-eddie.html#cb81-27"></a></span>
-<span id="cb81-28"><a href="data-transfer-and-eddie.html#cb81-28"></a><span class="co">## Create a new envisible environment which can be used to create new functions</span></span>
-<span id="cb81-29"><a href="data-transfer-and-eddie.html#cb81-29"></a><span class="co">## Benefit of this is that all new functions here are hidden in environment and not rmeoved by rm(list = ls())</span></span>
-<span id="cb81-30"><a href="data-transfer-and-eddie.html#cb81-30"></a>.env &lt;-<span class="st"> </span><span class="kw">new.env</span>()</span>
-<span id="cb81-31"><a href="data-transfer-and-eddie.html#cb81-31"></a></span>
-<span id="cb81-32"><a href="data-transfer-and-eddie.html#cb81-32"></a></span>
-<span id="cb81-33"><a href="data-transfer-and-eddie.html#cb81-33"></a><span class="co">## Set library path to make sure packages are loaded from SurgInfGrp</span></span>
-<span id="cb81-34"><a href="data-transfer-and-eddie.html#cb81-34"></a><span class="kw">.libPaths</span>(<span class="st">&quot;/exports/cmvm/eddie/edmed/groups/SurgInfGrp/R/Rlibrary&quot;</span>)</span>
-<span id="cb81-35"><a href="data-transfer-and-eddie.html#cb81-35"></a></span>
-<span id="cb81-36"><a href="data-transfer-and-eddie.html#cb81-36"></a></span>
-<span id="cb81-37"><a href="data-transfer-and-eddie.html#cb81-37"></a><span class="co">## If working on a particular project e.g. the gwas_pipeline from IGMM best to create a new library due to R version issues in that project</span></span>
-<span id="cb81-38"><a href="data-transfer-and-eddie.html#cb81-38"></a><span class="co">## Just copy the .Rprofile file from your own home directory into the project working directory and edit to change library</span></span>
-<span id="cb81-39"><a href="data-transfer-and-eddie.html#cb81-39"></a></span>
-<span id="cb81-40"><a href="data-transfer-and-eddie.html#cb81-40"></a></span>
-<span id="cb81-41"><a href="data-transfer-and-eddie.html#cb81-41"></a><span class="co">## Attach all the variables created</span></span>
-<span id="cb81-42"><a href="data-transfer-and-eddie.html#cb81-42"></a><span class="kw">attach</span>(.env)</span>
-<span id="cb81-43"><a href="data-transfer-and-eddie.html#cb81-43"></a></span>
-<span id="cb81-44"><a href="data-transfer-and-eddie.html#cb81-44"></a></span>
-<span id="cb81-45"><a href="data-transfer-and-eddie.html#cb81-45"></a><span class="co">## Remember that an .Rprofile file always silently ignores the last line so don&#39;t forget to leave empty newlines</span></span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="data-transfer-and-eddie.html#cb77-1"></a><span class="co">## Rprofile template</span></span>
+<span id="cb77-2"><a href="data-transfer-and-eddie.html#cb77-2"></a></span>
+<span id="cb77-3"><a href="data-transfer-and-eddie.html#cb77-3"></a></span>
+<span id="cb77-4"><a href="data-transfer-and-eddie.html#cb77-4"></a><span class="co">## Stop being asked for CRAN mirror every time</span></span>
+<span id="cb77-5"><a href="data-transfer-and-eddie.html#cb77-5"></a><span class="kw">options</span>(<span class="st">&quot;repos&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dt">CRAN =</span> <span class="st">&quot;http://cran.rstudio.com/&quot;</span>))</span>
+<span id="cb77-6"><a href="data-transfer-and-eddie.html#cb77-6"></a></span>
+<span id="cb77-7"><a href="data-transfer-and-eddie.html#cb77-7"></a></span>
+<span id="cb77-8"><a href="data-transfer-and-eddie.html#cb77-8"></a><span class="co">## Change the default editor to nano</span></span>
+<span id="cb77-9"><a href="data-transfer-and-eddie.html#cb77-9"></a><span class="kw">options</span>(<span class="dt">editor=</span><span class="st">&quot;nano&quot;</span>)</span>
+<span id="cb77-10"><a href="data-transfer-and-eddie.html#cb77-10"></a></span>
+<span id="cb77-11"><a href="data-transfer-and-eddie.html#cb77-11"></a><span class="co">## Change the terminal prompt to make it clear R is loaded</span></span>
+<span id="cb77-12"><a href="data-transfer-and-eddie.html#cb77-12"></a><span class="kw">options</span>(<span class="dt">prompt=</span><span class="st">&quot;R &gt; &quot;</span>)</span>
+<span id="cb77-13"><a href="data-transfer-and-eddie.html#cb77-13"></a></span>
+<span id="cb77-14"><a href="data-transfer-and-eddie.html#cb77-14"></a><span class="co">## Prevent default saving of workspace image (similar to recommended RStudio server settings)</span></span>
+<span id="cb77-15"><a href="data-transfer-and-eddie.html#cb77-15"></a>q &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">save=</span><span class="st">&quot;no&quot;</span>, ...) {</span>
+<span id="cb77-16"><a href="data-transfer-and-eddie.html#cb77-16"></a>        <span class="kw">quit</span>(<span class="dt">save=</span>save, ...)</span>
+<span id="cb77-17"><a href="data-transfer-and-eddie.html#cb77-17"></a>}</span>
+<span id="cb77-18"><a href="data-transfer-and-eddie.html#cb77-18"></a></span>
+<span id="cb77-19"><a href="data-transfer-and-eddie.html#cb77-19"></a></span>
+<span id="cb77-20"><a href="data-transfer-and-eddie.html#cb77-20"></a><span class="co">## Clever code to allow tab-completion of package names used in library()</span></span>
+<span id="cb77-21"><a href="data-transfer-and-eddie.html#cb77-21"></a>utils<span class="op">::</span><span class="kw">rc.settings</span>(<span class="dt">ipck=</span><span class="ot">TRUE</span>)</span>
+<span id="cb77-22"><a href="data-transfer-and-eddie.html#cb77-22"></a></span>
+<span id="cb77-23"><a href="data-transfer-and-eddie.html#cb77-23"></a></span>
+<span id="cb77-24"><a href="data-transfer-and-eddie.html#cb77-24"></a><span class="co">## Add some colour to the console if colourout is available</span></span>
+<span id="cb77-25"><a href="data-transfer-and-eddie.html#cb77-25"></a><span class="cf">if</span>(<span class="kw">Sys.Getenv</span>(<span class="st">&quot;TERM&quot;</span>) <span class="op">==</span><span class="st"> &quot;xterm-256color&quot;</span>)</span>
+<span id="cb77-26"><a href="data-transfer-and-eddie.html#cb77-26"></a>        <span class="kw">library</span>(<span class="st">&quot;colorout&quot;</span>)</span>
+<span id="cb77-27"><a href="data-transfer-and-eddie.html#cb77-27"></a></span>
+<span id="cb77-28"><a href="data-transfer-and-eddie.html#cb77-28"></a><span class="co">## Create a new envisible environment which can be used to create new functions</span></span>
+<span id="cb77-29"><a href="data-transfer-and-eddie.html#cb77-29"></a><span class="co">## Benefit of this is that all new functions here are hidden in environment and not rmeoved by rm(list = ls())</span></span>
+<span id="cb77-30"><a href="data-transfer-and-eddie.html#cb77-30"></a>.env &lt;-<span class="st"> </span><span class="kw">new.env</span>()</span>
+<span id="cb77-31"><a href="data-transfer-and-eddie.html#cb77-31"></a></span>
+<span id="cb77-32"><a href="data-transfer-and-eddie.html#cb77-32"></a></span>
+<span id="cb77-33"><a href="data-transfer-and-eddie.html#cb77-33"></a><span class="co">## Set library path to make sure packages are loaded from SurgInfGrp</span></span>
+<span id="cb77-34"><a href="data-transfer-and-eddie.html#cb77-34"></a><span class="kw">.libPaths</span>(<span class="st">&quot;/exports/cmvm/eddie/edmed/groups/SurgInfGrp/R/Rlibrary&quot;</span>)</span>
+<span id="cb77-35"><a href="data-transfer-and-eddie.html#cb77-35"></a></span>
+<span id="cb77-36"><a href="data-transfer-and-eddie.html#cb77-36"></a></span>
+<span id="cb77-37"><a href="data-transfer-and-eddie.html#cb77-37"></a><span class="co">## If working on a particular project e.g. the gwas_pipeline from IGMM best to create a new library due to R version issues in that project</span></span>
+<span id="cb77-38"><a href="data-transfer-and-eddie.html#cb77-38"></a><span class="co">## Just copy the .Rprofile file from your own home directory into the project working directory and edit to change library</span></span>
+<span id="cb77-39"><a href="data-transfer-and-eddie.html#cb77-39"></a></span>
+<span id="cb77-40"><a href="data-transfer-and-eddie.html#cb77-40"></a></span>
+<span id="cb77-41"><a href="data-transfer-and-eddie.html#cb77-41"></a><span class="co">## Attach all the variables created</span></span>
+<span id="cb77-42"><a href="data-transfer-and-eddie.html#cb77-42"></a><span class="kw">attach</span>(.env)</span>
+<span id="cb77-43"><a href="data-transfer-and-eddie.html#cb77-43"></a></span>
+<span id="cb77-44"><a href="data-transfer-and-eddie.html#cb77-44"></a></span>
+<span id="cb77-45"><a href="data-transfer-and-eddie.html#cb77-45"></a><span class="co">## Remember that an .Rprofile file always silently ignores the last line so don&#39;t forget to leave empty newlines</span></span></code></pre></div>
 <p>The above configuration should generate minimal portability issues when working on other projects.</p>
 <p>There are a few explanations of the benefits and side effects of having a <code>.Rprofile</code> file as well as ways to temporarily mask them for specific projects which will be shared with other collaborators in this blog post: <a href="https://www.r-bloggers.com/fun-with-Rprofile-and-customizing-r-startup/" class="uri">https://www.r-bloggers.com/fun-with-Rprofile-and-customizing-r-startup/</a>.</p>
 <p>Should you wish to have an entire directory of startup files (e.g. one file for CRAN, one file for library, one file for custom function etc. etc.) so that segments of the customisation can be shared quickly without modifying / dropping all of the other elements of the <code>.Rprofile</code> file then this is described here: <a href="https://cran.r-project.org/web/packages/startup/vignettes/startup-intro.html" class="uri">https://cran.r-project.org/web/packages/startup/vignettes/startup-intro.html</a>. This relies on the <code>startup</code> package. Other options such as having secure directories with GitHub tokens and other content which is protected from access by other Eddie users is also discussed there.</p>
@@ -466,7 +467,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="creating-an-.rprofile-file" class="section level4">
 <h4><span class="header-section-number">5.5.5.2</span> Creating an .Rprofile File</h4>
 <p>When you first use Eddie there will not be any <code>.Rprofile</code> file generated by default and a blank file will need to be created. This can be done by entering the following into the terminal after loading R. To load R enter <code>module load R/3.5.3</code> (or the currently available R versions seen on <code>module avail</code>) into the terminal followed by <code>R</code>. This will start an active R session. Then enter the following code (please do not change the path to the shared group folder! If you need to change the path to a project be sure to include the subdirectory otherwise R will use your <code>.Rprofile</code> file for all SurgInfGrp users which won’t be popular):</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="data-transfer-and-eddie.html#cb82-1"></a><span class="kw">file.create</span>(<span class="st">&quot;~/.Rprofile&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="data-transfer-and-eddie.html#cb78-1"></a><span class="kw">file.create</span>(<span class="st">&quot;~/.Rprofile&quot;</span>)</span></code></pre></div>
 <p>This will create a blank <code>.Rprofile</code> file in your home directory on Eddie which should be edited to customise the R configuration.</p>
 <p>In order to edit the file it is suggested that you use the nano Unix-based editor. Firstly quit the current R session as that has not yet been configured to use the editor. Enter <code>q()</code> as you would normally do when closing R and enter <code>n</code> if asked about saving workspace image.</p>
 <p>Navigagte to your home directory and using <code>ls -a</code> you should see the <code>.Rprofile</code> file which is currently blank.</p>
@@ -474,77 +475,77 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="renviron-file" class="section level4">
 <h4><span class="header-section-number">5.5.5.3</span> .Renviron File</h4>
 <p>In addition to changing the <code>.Rprofile</code> file you will most likely need to change the <code>.Renviron</code> file. The default for this is probably located in the R home directory which may be <code>/exports/applications/apps/SL7/R/3.5.3/lib64/R/etc/</code>. The <code>.Renviron</code> file is searched for in the same order by R as the <code>.Rprofile</code> file with R first aiming to find the file in the project directory and if not able to find it there looking in the user home directory and finally looking to the R home directory. To copy the <code>Renviron</code> file in the R home directory into a <code>.Renviron</code> file in your home directory enter the following code in the terminal:</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb83-1"><a href="data-transfer-and-eddie.html#cb83-1"></a><span class="co"># Path will need edited if future installations of R replace 3.5.3</span></span>
-<span id="cb83-2"><a href="data-transfer-and-eddie.html#cb83-2"></a><span class="fu">cp</span> /exports/applications/apps/SL7/R/3.5.3/lib64/R/etc/Renviron ~/.Renviron</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb79-1"><a href="data-transfer-and-eddie.html#cb79-1"></a><span class="co"># Path will need edited if future installations of R replace 3.5.3</span></span>
+<span id="cb79-2"><a href="data-transfer-and-eddie.html#cb79-2"></a><span class="fu">cp</span> /exports/applications/apps/SL7/R/3.5.3/lib64/R/etc/Renviron ~/.Renviron</span></code></pre></div>
 <p>The following is a reasonable starting point for the <code>.Renviron</code> file in your own profile:</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="data-transfer-and-eddie.html#cb84-1"></a><span class="co">### etc/Renviron.  Generated from Renviron.in by configure.</span></span>
-<span id="cb84-2"><a href="data-transfer-and-eddie.html#cb84-2"></a><span class="co">###</span></span>
-<span id="cb84-3"><a href="data-transfer-and-eddie.html#cb84-3"></a><span class="co">### ${R_HOME}/etc/Renviron</span></span>
-<span id="cb84-4"><a href="data-transfer-and-eddie.html#cb84-4"></a><span class="co">###</span></span>
-<span id="cb84-5"><a href="data-transfer-and-eddie.html#cb84-5"></a><span class="co">### Record R system environment variables.</span></span>
-<span id="cb84-6"><a href="data-transfer-and-eddie.html#cb84-6"></a></span>
-<span id="cb84-7"><a href="data-transfer-and-eddie.html#cb84-7"></a>R_PLATFORM=<span class="er">$</span>{R_PLATFORM<span class="op">-</span><span class="st">&#39;x86_64-pc-linux-gnu&#39;</span>}</span>
-<span id="cb84-8"><a href="data-transfer-and-eddie.html#cb84-8"></a><span class="co">## Default printer paper size: first record if user set R_PAPERSIZE</span></span>
-<span id="cb84-9"><a href="data-transfer-and-eddie.html#cb84-9"></a>R_PAPERSIZE_USER=<span class="er">$</span>{R_PAPERSIZE}</span>
-<span id="cb84-10"><a href="data-transfer-and-eddie.html#cb84-10"></a>R_PAPERSIZE=<span class="er">$</span>{R_PAPERSIZE<span class="op">-</span><span class="st">&#39;a4&#39;</span>}</span>
-<span id="cb84-11"><a href="data-transfer-and-eddie.html#cb84-11"></a><span class="co">## Default print command</span></span>
-<span id="cb84-12"><a href="data-transfer-and-eddie.html#cb84-12"></a>R_PRINTCMD=<span class="er">$</span>{R_PRINTCMD<span class="op">-</span><span class="st">&#39;&#39;</span>}</span>
-<span id="cb84-13"><a href="data-transfer-and-eddie.html#cb84-13"></a><span class="co"># for Rd2pdf, reference manual</span></span>
-<span id="cb84-14"><a href="data-transfer-and-eddie.html#cb84-14"></a>R_RD4PDF=<span class="er">$</span>{R_RD4PDF<span class="op">-</span><span class="st">&#39;times,hyper&#39;</span>}</span>
-<span id="cb84-15"><a href="data-transfer-and-eddie.html#cb84-15"></a><span class="co">## used for options(&quot;texi2dvi&quot;)</span></span>
-<span id="cb84-16"><a href="data-transfer-and-eddie.html#cb84-16"></a>R_TEXI2DVICMD=<span class="er">$</span>{R_TEXI2DVICMD<span class="op">-</span><span class="er">$</span>{TEXI2DVI<span class="op">-</span><span class="st">&#39;texi2dvi&#39;</span>}}</span>
-<span id="cb84-17"><a href="data-transfer-and-eddie.html#cb84-17"></a><span class="co">## used by untar and installing grDevices</span></span>
-<span id="cb84-18"><a href="data-transfer-and-eddie.html#cb84-18"></a>R_GZIPCMD=<span class="er">$</span>{R_GZIPCMD<span class="op">-</span><span class="st">&#39;/usr/bin/gzip&#39;</span>}</span>
-<span id="cb84-19"><a href="data-transfer-and-eddie.html#cb84-19"></a><span class="co">## Default zip/unzip commands</span></span>
-<span id="cb84-20"><a href="data-transfer-and-eddie.html#cb84-20"></a>R_UNZIPCMD=<span class="er">$</span>{R_UNZIPCMD<span class="op">-</span><span class="st">&#39;/usr/bin/unzip&#39;</span>}</span>
-<span id="cb84-21"><a href="data-transfer-and-eddie.html#cb84-21"></a>R_ZIPCMD=<span class="er">$</span>{R_ZIPCMD<span class="op">-</span><span class="st">&#39;/usr/bin/zip&#39;</span>}</span>
-<span id="cb84-22"><a href="data-transfer-and-eddie.html#cb84-22"></a>R_BZIPCMD=<span class="er">$</span>{R_BZIPCMD<span class="op">-</span><span class="st">&#39;/usr/bin/bzip2&#39;</span>}</span>
-<span id="cb84-23"><a href="data-transfer-and-eddie.html#cb84-23"></a><span class="co">## Default browser</span></span>
-<span id="cb84-24"><a href="data-transfer-and-eddie.html#cb84-24"></a>R_BROWSER=<span class="er">$</span>{R_BROWSER<span class="op">-</span><span class="st">&#39;/usr/bin/xdg-open&#39;</span>}</span>
-<span id="cb84-25"><a href="data-transfer-and-eddie.html#cb84-25"></a><span class="co">## Default pager</span></span>
-<span id="cb84-26"><a href="data-transfer-and-eddie.html#cb84-26"></a>PAGER=<span class="er">$</span>{PAGER<span class="op">-</span><span class="st">&#39;/usr/bin/less&#39;</span>}</span>
-<span id="cb84-27"><a href="data-transfer-and-eddie.html#cb84-27"></a><span class="co">## Default PDF viewer</span></span>
-<span id="cb84-28"><a href="data-transfer-and-eddie.html#cb84-28"></a>R_PDFVIEWER=<span class="er">$</span>{R_PDFVIEWER<span class="op">-</span><span class="st">&#39;/usr/bin/xdg-open&#39;</span>}</span>
-<span id="cb84-29"><a href="data-transfer-and-eddie.html#cb84-29"></a><span class="co">## Used by libtool</span></span>
-<span id="cb84-30"><a href="data-transfer-and-eddie.html#cb84-30"></a>LN_S=<span class="st">&#39;ln -s&#39;</span></span>
-<span id="cb84-31"><a href="data-transfer-and-eddie.html#cb84-31"></a>MAKE=<span class="er">$</span>{MAKE<span class="op">-</span><span class="st">&#39;make&#39;</span>}</span>
-<span id="cb84-32"><a href="data-transfer-and-eddie.html#cb84-32"></a><span class="co">## Prefer a POSIX-compliant sed on e.g. Solaris</span></span>
-<span id="cb84-33"><a href="data-transfer-and-eddie.html#cb84-33"></a>SED=<span class="er">$</span>{SED<span class="op">-</span><span class="st">&#39;/usr/bin/sed&#39;</span>}</span>
-<span id="cb84-34"><a href="data-transfer-and-eddie.html#cb84-34"></a><span class="co">## Prefer a tar that can automagically read compressed archives</span></span>
-<span id="cb84-35"><a href="data-transfer-and-eddie.html#cb84-35"></a>TAR=<span class="er">$</span>{TAR<span class="op">-</span><span class="st">&#39;/usr/bin/gtar&#39;</span>}</span>
-<span id="cb84-36"><a href="data-transfer-and-eddie.html#cb84-36"></a></span>
-<span id="cb84-37"><a href="data-transfer-and-eddie.html#cb84-37"></a><span class="co">## System and compiler types.</span></span>
-<span id="cb84-38"><a href="data-transfer-and-eddie.html#cb84-38"></a>R_SYSTEM_ABI=<span class="st">&#39;linux,gcc,gxx,gfortran,?&#39;</span></span>
-<span id="cb84-39"><a href="data-transfer-and-eddie.html#cb84-39"></a></span>
-<span id="cb84-40"><a href="data-transfer-and-eddie.html#cb84-40"></a></span>
-<span id="cb84-41"><a href="data-transfer-and-eddie.html#cb84-41"></a><span class="co">## Change the default R libraries and directories</span></span>
-<span id="cb84-42"><a href="data-transfer-and-eddie.html#cb84-42"></a>R_DOC_DIR=<span class="er">/</span>exports<span class="op">/</span>applications<span class="op">/</span>apps<span class="op">/</span>SL7<span class="op">/</span>R<span class="op">/</span><span class="dv">3</span>.<span class="fl">5.3</span><span class="op">/</span>lib64<span class="op">/</span>R<span class="op">/</span>doc</span>
-<span id="cb84-43"><a href="data-transfer-and-eddie.html#cb84-43"></a>R_INCLUDE_DIR=<span class="er">/</span>exports<span class="op">/</span>applications<span class="op">/</span>apps<span class="op">/</span>SL7<span class="op">/</span>R<span class="op">/</span><span class="dv">3</span>.<span class="fl">5.3</span><span class="op">/</span>lib64<span class="op">/</span>R<span class="op">/</span>include</span>
-<span id="cb84-44"><a href="data-transfer-and-eddie.html#cb84-44"></a>R_SHARE_DIR=<span class="er">/</span>exports<span class="op">/</span>applications<span class="op">/</span>apps<span class="op">/</span>SL7<span class="op">/</span>R<span class="op">/</span><span class="dv">3</span>.<span class="fl">5.3</span><span class="op">/</span>lib64<span class="op">/</span>R<span class="op">/</span>share</span>
-<span id="cb84-45"><a href="data-transfer-and-eddie.html#cb84-45"></a>RBIN=<span class="er">/</span>exports<span class="op">/</span>applications<span class="op">/</span>apps<span class="op">/</span>SL7<span class="op">/</span>R<span class="op">/</span><span class="dv">3</span>.<span class="fl">5.3</span><span class="op">/</span>bin</span>
-<span id="cb84-46"><a href="data-transfer-and-eddie.html#cb84-46"></a>RDIR=<span class="er">/</span>exports<span class="op">/</span>applications<span class="op">/</span>apps<span class="op">/</span>SL7<span class="op">/</span>R<span class="op">/</span><span class="dv">3</span>.<span class="fl">5.3</span><span class="op">/</span><span class="dv">3</span>.<span class="fl">3.3</span></span>
-<span id="cb84-47"><a href="data-transfer-and-eddie.html#cb84-47"></a>R_LIBS=<span class="er">/</span>exports<span class="op">/</span>cmvm<span class="op">/</span>eddie<span class="op">/</span>edmed<span class="op">/</span>groups<span class="op">/</span>SurgInfGrp<span class="op">/</span>R<span class="op">/</span>Rlibrary</span>
-<span id="cb84-48"><a href="data-transfer-and-eddie.html#cb84-48"></a>R_LIBS_SITE=<span class="er">/</span>exports<span class="op">/</span>cmvm<span class="op">/</span>eddie<span class="op">/</span>edmed<span class="op">/</span>groups<span class="op">/</span>SurgInfGrp<span class="op">/</span>R<span class="op">/</span>Rlibrary</span>
-<span id="cb84-49"><a href="data-transfer-and-eddie.html#cb84-49"></a>R_LIBS_USER=<span class="er">/</span>exports<span class="op">/</span>cmvm<span class="op">/</span>eddie<span class="op">/</span>edmed<span class="op">/</span>groups<span class="op">/</span>SurgInfGrp<span class="op">/</span>R<span class="op">/</span>Rlibrary</span>
-<span id="cb84-50"><a href="data-transfer-and-eddie.html#cb84-50"></a></span>
-<span id="cb84-51"><a href="data-transfer-and-eddie.html#cb84-51"></a></span>
-<span id="cb84-52"><a href="data-transfer-and-eddie.html#cb84-52"></a></span>
-<span id="cb84-53"><a href="data-transfer-and-eddie.html#cb84-53"></a></span>
-<span id="cb84-54"><a href="data-transfer-and-eddie.html#cb84-54"></a><span class="co">### Local Variables: ***</span></span>
-<span id="cb84-55"><a href="data-transfer-and-eddie.html#cb84-55"></a><span class="co">### mode: sh ***</span></span>
-<span id="cb84-56"><a href="data-transfer-and-eddie.html#cb84-56"></a><span class="co">### sh-indentation: 2 ***</span></span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="data-transfer-and-eddie.html#cb80-1"></a><span class="co">### etc/Renviron.  Generated from Renviron.in by configure.</span></span>
+<span id="cb80-2"><a href="data-transfer-and-eddie.html#cb80-2"></a><span class="co">###</span></span>
+<span id="cb80-3"><a href="data-transfer-and-eddie.html#cb80-3"></a><span class="co">### ${R_HOME}/etc/Renviron</span></span>
+<span id="cb80-4"><a href="data-transfer-and-eddie.html#cb80-4"></a><span class="co">###</span></span>
+<span id="cb80-5"><a href="data-transfer-and-eddie.html#cb80-5"></a><span class="co">### Record R system environment variables.</span></span>
+<span id="cb80-6"><a href="data-transfer-and-eddie.html#cb80-6"></a></span>
+<span id="cb80-7"><a href="data-transfer-and-eddie.html#cb80-7"></a>R_PLATFORM=<span class="er">$</span>{R_PLATFORM<span class="op">-</span><span class="st">&#39;x86_64-pc-linux-gnu&#39;</span>}</span>
+<span id="cb80-8"><a href="data-transfer-and-eddie.html#cb80-8"></a><span class="co">## Default printer paper size: first record if user set R_PAPERSIZE</span></span>
+<span id="cb80-9"><a href="data-transfer-and-eddie.html#cb80-9"></a>R_PAPERSIZE_USER=<span class="er">$</span>{R_PAPERSIZE}</span>
+<span id="cb80-10"><a href="data-transfer-and-eddie.html#cb80-10"></a>R_PAPERSIZE=<span class="er">$</span>{R_PAPERSIZE<span class="op">-</span><span class="st">&#39;a4&#39;</span>}</span>
+<span id="cb80-11"><a href="data-transfer-and-eddie.html#cb80-11"></a><span class="co">## Default print command</span></span>
+<span id="cb80-12"><a href="data-transfer-and-eddie.html#cb80-12"></a>R_PRINTCMD=<span class="er">$</span>{R_PRINTCMD<span class="op">-</span><span class="st">&#39;&#39;</span>}</span>
+<span id="cb80-13"><a href="data-transfer-and-eddie.html#cb80-13"></a><span class="co"># for Rd2pdf, reference manual</span></span>
+<span id="cb80-14"><a href="data-transfer-and-eddie.html#cb80-14"></a>R_RD4PDF=<span class="er">$</span>{R_RD4PDF<span class="op">-</span><span class="st">&#39;times,hyper&#39;</span>}</span>
+<span id="cb80-15"><a href="data-transfer-and-eddie.html#cb80-15"></a><span class="co">## used for options(&quot;texi2dvi&quot;)</span></span>
+<span id="cb80-16"><a href="data-transfer-and-eddie.html#cb80-16"></a>R_TEXI2DVICMD=<span class="er">$</span>{R_TEXI2DVICMD<span class="op">-</span><span class="er">$</span>{TEXI2DVI<span class="op">-</span><span class="st">&#39;texi2dvi&#39;</span>}}</span>
+<span id="cb80-17"><a href="data-transfer-and-eddie.html#cb80-17"></a><span class="co">## used by untar and installing grDevices</span></span>
+<span id="cb80-18"><a href="data-transfer-and-eddie.html#cb80-18"></a>R_GZIPCMD=<span class="er">$</span>{R_GZIPCMD<span class="op">-</span><span class="st">&#39;/usr/bin/gzip&#39;</span>}</span>
+<span id="cb80-19"><a href="data-transfer-and-eddie.html#cb80-19"></a><span class="co">## Default zip/unzip commands</span></span>
+<span id="cb80-20"><a href="data-transfer-and-eddie.html#cb80-20"></a>R_UNZIPCMD=<span class="er">$</span>{R_UNZIPCMD<span class="op">-</span><span class="st">&#39;/usr/bin/unzip&#39;</span>}</span>
+<span id="cb80-21"><a href="data-transfer-and-eddie.html#cb80-21"></a>R_ZIPCMD=<span class="er">$</span>{R_ZIPCMD<span class="op">-</span><span class="st">&#39;/usr/bin/zip&#39;</span>}</span>
+<span id="cb80-22"><a href="data-transfer-and-eddie.html#cb80-22"></a>R_BZIPCMD=<span class="er">$</span>{R_BZIPCMD<span class="op">-</span><span class="st">&#39;/usr/bin/bzip2&#39;</span>}</span>
+<span id="cb80-23"><a href="data-transfer-and-eddie.html#cb80-23"></a><span class="co">## Default browser</span></span>
+<span id="cb80-24"><a href="data-transfer-and-eddie.html#cb80-24"></a>R_BROWSER=<span class="er">$</span>{R_BROWSER<span class="op">-</span><span class="st">&#39;/usr/bin/xdg-open&#39;</span>}</span>
+<span id="cb80-25"><a href="data-transfer-and-eddie.html#cb80-25"></a><span class="co">## Default pager</span></span>
+<span id="cb80-26"><a href="data-transfer-and-eddie.html#cb80-26"></a>PAGER=<span class="er">$</span>{PAGER<span class="op">-</span><span class="st">&#39;/usr/bin/less&#39;</span>}</span>
+<span id="cb80-27"><a href="data-transfer-and-eddie.html#cb80-27"></a><span class="co">## Default PDF viewer</span></span>
+<span id="cb80-28"><a href="data-transfer-and-eddie.html#cb80-28"></a>R_PDFVIEWER=<span class="er">$</span>{R_PDFVIEWER<span class="op">-</span><span class="st">&#39;/usr/bin/xdg-open&#39;</span>}</span>
+<span id="cb80-29"><a href="data-transfer-and-eddie.html#cb80-29"></a><span class="co">## Used by libtool</span></span>
+<span id="cb80-30"><a href="data-transfer-and-eddie.html#cb80-30"></a>LN_S=<span class="st">&#39;ln -s&#39;</span></span>
+<span id="cb80-31"><a href="data-transfer-and-eddie.html#cb80-31"></a>MAKE=<span class="er">$</span>{MAKE<span class="op">-</span><span class="st">&#39;make&#39;</span>}</span>
+<span id="cb80-32"><a href="data-transfer-and-eddie.html#cb80-32"></a><span class="co">## Prefer a POSIX-compliant sed on e.g. Solaris</span></span>
+<span id="cb80-33"><a href="data-transfer-and-eddie.html#cb80-33"></a>SED=<span class="er">$</span>{SED<span class="op">-</span><span class="st">&#39;/usr/bin/sed&#39;</span>}</span>
+<span id="cb80-34"><a href="data-transfer-and-eddie.html#cb80-34"></a><span class="co">## Prefer a tar that can automagically read compressed archives</span></span>
+<span id="cb80-35"><a href="data-transfer-and-eddie.html#cb80-35"></a>TAR=<span class="er">$</span>{TAR<span class="op">-</span><span class="st">&#39;/usr/bin/gtar&#39;</span>}</span>
+<span id="cb80-36"><a href="data-transfer-and-eddie.html#cb80-36"></a></span>
+<span id="cb80-37"><a href="data-transfer-and-eddie.html#cb80-37"></a><span class="co">## System and compiler types.</span></span>
+<span id="cb80-38"><a href="data-transfer-and-eddie.html#cb80-38"></a>R_SYSTEM_ABI=<span class="st">&#39;linux,gcc,gxx,gfortran,?&#39;</span></span>
+<span id="cb80-39"><a href="data-transfer-and-eddie.html#cb80-39"></a></span>
+<span id="cb80-40"><a href="data-transfer-and-eddie.html#cb80-40"></a></span>
+<span id="cb80-41"><a href="data-transfer-and-eddie.html#cb80-41"></a><span class="co">## Change the default R libraries and directories</span></span>
+<span id="cb80-42"><a href="data-transfer-and-eddie.html#cb80-42"></a>R_DOC_DIR=<span class="er">/</span>exports<span class="op">/</span>applications<span class="op">/</span>apps<span class="op">/</span>SL7<span class="op">/</span>R<span class="op">/</span><span class="dv">3</span>.<span class="fl">5.3</span><span class="op">/</span>lib64<span class="op">/</span>R<span class="op">/</span>doc</span>
+<span id="cb80-43"><a href="data-transfer-and-eddie.html#cb80-43"></a>R_INCLUDE_DIR=<span class="er">/</span>exports<span class="op">/</span>applications<span class="op">/</span>apps<span class="op">/</span>SL7<span class="op">/</span>R<span class="op">/</span><span class="dv">3</span>.<span class="fl">5.3</span><span class="op">/</span>lib64<span class="op">/</span>R<span class="op">/</span>include</span>
+<span id="cb80-44"><a href="data-transfer-and-eddie.html#cb80-44"></a>R_SHARE_DIR=<span class="er">/</span>exports<span class="op">/</span>applications<span class="op">/</span>apps<span class="op">/</span>SL7<span class="op">/</span>R<span class="op">/</span><span class="dv">3</span>.<span class="fl">5.3</span><span class="op">/</span>lib64<span class="op">/</span>R<span class="op">/</span>share</span>
+<span id="cb80-45"><a href="data-transfer-and-eddie.html#cb80-45"></a>RBIN=<span class="er">/</span>exports<span class="op">/</span>applications<span class="op">/</span>apps<span class="op">/</span>SL7<span class="op">/</span>R<span class="op">/</span><span class="dv">3</span>.<span class="fl">5.3</span><span class="op">/</span>bin</span>
+<span id="cb80-46"><a href="data-transfer-and-eddie.html#cb80-46"></a>RDIR=<span class="er">/</span>exports<span class="op">/</span>applications<span class="op">/</span>apps<span class="op">/</span>SL7<span class="op">/</span>R<span class="op">/</span><span class="dv">3</span>.<span class="fl">5.3</span><span class="op">/</span><span class="dv">3</span>.<span class="fl">3.3</span></span>
+<span id="cb80-47"><a href="data-transfer-and-eddie.html#cb80-47"></a>R_LIBS=<span class="er">/</span>exports<span class="op">/</span>cmvm<span class="op">/</span>eddie<span class="op">/</span>edmed<span class="op">/</span>groups<span class="op">/</span>SurgInfGrp<span class="op">/</span>R<span class="op">/</span>Rlibrary</span>
+<span id="cb80-48"><a href="data-transfer-and-eddie.html#cb80-48"></a>R_LIBS_SITE=<span class="er">/</span>exports<span class="op">/</span>cmvm<span class="op">/</span>eddie<span class="op">/</span>edmed<span class="op">/</span>groups<span class="op">/</span>SurgInfGrp<span class="op">/</span>R<span class="op">/</span>Rlibrary</span>
+<span id="cb80-49"><a href="data-transfer-and-eddie.html#cb80-49"></a>R_LIBS_USER=<span class="er">/</span>exports<span class="op">/</span>cmvm<span class="op">/</span>eddie<span class="op">/</span>edmed<span class="op">/</span>groups<span class="op">/</span>SurgInfGrp<span class="op">/</span>R<span class="op">/</span>Rlibrary</span>
+<span id="cb80-50"><a href="data-transfer-and-eddie.html#cb80-50"></a></span>
+<span id="cb80-51"><a href="data-transfer-and-eddie.html#cb80-51"></a></span>
+<span id="cb80-52"><a href="data-transfer-and-eddie.html#cb80-52"></a></span>
+<span id="cb80-53"><a href="data-transfer-and-eddie.html#cb80-53"></a></span>
+<span id="cb80-54"><a href="data-transfer-and-eddie.html#cb80-54"></a><span class="co">### Local Variables: ***</span></span>
+<span id="cb80-55"><a href="data-transfer-and-eddie.html#cb80-55"></a><span class="co">### mode: sh ***</span></span>
+<span id="cb80-56"><a href="data-transfer-and-eddie.html#cb80-56"></a><span class="co">### sh-indentation: 2 ***</span></span></code></pre></div>
 <p>The <code>.Renviron</code> file can be copied to specific projects when specific R files / directories (or files / directories for other languages) are needed to run a particular analysis. For example, to use the GCC compiler from IGMM the following could be added to the file:</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="data-transfer-and-eddie.html#cb85-1"></a><span class="co">## Change the Clang variables</span></span>
-<span id="cb85-2"><a href="data-transfer-and-eddie.html#cb85-2"></a>CC=igmm<span class="op">/</span>compilers<span class="op">/</span>gcc<span class="op">/</span><span class="dv">5</span>.<span class="fl">5.0</span> <span class="op">-</span>fopenmp</span>
-<span id="cb85-3"><a href="data-transfer-and-eddie.html#cb85-3"></a>CXX=igmm<span class="op">/</span>compilers<span class="op">/</span>gcc<span class="op">/</span><span class="dv">5</span>.<span class="fl">5.0</span> <span class="op">-</span>fopenmp</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="data-transfer-and-eddie.html#cb81-1"></a><span class="co">## Change the Clang variables</span></span>
+<span id="cb81-2"><a href="data-transfer-and-eddie.html#cb81-2"></a>CC=igmm<span class="op">/</span>compilers<span class="op">/</span>gcc<span class="op">/</span><span class="dv">5</span>.<span class="fl">5.0</span> <span class="op">-</span>fopenmp</span>
+<span id="cb81-3"><a href="data-transfer-and-eddie.html#cb81-3"></a>CXX=igmm<span class="op">/</span>compilers<span class="op">/</span>gcc<span class="op">/</span><span class="dv">5</span>.<span class="fl">5.0</span> <span class="op">-</span>fopenmp</span></code></pre></div>
 <p>The <code>.Rprofile</code> files and <code>.Renviron</code> files should be as generic as possible in your own profile so as to avoid issues when sharing scripts. They can be tailored for specific projects when needed in the local working directory. Typically this should be to alter the paths to directories etc. and not to create bespoke functions which should be done in scripts.</p>
 </div>
 </div>
 <div id="specific-r-package-versions" class="section level3">
 <h3><span class="header-section-number">5.5.6</span> Specific R Package Versions</h3>
 <p>When working with other teams it is often necessary to work with particular R package versions. One effective way to ensure you do this is using the remotes package:</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="data-transfer-and-eddie.html#cb86-1"></a><span class="co"># Install the GenABEL package from CRAN but as no longer supporte need the 1.8-0 version from the archive</span></span>
-<span id="cb86-2"><a href="data-transfer-and-eddie.html#cb86-2"></a>remotes<span class="op">::</span><span class="kw">install_version</span>(<span class="st">&quot;GenABEL&quot;</span>, <span class="dt">version =</span> <span class="st">&quot;1.8-0&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="data-transfer-and-eddie.html#cb82-1"></a><span class="co"># Install the GenABEL package from CRAN but as no longer supporte need the 1.8-0 version from the archive</span></span>
+<span id="cb82-2"><a href="data-transfer-and-eddie.html#cb82-2"></a>remotes<span class="op">::</span><span class="kw">install_version</span>(<span class="st">&quot;GenABEL&quot;</span>, <span class="dt">version =</span> <span class="st">&quot;1.8-0&quot;</span>)</span></code></pre></div>
 </div>
 <div id="general-eddie-etiquette" class="section level3">
 <h3><span class="header-section-number">5.5.7</span> General Eddie Etiquette</h3>
@@ -559,6 +560,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">5.7</span> Additional Resources</h2>
 <p>The following resource covers some of the commands needed for the Univa Grid Enginge scheduler which is used to submit jobs on Eddie:</p>
 <p><a href="https://angus.readthedocs.io/en/2019/Intro_to_Cluster.html#" class="uri">https://angus.readthedocs.io/en/2019/Intro_to_Cluster.html#</a></p>
+</div>
+<div id="using-rstudio-directly-in-eddie" class="section level2">
+<h2><span class="header-section-number">5.8</span> Using RStudio directly in Eddie</h2>
+<p>Eddie is not meant for GUIs, but the good people at IGMM have installed RStudio installed on Eddie. It is terribly slow, but better than nothing and can be useful when you need to have a quick look and are really tired of doing command line R.</p>
+<p>Make sure you have X11 forwarding installed/enabled. On a Windows computer use MobaXterm. In macOS, install XQuarts, but then use the Terminal as usual.</p>
+<pre><code>ssh -Y username@eddie.ecdf.ed.ac.uk
+qlogin -l h_vmem=8G
+module load igmm/apps/RStudio/1.1.383
+module load igmm/apps/R/3.6.3
+rstudio</code></pre>
+<p>Of the qlogin line requesting an interactive session times out then try <code>qlogin -l h_vmem=4G</code> instead. 2GB is the absolute minimum that will work.</p>
+<p>Use <code>module avail</code> to check what the latest installed RStudio and R versions are.</p>
 
 </div>
 </div>
