@@ -59,7 +59,7 @@ sudo /opt/rstudio-connect/bin/usermanager delete --users --user-guid 46cb5adb-40
 sudo systemctl start rstudio-connect
 ```
 
-## Shiny server setup - UoE
+## Shiny server opensource setup - UoE Eleanor
 
 
 This guide assumes you’re already on the University of Edinburgh local network. If you’re working from home, you’ll first need to connect the UoE VPN. It also assumes you already have storage allocated to your project on Eleanor, and that your own computer is either Linux-based or a Mac.
