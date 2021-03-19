@@ -127,7 +127,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2020-10-17}
+\date{2021-03-19}
 
 \begin{document}
 \maketitle
@@ -316,6 +316,11 @@ This removes any user library packages that are also present in the system libra
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{remove-large-file-accidentally-committed-to-git}{%
+\subsection{Remove large file accidentally committed to git}\label{remove-large-file-accidentally-committed-to-git}}
+
+\texttt{git\ filter-branch\ -f\ -\/-index-filter\ "git\ rm\ -rf\ -\/-cached\ -\/-ignore-unmatch\ filename.rda"\ HEAD}.
+
 \hypertarget{exporting-tables-that-work-in-both-pdf-and-word}{%
 \section{Exporting tables that work in both PDF and Word}\label{exporting-tables-that-work-in-both-pdf-and-word}}
 
@@ -346,16 +351,6 @@ We can define our own table printing function that uses kableExtra or flextable 
   
 \NormalTok{\}}
 \KeywordTok{library}\NormalTok{(dplyr)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning: replacing previous import 'vctrs::data_frame' by 'tibble::data_frame'
-## when loading 'dplyr'
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{cars }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{head}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{mytable}\NormalTok{()}
@@ -579,7 +574,7 @@ Works for a single date or a vector of dates.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 50 76 71
+## [1] 50 77 71
 \end{verbatim}
 
 \begin{Shaded}
@@ -625,7 +620,7 @@ Works for a single date or a vector of dates.
 ##   chi        dob        gender   age
 ##   <chr>      <date>     <chr>  <dbl>
 ## 1 1009701234 1970-09-10 Male      50
-## 2 1811431232 1943-11-18 Male      76
+## 2 1811431232 1943-11-18 Male      77
 ## 3 1304496368 1949-04-13 Female    71
 \end{verbatim}
 
@@ -676,7 +671,7 @@ The final digit of the CHI can be used to test that the number is correct via th
 ##   chi        dob        gender   age chi_valid
 ##   <chr>      <date>     <chr>  <dbl> <lgl>    
 ## 1 1009701234 1970-09-10 Male      50 FALSE    
-## 2 1811431232 1943-11-18 Male      76 TRUE     
+## 2 1811431232 1943-11-18 Male      77 TRUE     
 ## 3 1304496368 1949-04-13 Female    71 TRUE
 \end{verbatim}
 
@@ -918,16 +913,6 @@ Common to have to do this in GlobalSurg projects:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(dplyr)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning: replacing previous import 'vctrs::data_frame' by 'tibble::data_frame'
-## when loading 'dplyr'
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{mydata =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}
   \DataTypeTok{ssi.factor =} \KeywordTok{c}\NormalTok{(}\StringTok{"No"}\NormalTok{, }\StringTok{"Yes, no treatment/wound opened only (CD 1)"}\NormalTok{,    }
                  \StringTok{"Yes, antibiotics only (CD 2)"}\NormalTok{, }\StringTok{"Yes, return to operating theatre (CD 3)"}\NormalTok{, }
@@ -966,7 +951,7 @@ Common to have to do this in GlobalSurg projects:
 \begin{verbatim}
 ## # A tibble: 7 x 2
 ##   ssi.factor                                        n
-##   <fct>                                         <int>
+## * <fct>                                         <int>
 ## 1 No                                                1
 ## 2 Unknown                                           1
 ## 3 Yes, antibiotics only (CD 2)                      1
@@ -988,7 +973,7 @@ Common to have to do this in GlobalSurg projects:
 \begin{verbatim}
 ## # A tibble: 3 x 2
 ##   ssi.factor_yn     n
-##   <fct>         <int>
+## * <fct>         <int>
 ## 1 No                1
 ## 2 Unknown           1
 ## 3 Yes               5
@@ -1694,6 +1679,25 @@ The following resource covers some of the commands needed for the Univa Grid Eng
 
 \url{https://angus.readthedocs.io/en/2019/Intro_to_Cluster.html\#}
 
+\hypertarget{using-rstudio-directly-in-eddie}{%
+\section{Using RStudio directly in Eddie}\label{using-rstudio-directly-in-eddie}}
+
+Eddie is not meant for GUIs, but the good people at IGMM have installed RStudio installed on Eddie. It is terribly slow, but better than nothing and can be useful when you need to have a quick look and are really tired of doing command line R.
+
+Make sure you have X11 forwarding installed/enabled. On a Windows computer use MobaXterm. In macOS, install XQuarts, but then use the Terminal as usual.
+
+\begin{verbatim}
+ssh -Y username@eddie.ecdf.ed.ac.uk
+qlogin -l h_vmem=8G
+module load igmm/apps/RStudio/1.1.383
+module load igmm/apps/R/3.6.3
+rstudio
+\end{verbatim}
+
+Of the qlogin line requesting an interactive session times out then try \texttt{qlogin\ -l\ h\_vmem=4G} instead. 2GB is the absolute minimum that will work.
+
+Use \texttt{module\ avail} to check what the latest installed RStudio and R versions are.
+
 \hypertarget{plotting}{%
 \chapter{Plotting}\label{plotting}}
 
@@ -1954,7 +1958,7 @@ The following will execute the \texttt{R} script at 7AM everyday. A log file is 
 \end{Highlighting}
 \end{Shaded}
 
-The cronjob does not load the user envirionment.
+The cronjob does not load the user environment.
 If you are using environment variables in R, e.g.~API tokens, then these can be loaded within the R script.
 Include this at the top of your script.
 
@@ -1992,8 +1996,8 @@ Include this at the top of your script.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{shiny-server-setup---uoe}{%
-\section{Shiny server setup - UoE}\label{shiny-server-setup---uoe}}
+\hypertarget{shiny-server-opensource-setup---uoe-eleanor}{%
+\section{Shiny server opensource setup - UoE Eleanor}\label{shiny-server-opensource-setup---uoe-eleanor}}
 
 This guide assumes you're already on the University of Edinburgh local network. If you're working from home, you'll first need to connect the UoE VPN. It also assumes you already have storage allocated to your project on Eleanor, and that your own computer is either Linux-based or a Mac.
 

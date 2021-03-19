@@ -24,7 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2020-11-11" />
+<meta name="date" content="2021-03-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -149,6 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="snippets.html"><a href="snippets.html#useful-rstudio-functions"><i class="fa fa-check"></i><b>2.1</b> Useful RStudio functions</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="snippets.html"><a href="snippets.html#clean-restart"><i class="fa fa-check"></i><b>2.1.1</b> Clean restart</a></li>
 <li class="chapter" data-level="2.1.2" data-path="snippets.html"><a href="snippets.html#remove-duplicated-packages-between-personal-and-system-libraries"><i class="fa fa-check"></i><b>2.1.2</b> Remove duplicated packages between personal and system libraries</a></li>
+<li class="chapter" data-level="2.1.3" data-path="snippets.html"><a href="snippets.html#remove-large-file-accidentally-committed-to-git"><i class="fa fa-check"></i><b>2.1.3</b> Remove large file accidentally committed to git</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#exporting-tables-that-work-in-both-pdf-and-word"><i class="fa fa-check"></i><b>2.2</b> Exporting tables that work in both PDF and Word</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="snippets.html"><a href="snippets.html#warning-in-kableextra.-please-specify-format-in-kable.-kableextra-can-customize-either-html-or-latex-outputs."><i class="fa fa-check"></i><b>2.2.1</b> Warning in kableExtra. Please specify format in kable. kableExtra can customize either HTML or LaTeX outputs.</a></li>
@@ -324,7 +325,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb44-33"><a href="data-manipulation.html#cb44-33"></a><span class="st">  </span><span class="kw">count</span>(ssi.factor)</span></code></pre></div>
 <pre><code>## # A tibble: 7 x 2
 ##   ssi.factor                                        n
-##   &lt;fct&gt;                                         &lt;int&gt;
+## * &lt;fct&gt;                                         &lt;int&gt;
 ## 1 No                                                1
 ## 2 Unknown                                           1
 ## 3 Yes, antibiotics only (CD 2)                      1
@@ -338,7 +339,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb46-4"><a href="data-manipulation.html#cb46-4"></a><span class="st">  </span><span class="kw">count</span>(ssi.factor_yn)</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##   ssi.factor_yn     n
-##   &lt;fct&gt;         &lt;int&gt;
+## * &lt;fct&gt;         &lt;int&gt;
 ## 1 No                1
 ## 2 Unknown           1
 ## 3 Yes               5</code></pre>

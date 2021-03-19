@@ -37,6 +37,9 @@ remove.packages(to_remove)
 }
 ```
 
+### Remove large file accidentally committed to git
+
+`git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch filename.rda" HEAD`.
 
 ## Exporting tables that work in both PDF and Word
 
