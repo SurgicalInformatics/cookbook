@@ -24,7 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2021-03-19" />
+<meta name="date" content="2021-06-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -211,6 +211,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1" data-path="plotting.html"><a href="plotting.html#gghighlight-example"><i class="fa fa-check"></i><b>6.1</b> GGHighlight Example</a></li>
 <li class="chapter" data-level="6.2" data-path="plotting.html"><a href="plotting.html#coord_flip-factor-orders"><i class="fa fa-check"></i><b>6.2</b> <code>coord_flip()</code> factor orders</a></li>
 <li class="chapter" data-level="6.3" data-path="plotting.html"><a href="plotting.html#axis-font-size"><i class="fa fa-check"></i><b>6.3</b> Axis font size</a></li>
+<li class="chapter" data-level="6.4" data-path="plotting.html"><a href="plotting.html#shorten-arrows-on-a-dag"><i class="fa fa-check"></i><b>6.4</b> Shorten Arrows on a DAG</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="genomics.html"><a href="genomics.html"><i class="fa fa-check"></i><b>7</b> Genomics</a><ul>
 <li class="chapter" data-level="7.1" data-path="genomics.html"><a href="genomics.html#single-cell-analysis"><i class="fa fa-check"></i><b>7.1</b> Single Cell Analysis</a><ul>
@@ -292,32 +293,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="minimising-the-size-of-a-seurat-object" class="section level3">
 <h3><span class="header-section-number">7.1.1</span> Minimising the size of a Seurat Object</h3>
 <p>Single cell analyses are ofetn collated in Seurat objects which can be huge. We reduced the size of our Seurat object by pulling the relevant sections using the code below reducing the object to &lt;20% of its original size. This works by only including the sparse matrices. This is not a workable example, but the PBMC dataset could be used if necessary.</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="genomics.html#cb90-1"></a><span class="co">#library(Seurat)</span></span>
-<span id="cb90-2"><a href="genomics.html#cb90-2"></a><span class="co">#library(dplyr)</span></span>
-<span id="cb90-3"><a href="genomics.html#cb90-3"></a></span>
-<span id="cb90-4"><a href="genomics.html#cb90-4"></a></span>
-<span id="cb90-5"><a href="genomics.html#cb90-5"></a><span class="co">#Load in the data</span></span>
-<span id="cb90-6"><a href="genomics.html#cb90-6"></a></span>
-<span id="cb90-7"><a href="genomics.html#cb90-7"></a>pathtoglobaldata &lt;-<span class="st">&quot;mac_shiny/data/Global_sc_object&quot;</span></span>
-<span id="cb90-8"><a href="genomics.html#cb90-8"></a>object_global&lt;-<span class="kw">readRDS</span>(pathtoglobaldata)</span>
-<span id="cb90-9"><a href="genomics.html#cb90-9"></a></span>
-<span id="cb90-10"><a href="genomics.html#cb90-10"></a></span>
-<span id="cb90-11"><a href="genomics.html#cb90-11"></a><span class="co"># Get sparse assay data</span></span>
-<span id="cb90-12"><a href="genomics.html#cb90-12"></a>sizetest_global&lt;-<span class="kw">GetAssayData</span>(<span class="dt">object =</span> object_global, <span class="dt">slot =</span> <span class="st">&quot;data&quot;</span>) <span class="co"># counts don’t work, scaled breaks my pc with memory errors, not sure it matters that much</span></span>
-<span id="cb90-13"><a href="genomics.html#cb90-13"></a>object_global_small&lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(sizetest_global)</span>
-<span id="cb90-14"><a href="genomics.html#cb90-14"></a></span>
-<span id="cb90-15"><a href="genomics.html#cb90-15"></a><span class="co"># Add in classifications. </span></span>
-<span id="cb90-16"><a href="genomics.html#cb90-16"></a></span>
-<span id="cb90-17"><a href="genomics.html#cb90-17"></a>object_global_small<span class="op">@</span>reductions<span class="op">$</span>tsne&lt;-object_global<span class="op">@</span>reductions<span class="op">$</span>tsne <span class="co"># reduction embeddings for tsnegraph</span></span>
-<span id="cb90-18"><a href="genomics.html#cb90-18"></a>object_global_small<span class="op">$</span>Phenotype&lt;-<span class="st"> </span>object_global<span class="op">$</span>Phenotype</span>
-<span id="cb90-19"><a href="genomics.html#cb90-19"></a></span>
-<span id="cb90-20"><a href="genomics.html#cb90-20"></a>object_global_small<span class="op">@</span>meta.data<span class="op">$</span>final_classification&lt;-<span class="st"> </span>object_global<span class="op">@</span>meta.data<span class="op">$</span>final_classification</span>
-<span id="cb90-21"><a href="genomics.html#cb90-21"></a>object_global_small<span class="op">$</span>final_classificaiton&lt;-<span class="st"> </span>object_global<span class="op">$</span>final_classification <span class="co">#cell classifications</span></span>
-<span id="cb90-22"><a href="genomics.html#cb90-22"></a><span class="kw">Idents</span>(<span class="dt">object =</span> object_global_small) &lt;-<span class="st"> &quot;final_classificaiton&quot;</span> <span class="co">#set forever</span></span>
-<span id="cb90-23"><a href="genomics.html#cb90-23"></a></span>
-<span id="cb90-24"><a href="genomics.html#cb90-24"></a></span>
-<span id="cb90-25"><a href="genomics.html#cb90-25"></a><span class="co">#same</span></span>
-<span id="cb90-26"><a href="genomics.html#cb90-26"></a><span class="kw">saveRDS</span>(object_global_small,<span class="st">&quot;mac_shiny/data/global_object_sml&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="genomics.html#cb92-1"></a><span class="co">#library(Seurat)</span></span>
+<span id="cb92-2"><a href="genomics.html#cb92-2"></a><span class="co">#library(dplyr)</span></span>
+<span id="cb92-3"><a href="genomics.html#cb92-3"></a></span>
+<span id="cb92-4"><a href="genomics.html#cb92-4"></a></span>
+<span id="cb92-5"><a href="genomics.html#cb92-5"></a><span class="co">#Load in the data</span></span>
+<span id="cb92-6"><a href="genomics.html#cb92-6"></a></span>
+<span id="cb92-7"><a href="genomics.html#cb92-7"></a>pathtoglobaldata &lt;-<span class="st">&quot;mac_shiny/data/Global_sc_object&quot;</span></span>
+<span id="cb92-8"><a href="genomics.html#cb92-8"></a>object_global&lt;-<span class="kw">readRDS</span>(pathtoglobaldata)</span>
+<span id="cb92-9"><a href="genomics.html#cb92-9"></a></span>
+<span id="cb92-10"><a href="genomics.html#cb92-10"></a></span>
+<span id="cb92-11"><a href="genomics.html#cb92-11"></a><span class="co"># Get sparse assay data</span></span>
+<span id="cb92-12"><a href="genomics.html#cb92-12"></a>sizetest_global&lt;-<span class="kw">GetAssayData</span>(<span class="dt">object =</span> object_global, <span class="dt">slot =</span> <span class="st">&quot;data&quot;</span>) <span class="co"># counts don’t work, scaled breaks my pc with memory errors, not sure it matters that much</span></span>
+<span id="cb92-13"><a href="genomics.html#cb92-13"></a>object_global_small&lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(sizetest_global)</span>
+<span id="cb92-14"><a href="genomics.html#cb92-14"></a></span>
+<span id="cb92-15"><a href="genomics.html#cb92-15"></a><span class="co"># Add in classifications. </span></span>
+<span id="cb92-16"><a href="genomics.html#cb92-16"></a></span>
+<span id="cb92-17"><a href="genomics.html#cb92-17"></a>object_global_small<span class="op">@</span>reductions<span class="op">$</span>tsne&lt;-object_global<span class="op">@</span>reductions<span class="op">$</span>tsne <span class="co"># reduction embeddings for tsnegraph</span></span>
+<span id="cb92-18"><a href="genomics.html#cb92-18"></a>object_global_small<span class="op">$</span>Phenotype&lt;-<span class="st"> </span>object_global<span class="op">$</span>Phenotype</span>
+<span id="cb92-19"><a href="genomics.html#cb92-19"></a></span>
+<span id="cb92-20"><a href="genomics.html#cb92-20"></a>object_global_small<span class="op">@</span>meta.data<span class="op">$</span>final_classification&lt;-<span class="st"> </span>object_global<span class="op">@</span>meta.data<span class="op">$</span>final_classification</span>
+<span id="cb92-21"><a href="genomics.html#cb92-21"></a>object_global_small<span class="op">$</span>final_classificaiton&lt;-<span class="st"> </span>object_global<span class="op">$</span>final_classification <span class="co">#cell classifications</span></span>
+<span id="cb92-22"><a href="genomics.html#cb92-22"></a><span class="kw">Idents</span>(<span class="dt">object =</span> object_global_small) &lt;-<span class="st"> &quot;final_classificaiton&quot;</span> <span class="co">#set forever</span></span>
+<span id="cb92-23"><a href="genomics.html#cb92-23"></a></span>
+<span id="cb92-24"><a href="genomics.html#cb92-24"></a></span>
+<span id="cb92-25"><a href="genomics.html#cb92-25"></a><span class="co">#same</span></span>
+<span id="cb92-26"><a href="genomics.html#cb92-26"></a><span class="kw">saveRDS</span>(object_global_small,<span class="st">&quot;mac_shiny/data/global_object_sml&quot;</span>)</span></code></pre></div>
 
 </div>
 </div>

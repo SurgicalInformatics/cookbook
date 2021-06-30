@@ -24,7 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2021-03-19" />
+<meta name="date" content="2021-06-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -211,6 +211,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1" data-path="plotting.html"><a href="plotting.html#gghighlight-example"><i class="fa fa-check"></i><b>6.1</b> GGHighlight Example</a></li>
 <li class="chapter" data-level="6.2" data-path="plotting.html"><a href="plotting.html#coord_flip-factor-orders"><i class="fa fa-check"></i><b>6.2</b> <code>coord_flip()</code> factor orders</a></li>
 <li class="chapter" data-level="6.3" data-path="plotting.html"><a href="plotting.html#axis-font-size"><i class="fa fa-check"></i><b>6.3</b> Axis font size</a></li>
+<li class="chapter" data-level="6.4" data-path="plotting.html"><a href="plotting.html#shorten-arrows-on-a-dag"><i class="fa fa-check"></i><b>6.4</b> Shorten Arrows on a DAG</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="genomics.html"><a href="genomics.html"><i class="fa fa-check"></i><b>7</b> Genomics</a><ul>
 <li class="chapter" data-level="7.1" data-path="genomics.html"><a href="genomics.html#single-cell-analysis"><i class="fa fa-check"></i><b>7.1</b> Single Cell Analysis</a><ul>
@@ -370,6 +371,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb89-9"><a href="plotting.html#cb89-9"></a><span class="co">#ggsave(&quot;barplot_10x8.pdf&quot;, width = mywidth, height = myheight)</span></span></code></pre></div>
 <p>Same plot 5x4 inches vs 10x8 inches:</p>
 <p><img src="img/barplot_5x4.png" width="50%" /><img src="img/barplot_10x8.png" width="50%" /></p>
+</div>
+<div id="shorten-arrows-on-a-dag" class="section level2">
+<h2><span class="header-section-number">6.4</span> Shorten Arrows on a DAG</h2>
+<p>Plot 1 with large nodes and arrows not shortened:</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="plotting.html#cb90-1"></a>DAG &lt;-<span class="st"> </span>ggdag<span class="op">::</span><span class="kw">dagify</span>(y <span class="op">~</span><span class="st"> </span>x)</span>
+<span id="cb90-2"><a href="plotting.html#cb90-2"></a>DAG &lt;-<span class="st"> </span>ggdag<span class="op">::</span><span class="kw">tidy_dagitty</span>(DAG)</span>
+<span id="cb90-3"><a href="plotting.html#cb90-3"></a>PLOT1 &lt;-<span class="st"> </span>ggdag<span class="op">::</span><span class="kw">ggdag</span>(DAG, <span class="dt">node_size =</span> <span class="dv">50</span>)</span>
+<span id="cb90-4"><a href="plotting.html#cb90-4"></a>PLOT1</span></code></pre></div>
+<p><img src="06-plotting_files/figure-html/dag_big_nodes_part_1-1.png" width="672" /></p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="plotting.html#cb91-1"></a>shorten_dag_arrows &lt;-<span class="st"> </span><span class="cf">function</span>(tidy_dag, shorten_distance){</span>
+<span id="cb91-2"><a href="plotting.html#cb91-2"></a>  <span class="co"># Update underlying ggdag object</span></span>
+<span id="cb91-3"><a href="plotting.html#cb91-3"></a>  tidy_dag<span class="op">$</span>data =<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(tidy_dag<span class="op">$</span>data, <span class="dt">slope =</span> (yend <span class="op">-</span><span class="st"> </span>y) <span class="op">/</span><span class="st"> </span>(xend <span class="op">-</span><span class="st"> </span>x), <span class="co"># Calculate slope of line</span></span>
+<span id="cb91-4"><a href="plotting.html#cb91-4"></a>                  <span class="dt">distance =</span> <span class="kw">sqrt</span>((xend<span class="op">-</span>x)<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>(yend <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>), <span class="co"># Calculate total distance of line</span></span>
+<span id="cb91-5"><a href="plotting.html#cb91-5"></a>                  <span class="dt">proportion =</span> shorten_distance<span class="op">/</span>distance, <span class="co"># Calculate proportion by which to be shortened</span></span>
+<span id="cb91-6"><a href="plotting.html#cb91-6"></a>                  <span class="dt">xend =</span> (<span class="dv">1</span><span class="op">-</span>proportion)<span class="op">*</span>xend <span class="op">+</span><span class="st"> </span>(proportion<span class="op">*</span>x), <span class="co"># Shorten xend</span></span>
+<span id="cb91-7"><a href="plotting.html#cb91-7"></a>                  <span class="dt">yend =</span> (<span class="dv">1</span><span class="op">-</span>proportion)<span class="op">*</span>yend <span class="op">+</span><span class="st"> </span>(proportion<span class="op">*</span>y)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Shorten yend</span></span>
+<span id="cb91-8"><a href="plotting.html#cb91-8"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>slope, <span class="op">-</span>distance, <span class="op">-</span>proportion) <span class="co"># Drop intermediate values</span></span>
+<span id="cb91-9"><a href="plotting.html#cb91-9"></a>  <span class="kw">return</span>(tidy_dag)</span>
+<span id="cb91-10"><a href="plotting.html#cb91-10"></a>}</span>
+<span id="cb91-11"><a href="plotting.html#cb91-11"></a>DAG &lt;-<span class="st"> </span><span class="kw">shorten_dag_arrows</span>(DAG, <span class="dt">shorten_distance =</span> <span class="fl">0.1</span>)</span>
+<span id="cb91-12"><a href="plotting.html#cb91-12"></a>PLOT2 &lt;-<span class="st"> </span>ggdag<span class="op">::</span><span class="kw">ggdag</span>(DAG, <span class="dt">node_size =</span> <span class="dv">50</span>)</span>
+<span id="cb91-13"><a href="plotting.html#cb91-13"></a>PLOT2</span></code></pre></div>
+<p><img src="06-plotting_files/figure-html/dag_big_nodes_part_2-1.png" width="672" /></p>
 
 </div>
 </div>

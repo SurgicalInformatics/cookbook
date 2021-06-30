@@ -125,3 +125,28 @@ knitr::include_graphics(here::here("img", "barplot_5x4.png"))
 knitr::include_graphics(here::here("img", "barplot_10x8.png"))
 ```
 
+## Shorten Arrows on a DAG
+
+Plot 1 with large nodes and arrows not shortened:
+```{r dag_big_nodes_part_1, echo = TRUE}
+DAG <- ggdag::dagify(y ~ x)
+DAG <- ggdag::tidy_dagitty(DAG)
+PLOT1 <- ggdag::ggdag(DAG, node_size = 50)
+PLOT1
+```
+
+```{r dag_big_nodes_part_2, echo = TRUE}
+shorten_dag_arrows <- function(tidy_dag, shorten_distance){
+  # Update underlying ggdag object
+  tidy_dag$data = dplyr::mutate(tidy_dag$data, slope = (yend - y) / (xend - x), # Calculate slope of line
+                  distance = sqrt((xend-x)^2 + (yend - y)^2), # Calculate total distance of line
+                  proportion = shorten_distance/distance, # Calculate proportion by which to be shortened
+                  xend = (1-proportion)*xend + (proportion*x), # Shorten xend
+                  yend = (1-proportion)*yend + (proportion*y)) %>% # Shorten yend
+    dplyr::select(-slope, -distance, -proportion) # Drop intermediate values
+  return(tidy_dag)
+}
+DAG <- shorten_dag_arrows(DAG, shorten_distance = 0.1)
+PLOT2 <- ggdag::ggdag(DAG, node_size = 50)
+PLOT2
+```

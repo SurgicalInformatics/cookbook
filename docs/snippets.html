@@ -24,7 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2021-03-19" />
+<meta name="date" content="2021-06-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -211,6 +211,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1" data-path="plotting.html"><a href="plotting.html#gghighlight-example"><i class="fa fa-check"></i><b>6.1</b> GGHighlight Example</a></li>
 <li class="chapter" data-level="6.2" data-path="plotting.html"><a href="plotting.html#coord_flip-factor-orders"><i class="fa fa-check"></i><b>6.2</b> <code>coord_flip()</code> factor orders</a></li>
 <li class="chapter" data-level="6.3" data-path="plotting.html"><a href="plotting.html#axis-font-size"><i class="fa fa-check"></i><b>6.3</b> Axis font size</a></li>
+<li class="chapter" data-level="6.4" data-path="plotting.html"><a href="plotting.html#shorten-arrows-on-a-dag"><i class="fa fa-check"></i><b>6.4</b> Shorten Arrows on a DAG</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="genomics.html"><a href="genomics.html"><i class="fa fa-check"></i><b>7</b> Genomics</a><ul>
 <li class="chapter" data-level="7.1" data-path="genomics.html"><a href="genomics.html#single-cell-analysis"><i class="fa fa-check"></i><b>7.1</b> Single Cell Analysis</a><ul>
@@ -543,7 +544,7 @@ A test for even is <code>x modulus 2 == 0</code>.</p>
 <span id="cb18-7"><a href="snippets.html#cb18-7"></a></span>
 <span id="cb18-8"><a href="snippets.html#cb18-8"></a><span class="co"># Today</span></span>
 <span id="cb18-9"><a href="snippets.html#cb18-9"></a><span class="kw">chi_age</span>(chi, <span class="kw">Sys.time</span>())</span></code></pre></div>
-<pre><code>## [1] 50 77 71</code></pre>
+<pre><code>## [1] 50 77 72</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="snippets.html#cb20-1"></a><span class="co"># Single date</span></span>
 <span id="cb20-2"><a href="snippets.html#cb20-2"></a><span class="kw">library</span>(lubridate)</span>
 <span id="cb20-3"><a href="snippets.html#cb20-3"></a><span class="kw">chi_age</span>(chi, <span class="kw">dmy</span>(<span class="st">&quot;11/09/2018&quot;</span>))</span></code></pre></div>
@@ -566,7 +567,7 @@ A test for even is <code>x modulus 2 == 0</code>.</p>
 ##   &lt;chr&gt;      &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt;
 ## 1 1009701234 1970-09-10 Male      50
 ## 2 1811431232 1943-11-18 Male      77
-## 3 1304496368 1949-04-13 Female    71</code></pre>
+## 3 1304496368 1949-04-13 Female    72</code></pre>
 </div>
 <div id="chi_valid---logical-test-for-valid-chi" class="section level3">
 <h3><span class="header-section-number">2.4.4</span> <code>chi_valid()</code> - Logical test for valid CHI</h3>
@@ -600,7 +601,7 @@ A test for even is <code>x modulus 2 == 0</code>.</p>
 ##   &lt;chr&gt;      &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt;    
 ## 1 1009701234 1970-09-10 Male      50 FALSE    
 ## 2 1811431232 1943-11-18 Male      77 TRUE     
-## 3 1304496368 1949-04-13 Female    71 TRUE</code></pre>
+## 3 1304496368 1949-04-13 Female    72 TRUE</code></pre>
 </div>
 </div>
 <div id="working-with-dates" class="section level2">

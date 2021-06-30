@@ -127,7 +127,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2021-03-19}
+\date{2021-06-30}
 
 \begin{document}
 \maketitle
@@ -140,7 +140,7 @@
 \chapter*{}\label{section}}
 \addcontentsline{toc}{chapter}{}
 
-\includegraphics[width=30.97in]{/home/eharrison/cookbook/img/surgical_informatics_minibanner}
+\includegraphics[width=30.97in]{/home/common/users/cfairfield/cookbook/img/surgical_informatics_minibanner}
 
 \hypertarget{introduction}{%
 \chapter{Introduction}\label{introduction}}
@@ -574,7 +574,7 @@ Works for a single date or a vector of dates.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 50 77 71
+## [1] 50 77 72
 \end{verbatim}
 
 \begin{Shaded}
@@ -621,7 +621,7 @@ Works for a single date or a vector of dates.
 ##   <chr>      <date>     <chr>  <dbl>
 ## 1 1009701234 1970-09-10 Male      50
 ## 2 1811431232 1943-11-18 Male      77
-## 3 1304496368 1949-04-13 Female    71
+## 3 1304496368 1949-04-13 Female    72
 \end{verbatim}
 
 \hypertarget{chi_valid---logical-test-for-valid-chi}{%
@@ -672,7 +672,7 @@ The final digit of the CHI can be used to test that the number is correct via th
 ##   <chr>      <date>     <chr>  <dbl> <lgl>    
 ## 1 1009701234 1970-09-10 Male      50 FALSE    
 ## 2 1811431232 1943-11-18 Male      77 TRUE     
-## 3 1304496368 1949-04-13 Female    71 TRUE
+## 3 1304496368 1949-04-13 Female    72 TRUE
 \end{verbatim}
 
 \hypertarget{working-with-dates}{%
@@ -1821,8 +1821,44 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 
 Same plot 5x4 inches vs 10x8 inches:
 
-\includegraphics[width=0.5\linewidth]{/home/eharrison/cookbook/img/barplot_5x4}
-\includegraphics[width=0.5\linewidth]{/home/eharrison/cookbook/img/barplot_10x8}
+\includegraphics[width=0.5\linewidth]{/home/common/users/cfairfield/cookbook/img/barplot_5x4}
+\includegraphics[width=0.5\linewidth]{/home/common/users/cfairfield/cookbook/img/barplot_10x8}
+
+\hypertarget{shorten-arrows-on-a-dag}{%
+\section{Shorten Arrows on a DAG}\label{shorten-arrows-on-a-dag}}
+
+Plot 1 with large nodes and arrows not shortened:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{DAG <-}\StringTok{ }\NormalTok{ggdag}\OperatorTok{::}\KeywordTok{dagify}\NormalTok{(y }\OperatorTok{~}\StringTok{ }\NormalTok{x)}
+\NormalTok{DAG <-}\StringTok{ }\NormalTok{ggdag}\OperatorTok{::}\KeywordTok{tidy_dagitty}\NormalTok{(DAG)}
+\NormalTok{PLOT1 <-}\StringTok{ }\NormalTok{ggdag}\OperatorTok{::}\KeywordTok{ggdag}\NormalTok{(DAG, }\DataTypeTok{node_size =} \DecValTok{50}\NormalTok{)}
+\NormalTok{PLOT1}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{06-plotting_files/figure-latex/dag_big_nodes_part_1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{shorten_dag_arrows <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(tidy_dag, shorten_distance)\{}
+  \CommentTok{# Update underlying ggdag object}
+\NormalTok{  tidy_dag}\OperatorTok{$}\NormalTok{data =}\StringTok{ }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{mutate}\NormalTok{(tidy_dag}\OperatorTok{$}\NormalTok{data, }\DataTypeTok{slope =}\NormalTok{ (yend }\OperatorTok{-}\StringTok{ }\NormalTok{y) }\OperatorTok{/}\StringTok{ }\NormalTok{(xend }\OperatorTok{-}\StringTok{ }\NormalTok{x), }\CommentTok{# Calculate slope of line}
+                  \DataTypeTok{distance =} \KeywordTok{sqrt}\NormalTok{((xend}\OperatorTok{-}\NormalTok{x)}\OperatorTok{^}\DecValTok{2} \OperatorTok{+}\StringTok{ }\NormalTok{(yend }\OperatorTok{-}\StringTok{ }\NormalTok{y)}\OperatorTok{^}\DecValTok{2}\NormalTok{), }\CommentTok{# Calculate total distance of line}
+                  \DataTypeTok{proportion =}\NormalTok{ shorten_distance}\OperatorTok{/}\NormalTok{distance, }\CommentTok{# Calculate proportion by which to be shortened}
+                  \DataTypeTok{xend =}\NormalTok{ (}\DecValTok{1}\OperatorTok{-}\NormalTok{proportion)}\OperatorTok{*}\NormalTok{xend }\OperatorTok{+}\StringTok{ }\NormalTok{(proportion}\OperatorTok{*}\NormalTok{x), }\CommentTok{# Shorten xend}
+                  \DataTypeTok{yend =}\NormalTok{ (}\DecValTok{1}\OperatorTok{-}\NormalTok{proportion)}\OperatorTok{*}\NormalTok{yend }\OperatorTok{+}\StringTok{ }\NormalTok{(proportion}\OperatorTok{*}\NormalTok{y)) }\OperatorTok{%>%}\StringTok{ }\CommentTok{# Shorten yend}
+\StringTok{    }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{slope, }\OperatorTok{-}\NormalTok{distance, }\OperatorTok{-}\NormalTok{proportion) }\CommentTok{# Drop intermediate values}
+  \KeywordTok{return}\NormalTok{(tidy_dag)}
+\NormalTok{\}}
+\NormalTok{DAG <-}\StringTok{ }\KeywordTok{shorten_dag_arrows}\NormalTok{(DAG, }\DataTypeTok{shorten_distance =} \FloatTok{0.1}\NormalTok{)}
+\NormalTok{PLOT2 <-}\StringTok{ }\NormalTok{ggdag}\OperatorTok{::}\KeywordTok{ggdag}\NormalTok{(DAG, }\DataTypeTok{node_size =} \DecValTok{50}\NormalTok{)}
+\NormalTok{PLOT2}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{06-plotting_files/figure-latex/dag_big_nodes_part_2-1.pdf}
 
 \hypertarget{genomics}{%
 \chapter{Genomics}\label{genomics}}

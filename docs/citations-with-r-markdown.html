@@ -24,7 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2021-03-19" />
+<meta name="date" content="2021-06-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -211,6 +211,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1" data-path="plotting.html"><a href="plotting.html#gghighlight-example"><i class="fa fa-check"></i><b>6.1</b> GGHighlight Example</a></li>
 <li class="chapter" data-level="6.2" data-path="plotting.html"><a href="plotting.html#coord_flip-factor-orders"><i class="fa fa-check"></i><b>6.2</b> <code>coord_flip()</code> factor orders</a></li>
 <li class="chapter" data-level="6.3" data-path="plotting.html"><a href="plotting.html#axis-font-size"><i class="fa fa-check"></i><b>6.3</b> Axis font size</a></li>
+<li class="chapter" data-level="6.4" data-path="plotting.html"><a href="plotting.html#shorten-arrows-on-a-dag"><i class="fa fa-check"></i><b>6.4</b> Shorten Arrows on a DAG</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="genomics.html"><a href="genomics.html"><i class="fa fa-check"></i><b>7</b> Genomics</a><ul>
 <li class="chapter" data-level="7.1" data-path="genomics.html"><a href="genomics.html#single-cell-analysis"><i class="fa fa-check"></i><b>7.1</b> Single Cell Analysis</a><ul>
@@ -401,30 +402,30 @@ Figure 10.4: ZotFile PDF Storage Preferences
 <div id="token-creation" class="section level3">
 <h3><span class="header-section-number">10.6.1</span> Token Creation</h3>
 <p>The code will create two files, a token and the <code>.httr-oauth</code> file from which a token can also be made. The encryptr package can then encrypt the files using a public / private key pair. It is essential that the password that is set when using genkeys() is remembered otherwise the token cannot then be used. In this case the original token can’t be retrieved but could be created again from scratch.</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="citations-with-r-markdown.html#cb108-1"></a><span class="kw">library</span>(rdrop2)</span>
-<span id="cb108-2"><a href="citations-with-r-markdown.html#cb108-2"></a><span class="kw">library</span>(encryptr)</span>
-<span id="cb108-3"><a href="citations-with-r-markdown.html#cb108-3"></a> </span>
-<span id="cb108-4"><a href="citations-with-r-markdown.html#cb108-4"></a><span class="co"># Create token</span></span>
-<span id="cb108-5"><a href="citations-with-r-markdown.html#cb108-5"></a>token &lt;-<span class="st"> </span><span class="kw">drop_auth</span>()</span>
-<span id="cb108-6"><a href="citations-with-r-markdown.html#cb108-6"></a> </span>
-<span id="cb108-7"><a href="citations-with-r-markdown.html#cb108-7"></a><span class="co"># Save token</span></span>
-<span id="cb108-8"><a href="citations-with-r-markdown.html#cb108-8"></a><span class="kw">saveRDS</span>(token, <span class="st">&quot;droptoken.rds&quot;</span>)</span>
-<span id="cb108-9"><a href="citations-with-r-markdown.html#cb108-9"></a> </span>
-<span id="cb108-10"><a href="citations-with-r-markdown.html#cb108-10"></a><span class="co"># Encrypt token</span></span>
-<span id="cb108-11"><a href="citations-with-r-markdown.html#cb108-11"></a><span class="kw">genkeys</span>()               <span class="co"># Default file names are id_rsa and id_rsa.pub</span></span>
-<span id="cb108-12"><a href="citations-with-r-markdown.html#cb108-12"></a><span class="kw">encrypt_file</span>(<span class="st">&quot;droptoken.rds&quot;</span>, <span class="st">&quot;droptoken.rds.encryptr.bin&quot;</span>)</span>
-<span id="cb108-13"><a href="citations-with-r-markdown.html#cb108-13"></a><span class="kw">encrypt_file</span>(<span class="st">&quot;.httr-oauth&quot;</span>, <span class="st">&quot;.httr-oauth.encryptr.bin&quot;</span>)</span>
-<span id="cb108-14"><a href="citations-with-r-markdown.html#cb108-14"></a> </span>
-<span id="cb108-15"><a href="citations-with-r-markdown.html#cb108-15"></a><span class="co"># Same details should appear later</span></span>
-<span id="cb108-16"><a href="citations-with-r-markdown.html#cb108-16"></a><span class="kw">drop_acc</span>()</span>
-<span id="cb108-17"><a href="citations-with-r-markdown.html#cb108-17"></a> </span>
-<span id="cb108-18"><a href="citations-with-r-markdown.html#cb108-18"></a><span class="co"># Remove token from local environment</span></span>
-<span id="cb108-19"><a href="citations-with-r-markdown.html#cb108-19"></a><span class="kw">rm</span>(token)</span>
-<span id="cb108-20"><a href="citations-with-r-markdown.html#cb108-20"></a> </span>
-<span id="cb108-21"><a href="citations-with-r-markdown.html#cb108-21"></a> </span>
-<span id="cb108-22"><a href="citations-with-r-markdown.html#cb108-22"></a><span class="co"># Delete the unencrypted files</span></span>
-<span id="cb108-23"><a href="citations-with-r-markdown.html#cb108-23"></a><span class="kw">system</span>(<span class="st">&quot;rm droptoken.rds&quot;</span>)</span>
-<span id="cb108-24"><a href="citations-with-r-markdown.html#cb108-24"></a><span class="kw">system</span>(<span class="st">&quot;rm .httr-oauth&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="citations-with-r-markdown.html#cb110-1"></a><span class="kw">library</span>(rdrop2)</span>
+<span id="cb110-2"><a href="citations-with-r-markdown.html#cb110-2"></a><span class="kw">library</span>(encryptr)</span>
+<span id="cb110-3"><a href="citations-with-r-markdown.html#cb110-3"></a> </span>
+<span id="cb110-4"><a href="citations-with-r-markdown.html#cb110-4"></a><span class="co"># Create token</span></span>
+<span id="cb110-5"><a href="citations-with-r-markdown.html#cb110-5"></a>token &lt;-<span class="st"> </span><span class="kw">drop_auth</span>()</span>
+<span id="cb110-6"><a href="citations-with-r-markdown.html#cb110-6"></a> </span>
+<span id="cb110-7"><a href="citations-with-r-markdown.html#cb110-7"></a><span class="co"># Save token</span></span>
+<span id="cb110-8"><a href="citations-with-r-markdown.html#cb110-8"></a><span class="kw">saveRDS</span>(token, <span class="st">&quot;droptoken.rds&quot;</span>)</span>
+<span id="cb110-9"><a href="citations-with-r-markdown.html#cb110-9"></a> </span>
+<span id="cb110-10"><a href="citations-with-r-markdown.html#cb110-10"></a><span class="co"># Encrypt token</span></span>
+<span id="cb110-11"><a href="citations-with-r-markdown.html#cb110-11"></a><span class="kw">genkeys</span>()               <span class="co"># Default file names are id_rsa and id_rsa.pub</span></span>
+<span id="cb110-12"><a href="citations-with-r-markdown.html#cb110-12"></a><span class="kw">encrypt_file</span>(<span class="st">&quot;droptoken.rds&quot;</span>, <span class="st">&quot;droptoken.rds.encryptr.bin&quot;</span>)</span>
+<span id="cb110-13"><a href="citations-with-r-markdown.html#cb110-13"></a><span class="kw">encrypt_file</span>(<span class="st">&quot;.httr-oauth&quot;</span>, <span class="st">&quot;.httr-oauth.encryptr.bin&quot;</span>)</span>
+<span id="cb110-14"><a href="citations-with-r-markdown.html#cb110-14"></a> </span>
+<span id="cb110-15"><a href="citations-with-r-markdown.html#cb110-15"></a><span class="co"># Same details should appear later</span></span>
+<span id="cb110-16"><a href="citations-with-r-markdown.html#cb110-16"></a><span class="kw">drop_acc</span>()</span>
+<span id="cb110-17"><a href="citations-with-r-markdown.html#cb110-17"></a> </span>
+<span id="cb110-18"><a href="citations-with-r-markdown.html#cb110-18"></a><span class="co"># Remove token from local environment</span></span>
+<span id="cb110-19"><a href="citations-with-r-markdown.html#cb110-19"></a><span class="kw">rm</span>(token)</span>
+<span id="cb110-20"><a href="citations-with-r-markdown.html#cb110-20"></a> </span>
+<span id="cb110-21"><a href="citations-with-r-markdown.html#cb110-21"></a> </span>
+<span id="cb110-22"><a href="citations-with-r-markdown.html#cb110-22"></a><span class="co"># Delete the unencrypted files</span></span>
+<span id="cb110-23"><a href="citations-with-r-markdown.html#cb110-23"></a><span class="kw">system</span>(<span class="st">&quot;rm droptoken.rds&quot;</span>)</span>
+<span id="cb110-24"><a href="citations-with-r-markdown.html#cb110-24"></a><span class="kw">system</span>(<span class="st">&quot;rm .httr-oauth&quot;</span>)</span></code></pre></div>
 <p>The following files will then be needed to upload to the RStudio server:</p>
 <ul>
 <li><code>droptoken.rds.encryptr.bin</code> – or the name provided for the encrypted DropBox token</li>
@@ -434,50 +435,50 @@ Figure 10.4: ZotFile PDF Storage Preferences
 <div id="dropbox-linkage" class="section level3">
 <h3><span class="header-section-number">10.6.2</span> DropBox Linkage</h3>
 <p>Now that the encrypted token and necessary (password-protected) private key are available in RStudio server, the following can be saved as a separate script. The script is designed to read in and decrypt the encrypted token (this will require a password and should be done if the .bib file needs updated). Only the drop_download() needs repeated if using the token again during the same session. The token should be cleared at the end of every session for additional security.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="citations-with-r-markdown.html#cb109-1"></a><span class="kw">library</span>(rdrop2)</span>
-<span id="cb109-2"><a href="citations-with-r-markdown.html#cb109-2"></a><span class="kw">library</span>(encryptr)</span>
-<span id="cb109-3"><a href="citations-with-r-markdown.html#cb109-3"></a> </span>
-<span id="cb109-4"><a href="citations-with-r-markdown.html#cb109-4"></a><span class="co"># ******** </span><span class="al">WARNING</span><span class="co"> ********</span></span>
-<span id="cb109-5"><a href="citations-with-r-markdown.html#cb109-5"></a><span class="co"># Losing the unencrypted token will give anyone </span></span>
-<span id="cb109-6"><a href="citations-with-r-markdown.html#cb109-6"></a><span class="co"># complete control of your Dropbox account</span></span>
-<span id="cb109-7"><a href="citations-with-r-markdown.html#cb109-7"></a><span class="co"># If you are concerned this has happened,</span></span>
-<span id="cb109-8"><a href="citations-with-r-markdown.html#cb109-8"></a><span class="co"># you can then revoke the rdrop2 app from your</span></span>
-<span id="cb109-9"><a href="citations-with-r-markdown.html#cb109-9"></a><span class="co"># dropbox account and start over.</span></span>
-<span id="cb109-10"><a href="citations-with-r-markdown.html#cb109-10"></a><span class="co"># ******** </span><span class="al">WARNING</span><span class="co"> ********</span></span>
-<span id="cb109-11"><a href="citations-with-r-markdown.html#cb109-11"></a> </span>
-<span id="cb109-12"><a href="citations-with-r-markdown.html#cb109-12"></a> </span>
-<span id="cb109-13"><a href="citations-with-r-markdown.html#cb109-13"></a>safely_extract_dropbox_token &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">encrypted_db_token =</span> <span class="ot">NULL</span>, </span>
-<span id="cb109-14"><a href="citations-with-r-markdown.html#cb109-14"></a>                                         <span class="dt">private_key_file =</span> <span class="ot">NULL</span>){</span>
-<span id="cb109-15"><a href="citations-with-r-markdown.html#cb109-15"></a>  <span class="kw">decrypt_file</span>(encrypted_db_token, </span>
-<span id="cb109-16"><a href="citations-with-r-markdown.html#cb109-16"></a>               <span class="dt">file_name =</span> <span class="st">&quot;temporary_dropbox_token.rds&quot;</span>, </span>
-<span id="cb109-17"><a href="citations-with-r-markdown.html#cb109-17"></a>               <span class="dt">private_key_path =</span> private_key_file)</span>
-<span id="cb109-18"><a href="citations-with-r-markdown.html#cb109-18"></a>  </span>
-<span id="cb109-19"><a href="citations-with-r-markdown.html#cb109-19"></a>  token &lt;&lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;temporary_dropbox_token.rds&quot;</span>)</span>
-<span id="cb109-20"><a href="citations-with-r-markdown.html#cb109-20"></a>  </span>
-<span id="cb109-21"><a href="citations-with-r-markdown.html#cb109-21"></a>  <span class="kw">system</span>(<span class="st">&quot;rm temporary_dropbox_token.rds&quot;</span>)</span>
-<span id="cb109-22"><a href="citations-with-r-markdown.html#cb109-22"></a>}</span>
-<span id="cb109-23"><a href="citations-with-r-markdown.html#cb109-23"></a> </span>
-<span id="cb109-24"><a href="citations-with-r-markdown.html#cb109-24"></a><span class="kw">safely_extract_dropbox_token</span>(<span class="dt">encrypted_db_token =</span> <span class="st">&quot;droptoken.rds.encryptr.bin&quot;</span>, </span>
-<span id="cb109-25"><a href="citations-with-r-markdown.html#cb109-25"></a>                             <span class="dt">private_key_file =</span> <span class="st">&quot;id_rsa&quot;</span>)</span>
-<span id="cb109-26"><a href="citations-with-r-markdown.html#cb109-26"></a> </span>
-<span id="cb109-27"><a href="citations-with-r-markdown.html#cb109-27"></a><span class="co"># Then pass the token to each drop_ function</span></span>
-<span id="cb109-28"><a href="citations-with-r-markdown.html#cb109-28"></a><span class="kw">drop_acc</span>(<span class="dt">dtoken =</span> token)</span>
-<span id="cb109-29"><a href="citations-with-r-markdown.html#cb109-29"></a> </span>
-<span id="cb109-30"><a href="citations-with-r-markdown.html#cb109-30"></a><span class="co"># The path is the Dropbox file location</span></span>
-<span id="cb109-31"><a href="citations-with-r-markdown.html#cb109-31"></a><span class="kw">drop_download</span>(<span class="dt">path =</span> <span class="st">&quot;My_Dropbox_Home_Directory/Zotero Library/my.bib&quot;</span>, </span>
-<span id="cb109-32"><a href="citations-with-r-markdown.html#cb109-32"></a>              <span class="dt">local_path =</span> <span class="st">&quot;my.bib&quot;</span>, </span>
-<span id="cb109-33"><a href="citations-with-r-markdown.html#cb109-33"></a>              <span class="dt">dtoken =</span> token,</span>
-<span id="cb109-34"><a href="citations-with-r-markdown.html#cb109-34"></a>              <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="citations-with-r-markdown.html#cb111-1"></a><span class="kw">library</span>(rdrop2)</span>
+<span id="cb111-2"><a href="citations-with-r-markdown.html#cb111-2"></a><span class="kw">library</span>(encryptr)</span>
+<span id="cb111-3"><a href="citations-with-r-markdown.html#cb111-3"></a> </span>
+<span id="cb111-4"><a href="citations-with-r-markdown.html#cb111-4"></a><span class="co"># ******** </span><span class="al">WARNING</span><span class="co"> ********</span></span>
+<span id="cb111-5"><a href="citations-with-r-markdown.html#cb111-5"></a><span class="co"># Losing the unencrypted token will give anyone </span></span>
+<span id="cb111-6"><a href="citations-with-r-markdown.html#cb111-6"></a><span class="co"># complete control of your Dropbox account</span></span>
+<span id="cb111-7"><a href="citations-with-r-markdown.html#cb111-7"></a><span class="co"># If you are concerned this has happened,</span></span>
+<span id="cb111-8"><a href="citations-with-r-markdown.html#cb111-8"></a><span class="co"># you can then revoke the rdrop2 app from your</span></span>
+<span id="cb111-9"><a href="citations-with-r-markdown.html#cb111-9"></a><span class="co"># dropbox account and start over.</span></span>
+<span id="cb111-10"><a href="citations-with-r-markdown.html#cb111-10"></a><span class="co"># ******** </span><span class="al">WARNING</span><span class="co"> ********</span></span>
+<span id="cb111-11"><a href="citations-with-r-markdown.html#cb111-11"></a> </span>
+<span id="cb111-12"><a href="citations-with-r-markdown.html#cb111-12"></a> </span>
+<span id="cb111-13"><a href="citations-with-r-markdown.html#cb111-13"></a>safely_extract_dropbox_token &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">encrypted_db_token =</span> <span class="ot">NULL</span>, </span>
+<span id="cb111-14"><a href="citations-with-r-markdown.html#cb111-14"></a>                                         <span class="dt">private_key_file =</span> <span class="ot">NULL</span>){</span>
+<span id="cb111-15"><a href="citations-with-r-markdown.html#cb111-15"></a>  <span class="kw">decrypt_file</span>(encrypted_db_token, </span>
+<span id="cb111-16"><a href="citations-with-r-markdown.html#cb111-16"></a>               <span class="dt">file_name =</span> <span class="st">&quot;temporary_dropbox_token.rds&quot;</span>, </span>
+<span id="cb111-17"><a href="citations-with-r-markdown.html#cb111-17"></a>               <span class="dt">private_key_path =</span> private_key_file)</span>
+<span id="cb111-18"><a href="citations-with-r-markdown.html#cb111-18"></a>  </span>
+<span id="cb111-19"><a href="citations-with-r-markdown.html#cb111-19"></a>  token &lt;&lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;temporary_dropbox_token.rds&quot;</span>)</span>
+<span id="cb111-20"><a href="citations-with-r-markdown.html#cb111-20"></a>  </span>
+<span id="cb111-21"><a href="citations-with-r-markdown.html#cb111-21"></a>  <span class="kw">system</span>(<span class="st">&quot;rm temporary_dropbox_token.rds&quot;</span>)</span>
+<span id="cb111-22"><a href="citations-with-r-markdown.html#cb111-22"></a>}</span>
+<span id="cb111-23"><a href="citations-with-r-markdown.html#cb111-23"></a> </span>
+<span id="cb111-24"><a href="citations-with-r-markdown.html#cb111-24"></a><span class="kw">safely_extract_dropbox_token</span>(<span class="dt">encrypted_db_token =</span> <span class="st">&quot;droptoken.rds.encryptr.bin&quot;</span>, </span>
+<span id="cb111-25"><a href="citations-with-r-markdown.html#cb111-25"></a>                             <span class="dt">private_key_file =</span> <span class="st">&quot;id_rsa&quot;</span>)</span>
+<span id="cb111-26"><a href="citations-with-r-markdown.html#cb111-26"></a> </span>
+<span id="cb111-27"><a href="citations-with-r-markdown.html#cb111-27"></a><span class="co"># Then pass the token to each drop_ function</span></span>
+<span id="cb111-28"><a href="citations-with-r-markdown.html#cb111-28"></a><span class="kw">drop_acc</span>(<span class="dt">dtoken =</span> token)</span>
+<span id="cb111-29"><a href="citations-with-r-markdown.html#cb111-29"></a> </span>
+<span id="cb111-30"><a href="citations-with-r-markdown.html#cb111-30"></a><span class="co"># The path is the Dropbox file location</span></span>
+<span id="cb111-31"><a href="citations-with-r-markdown.html#cb111-31"></a><span class="kw">drop_download</span>(<span class="dt">path =</span> <span class="st">&quot;My_Dropbox_Home_Directory/Zotero Library/my.bib&quot;</span>, </span>
+<span id="cb111-32"><a href="citations-with-r-markdown.html#cb111-32"></a>              <span class="dt">local_path =</span> <span class="st">&quot;my.bib&quot;</span>, </span>
+<span id="cb111-33"><a href="citations-with-r-markdown.html#cb111-33"></a>              <span class="dt">dtoken =</span> token,</span>
+<span id="cb111-34"><a href="citations-with-r-markdown.html#cb111-34"></a>              <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>Now that the <code>.bib</code> file has been created and is stored as “my.bib” in the local directory, it should update whenever the token is loaded and drop_download() is run. The <code>.bib</code> file should be listed in the <code>.rmd</code> YAML.</p>
 </div>
 </div>
 <div id="citing-r-packages" class="section level2">
 <h2><span class="header-section-number">10.7</span> Citing R Packages</h2>
 <p>When citing R packages a separate <code>.bib</code> file can be created. The following code could be added to an <code>index.rmd</code> file in <code>bookdown</code> or in a setup chunk in a stand-alone <code>.rmd</code>.</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="citations-with-r-markdown.html#cb110-1"></a><span class="co"># automatically create a bib database for R packages</span></span>
-<span id="cb110-2"><a href="citations-with-r-markdown.html#cb110-2"></a>knitr<span class="op">::</span><span class="kw">write_bib</span>(<span class="kw">c</span>(</span>
-<span id="cb110-3"><a href="citations-with-r-markdown.html#cb110-3"></a>  <span class="kw">.packages</span>(), <span class="st">&#39;encryptr&#39;</span>, <span class="st">&#39;knitr&#39;</span>, <span class="st">&#39;rmarkdown&#39;</span></span>
-<span id="cb110-4"><a href="citations-with-r-markdown.html#cb110-4"></a>), <span class="st">&#39;packages.bib&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="citations-with-r-markdown.html#cb112-1"></a><span class="co"># automatically create a bib database for R packages</span></span>
+<span id="cb112-2"><a href="citations-with-r-markdown.html#cb112-2"></a>knitr<span class="op">::</span><span class="kw">write_bib</span>(<span class="kw">c</span>(</span>
+<span id="cb112-3"><a href="citations-with-r-markdown.html#cb112-3"></a>  <span class="kw">.packages</span>(), <span class="st">&#39;encryptr&#39;</span>, <span class="st">&#39;knitr&#39;</span>, <span class="st">&#39;rmarkdown&#39;</span></span>
+<span id="cb112-4"><a href="citations-with-r-markdown.html#cb112-4"></a>), <span class="st">&#39;packages.bib&#39;</span>)</span></code></pre></div>
 
 </div>
 </div>
