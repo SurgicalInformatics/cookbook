@@ -4,8 +4,8 @@
 %
 \documentclass[
 ]{book}
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
@@ -81,7 +81,8 @@
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
 \makeatletter
@@ -90,7 +91,7 @@
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
-\usepackage{graphicx,grffile}
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -122,12 +123,15 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
 \usepackage[]{natbib}
 \bibliographystyle{apalike}
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2021-06-30}
+\date{2021-09-08}
 
 \begin{document}
 \maketitle
@@ -140,7 +144,7 @@
 \chapter*{}\label{section}}
 \addcontentsline{toc}{chapter}{}
 
-\includegraphics[width=30.97in]{/home/common/users/cfairfield/cookbook/img/surgical_informatics_minibanner}
+\includegraphics[width=30.97in]{/home/eharrison/cookbook/img/surgical_informatics_minibanner}
 
 \hypertarget{introduction}{%
 \chapter{Introduction}\label{introduction}}
@@ -203,8 +207,8 @@ Figures and tables with captions will be placed in \texttt{figure} and \texttt{t
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{par}\NormalTok{(}\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{.1}\NormalTok{, }\FloatTok{.1}\NormalTok{))}
-\KeywordTok{plot}\NormalTok{(pressure, }\DataTypeTok{type =} \StringTok{'b'}\NormalTok{, }\DataTypeTok{pch =} \DecValTok{19}\NormalTok{)}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, .}\DecValTok{1}\NormalTok{, .}\DecValTok{1}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(pressure, }\AttributeTok{type =} \StringTok{\textquotesingle{}b\textquotesingle{}}\NormalTok{, }\AttributeTok{pch =} \DecValTok{19}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -221,9 +225,9 @@ Reference a figure by its code chunk label with the \texttt{fig:} prefix, e.g., 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(}
-  \KeywordTok{head}\NormalTok{(iris, }\DecValTok{20}\NormalTok{), }\DataTypeTok{caption =} \StringTok{'Here is a nice table!'}\NormalTok{,}
-  \DataTypeTok{booktabs =} \OtherTok{TRUE}
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}
+  \FunctionTok{head}\NormalTok{(iris, }\DecValTok{20}\NormalTok{), }\AttributeTok{caption =} \StringTok{\textquotesingle{}Here is a nice table!\textquotesingle{}}\NormalTok{,}
+  \AttributeTok{booktabs =} \ConstantTok{TRUE}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -283,9 +287,9 @@ Cleans current environment and restarts R session (no code can run past this). I
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{clean_restart =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(}\DataTypeTok{leave =} \OtherTok{NULL}\NormalTok{)\{}
-  \KeywordTok{rm}\NormalTok{(}\DataTypeTok{list=}\KeywordTok{setdiff}\NormalTok{(}\KeywordTok{ls}\NormalTok{(}\DataTypeTok{envir =}\NormalTok{ .GlobalEnv), leave), }\DataTypeTok{envir =}\NormalTok{ .GlobalEnv)}
-  \KeywordTok{invisible}\NormalTok{(}\KeywordTok{.rs.restartR}\NormalTok{())}
+\NormalTok{clean\_restart }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(}\AttributeTok{leave =} \ConstantTok{NULL}\NormalTok{)\{}
+  \FunctionTok{rm}\NormalTok{(}\AttributeTok{list=}\FunctionTok{setdiff}\NormalTok{(}\FunctionTok{ls}\NormalTok{(}\AttributeTok{envir =}\NormalTok{ .GlobalEnv), leave), }\AttributeTok{envir =}\NormalTok{ .GlobalEnv)}
+  \FunctionTok{invisible}\NormalTok{(}\FunctionTok{.rs.restartR}\NormalTok{())}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -297,21 +301,21 @@ This removes any user library packages that are also present in the system libra
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
 
-\NormalTok{tdrake_packages =}\StringTok{ }\KeywordTok{installed.packages}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\CommentTok{#change 'tdrake' to your rstudio username}
-\StringTok{  }\KeywordTok{as_tibble}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(LibPath }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_detect}\NormalTok{(}\StringTok{"tdrake"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{pull}\NormalTok{(Package)}
+\NormalTok{tdrake\_packages }\OtherTok{=} \FunctionTok{installed.packages}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#change \textquotesingle{}tdrake\textquotesingle{} to your rstudio username}
+  \FunctionTok{as\_tibble}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(LibPath }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{str\_detect}\NormalTok{(}\StringTok{"tdrake"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pull}\NormalTok{(Package)}
 
-\NormalTok{system_packages =}\StringTok{ }\KeywordTok{installed.packages}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{as_tibble}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(LibPath }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_detect}\NormalTok{(}\StringTok{"local"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{pull}\NormalTok{(Package)}
+\NormalTok{system\_packages }\OtherTok{=} \FunctionTok{installed.packages}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{as\_tibble}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(LibPath }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{str\_detect}\NormalTok{(}\StringTok{"local"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pull}\NormalTok{(Package)}
 
-\NormalTok{to_remove =}\StringTok{ }\NormalTok{tdrake_packages[tdrake_packages }\OperatorTok{%in%}\StringTok{ }\NormalTok{system_packages]}
+\NormalTok{to\_remove }\OtherTok{=}\NormalTok{ tdrake\_packages[tdrake\_packages }\SpecialCharTok{\%in\%}\NormalTok{ system\_packages]}
 
-\KeywordTok{remove.packages}\NormalTok{(to_remove)}
+\FunctionTok{remove.packages}\NormalTok{(to\_remove)}
 \ErrorTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -332,28 +336,28 @@ We can define our own table printing function that uses kableExtra or flextable 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# This makes table resize or continue over multiple pages in all output types}
-\CommentTok{# PDF powered by kableExtra, Word by flextable}
-\NormalTok{mytable =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, }\DataTypeTok{caption =} \StringTok{""}\NormalTok{, }\DataTypeTok{longtable =} \OtherTok{FALSE}\NormalTok{, ...)\{}
-  \KeywordTok{library}\NormalTok{(kableExtra)}
-  \CommentTok{# if not latex or html then else is Word}
-  \ControlFlowTok{if}\NormalTok{ (knitr}\OperatorTok{::}\KeywordTok{is_latex_output}\NormalTok{() }\OperatorTok{|}\StringTok{ }\NormalTok{knitr}\OperatorTok{::}\KeywordTok{is_html_output}\NormalTok{())\{}
-\NormalTok{    knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(x, }\DataTypeTok{row.names =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{align =} \KeywordTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"l"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{), }
-          \DataTypeTok{booktabs =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{caption =}\NormalTok{ caption, }\DataTypeTok{longtable =}\NormalTok{ longtable,}
-          \DataTypeTok{linesep =} \StringTok{""}\NormalTok{, ...) }\OperatorTok{%>%}
-\StringTok{    }\NormalTok{kableExtra}\OperatorTok{::}\KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{latex_options =} \KeywordTok{c}\NormalTok{(}\StringTok{"scale_down"}\NormalTok{, }\StringTok{"hold_position"}\NormalTok{))}
+\CommentTok{\# This makes table resize or continue over multiple pages in all output types}
+\CommentTok{\# PDF powered by kableExtra, Word by flextable}
+\NormalTok{mytable }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(x, }\AttributeTok{caption =} \StringTok{""}\NormalTok{, }\AttributeTok{longtable =} \ConstantTok{FALSE}\NormalTok{, ...)\{}
+  \FunctionTok{library}\NormalTok{(kableExtra)}
+  \CommentTok{\# if not latex or html then else is Word}
+  \ControlFlowTok{if}\NormalTok{ (knitr}\SpecialCharTok{::}\FunctionTok{is\_latex\_output}\NormalTok{() }\SpecialCharTok{|}\NormalTok{ knitr}\SpecialCharTok{::}\FunctionTok{is\_html\_output}\NormalTok{())\{}
+\NormalTok{    knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(x, }\AttributeTok{row.names =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"l"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"r"}\NormalTok{), }
+          \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{caption =}\NormalTok{ caption, }\AttributeTok{longtable =}\NormalTok{ longtable,}
+          \AttributeTok{linesep =} \StringTok{""}\NormalTok{, ...) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{    kableExtra}\SpecialCharTok{::}\FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"scale\_down"}\NormalTok{, }\StringTok{"hold\_position"}\NormalTok{))}
 \NormalTok{  \}}\ControlFlowTok{else}\NormalTok{\{}
-\NormalTok{    flextable}\OperatorTok{::}\KeywordTok{flextable}\NormalTok{(x) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{      }\NormalTok{flextable}\OperatorTok{::}\KeywordTok{autofit}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
-\StringTok{      }\NormalTok{flextable}\OperatorTok{::}\KeywordTok{width}\NormalTok{(}\DataTypeTok{j =} \DecValTok{1}\NormalTok{, }\DataTypeTok{width =} \FloatTok{1.5}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{      }\NormalTok{flextable}\OperatorTok{::}\KeywordTok{height}\NormalTok{(}\DataTypeTok{i =} \DecValTok{1}\NormalTok{, }\DataTypeTok{height =} \FloatTok{0.5}\NormalTok{, }\DataTypeTok{part =} \StringTok{"header"}\NormalTok{)}
+\NormalTok{    flextable}\SpecialCharTok{::}\FunctionTok{flextable}\NormalTok{(x) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{      flextable}\SpecialCharTok{::}\FunctionTok{autofit}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{      flextable}\SpecialCharTok{::}\FunctionTok{width}\NormalTok{(}\AttributeTok{j =} \DecValTok{1}\NormalTok{, }\AttributeTok{width =} \FloatTok{1.5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{      flextable}\SpecialCharTok{::}\FunctionTok{height}\NormalTok{(}\AttributeTok{i =} \DecValTok{1}\NormalTok{, }\AttributeTok{height =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{part =} \StringTok{"header"}\NormalTok{)}
 \NormalTok{  \}}
   
 \NormalTok{\}}
-\KeywordTok{library}\NormalTok{(dplyr)}
-\NormalTok{cars }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{head}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mytable}\NormalTok{()}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\NormalTok{cars }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{head}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mytable}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -397,22 +401,22 @@ If you have a small (and confidential) set of data in a tibble or data frame cal
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
 
-\CommentTok{# Output generated from dput(droplevels(my_data))}
-\NormalTok{data =}\StringTok{ }\KeywordTok{structure}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{a =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{), }\DataTypeTok{b =} \KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\StringTok{"c"}\NormalTok{), }\DataTypeTok{c =} \DecValTok{10}\OperatorTok{:}\DecValTok{12}\NormalTok{), }\DataTypeTok{.Names =} \KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }
-\StringTok{"b"}\NormalTok{, }\StringTok{"c"}\NormalTok{), }\DataTypeTok{row.names =} \KeywordTok{c}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\OperatorTok{-}\NormalTok{3L), }\DataTypeTok{class =} \KeywordTok{c}\NormalTok{(}\StringTok{"tbl_df"}\NormalTok{, }\StringTok{"tbl"}\NormalTok{, }
+\CommentTok{\# Output generated from dput(droplevels(my\_data))}
+\NormalTok{data }\OtherTok{=} \FunctionTok{structure}\NormalTok{(}\FunctionTok{list}\NormalTok{(}\AttributeTok{a =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{), }\AttributeTok{b =} \FunctionTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\StringTok{"c"}\NormalTok{), }\AttributeTok{c =} \DecValTok{10}\SpecialCharTok{:}\DecValTok{12}\NormalTok{), }\AttributeTok{.Names =} \FunctionTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }
+\StringTok{"b"}\NormalTok{, }\StringTok{"c"}\NormalTok{), }\AttributeTok{row.names =} \FunctionTok{c}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\SpecialCharTok{{-}}\NormalTok{3L), }\AttributeTok{class =} \FunctionTok{c}\NormalTok{(}\StringTok{"tbl\_df"}\NormalTok{, }\StringTok{"tbl"}\NormalTok{, }
 \StringTok{"data.frame"}\NormalTok{))}
 
-\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{newvar =}\NormalTok{ a }\OperatorTok{/}\NormalTok{b)}
+\NormalTok{data }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{newvar =}\NormalTok{ a }\SpecialCharTok{/}\NormalTok{b)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## Error: Problem with `mutate()` input `newvar`.
+## Error: Problem with `mutate()` column `newvar`.
+## i `newvar = a/b`.
 ## x non-numeric argument to binary operator
-## i Input `newvar` is `a/b`.
 \end{verbatim}
 
 \hypertarget{holepunch---complex-reproducible-examples}{%
@@ -422,19 +426,19 @@ From your project with data you are happy to make public make sure you are backe
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Holepunch testing}
+\CommentTok{\# Holepunch testing}
 
-\NormalTok{remotes}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"karthik/holepunch"}\NormalTok{)}
+\NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install\_github}\NormalTok{(}\StringTok{"karthik/holepunch"}\NormalTok{)}
 
-\KeywordTok{library}\NormalTok{(holepunch)}
-\KeywordTok{write_compendium_description}\NormalTok{(}\DataTypeTok{package =} \StringTok{"Title of my project"}\NormalTok{, }
-                             \DataTypeTok{description =} \StringTok{"Rough description of project or issue"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(holepunch)}
+\FunctionTok{write\_compendium\_description}\NormalTok{(}\AttributeTok{package =} \StringTok{"Title of my project"}\NormalTok{, }
+                             \AttributeTok{description =} \StringTok{"Rough description of project or issue"}\NormalTok{)}
 
-\KeywordTok{write_dockerfile}\NormalTok{(}\DataTypeTok{maintainer =} \StringTok{"SurgicalInformatics"}\NormalTok{)}
+\FunctionTok{write\_dockerfile}\NormalTok{(}\AttributeTok{maintainer =} \StringTok{"SurgicalInformatics"}\NormalTok{)}
 
-\KeywordTok{generate_badge}\NormalTok{()}
+\FunctionTok{generate\_badge}\NormalTok{()}
 
-\KeywordTok{build_binder}\NormalTok{()}
+\FunctionTok{build\_binder}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -442,9 +446,9 @@ The file will generate some text to copy into the top of a \texttt{README.md} fi
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\OperatorTok{<!--}\StringTok{ }\NormalTok{badges}\OperatorTok{:}\StringTok{ }\NormalTok{start }\OperatorTok{-}\NormalTok{->}
-\NormalTok{[}\OperatorTok{!}\NormalTok{[Launch Rstudio Binder](http}\OperatorTok{:}\ErrorTok{//}\NormalTok{mybinder.org}\OperatorTok{/}\NormalTok{badge_logo.svg)](https}\OperatorTok{:}\ErrorTok{//}\NormalTok{mybinder.org}\OperatorTok{/}\NormalTok{v2}\OperatorTok{/}\NormalTok{gh}\OperatorTok{/}\NormalTok{SurgicalInformatics}\OperatorTok{/}\ErrorTok{<}\NormalTok{project}\OperatorTok{>}\ErrorTok{/}\NormalTok{master?}\DataTypeTok{urlpath=}\NormalTok{rstudio)}
-\OperatorTok{<!--}\StringTok{ }\NormalTok{badges}\OperatorTok{:}\StringTok{ }\NormalTok{end }\OperatorTok{-}\NormalTok{->}
+\SpecialCharTok{\textless{}!{-}{-}}\NormalTok{ badges}\SpecialCharTok{:}\NormalTok{ start }\SpecialCharTok{{-}}\OtherTok{{-}\textgreater{}}
+\NormalTok{[}\SpecialCharTok{!}\NormalTok{[Launch Rstudio Binder](http}\SpecialCharTok{:}\ErrorTok{//}\NormalTok{mybinder.org}\SpecialCharTok{/}\NormalTok{badge\_logo.svg)](https}\SpecialCharTok{:}\ErrorTok{//}\NormalTok{mybinder.org}\SpecialCharTok{/}\NormalTok{v2}\SpecialCharTok{/}\NormalTok{gh}\SpecialCharTok{/}\NormalTok{SurgicalInformatics}\SpecialCharTok{/}\ErrorTok{\textless{}}\NormalTok{project}\SpecialCharTok{\textgreater{}}\ErrorTok{/}\NormalTok{master?}\AttributeTok{urlpath=}\NormalTok{rstudio)}
+\SpecialCharTok{\textless{}!{-}{-}}\NormalTok{ badges}\SpecialCharTok{:}\NormalTok{ end }\SpecialCharTok{{-}}\OtherTok{{-}\textgreater{}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -470,21 +474,21 @@ I don't think there is a formal way of determining this.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(dplyr)}
-\NormalTok{chi =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"1009701234"}\NormalTok{, }\StringTok{"1811431232"}\NormalTok{, }\StringTok{"1304496368"}\NormalTok{)}
-\CommentTok{# These CHIs are not real. }
-\CommentTok{# The first is invalid, two and three are valid. }
+\FunctionTok{library}\NormalTok{(dplyr)}
+\NormalTok{chi }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"1009701234"}\NormalTok{, }\StringTok{"1811431232"}\NormalTok{, }\StringTok{"1304496368"}\NormalTok{)}
+\CommentTok{\# These CHIs are not real. }
+\CommentTok{\# The first is invalid, two and three are valid. }
 
-\CommentTok{# Cut-off any thing before that number is considered 2000s}
-\CommentTok{# i.e. at cutoff_2000 = 20, "18" is considered 2018, rather than 1918. }
-\NormalTok{chi_dob =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(.data, }\DataTypeTok{cutoff_2000 =} \DecValTok{20}\NormalTok{)\{}
-\NormalTok{  .data }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\NormalTok{stringr}\OperatorTok{::}\KeywordTok{str_extract}\NormalTok{(}\StringTok{".\{6\}"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\NormalTok{lubridate}\OperatorTok{::}\KeywordTok{parse_date_time2}\NormalTok{(}\StringTok{"dmy"}\NormalTok{, }\DataTypeTok{cutoff_2000 =}\NormalTok{ cutoff_}\DecValTok{2000}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\NormalTok{lubridate}\OperatorTok{::}\KeywordTok{as_date}\NormalTok{() }\CommentTok{# Make Date object, rather than POSIXct}
+\CommentTok{\# Cut{-}off any thing before that number is considered 2000s}
+\CommentTok{\# i.e. at cutoff\_2000 = 20, "18" is considered 2018, rather than 1918. }
+\NormalTok{chi\_dob }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(.data, }\AttributeTok{cutoff\_2000 =} \DecValTok{20}\NormalTok{)\{}
+\NormalTok{  .data }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{    stringr}\SpecialCharTok{::}\FunctionTok{str\_extract}\NormalTok{(}\StringTok{".\{6\}"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{    lubridate}\SpecialCharTok{::}\FunctionTok{parse\_date\_time2}\NormalTok{(}\StringTok{"dmy"}\NormalTok{, }\AttributeTok{cutoff\_2000 =}\NormalTok{ cutoff\_2000) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{    lubridate}\SpecialCharTok{::}\FunctionTok{as\_date}\NormalTok{() }\CommentTok{\# Make Date object, rather than POSIXct}
 \NormalTok{\}}
 
-\KeywordTok{chi_dob}\NormalTok{(chi)}
+\FunctionTok{chi\_dob}\NormalTok{(chi)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -494,10 +498,10 @@ I don't think there is a formal way of determining this.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# From tibble}
-\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{chi =}\NormalTok{ chi) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
-    \DataTypeTok{dob =} \KeywordTok{chi_dob}\NormalTok{(chi)}
+\CommentTok{\# From tibble}
+\FunctionTok{tibble}\NormalTok{(}\AttributeTok{chi =}\NormalTok{ chi) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{dob =} \FunctionTok{chi\_dob}\NormalTok{(chi)}
 \NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
@@ -519,14 +523,14 @@ A test for even is \texttt{x\ modulus\ 2\ ==\ 0}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{chi_gender =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(.data)\{}
-\NormalTok{  .data }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\NormalTok{stringr}\OperatorTok{::}\KeywordTok{str_sub}\NormalTok{(}\DecValTok{9}\NormalTok{, }\DecValTok{9}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{as.numeric}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\NormalTok{\{}\KeywordTok{ifelse}\NormalTok{(. }\OperatorTok{%%}\StringTok{ }\DecValTok{2} \OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{, }\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{)\}}
+\NormalTok{chi\_gender }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(.data)\{}
+\NormalTok{  .data }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{    stringr}\SpecialCharTok{::}\FunctionTok{str\_sub}\NormalTok{(}\DecValTok{9}\NormalTok{, }\DecValTok{9}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{as.numeric}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{    \{}\FunctionTok{ifelse}\NormalTok{(. }\SpecialCharTok{\%\%} \DecValTok{2} \SpecialCharTok{==} \DecValTok{0}\NormalTok{, }\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{)\}}
 \NormalTok{\}}
 
-\KeywordTok{chi_gender}\NormalTok{(chi)}
+\FunctionTok{chi\_gender}\NormalTok{(chi)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -536,11 +540,11 @@ A test for even is \texttt{x\ modulus\ 2\ ==\ 0}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# From tibble}
-\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{chi =}\NormalTok{ chi) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
-    \DataTypeTok{dob =} \KeywordTok{chi_dob}\NormalTok{(chi),}
-    \DataTypeTok{gender =} \KeywordTok{chi_gender}\NormalTok{(chi)}
+\CommentTok{\# From tibble}
+\FunctionTok{tibble}\NormalTok{(}\AttributeTok{chi =}\NormalTok{ chi) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{dob =} \FunctionTok{chi\_dob}\NormalTok{(chi),}
+    \AttributeTok{gender =} \FunctionTok{chi\_gender}\NormalTok{(chi)}
 \NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
@@ -561,15 +565,15 @@ Works for a single date or a vector of dates.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{chi_age =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(.data, ref_date, }\DataTypeTok{cutoff_2000 =} \DecValTok{20}\NormalTok{)\{}
-\NormalTok{  dob =}\StringTok{ }\KeywordTok{chi_dob}\NormalTok{(.data, }\DataTypeTok{cutoff_2000 =}\NormalTok{ cutoff_}\DecValTok{2000}\NormalTok{)}
-\NormalTok{  lubridate}\OperatorTok{::}\KeywordTok{interval}\NormalTok{(dob, ref_date) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{as.numeric}\NormalTok{(}\StringTok{"years"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{floor}\NormalTok{()}
+\NormalTok{chi\_age }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(.data, ref\_date, }\AttributeTok{cutoff\_2000 =} \DecValTok{20}\NormalTok{)\{}
+\NormalTok{  dob }\OtherTok{=} \FunctionTok{chi\_dob}\NormalTok{(.data, }\AttributeTok{cutoff\_2000 =}\NormalTok{ cutoff\_2000)}
+\NormalTok{  lubridate}\SpecialCharTok{::}\FunctionTok{interval}\NormalTok{(dob, ref\_date) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{as.numeric}\NormalTok{(}\StringTok{"years"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{floor}\NormalTok{()}
 \NormalTok{\}}
 
-\CommentTok{# Today}
-\KeywordTok{chi_age}\NormalTok{(chi, }\KeywordTok{Sys.time}\NormalTok{())}
+\CommentTok{\# Today}
+\FunctionTok{chi\_age}\NormalTok{(chi, }\FunctionTok{Sys.time}\NormalTok{())}
 \end{Highlighting}
 \end{Shaded}
 
@@ -579,9 +583,9 @@ Works for a single date or a vector of dates.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Single date}
-\KeywordTok{library}\NormalTok{(lubridate)}
-\KeywordTok{chi_age}\NormalTok{(chi, }\KeywordTok{dmy}\NormalTok{(}\StringTok{"11/09/2018"}\NormalTok{))}
+\CommentTok{\# Single date}
+\FunctionTok{library}\NormalTok{(lubridate)}
+\FunctionTok{chi\_age}\NormalTok{(chi, }\FunctionTok{dmy}\NormalTok{(}\StringTok{"11/09/2018"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -591,11 +595,11 @@ Works for a single date or a vector of dates.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Vector}
-\NormalTok{dates =}\StringTok{ }\KeywordTok{dmy}\NormalTok{(}\StringTok{"11/09/2018"}\NormalTok{,}
+\CommentTok{\# Vector}
+\NormalTok{dates }\OtherTok{=} \FunctionTok{dmy}\NormalTok{(}\StringTok{"11/09/2018"}\NormalTok{,}
             \StringTok{"09/05/2015"}\NormalTok{,}
             \StringTok{"10/03/2014"}\NormalTok{)}
-\KeywordTok{chi_age}\NormalTok{(chi, dates)}
+\FunctionTok{chi\_age}\NormalTok{(chi, dates)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -605,12 +609,12 @@ Works for a single date or a vector of dates.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# From tibble}
-\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{chi =}\NormalTok{ chi) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
-    \DataTypeTok{dob =} \KeywordTok{chi_dob}\NormalTok{(chi),}
-    \DataTypeTok{gender =} \KeywordTok{chi_gender}\NormalTok{(chi),}
-    \DataTypeTok{age =} \KeywordTok{chi_age}\NormalTok{(chi, }\KeywordTok{Sys.time}\NormalTok{())}
+\CommentTok{\# From tibble}
+\FunctionTok{tibble}\NormalTok{(}\AttributeTok{chi =}\NormalTok{ chi) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{dob =} \FunctionTok{chi\_dob}\NormalTok{(chi),}
+    \AttributeTok{gender =} \FunctionTok{chi\_gender}\NormalTok{(chi),}
+    \AttributeTok{age =} \FunctionTok{chi\_age}\NormalTok{(chi, }\FunctionTok{Sys.time}\NormalTok{())}
 \NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
@@ -631,21 +635,21 @@ The final digit of the CHI can be used to test that the number is correct via th
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{chi_valid =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(.data)\{}
-\NormalTok{  .data }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\NormalTok{stringr}\OperatorTok{::}\KeywordTok{str_split}\NormalTok{(}\StringTok{""}\NormalTok{, }\DataTypeTok{simplify =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\NormalTok{.[, }\DecValTok{-10}\NormalTok{] }\OperatorTok{%>%}\StringTok{              }\CommentTok{# Working with matrices hence brackets}
-\StringTok{    }\KeywordTok{apply}\NormalTok{(}\DecValTok{1}\NormalTok{, as.numeric) }\OperatorTok{%>%}\StringTok{  }\CommentTok{# Convert from string}
-\StringTok{    }\NormalTok{\{}\KeywordTok{seq}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{2}\NormalTok{) }\OperatorTok{%*%}\StringTok{ }\NormalTok{.\} }\OperatorTok{%>%}\StringTok{    }\CommentTok{# Multiply and sum step}
-\StringTok{    }\NormalTok{\{. }\OperatorTok{%%}\StringTok{ }\DecValTok{11}\NormalTok{\} }\OperatorTok{%>%}\StringTok{             }\CommentTok{# Modulus 11}
-\StringTok{    }\NormalTok{\{}\DecValTok{11} \OperatorTok{-}\StringTok{ }\NormalTok{.\} }\OperatorTok{%>%}\StringTok{              }\CommentTok{# Substract from 11}
-\StringTok{    }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{near}\NormalTok{(              }\CommentTok{# Compare result with 10th digit. }
-\NormalTok{      \{stringr}\OperatorTok{::}\KeywordTok{str_sub}\NormalTok{(chi, }\DecValTok{10}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{()\}}
-\NormalTok{    ) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{as.vector}\NormalTok{()}
+\NormalTok{chi\_valid }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(.data)\{}
+\NormalTok{  .data }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{    stringr}\SpecialCharTok{::}\FunctionTok{str\_split}\NormalTok{(}\StringTok{""}\NormalTok{, }\AttributeTok{simplify =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{    .[, }\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{] }\SpecialCharTok{\%\textgreater{}\%}              \CommentTok{\# Working with matrices hence brackets}
+    \FunctionTok{apply}\NormalTok{(}\DecValTok{1}\NormalTok{, as.numeric) }\SpecialCharTok{\%\textgreater{}\%}  \CommentTok{\# Convert from string}
+\NormalTok{    \{}\FunctionTok{seq}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{2}\NormalTok{) }\SpecialCharTok{\%*\%}\NormalTok{ .\} }\SpecialCharTok{\%\textgreater{}\%}    \CommentTok{\# Multiply and sum step}
+\NormalTok{    \{. }\SpecialCharTok{\%\%} \DecValTok{11}\NormalTok{\} }\SpecialCharTok{\%\textgreater{}\%}             \CommentTok{\# Modulus 11}
+\NormalTok{    \{}\DecValTok{11} \SpecialCharTok{{-}}\NormalTok{ .\} }\SpecialCharTok{\%\textgreater{}\%}              \CommentTok{\# Substract from 11}
+\NormalTok{    dplyr}\SpecialCharTok{::}\FunctionTok{near}\NormalTok{(              }\CommentTok{\# Compare result with 10th digit. }
+\NormalTok{      \{stringr}\SpecialCharTok{::}\FunctionTok{str\_sub}\NormalTok{(chi, }\DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.numeric}\NormalTok{()\}}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{as.vector}\NormalTok{()}
 \NormalTok{\}}
 
-\KeywordTok{chi_valid}\NormalTok{(chi)}
+\FunctionTok{chi\_valid}\NormalTok{(chi)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -655,13 +659,13 @@ The final digit of the CHI can be used to test that the number is correct via th
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# From tibble}
-\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{chi =}\NormalTok{ chi) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
-    \DataTypeTok{dob =} \KeywordTok{chi_dob}\NormalTok{(chi),}
-    \DataTypeTok{gender =} \KeywordTok{chi_gender}\NormalTok{(chi),}
-    \DataTypeTok{age =} \KeywordTok{chi_age}\NormalTok{(chi, }\KeywordTok{Sys.time}\NormalTok{()),}
-    \DataTypeTok{chi_valid =} \KeywordTok{chi_valid}\NormalTok{(chi)}
+\CommentTok{\# From tibble}
+\FunctionTok{tibble}\NormalTok{(}\AttributeTok{chi =}\NormalTok{ chi) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{dob =} \FunctionTok{chi\_dob}\NormalTok{(chi),}
+    \AttributeTok{gender =} \FunctionTok{chi\_gender}\NormalTok{(chi),}
+    \AttributeTok{age =} \FunctionTok{chi\_age}\NormalTok{(chi, }\FunctionTok{Sys.time}\NormalTok{()),}
+    \AttributeTok{chi\_valid =} \FunctionTok{chi\_valid}\NormalTok{(chi)}
 \NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
@@ -686,12 +690,12 @@ I often want days as a numeric, not a lubridate type object.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(lubridate)}
-\NormalTok{date1 =}\StringTok{ }\KeywordTok{dmy}\NormalTok{(}\StringTok{"12/03/2018"}\NormalTok{, }\StringTok{"14/05/2017"}\NormalTok{)}
-\NormalTok{date2 =}\StringTok{ }\KeywordTok{dmy}\NormalTok{(}\StringTok{"11/09/2019"}\NormalTok{, }\StringTok{"11/04/2019"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(lubridate)}
+\NormalTok{date1 }\OtherTok{=} \FunctionTok{dmy}\NormalTok{(}\StringTok{"12/03/2018"}\NormalTok{, }\StringTok{"14/05/2017"}\NormalTok{)}
+\NormalTok{date2 }\OtherTok{=} \FunctionTok{dmy}\NormalTok{(}\StringTok{"11/09/2019"}\NormalTok{, }\StringTok{"11/04/2019"}\NormalTok{)}
 
-\KeywordTok{interval}\NormalTok{(date1, date2) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{as.numeric}\NormalTok{(}\StringTok{"days"}\NormalTok{)}
+\FunctionTok{interval}\NormalTok{(date1, date2) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{as.numeric}\NormalTok{(}\StringTok{"days"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -706,13 +710,13 @@ This is useful for calculating, for instance, the period off medications. Lags a
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(tidyverse)}
-\KeywordTok{library}\NormalTok{(lubridate)}
-\NormalTok{id =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{) }
-\NormalTok{medication =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"aspirin"}\NormalTok{, }\StringTok{"aspirin"}\NormalTok{, }\StringTok{"aspirin"}\NormalTok{, }\StringTok{"tylenol"}\NormalTok{, }\StringTok{"lipitor"}\NormalTok{, }\StringTok{"advil"}\NormalTok{) }
-\NormalTok{start.date =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"05/01/2017"}\NormalTok{, }\StringTok{"05/30/2017"}\NormalTok{, }\StringTok{"07/15/2017"}\NormalTok{, }\StringTok{"05/01/2017"}\NormalTok{, }\StringTok{"05/06/2017"}\NormalTok{, }\StringTok{"05/28/2017"}\NormalTok{)}
-\NormalTok{stop.date =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"05/04/2017"}\NormalTok{, }\StringTok{"06/10/2017"}\NormalTok{, }\StringTok{"07/27/2017"}\NormalTok{, }\StringTok{"05/15/2017"}\NormalTok{, }\StringTok{"05/12/2017"}\NormalTok{, }\StringTok{"06/13/2017"}\NormalTok{)}
-\NormalTok{df =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(id, medication, start.date, stop.date)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(lubridate)}
+\NormalTok{id }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{) }
+\NormalTok{medication }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"aspirin"}\NormalTok{, }\StringTok{"aspirin"}\NormalTok{, }\StringTok{"aspirin"}\NormalTok{, }\StringTok{"tylenol"}\NormalTok{, }\StringTok{"lipitor"}\NormalTok{, }\StringTok{"advil"}\NormalTok{) }
+\NormalTok{start.date }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"05/01/2017"}\NormalTok{, }\StringTok{"05/30/2017"}\NormalTok{, }\StringTok{"07/15/2017"}\NormalTok{, }\StringTok{"05/01/2017"}\NormalTok{, }\StringTok{"05/06/2017"}\NormalTok{, }\StringTok{"05/28/2017"}\NormalTok{)}
+\NormalTok{stop.date }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"05/04/2017"}\NormalTok{, }\StringTok{"06/10/2017"}\NormalTok{, }\StringTok{"07/27/2017"}\NormalTok{, }\StringTok{"05/15/2017"}\NormalTok{, }\StringTok{"05/12/2017"}\NormalTok{, }\StringTok{"06/13/2017"}\NormalTok{)}
+\NormalTok{df }\OtherTok{=} \FunctionTok{tibble}\NormalTok{(id, medication, start.date, stop.date)}
 \NormalTok{df}
 \end{Highlighting}
 \end{Shaded}
@@ -731,13 +735,13 @@ This is useful for calculating, for instance, the period off medications. Lags a
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{df }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate_at}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"start.date"}\NormalTok{, }\StringTok{"stop.date"}\NormalTok{), lubridate}\OperatorTok{::}\NormalTok{mdy) }\OperatorTok{%>%}\StringTok{ }\CommentTok{# make a date}
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(id, medication, start.date) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(id, medication) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
-    \DataTypeTok{start_date_diff =}\NormalTok{ start.date }\OperatorTok{-}\StringTok{ }\KeywordTok{lag}\NormalTok{(start.date),}
-    \DataTypeTok{medication_period =}\NormalTok{ stop.date}\OperatorTok{-}\NormalTok{start.date}
+\NormalTok{df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate\_at}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"start.date"}\NormalTok{, }\StringTok{"stop.date"}\NormalTok{), lubridate}\SpecialCharTok{::}\NormalTok{mdy) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\# make a date}
+  \FunctionTok{arrange}\NormalTok{(id, medication, start.date) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(id, medication) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{start\_date\_diff =}\NormalTok{ start.date }\SpecialCharTok{{-}} \FunctionTok{lag}\NormalTok{(start.date),}
+    \AttributeTok{medication\_period =}\NormalTok{ stop.date}\SpecialCharTok{{-}}\NormalTok{start.date}
 \NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
@@ -765,21 +769,21 @@ If you have a number of episodes per patient, each with a status and a time, the
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(dplyr)}
-\KeywordTok{library}\NormalTok{(lubridate)}
-\KeywordTok{library}\NormalTok{(finalfit)}
-\NormalTok{mydata =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}
-  \DataTypeTok{id =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{),}
-  \DataTypeTok{status =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{),}
-  \DataTypeTok{group =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{8}\NormalTok{), }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{12}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{factor}\NormalTok{(),}
-  \DataTypeTok{opdate =} \KeywordTok{rep}\NormalTok{(}\StringTok{"2010/01/01"}\NormalTok{, }\DecValTok{20}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{ymd}\NormalTok{(),}
-  \DataTypeTok{status_date =} \KeywordTok{c}\NormalTok{(}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(lubridate)}
+\FunctionTok{library}\NormalTok{(finalfit)}
+\NormalTok{mydata }\OtherTok{=} \FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{id =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{),}
+  \AttributeTok{status =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+  \AttributeTok{group =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{8}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{12}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{factor}\NormalTok{(),}
+  \AttributeTok{opdate =} \FunctionTok{rep}\NormalTok{(}\StringTok{"2010/01/01"}\NormalTok{, }\DecValTok{20}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ymd}\NormalTok{(),}
+  \AttributeTok{status\_date =} \FunctionTok{c}\NormalTok{(}
     \StringTok{"2010/02/01"}\NormalTok{, }\StringTok{"2010/03/01"}\NormalTok{, }\StringTok{"2010/04/01"}\NormalTok{, }\StringTok{"2010/05/01"}\NormalTok{,}
     \StringTok{"2010/02/02"}\NormalTok{, }\StringTok{"2010/03/02"}\NormalTok{, }\StringTok{"2010/04/02"}\NormalTok{, }\StringTok{"2010/05/02"}\NormalTok{,}
     \StringTok{"2010/02/03"}\NormalTok{, }\StringTok{"2010/03/03"}\NormalTok{, }\StringTok{"2010/04/03"}\NormalTok{, }\StringTok{"2010/05/03"}\NormalTok{,}
     \StringTok{"2010/02/04"}\NormalTok{, }\StringTok{"2010/03/04"}\NormalTok{, }\StringTok{"2010/04/04"}\NormalTok{, }\StringTok{"2010/05/04"}\NormalTok{,}
     \StringTok{"2010/02/05"}\NormalTok{, }\StringTok{"2010/03/05"}\NormalTok{, }\StringTok{"2010/04/05"}\NormalTok{, }\StringTok{"2010/05/05"}
-\NormalTok{  ) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{ymd}\NormalTok{()}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ymd}\NormalTok{()}
 \NormalTok{)}
 \NormalTok{mydata}
 \end{Highlighting}
@@ -818,10 +822,10 @@ If you have a number of episodes per patient, each with a status and a time, the
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mydata =}\StringTok{ }\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(id, status_date) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
-    \DataTypeTok{time =} \KeywordTok{interval}\NormalTok{(opdate, status_date) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(}\StringTok{"days"}\NormalTok{)}
+\NormalTok{mydata }\OtherTok{=}\NormalTok{ mydata }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(id, status\_date) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{time =} \FunctionTok{interval}\NormalTok{(opdate, status\_date) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.numeric}\NormalTok{(}\StringTok{"days"}\NormalTok{)}
 \NormalTok{  )}
 \NormalTok{mydata}
 \end{Highlighting}
@@ -858,15 +862,15 @@ If you have a number of episodes per patient, each with a status and a time, the
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mydata =}\StringTok{ }\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(id) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
-    \DataTypeTok{status_change =}\NormalTok{ status }\OperatorTok{-}\StringTok{ }\KeywordTok{lag}\NormalTok{(status) }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{,                          }\CommentTok{# Mark TRUE if goes from 0 to 1}
-    \DataTypeTok{status_nochange =} \KeywordTok{sum}\NormalTok{(status) }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{,                                 }\CommentTok{# Mark if no change from 0}
-    \DataTypeTok{status_nochange_keep =} \OperatorTok{!}\KeywordTok{duplicated}\NormalTok{(status_nochange, }\DataTypeTok{fromLast=} \OtherTok{TRUE}\NormalTok{) }\CommentTok{# Mark most recent "no change" episode}
-\NormalTok{  ) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(status_change }\OperatorTok{|}\StringTok{ }\NormalTok{(status_nochange }\OperatorTok{&}\StringTok{ }\NormalTok{status_nochange_keep)) }\OperatorTok{%>%}\StringTok{  }\CommentTok{# Filter out other episodes}
-\StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{(status_change, status_nochange, status_nochange_keep))      }\CommentTok{# Remove columns not needed}
+\NormalTok{mydata }\OtherTok{=}\NormalTok{ mydata }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(id) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{status\_change =}\NormalTok{ status }\SpecialCharTok{{-}} \FunctionTok{lag}\NormalTok{(status) }\SpecialCharTok{==} \DecValTok{1}\NormalTok{,                          }\CommentTok{\# Mark TRUE if goes from 0 to 1}
+    \AttributeTok{status\_nochange =} \FunctionTok{sum}\NormalTok{(status) }\SpecialCharTok{==} \DecValTok{0}\NormalTok{,                                 }\CommentTok{\# Mark if no change from 0}
+    \AttributeTok{status\_nochange\_keep =} \SpecialCharTok{!}\FunctionTok{duplicated}\NormalTok{(status\_nochange, }\AttributeTok{fromLast=} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# Mark most recent "no change" episode}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(status\_change }\SpecialCharTok{|}\NormalTok{ (status\_nochange }\SpecialCharTok{\&}\NormalTok{ status\_nochange\_keep)) }\SpecialCharTok{\%\textgreater{}\%}  \CommentTok{\# Filter out other episodes}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(status\_change, status\_nochange, status\_nochange\_keep))      }\CommentTok{\# Remove columns not needed}
 \NormalTok{mydata}
 \end{Highlighting}
 \end{Shaded}
@@ -888,8 +892,8 @@ If you have a number of episodes per patient, each with a status and a time, the
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{finalfit}\NormalTok{(}\StringTok{"Surv(time, status)"}\NormalTok{, }\StringTok{"group"}\NormalTok{)}
+\NormalTok{mydata }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{finalfit}\NormalTok{(}\StringTok{"Surv(time, status)"}\NormalTok{, }\StringTok{"group"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -912,46 +916,46 @@ Common to have to do this in GlobalSurg projects:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(dplyr)}
-\NormalTok{mydata =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}
-  \DataTypeTok{ssi.factor =} \KeywordTok{c}\NormalTok{(}\StringTok{"No"}\NormalTok{, }\StringTok{"Yes, no treatment/wound opened only (CD 1)"}\NormalTok{,    }
+\FunctionTok{library}\NormalTok{(dplyr)}
+\NormalTok{mydata }\OtherTok{=} \FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{ssi.factor =} \FunctionTok{c}\NormalTok{(}\StringTok{"No"}\NormalTok{, }\StringTok{"Yes, no treatment/wound opened only (CD 1)"}\NormalTok{,    }
                  \StringTok{"Yes, antibiotics only (CD 2)"}\NormalTok{, }\StringTok{"Yes, return to operating theatre (CD 3)"}\NormalTok{, }
                  \StringTok{"Yes, requiring critical care admission (CD 4)"}\NormalTok{, }
                  \StringTok{"Yes, resulting in death (CD 5)"}\NormalTok{,}
-                 \StringTok{"Unknown"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{factor}\NormalTok{(),}
-  \DataTypeTok{mri.factor =} \KeywordTok{c}\NormalTok{(}\StringTok{"No, not available"}\NormalTok{, }\StringTok{"No, not indicated"}\NormalTok{, }
+                 \StringTok{"Unknown"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{factor}\NormalTok{(),}
+  \AttributeTok{mri.factor =} \FunctionTok{c}\NormalTok{(}\StringTok{"No, not available"}\NormalTok{, }\StringTok{"No, not indicated"}\NormalTok{, }
                  \StringTok{"No, indicated and facilities available, but patient not able to pay"}\NormalTok{,}
-                 \StringTok{"Yes"}\NormalTok{, }\StringTok{"Unknown"}\NormalTok{, }\StringTok{"Unknown"}\NormalTok{, }\StringTok{"Unknown"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{factor}\NormalTok{()}
+                 \StringTok{"Yes"}\NormalTok{, }\StringTok{"Unknown"}\NormalTok{, }\StringTok{"Unknown"}\NormalTok{, }\StringTok{"Unknown"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{factor}\NormalTok{()}
 \NormalTok{)}
 
-\CommentTok{# Two functions make this work}
-\NormalTok{fct_collapse_yn =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(.f)\{}
-\NormalTok{  .f }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\NormalTok{forcats}\OperatorTok{::}\KeywordTok{fct_relabel}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"^No.*"}\NormalTok{, }\StringTok{"No"}\NormalTok{, .)) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\NormalTok{forcats}\OperatorTok{::}\KeywordTok{fct_relabel}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"^Yes.*"}\NormalTok{, }\StringTok{"Yes"}\NormalTok{, .))}
+\CommentTok{\# Two functions make this work}
+\NormalTok{fct\_collapse\_yn }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(.f)\{}
+\NormalTok{  .f }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{    forcats}\SpecialCharTok{::}\FunctionTok{fct\_relabel}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \FunctionTok{gsub}\NormalTok{(}\StringTok{"\^{}No.*"}\NormalTok{, }\StringTok{"No"}\NormalTok{, .)) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{    forcats}\SpecialCharTok{::}\FunctionTok{fct\_relabel}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \FunctionTok{gsub}\NormalTok{(}\StringTok{"\^{}Yes.*"}\NormalTok{, }\StringTok{"Yes"}\NormalTok{, .))}
 \NormalTok{\}}
 
-\NormalTok{is.yn =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(.data)\{}
-\NormalTok{  .f =}\StringTok{ }\KeywordTok{is.factor}\NormalTok{(.data)}
-\NormalTok{  .yn =}\StringTok{ }\NormalTok{.data }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{levels}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{grepl}\NormalTok{(}\StringTok{"(No.+)|(Yes.+)"}\NormalTok{, .) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{any}\NormalTok{()}
-  \KeywordTok{all}\NormalTok{(.f, .yn)}
+\NormalTok{is.yn }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(.data)\{}
+\NormalTok{  .f }\OtherTok{=} \FunctionTok{is.factor}\NormalTok{(.data)}
+\NormalTok{  .yn }\OtherTok{=}\NormalTok{ .data }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{levels}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{grepl}\NormalTok{(}\StringTok{"(No.+)|(Yes.+)"}\NormalTok{, .) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{any}\NormalTok{()}
+  \FunctionTok{all}\NormalTok{(.f, .yn)}
 \NormalTok{\}}
 
-\CommentTok{# Raw variable}
-\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{count}\NormalTok{(ssi.factor)}
+\CommentTok{\# Raw variable}
+\NormalTok{mydata }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(ssi.factor)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## # A tibble: 7 x 2
 ##   ssi.factor                                        n
-## * <fct>                                         <int>
+##   <fct>                                         <int>
 ## 1 No                                                1
 ## 2 Unknown                                           1
 ## 3 Yes, antibiotics only (CD 2)                      1
@@ -963,17 +967,17 @@ Common to have to do this in GlobalSurg projects:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Collapse to _yn version}
-\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\KeywordTok{across}\NormalTok{(}\KeywordTok{where}\NormalTok{(is.yn), fct_collapse_yn, }\DataTypeTok{.names =} \StringTok{"\{col\}_yn"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{count}\NormalTok{(ssi.factor_yn)}
+\CommentTok{\# Collapse to \_yn version}
+\NormalTok{mydata }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{where}\NormalTok{(is.yn), fct\_collapse\_yn, }\AttributeTok{.names =} \StringTok{"\{col\}\_yn"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(ssi.factor\_yn)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## # A tibble: 3 x 2
 ##   ssi.factor_yn     n
-## * <fct>         <int>
+##   <fct>         <int>
 ## 1 No                1
 ## 2 Unknown           1
 ## 3 Yes               5
@@ -987,11 +991,11 @@ I don't care whether \texttt{whatever\_c} is empty or not, but I do want to keep
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
 
-\NormalTok{mydata  =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{important_a =} \KeywordTok{c}\NormalTok{(}\StringTok{"Value"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\StringTok{"Value"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{),}
-                 \DataTypeTok{important_b =} \KeywordTok{c}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\StringTok{"Value"}\NormalTok{, }\StringTok{"Value"}\NormalTok{, }\OtherTok{NA}\NormalTok{),}
-                 \DataTypeTok{whatever_c  =} \KeywordTok{c}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\StringTok{"Value"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{))}
+\NormalTok{mydata  }\OtherTok{=} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{important\_a =} \FunctionTok{c}\NormalTok{(}\StringTok{"Value"}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\StringTok{"Value"}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{),}
+                 \AttributeTok{important\_b =} \FunctionTok{c}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\StringTok{"Value"}\NormalTok{, }\StringTok{"Value"}\NormalTok{, }\ConstantTok{NA}\NormalTok{),}
+                 \AttributeTok{whatever\_c  =} \FunctionTok{c}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\StringTok{"Value"}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{))}
 
 \NormalTok{mydata}
 \end{Highlighting}
@@ -1019,8 +1023,8 @@ Functions for missing values that are very useful, but don't do what I want are:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{drop_na}\NormalTok{()}
+\NormalTok{mydata }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{drop\_na}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1041,8 +1045,8 @@ Functions for missing values that are very useful, but don't do what I want are:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{drop_na}\NormalTok{(important_a, important_b)}
+\NormalTok{mydata }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{drop\_na}\NormalTok{(important\_a, important\_b)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1065,8 +1069,8 @@ This only keeps the row where both a and b have a value.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter_all}\NormalTok{(}\KeywordTok{any_vars}\NormalTok{(}\OperatorTok{!}\StringTok{ }\KeywordTok{is.na}\NormalTok{(.)))}
+\NormalTok{mydata }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter\_all}\NormalTok{(}\FunctionTok{any\_vars}\NormalTok{(}\SpecialCharTok{!} \FunctionTok{is.na}\NormalTok{(.)))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1084,8 +1088,8 @@ The third example is better achieved using the janitor package:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\NormalTok{janitor}\OperatorTok{::}\KeywordTok{remove_empty}\NormalTok{()}
+\NormalTok{mydata }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  janitor}\SpecialCharTok{::}\FunctionTok{remove\_empty}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1113,8 +1117,8 @@ A quick solution is to use \texttt{!\ is.na()} for each variable inside a \textt
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\StringTok{ }\KeywordTok{is.na}\NormalTok{(important_a) }\OperatorTok{|}\StringTok{ }\OperatorTok{!}\StringTok{ }\KeywordTok{is.na}\NormalTok{(important_b))}
+\NormalTok{mydata }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!} \FunctionTok{is.na}\NormalTok{(important\_a) }\SpecialCharTok{|} \SpecialCharTok{!} \FunctionTok{is.na}\NormalTok{(important\_b))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1141,8 +1145,8 @@ A scalable solution is to use \texttt{filter\_at()} with \texttt{vars()} with a 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter_at}\NormalTok{(}\KeywordTok{vars}\NormalTok{(}\KeywordTok{starts_with}\NormalTok{(}\StringTok{"important_"}\NormalTok{)), }\KeywordTok{any_vars}\NormalTok{(}\OperatorTok{!}\StringTok{ }\KeywordTok{is.na}\NormalTok{(.)))}
+\NormalTok{mydata }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter\_at}\NormalTok{(}\FunctionTok{vars}\NormalTok{(}\FunctionTok{starts\_with}\NormalTok{(}\StringTok{"important\_"}\NormalTok{)), }\FunctionTok{any\_vars}\NormalTok{(}\SpecialCharTok{!} \FunctionTok{is.na}\NormalTok{(.)))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1153,6 +1157,35 @@ A scalable solution is to use \texttt{filter\_at()} with \texttt{vars()} with a 
 ## 1 Value       <NA>        <NA>      
 ## 2 Value       Value       <NA>      
 ## 3 <NA>        Value       <NA>
+\end{verbatim}
+
+\hypertarget{vectorising-rowwise-procedures}{%
+\section{Vectorising rowwise procedures}\label{vectorising-rowwise-procedures}}
+
+We frequently have to aggregate across columns. \texttt{dplyr::rowwise()} is the \texttt{group\_by()} equivalent for rows. But this is painfully slow for large datasets.
+
+The following works beautifully and allows tidyselect of variable names.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\NormalTok{mydata }\OtherTok{=} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{a =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\ConstantTok{NA}\NormalTok{),}
+       \AttributeTok{b =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\ConstantTok{NA}\NormalTok{),}
+       \AttributeTok{c =} \FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\ConstantTok{NA}\NormalTok{),}
+       \AttributeTok{d =} \FunctionTok{c}\NormalTok{(}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{))}
+
+\NormalTok{mydata }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{s =} \FunctionTok{pmap\_dbl}\NormalTok{(}\FunctionTok{select}\NormalTok{(., a}\SpecialCharTok{:}\NormalTok{d), pmax, }\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 5
+##       a     b     c d         s
+##   <dbl> <dbl> <dbl> <lgl> <dbl>
+## 1     1     2     3 NA        3
+## 2     2     3     4 NA        4
+## 3    NA    NA    NA NA       NA
 \end{verbatim}
 
 \hypertarget{machine-learning}{%
@@ -1169,31 +1202,31 @@ A scalable solution is to use \texttt{filter\_at()} with \texttt{vars()} with a 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(REDCapR)}
-\NormalTok{uri =}\StringTok{ "https://redcap.cir.ed.ac.uk/api/"}
-\NormalTok{token =}\StringTok{ ""} \CommentTok{# API token here}
-\NormalTok{record_list =}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{318}
-\NormalTok{field_list =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"photo"}\NormalTok{, }\StringTok{"photo_2"}\NormalTok{, }\StringTok{"photo_3"}\NormalTok{, }\StringTok{"photo_4"}\NormalTok{)}
-\NormalTok{event_list =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"wound_concerns_arm_2"}\NormalTok{, }\StringTok{"questionnaire_1_arm_2"}\NormalTok{,}
-               \StringTok{"questionnaire_2_arm_2"}\NormalTok{, }\StringTok{"questionnaire_3_arm_2"}\NormalTok{)}
-\NormalTok{directory =}\StringTok{ "wound_raw"} \CommentTok{# destination directory must exist already}
+\FunctionTok{library}\NormalTok{(REDCapR)}
+\NormalTok{uri }\OtherTok{=} \StringTok{"https://redcap.cir.ed.ac.uk/api/"}
+\NormalTok{token }\OtherTok{=} \StringTok{""} \CommentTok{\# API token here}
+\NormalTok{record\_list }\OtherTok{=} \DecValTok{1}\SpecialCharTok{:}\DecValTok{318}
+\NormalTok{field\_list }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"photo"}\NormalTok{, }\StringTok{"photo\_2"}\NormalTok{, }\StringTok{"photo\_3"}\NormalTok{, }\StringTok{"photo\_4"}\NormalTok{)}
+\NormalTok{event\_list }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"wound\_concerns\_arm\_2"}\NormalTok{, }\StringTok{"questionnaire\_1\_arm\_2"}\NormalTok{,}
+               \StringTok{"questionnaire\_2\_arm\_2"}\NormalTok{, }\StringTok{"questionnaire\_3\_arm\_2"}\NormalTok{)}
+\NormalTok{directory }\OtherTok{=} \StringTok{"wound\_raw"} \CommentTok{\# destination directory must exist already}
 
 
-\ControlFlowTok{for}\NormalTok{(record }\ControlFlowTok{in}\NormalTok{ record_list)\{}
-  \ControlFlowTok{for}\NormalTok{(field }\ControlFlowTok{in}\NormalTok{ field_list)\{}
-    \ControlFlowTok{for}\NormalTok{(event }\ControlFlowTok{in}\NormalTok{ event_list)\{}
-\NormalTok{      result =}\StringTok{ }
-\StringTok{        }\KeywordTok{tryCatch}\NormalTok{(\{      }\CommentTok{# suppress breaking error when no image in slot}
-          \KeywordTok{redcap_download_file_oneshot}\NormalTok{(}
-            \DataTypeTok{record        =}\NormalTok{ record,}
-            \DataTypeTok{field         =}\NormalTok{ field,}
-            \DataTypeTok{redcap_uri    =}\NormalTok{ uri,}
-            \DataTypeTok{token         =}\NormalTok{ token,}
-            \DataTypeTok{event         =}\NormalTok{ event,}
-            \DataTypeTok{overwrite     =} \OtherTok{TRUE}\NormalTok{,}
-            \DataTypeTok{directory     =}\NormalTok{ directory}
+\ControlFlowTok{for}\NormalTok{(record }\ControlFlowTok{in}\NormalTok{ record\_list)\{}
+  \ControlFlowTok{for}\NormalTok{(field }\ControlFlowTok{in}\NormalTok{ field\_list)\{}
+    \ControlFlowTok{for}\NormalTok{(event }\ControlFlowTok{in}\NormalTok{ event\_list)\{}
+\NormalTok{      result }\OtherTok{=} 
+        \FunctionTok{tryCatch}\NormalTok{(\{      }\CommentTok{\# suppress breaking error when no image in slot}
+          \FunctionTok{redcap\_download\_file\_oneshot}\NormalTok{(}
+            \AttributeTok{record        =}\NormalTok{ record,}
+            \AttributeTok{field         =}\NormalTok{ field,}
+            \AttributeTok{redcap\_uri    =}\NormalTok{ uri,}
+            \AttributeTok{token         =}\NormalTok{ token,}
+            \AttributeTok{event         =}\NormalTok{ event,}
+            \AttributeTok{overwrite     =} \ConstantTok{TRUE}\NormalTok{,}
+            \AttributeTok{directory     =}\NormalTok{ directory}
 \NormalTok{          )}
-\NormalTok{        \}, }\DataTypeTok{error=}\ControlFlowTok{function}\NormalTok{(e)\{\})}
+\NormalTok{        \}, }\AttributeTok{error=}\ControlFlowTok{function}\NormalTok{(e)\{\})}
 \NormalTok{    \}}
 \NormalTok{  \}}
 \NormalTok{\}}
@@ -1205,32 +1238,32 @@ A scalable solution is to use \texttt{filter\_at()} with \texttt{vars()} with a 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(REDCapR)}
-\NormalTok{uri =}\StringTok{ "https://redcap.cir.ed.ac.uk/api/"}
-\NormalTok{token =}\StringTok{ ""} \CommentTok{# API token here}
-\NormalTok{record_list =}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{318}
-\NormalTok{field_list =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"photo"}\NormalTok{, }\StringTok{"photo_2"}\NormalTok{, }\StringTok{"photo_3"}\NormalTok{, }\StringTok{"photo_4"}\NormalTok{)}
-\NormalTok{event_list =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"wound_concerns_arm_2"}\NormalTok{, }\StringTok{"questionnaire_1_arm_2"}\NormalTok{,}
-               \StringTok{"questionnaire_2_arm_2"}\NormalTok{, }\StringTok{"questionnaire_3_arm_2"}\NormalTok{)}
-\NormalTok{directory =}\StringTok{ "wound_named"} \CommentTok{# destination directory must exist already}
+\FunctionTok{library}\NormalTok{(REDCapR)}
+\NormalTok{uri }\OtherTok{=} \StringTok{"https://redcap.cir.ed.ac.uk/api/"}
+\NormalTok{token }\OtherTok{=} \StringTok{""} \CommentTok{\# API token here}
+\NormalTok{record\_list }\OtherTok{=} \DecValTok{1}\SpecialCharTok{:}\DecValTok{318}
+\NormalTok{field\_list }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"photo"}\NormalTok{, }\StringTok{"photo\_2"}\NormalTok{, }\StringTok{"photo\_3"}\NormalTok{, }\StringTok{"photo\_4"}\NormalTok{)}
+\NormalTok{event\_list }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"wound\_concerns\_arm\_2"}\NormalTok{, }\StringTok{"questionnaire\_1\_arm\_2"}\NormalTok{,}
+               \StringTok{"questionnaire\_2\_arm\_2"}\NormalTok{, }\StringTok{"questionnaire\_3\_arm\_2"}\NormalTok{)}
+\NormalTok{directory }\OtherTok{=} \StringTok{"wound\_named"} \CommentTok{\# destination directory must exist already}
 
-\ControlFlowTok{for}\NormalTok{(record }\ControlFlowTok{in}\NormalTok{ record_list)\{}
-  \ControlFlowTok{for}\NormalTok{(field }\ControlFlowTok{in}\NormalTok{ field_list)\{}
-    \ControlFlowTok{for}\NormalTok{(event }\ControlFlowTok{in}\NormalTok{ event_list)\{}
-\NormalTok{      file_name =}\StringTok{ }\KeywordTok{paste0}\NormalTok{(record, }\StringTok{"_"}\NormalTok{, field, }\StringTok{"_"}\NormalTok{, event, }\StringTok{".jpg"}\NormalTok{)}
-\NormalTok{      result =}\StringTok{ }
-\StringTok{        }\KeywordTok{tryCatch}\NormalTok{(\{}
-          \KeywordTok{redcap_download_file_oneshot}\NormalTok{(}
-            \DataTypeTok{record        =}\NormalTok{ record,}
-            \DataTypeTok{field         =}\NormalTok{ field,}
-            \DataTypeTok{redcap_uri    =}\NormalTok{ uri,}
-            \DataTypeTok{token         =}\NormalTok{ token,}
-            \DataTypeTok{event         =}\NormalTok{ event,}
-            \DataTypeTok{overwrite     =} \OtherTok{TRUE}\NormalTok{,}
-            \DataTypeTok{directory     =}\NormalTok{ directory,}
-            \DataTypeTok{file_name     =}\NormalTok{ file_name}
+\ControlFlowTok{for}\NormalTok{(record }\ControlFlowTok{in}\NormalTok{ record\_list)\{}
+  \ControlFlowTok{for}\NormalTok{(field }\ControlFlowTok{in}\NormalTok{ field\_list)\{}
+    \ControlFlowTok{for}\NormalTok{(event }\ControlFlowTok{in}\NormalTok{ event\_list)\{}
+\NormalTok{      file\_name }\OtherTok{=} \FunctionTok{paste0}\NormalTok{(record, }\StringTok{"\_"}\NormalTok{, field, }\StringTok{"\_"}\NormalTok{, event, }\StringTok{".jpg"}\NormalTok{)}
+\NormalTok{      result }\OtherTok{=} 
+        \FunctionTok{tryCatch}\NormalTok{(\{}
+          \FunctionTok{redcap\_download\_file\_oneshot}\NormalTok{(}
+            \AttributeTok{record        =}\NormalTok{ record,}
+            \AttributeTok{field         =}\NormalTok{ field,}
+            \AttributeTok{redcap\_uri    =}\NormalTok{ uri,}
+            \AttributeTok{token         =}\NormalTok{ token,}
+            \AttributeTok{event         =}\NormalTok{ event,}
+            \AttributeTok{overwrite     =} \ConstantTok{TRUE}\NormalTok{,}
+            \AttributeTok{directory     =}\NormalTok{ directory,}
+            \AttributeTok{file\_name     =}\NormalTok{ file\_name}
 \NormalTok{          )}
-\NormalTok{        \}, }\DataTypeTok{error=}\ControlFlowTok{function}\NormalTok{(e)\{\})}
+\NormalTok{        \}, }\AttributeTok{error=}\ControlFlowTok{function}\NormalTok{(e)\{\})}
 \NormalTok{    \}}
 \NormalTok{  \}}
 \NormalTok{\}}
@@ -1284,7 +1317,7 @@ If you are logging in from RStudio Server or another terminal software you shoul
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ssh} \OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie.ecdf.ed.ac.uk}
+\FunctionTok{ssh} \OperatorTok{\textless{}}\NormalTok{UUN}\OperatorTok{\textgreater{}}\NormalTok{@eddie.ecdf.ed.ac.uk}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1329,7 +1362,7 @@ To get back to this directory at any point enter one of the following (they are 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\BuiltInTok{cd}\NormalTok{ /home/}\OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}
+\BuiltInTok{cd}\NormalTok{ /home/}\OperatorTok{\textless{}}\NormalTok{UUN}\OperatorTok{\textgreater{}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1337,7 +1370,7 @@ or
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\BuiltInTok{cd}\NormalTok{ ~}
+\BuiltInTok{cd}\NormalTok{ \textasciitilde{}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1345,7 +1378,7 @@ When inside your home folder to see any of the files or subdirectories in your h
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ls}\NormalTok{ -a}
+\FunctionTok{ls} \AttributeTok{{-}a}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1353,7 +1386,7 @@ The \texttt{-a} argument to ls shows hidden files which begin with a \texttt{.} 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ExtensionTok{-rwxr-xr--}\NormalTok{ ... ... ... ... my_file.txt}
+\ExtensionTok{{-}rwxr{-}xr{-}{-}}\NormalTok{ ... ... ... ... my\_file.txt}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1367,7 +1400,7 @@ To copy data from another server or device into RStudio Server use the following
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{scp} \OperatorTok{<}\NormalTok{file_path_on_other_device_or_server}\OperatorTok{>}\NormalTok{new_file.txt }\OperatorTok{<}\NormalTok{RStudio_Server_Username}\OperatorTok{>}\NormalTok{@argonaut.is.ed.ac.uk:}\OperatorTok{<}\NormalTok{RStudio_path}\OperatorTok{>}\NormalTok{/}\OperatorTok{<}\NormalTok{project_directory}\OperatorTok{>}\NormalTok{/}
+\FunctionTok{scp} \OperatorTok{\textless{}}\NormalTok{file\_path\_on\_other\_device\_or\_server}\OperatorTok{\textgreater{}}\NormalTok{new\_file.txt }\OperatorTok{\textless{}}\NormalTok{RStudio\_Server\_Username}\OperatorTok{\textgreater{}}\NormalTok{@argonaut.is.ed.ac.uk:}\OperatorTok{\textless{}}\NormalTok{RStudio\_path}\OperatorTok{\textgreater{}}\NormalTok{/}\OperatorTok{\textless{}}\NormalTok{project\_directory}\OperatorTok{\textgreater{}}\NormalTok{/}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1386,10 +1419,10 @@ In the terminal enter the following command to copy a single file from Eddie int
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{scp} \OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/}\OperatorTok{<}\NormalTok{project_subdirectory}\OperatorTok{>}\NormalTok{/my_file.txt /home/}\OperatorTok{<}\NormalTok{RStudio_Server_Username}\OperatorTok{>}\NormalTok{/}\OperatorTok{<}\NormalTok{RStudio_Project}\OperatorTok{>}\NormalTok{/}
+\FunctionTok{scp} \OperatorTok{\textless{}}\NormalTok{UUN}\OperatorTok{\textgreater{}}\NormalTok{@eddie.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/}\OperatorTok{\textless{}}\NormalTok{project\_subdirectory}\OperatorTok{\textgreater{}}\NormalTok{/my\_file.txt /home/}\OperatorTok{\textless{}}\NormalTok{RStudio\_Server\_Username}\OperatorTok{\textgreater{}}\NormalTok{/}\OperatorTok{\textless{}}\NormalTok{RStudio\_Project}\OperatorTok{\textgreater{}}\NormalTok{/}
 
-\CommentTok{# Or adapt to copy entire directory contents (drop the * to copy the directory/folder as well as the contents)}
-\FunctionTok{scp}\NormalTok{ -r }\OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/}\OperatorTok{<}\NormalTok{project_subdirectory}\OperatorTok{>}\NormalTok{/* /home/}\OperatorTok{<}\NormalTok{RStudio_Server_Username}\OperatorTok{>}\NormalTok{/}\OperatorTok{<}\NormalTok{RStudio_Project}\OperatorTok{>}\NormalTok{/}
+\CommentTok{\# Or adapt to copy entire directory contents (drop the * to copy the directory/folder as well as the contents)}
+\FunctionTok{scp} \AttributeTok{{-}r} \OperatorTok{\textless{}}\NormalTok{UUN}\OperatorTok{\textgreater{}}\NormalTok{@eddie.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/}\OperatorTok{\textless{}}\NormalTok{project\_subdirectory}\OperatorTok{\textgreater{}}\NormalTok{/}\PreprocessorTok{*}\NormalTok{ /home/}\OperatorTok{\textless{}}\NormalTok{RStudio\_Server\_Username}\OperatorTok{\textgreater{}}\NormalTok{/}\OperatorTok{\textless{}}\NormalTok{RStudio\_Project}\OperatorTok{\textgreater{}}\NormalTok{/}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1417,7 +1450,7 @@ Your own personal scratch space is where you should work on active projects duri
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\BuiltInTok{cd}\NormalTok{ /exports/eddie/scratch/}\OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}
+\BuiltInTok{cd}\NormalTok{ /exports/eddie/scratch/}\OperatorTok{\textless{}}\NormalTok{UUN}\OperatorTok{\textgreater{}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1437,7 +1470,7 @@ To connect initially enter:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ssh} \OperatorTok{<}\NormalTok{UUN}\OperatorTok{>}\NormalTok{@eddie.ecdf.ed.ac.uk}
+\FunctionTok{ssh} \OperatorTok{\textless{}}\NormalTok{UUN}\OperatorTok{\textgreater{}}\NormalTok{@eddie.ecdf.ed.ac.uk}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1452,12 +1485,12 @@ To load in a new module to use run the following:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ExtensionTok{module}\NormalTok{ load }\OperatorTok{<}\NormalTok{module}\OperatorTok{>}
+\ExtensionTok{module}\NormalTok{ load }\OperatorTok{\textless{}}\NormalTok{module}\OperatorTok{\textgreater{}}
 
-\CommentTok{# For example:}
+\CommentTok{\# For example:}
 \ExtensionTok{module}\NormalTok{ load R/3.5.3}
 
-\CommentTok{# Note that the default R version is 3.3.2 (as of 13th June 2019) and is loaded using:}
+\CommentTok{\# Note that the default R version is 3.3.2 (as of 13th June 2019) and is loaded using:}
 \ExtensionTok{module}\NormalTok{ load R}
 \end{Highlighting}
 \end{Shaded}
@@ -1492,51 +1525,51 @@ A possible \texttt{.Rprofile} file for using in Eddie as part of the Surgical In
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## Rprofile template}
+\DocumentationTok{\#\# Rprofile template}
 
 
-\CommentTok{## Stop being asked for CRAN mirror every time}
-\KeywordTok{options}\NormalTok{(}\StringTok{"repos"}\NormalTok{ =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DataTypeTok{CRAN =} \StringTok{"http://cran.rstudio.com/"}\NormalTok{))}
+\DocumentationTok{\#\# Stop being asked for CRAN mirror every time}
+\FunctionTok{options}\NormalTok{(}\StringTok{"repos"} \OtherTok{=} \FunctionTok{c}\NormalTok{(}\AttributeTok{CRAN =} \StringTok{"http://cran.rstudio.com/"}\NormalTok{))}
 
 
-\CommentTok{## Change the default editor to nano}
-\KeywordTok{options}\NormalTok{(}\DataTypeTok{editor=}\StringTok{"nano"}\NormalTok{)}
+\DocumentationTok{\#\# Change the default editor to nano}
+\FunctionTok{options}\NormalTok{(}\AttributeTok{editor=}\StringTok{"nano"}\NormalTok{)}
 
-\CommentTok{## Change the terminal prompt to make it clear R is loaded}
-\KeywordTok{options}\NormalTok{(}\DataTypeTok{prompt=}\StringTok{"R > "}\NormalTok{)}
+\DocumentationTok{\#\# Change the terminal prompt to make it clear R is loaded}
+\FunctionTok{options}\NormalTok{(}\AttributeTok{prompt=}\StringTok{"R \textgreater{} "}\NormalTok{)}
 
-\CommentTok{## Prevent default saving of workspace image (similar to recommended RStudio server settings)}
-\NormalTok{q <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(}\DataTypeTok{save=}\StringTok{"no"}\NormalTok{, ...) \{}
-        \KeywordTok{quit}\NormalTok{(}\DataTypeTok{save=}\NormalTok{save, ...)}
+\DocumentationTok{\#\# Prevent default saving of workspace image (similar to recommended RStudio server settings)}
+\NormalTok{q }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(}\AttributeTok{save=}\StringTok{"no"}\NormalTok{, ...) \{}
+        \FunctionTok{quit}\NormalTok{(}\AttributeTok{save=}\NormalTok{save, ...)}
 \NormalTok{\}}
 
 
-\CommentTok{## Clever code to allow tab-completion of package names used in library()}
-\NormalTok{utils}\OperatorTok{::}\KeywordTok{rc.settings}\NormalTok{(}\DataTypeTok{ipck=}\OtherTok{TRUE}\NormalTok{)}
+\DocumentationTok{\#\# Clever code to allow tab{-}completion of package names used in library()}
+\NormalTok{utils}\SpecialCharTok{::}\FunctionTok{rc.settings}\NormalTok{(}\AttributeTok{ipck=}\ConstantTok{TRUE}\NormalTok{)}
 
 
-\CommentTok{## Add some colour to the console if colourout is available}
-\ControlFlowTok{if}\NormalTok{(}\KeywordTok{Sys.Getenv}\NormalTok{(}\StringTok{"TERM"}\NormalTok{) }\OperatorTok{==}\StringTok{ "xterm-256color"}\NormalTok{)}
-        \KeywordTok{library}\NormalTok{(}\StringTok{"colorout"}\NormalTok{)}
+\DocumentationTok{\#\# Add some colour to the console if colourout is available}
+\ControlFlowTok{if}\NormalTok{(}\FunctionTok{Sys.Getenv}\NormalTok{(}\StringTok{"TERM"}\NormalTok{) }\SpecialCharTok{==} \StringTok{"xterm{-}256color"}\NormalTok{)}
+        \FunctionTok{library}\NormalTok{(}\StringTok{"colorout"}\NormalTok{)}
 
-\CommentTok{## Create a new envisible environment which can be used to create new functions}
-\CommentTok{## Benefit of this is that all new functions here are hidden in environment and not rmeoved by rm(list = ls())}
-\NormalTok{.env <-}\StringTok{ }\KeywordTok{new.env}\NormalTok{()}
-
-
-\CommentTok{## Set library path to make sure packages are loaded from SurgInfGrp}
-\KeywordTok{.libPaths}\NormalTok{(}\StringTok{"/exports/cmvm/eddie/edmed/groups/SurgInfGrp/R/Rlibrary"}\NormalTok{)}
+\DocumentationTok{\#\# Create a new envisible environment which can be used to create new functions}
+\DocumentationTok{\#\# Benefit of this is that all new functions here are hidden in environment and not rmeoved by rm(list = ls())}
+\NormalTok{.env }\OtherTok{\textless{}{-}} \FunctionTok{new.env}\NormalTok{()}
 
 
-\CommentTok{## If working on a particular project e.g. the gwas_pipeline from IGMM best to create a new library due to R version issues in that project}
-\CommentTok{## Just copy the .Rprofile file from your own home directory into the project working directory and edit to change library}
+\DocumentationTok{\#\# Set library path to make sure packages are loaded from SurgInfGrp}
+\FunctionTok{.libPaths}\NormalTok{(}\StringTok{"/exports/cmvm/eddie/edmed/groups/SurgInfGrp/R/Rlibrary"}\NormalTok{)}
 
 
-\CommentTok{## Attach all the variables created}
-\KeywordTok{attach}\NormalTok{(.env)}
+\DocumentationTok{\#\# If working on a particular project e.g. the gwas\_pipeline from IGMM best to create a new library due to R version issues in that project}
+\DocumentationTok{\#\# Just copy the .Rprofile file from your own home directory into the project working directory and edit to change library}
 
 
-\CommentTok{## Remember that an .Rprofile file always silently ignores the last line so don't forget to leave empty newlines}
+\DocumentationTok{\#\# Attach all the variables created}
+\FunctionTok{attach}\NormalTok{(.env)}
+
+
+\DocumentationTok{\#\# Remember that an .Rprofile file always silently ignores the last line so don\textquotesingle{}t forget to leave empty newlines}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1553,7 +1586,7 @@ When you first use Eddie there will not be any \texttt{.Rprofile} file generated
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{file.create}\NormalTok{(}\StringTok{"~/.Rprofile"}\NormalTok{)}
+\FunctionTok{file.create}\NormalTok{(}\StringTok{"\textasciitilde{}/.Rprofile"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1570,8 +1603,8 @@ In addition to changing the \texttt{.Rprofile} file you will most likely need to
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Path will need edited if future installations of R replace 3.5.3}
-\FunctionTok{cp}\NormalTok{ /exports/applications/apps/SL7/R/3.5.3/lib64/R/etc/Renviron ~/.Renviron}
+\CommentTok{\# Path will need edited if future installations of R replace 3.5.3}
+\FunctionTok{cp}\NormalTok{ /exports/applications/apps/SL7/R/3.5.3/lib64/R/etc/Renviron \textasciitilde{}/.Renviron}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1579,62 +1612,62 @@ The following is a reasonable starting point for the \texttt{.Renviron} file in 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{### etc/Renviron.  Generated from Renviron.in by configure.}
-\CommentTok{###}
-\CommentTok{### $\{R_HOME\}/etc/Renviron}
-\CommentTok{###}
-\CommentTok{### Record R system environment variables.}
+\DocumentationTok{\#\#\# etc/Renviron.  Generated from Renviron.in by configure.}
+\DocumentationTok{\#\#\#}
+\DocumentationTok{\#\#\# $\{R\_HOME\}/etc/Renviron}
+\DocumentationTok{\#\#\#}
+\DocumentationTok{\#\#\# Record R system environment variables.}
 
-\NormalTok{R_PLATFORM=}\ErrorTok{$}\NormalTok{\{R_PLATFORM}\OperatorTok{-}\StringTok{'x86_64-pc-linux-gnu'}\NormalTok{\}}
-\CommentTok{## Default printer paper size: first record if user set R_PAPERSIZE}
-\NormalTok{R_PAPERSIZE_USER=}\ErrorTok{$}\NormalTok{\{R_PAPERSIZE\}}
-\NormalTok{R_PAPERSIZE=}\ErrorTok{$}\NormalTok{\{R_PAPERSIZE}\OperatorTok{-}\StringTok{'a4'}\NormalTok{\}}
-\CommentTok{## Default print command}
-\NormalTok{R_PRINTCMD=}\ErrorTok{$}\NormalTok{\{R_PRINTCMD}\OperatorTok{-}\StringTok{''}\NormalTok{\}}
-\CommentTok{# for Rd2pdf, reference manual}
-\NormalTok{R_RD4PDF=}\ErrorTok{$}\NormalTok{\{R_RD4PDF}\OperatorTok{-}\StringTok{'times,hyper'}\NormalTok{\}}
-\CommentTok{## used for options("texi2dvi")}
-\NormalTok{R_TEXI2DVICMD=}\ErrorTok{$}\NormalTok{\{R_TEXI2DVICMD}\OperatorTok{-}\ErrorTok{$}\NormalTok{\{TEXI2DVI}\OperatorTok{-}\StringTok{'texi2dvi'}\NormalTok{\}\}}
-\CommentTok{## used by untar and installing grDevices}
-\NormalTok{R_GZIPCMD=}\ErrorTok{$}\NormalTok{\{R_GZIPCMD}\OperatorTok{-}\StringTok{'/usr/bin/gzip'}\NormalTok{\}}
-\CommentTok{## Default zip/unzip commands}
-\NormalTok{R_UNZIPCMD=}\ErrorTok{$}\NormalTok{\{R_UNZIPCMD}\OperatorTok{-}\StringTok{'/usr/bin/unzip'}\NormalTok{\}}
-\NormalTok{R_ZIPCMD=}\ErrorTok{$}\NormalTok{\{R_ZIPCMD}\OperatorTok{-}\StringTok{'/usr/bin/zip'}\NormalTok{\}}
-\NormalTok{R_BZIPCMD=}\ErrorTok{$}\NormalTok{\{R_BZIPCMD}\OperatorTok{-}\StringTok{'/usr/bin/bzip2'}\NormalTok{\}}
-\CommentTok{## Default browser}
-\NormalTok{R_BROWSER=}\ErrorTok{$}\NormalTok{\{R_BROWSER}\OperatorTok{-}\StringTok{'/usr/bin/xdg-open'}\NormalTok{\}}
-\CommentTok{## Default pager}
-\NormalTok{PAGER=}\ErrorTok{$}\NormalTok{\{PAGER}\OperatorTok{-}\StringTok{'/usr/bin/less'}\NormalTok{\}}
-\CommentTok{## Default PDF viewer}
-\NormalTok{R_PDFVIEWER=}\ErrorTok{$}\NormalTok{\{R_PDFVIEWER}\OperatorTok{-}\StringTok{'/usr/bin/xdg-open'}\NormalTok{\}}
-\CommentTok{## Used by libtool}
-\NormalTok{LN_S=}\StringTok{'ln -s'}
-\NormalTok{MAKE=}\ErrorTok{$}\NormalTok{\{MAKE}\OperatorTok{-}\StringTok{'make'}\NormalTok{\}}
-\CommentTok{## Prefer a POSIX-compliant sed on e.g. Solaris}
-\NormalTok{SED=}\ErrorTok{$}\NormalTok{\{SED}\OperatorTok{-}\StringTok{'/usr/bin/sed'}\NormalTok{\}}
-\CommentTok{## Prefer a tar that can automagically read compressed archives}
-\NormalTok{TAR=}\ErrorTok{$}\NormalTok{\{TAR}\OperatorTok{-}\StringTok{'/usr/bin/gtar'}\NormalTok{\}}
+\NormalTok{R\_PLATFORM}\OtherTok{=}\ErrorTok{$}\NormalTok{\{R\_PLATFORM}\SpecialCharTok{{-}}\StringTok{\textquotesingle{}x86\_64{-}pc{-}linux{-}gnu\textquotesingle{}}\NormalTok{\}}
+\DocumentationTok{\#\# Default printer paper size: first record if user set R\_PAPERSIZE}
+\NormalTok{R\_PAPERSIZE\_USER}\OtherTok{=}\ErrorTok{$}\NormalTok{\{R\_PAPERSIZE\}}
+\NormalTok{R\_PAPERSIZE}\OtherTok{=}\ErrorTok{$}\NormalTok{\{R\_PAPERSIZE}\SpecialCharTok{{-}}\StringTok{\textquotesingle{}a4\textquotesingle{}}\NormalTok{\}}
+\DocumentationTok{\#\# Default print command}
+\NormalTok{R\_PRINTCMD}\OtherTok{=}\ErrorTok{$}\NormalTok{\{R\_PRINTCMD}\SpecialCharTok{{-}}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{\}}
+\CommentTok{\# for Rd2pdf, reference manual}
+\NormalTok{R\_RD4PDF}\OtherTok{=}\ErrorTok{$}\NormalTok{\{R\_RD4PDF}\SpecialCharTok{{-}}\StringTok{\textquotesingle{}times,hyper\textquotesingle{}}\NormalTok{\}}
+\DocumentationTok{\#\# used for options("texi2dvi")}
+\NormalTok{R\_TEXI2DVICMD}\OtherTok{=}\ErrorTok{$}\NormalTok{\{R\_TEXI2DVICMD}\SpecialCharTok{{-}}\ErrorTok{$}\NormalTok{\{TEXI2DVI}\SpecialCharTok{{-}}\StringTok{\textquotesingle{}texi2dvi\textquotesingle{}}\NormalTok{\}\}}
+\DocumentationTok{\#\# used by untar and installing grDevices}
+\NormalTok{R\_GZIPCMD}\OtherTok{=}\ErrorTok{$}\NormalTok{\{R\_GZIPCMD}\SpecialCharTok{{-}}\StringTok{\textquotesingle{}/usr/bin/gzip\textquotesingle{}}\NormalTok{\}}
+\DocumentationTok{\#\# Default zip/unzip commands}
+\NormalTok{R\_UNZIPCMD}\OtherTok{=}\ErrorTok{$}\NormalTok{\{R\_UNZIPCMD}\SpecialCharTok{{-}}\StringTok{\textquotesingle{}/usr/bin/unzip\textquotesingle{}}\NormalTok{\}}
+\NormalTok{R\_ZIPCMD}\OtherTok{=}\ErrorTok{$}\NormalTok{\{R\_ZIPCMD}\SpecialCharTok{{-}}\StringTok{\textquotesingle{}/usr/bin/zip\textquotesingle{}}\NormalTok{\}}
+\NormalTok{R\_BZIPCMD}\OtherTok{=}\ErrorTok{$}\NormalTok{\{R\_BZIPCMD}\SpecialCharTok{{-}}\StringTok{\textquotesingle{}/usr/bin/bzip2\textquotesingle{}}\NormalTok{\}}
+\DocumentationTok{\#\# Default browser}
+\NormalTok{R\_BROWSER}\OtherTok{=}\ErrorTok{$}\NormalTok{\{R\_BROWSER}\SpecialCharTok{{-}}\StringTok{\textquotesingle{}/usr/bin/xdg{-}open\textquotesingle{}}\NormalTok{\}}
+\DocumentationTok{\#\# Default pager}
+\NormalTok{PAGER}\OtherTok{=}\ErrorTok{$}\NormalTok{\{PAGER}\SpecialCharTok{{-}}\StringTok{\textquotesingle{}/usr/bin/less\textquotesingle{}}\NormalTok{\}}
+\DocumentationTok{\#\# Default PDF viewer}
+\NormalTok{R\_PDFVIEWER}\OtherTok{=}\ErrorTok{$}\NormalTok{\{R\_PDFVIEWER}\SpecialCharTok{{-}}\StringTok{\textquotesingle{}/usr/bin/xdg{-}open\textquotesingle{}}\NormalTok{\}}
+\DocumentationTok{\#\# Used by libtool}
+\NormalTok{LN\_S}\OtherTok{=}\StringTok{\textquotesingle{}ln {-}s\textquotesingle{}}
+\NormalTok{MAKE}\OtherTok{=}\ErrorTok{$}\NormalTok{\{MAKE}\SpecialCharTok{{-}}\StringTok{\textquotesingle{}make\textquotesingle{}}\NormalTok{\}}
+\DocumentationTok{\#\# Prefer a POSIX{-}compliant sed on e.g. Solaris}
+\NormalTok{SED}\OtherTok{=}\ErrorTok{$}\NormalTok{\{SED}\SpecialCharTok{{-}}\StringTok{\textquotesingle{}/usr/bin/sed\textquotesingle{}}\NormalTok{\}}
+\DocumentationTok{\#\# Prefer a tar that can automagically read compressed archives}
+\NormalTok{TAR}\OtherTok{=}\ErrorTok{$}\NormalTok{\{TAR}\SpecialCharTok{{-}}\StringTok{\textquotesingle{}/usr/bin/gtar\textquotesingle{}}\NormalTok{\}}
 
-\CommentTok{## System and compiler types.}
-\NormalTok{R_SYSTEM_ABI=}\StringTok{'linux,gcc,gxx,gfortran,?'}
-
-
-\CommentTok{## Change the default R libraries and directories}
-\NormalTok{R_DOC_DIR=}\ErrorTok{/}\NormalTok{exports}\OperatorTok{/}\NormalTok{applications}\OperatorTok{/}\NormalTok{apps}\OperatorTok{/}\NormalTok{SL7}\OperatorTok{/}\NormalTok{R}\OperatorTok{/}\DecValTok{3}\NormalTok{.}\FloatTok{5.3}\OperatorTok{/}\NormalTok{lib64}\OperatorTok{/}\NormalTok{R}\OperatorTok{/}\NormalTok{doc}
-\NormalTok{R_INCLUDE_DIR=}\ErrorTok{/}\NormalTok{exports}\OperatorTok{/}\NormalTok{applications}\OperatorTok{/}\NormalTok{apps}\OperatorTok{/}\NormalTok{SL7}\OperatorTok{/}\NormalTok{R}\OperatorTok{/}\DecValTok{3}\NormalTok{.}\FloatTok{5.3}\OperatorTok{/}\NormalTok{lib64}\OperatorTok{/}\NormalTok{R}\OperatorTok{/}\NormalTok{include}
-\NormalTok{R_SHARE_DIR=}\ErrorTok{/}\NormalTok{exports}\OperatorTok{/}\NormalTok{applications}\OperatorTok{/}\NormalTok{apps}\OperatorTok{/}\NormalTok{SL7}\OperatorTok{/}\NormalTok{R}\OperatorTok{/}\DecValTok{3}\NormalTok{.}\FloatTok{5.3}\OperatorTok{/}\NormalTok{lib64}\OperatorTok{/}\NormalTok{R}\OperatorTok{/}\NormalTok{share}
-\NormalTok{RBIN=}\ErrorTok{/}\NormalTok{exports}\OperatorTok{/}\NormalTok{applications}\OperatorTok{/}\NormalTok{apps}\OperatorTok{/}\NormalTok{SL7}\OperatorTok{/}\NormalTok{R}\OperatorTok{/}\DecValTok{3}\NormalTok{.}\FloatTok{5.3}\OperatorTok{/}\NormalTok{bin}
-\NormalTok{RDIR=}\ErrorTok{/}\NormalTok{exports}\OperatorTok{/}\NormalTok{applications}\OperatorTok{/}\NormalTok{apps}\OperatorTok{/}\NormalTok{SL7}\OperatorTok{/}\NormalTok{R}\OperatorTok{/}\DecValTok{3}\NormalTok{.}\FloatTok{5.3}\OperatorTok{/}\DecValTok{3}\NormalTok{.}\FloatTok{3.3}
-\NormalTok{R_LIBS=}\ErrorTok{/}\NormalTok{exports}\OperatorTok{/}\NormalTok{cmvm}\OperatorTok{/}\NormalTok{eddie}\OperatorTok{/}\NormalTok{edmed}\OperatorTok{/}\NormalTok{groups}\OperatorTok{/}\NormalTok{SurgInfGrp}\OperatorTok{/}\NormalTok{R}\OperatorTok{/}\NormalTok{Rlibrary}
-\NormalTok{R_LIBS_SITE=}\ErrorTok{/}\NormalTok{exports}\OperatorTok{/}\NormalTok{cmvm}\OperatorTok{/}\NormalTok{eddie}\OperatorTok{/}\NormalTok{edmed}\OperatorTok{/}\NormalTok{groups}\OperatorTok{/}\NormalTok{SurgInfGrp}\OperatorTok{/}\NormalTok{R}\OperatorTok{/}\NormalTok{Rlibrary}
-\NormalTok{R_LIBS_USER=}\ErrorTok{/}\NormalTok{exports}\OperatorTok{/}\NormalTok{cmvm}\OperatorTok{/}\NormalTok{eddie}\OperatorTok{/}\NormalTok{edmed}\OperatorTok{/}\NormalTok{groups}\OperatorTok{/}\NormalTok{SurgInfGrp}\OperatorTok{/}\NormalTok{R}\OperatorTok{/}\NormalTok{Rlibrary}
+\DocumentationTok{\#\# System and compiler types.}
+\NormalTok{R\_SYSTEM\_ABI}\OtherTok{=}\StringTok{\textquotesingle{}linux,gcc,gxx,gfortran,?\textquotesingle{}}
 
 
+\DocumentationTok{\#\# Change the default R libraries and directories}
+\NormalTok{R\_DOC\_DIR}\OtherTok{=}\ErrorTok{/}\NormalTok{exports}\SpecialCharTok{/}\NormalTok{applications}\SpecialCharTok{/}\NormalTok{apps}\SpecialCharTok{/}\NormalTok{SL7}\SpecialCharTok{/}\NormalTok{R}\SpecialCharTok{/}\DecValTok{3}\NormalTok{.}\FloatTok{5.3}\SpecialCharTok{/}\NormalTok{lib64}\SpecialCharTok{/}\NormalTok{R}\SpecialCharTok{/}\NormalTok{doc}
+\NormalTok{R\_INCLUDE\_DIR}\OtherTok{=}\ErrorTok{/}\NormalTok{exports}\SpecialCharTok{/}\NormalTok{applications}\SpecialCharTok{/}\NormalTok{apps}\SpecialCharTok{/}\NormalTok{SL7}\SpecialCharTok{/}\NormalTok{R}\SpecialCharTok{/}\DecValTok{3}\NormalTok{.}\FloatTok{5.3}\SpecialCharTok{/}\NormalTok{lib64}\SpecialCharTok{/}\NormalTok{R}\SpecialCharTok{/}\NormalTok{include}
+\NormalTok{R\_SHARE\_DIR}\OtherTok{=}\ErrorTok{/}\NormalTok{exports}\SpecialCharTok{/}\NormalTok{applications}\SpecialCharTok{/}\NormalTok{apps}\SpecialCharTok{/}\NormalTok{SL7}\SpecialCharTok{/}\NormalTok{R}\SpecialCharTok{/}\DecValTok{3}\NormalTok{.}\FloatTok{5.3}\SpecialCharTok{/}\NormalTok{lib64}\SpecialCharTok{/}\NormalTok{R}\SpecialCharTok{/}\NormalTok{share}
+\NormalTok{RBIN}\OtherTok{=}\ErrorTok{/}\NormalTok{exports}\SpecialCharTok{/}\NormalTok{applications}\SpecialCharTok{/}\NormalTok{apps}\SpecialCharTok{/}\NormalTok{SL7}\SpecialCharTok{/}\NormalTok{R}\SpecialCharTok{/}\DecValTok{3}\NormalTok{.}\FloatTok{5.3}\SpecialCharTok{/}\NormalTok{bin}
+\NormalTok{RDIR}\OtherTok{=}\ErrorTok{/}\NormalTok{exports}\SpecialCharTok{/}\NormalTok{applications}\SpecialCharTok{/}\NormalTok{apps}\SpecialCharTok{/}\NormalTok{SL7}\SpecialCharTok{/}\NormalTok{R}\SpecialCharTok{/}\DecValTok{3}\NormalTok{.}\FloatTok{5.3}\SpecialCharTok{/}\DecValTok{3}\NormalTok{.}\FloatTok{3.3}
+\NormalTok{R\_LIBS}\OtherTok{=}\ErrorTok{/}\NormalTok{exports}\SpecialCharTok{/}\NormalTok{cmvm}\SpecialCharTok{/}\NormalTok{eddie}\SpecialCharTok{/}\NormalTok{edmed}\SpecialCharTok{/}\NormalTok{groups}\SpecialCharTok{/}\NormalTok{SurgInfGrp}\SpecialCharTok{/}\NormalTok{R}\SpecialCharTok{/}\NormalTok{Rlibrary}
+\NormalTok{R\_LIBS\_SITE}\OtherTok{=}\ErrorTok{/}\NormalTok{exports}\SpecialCharTok{/}\NormalTok{cmvm}\SpecialCharTok{/}\NormalTok{eddie}\SpecialCharTok{/}\NormalTok{edmed}\SpecialCharTok{/}\NormalTok{groups}\SpecialCharTok{/}\NormalTok{SurgInfGrp}\SpecialCharTok{/}\NormalTok{R}\SpecialCharTok{/}\NormalTok{Rlibrary}
+\NormalTok{R\_LIBS\_USER}\OtherTok{=}\ErrorTok{/}\NormalTok{exports}\SpecialCharTok{/}\NormalTok{cmvm}\SpecialCharTok{/}\NormalTok{eddie}\SpecialCharTok{/}\NormalTok{edmed}\SpecialCharTok{/}\NormalTok{groups}\SpecialCharTok{/}\NormalTok{SurgInfGrp}\SpecialCharTok{/}\NormalTok{R}\SpecialCharTok{/}\NormalTok{Rlibrary}
 
 
-\CommentTok{### Local Variables: ***}
-\CommentTok{### mode: sh ***}
-\CommentTok{### sh-indentation: 2 ***}
+
+
+\DocumentationTok{\#\#\# Local Variables: ***}
+\DocumentationTok{\#\#\# mode: sh ***}
+\DocumentationTok{\#\#\# sh{-}indentation: 2 ***}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1642,9 +1675,9 @@ The \texttt{.Renviron} file can be copied to specific projects when specific R f
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## Change the Clang variables}
-\NormalTok{CC=igmm}\OperatorTok{/}\NormalTok{compilers}\OperatorTok{/}\NormalTok{gcc}\OperatorTok{/}\DecValTok{5}\NormalTok{.}\FloatTok{5.0} \OperatorTok{-}\NormalTok{fopenmp}
-\NormalTok{CXX=igmm}\OperatorTok{/}\NormalTok{compilers}\OperatorTok{/}\NormalTok{gcc}\OperatorTok{/}\DecValTok{5}\NormalTok{.}\FloatTok{5.0} \OperatorTok{-}\NormalTok{fopenmp}
+\DocumentationTok{\#\# Change the Clang variables}
+\NormalTok{CC}\OtherTok{=}\NormalTok{igmm}\SpecialCharTok{/}\NormalTok{compilers}\SpecialCharTok{/}\NormalTok{gcc}\SpecialCharTok{/}\DecValTok{5}\NormalTok{.}\FloatTok{5.0} \SpecialCharTok{{-}}\NormalTok{fopenmp}
+\NormalTok{CXX}\OtherTok{=}\NormalTok{igmm}\SpecialCharTok{/}\NormalTok{compilers}\SpecialCharTok{/}\NormalTok{gcc}\SpecialCharTok{/}\DecValTok{5}\NormalTok{.}\FloatTok{5.0} \SpecialCharTok{{-}}\NormalTok{fopenmp}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1657,8 +1690,8 @@ When working with other teams it is often necessary to work with particular R pa
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Install the GenABEL package from CRAN but as no longer supporte need the 1.8-0 version from the archive}
-\NormalTok{remotes}\OperatorTok{::}\KeywordTok{install_version}\NormalTok{(}\StringTok{"GenABEL"}\NormalTok{, }\DataTypeTok{version =} \StringTok{"1.8-0"}\NormalTok{)}
+\CommentTok{\# Install the GenABEL package from CRAN but as no longer supporte need the 1.8{-}0 version from the archive}
+\NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install\_version}\NormalTok{(}\StringTok{"GenABEL"}\NormalTok{, }\AttributeTok{version =} \StringTok{"1.8{-}0"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1708,20 +1741,20 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(gghighlight)}
-\KeywordTok{library}\NormalTok{(ggrepel)}
+\FunctionTok{library}\NormalTok{(gghighlight)}
+\FunctionTok{library}\NormalTok{(ggrepel)}
 
-\NormalTok{mydata=gapminder}
+\NormalTok{mydata}\OtherTok{=}\NormalTok{gapminder}
 
-\NormalTok{plot =}\StringTok{ }\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(year }\OperatorTok{==}\StringTok{ "2002"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ gdpPercap, }\DataTypeTok{y =}\NormalTok{ lifeExp, }\DataTypeTok{colour=}\NormalTok{continent)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{()}\OperatorTok{+}
-\StringTok{  }\KeywordTok{gghighlight}\NormalTok{(lifeExp }\OperatorTok{>}\StringTok{ }\DecValTok{75} \OperatorTok{&}\StringTok{ }\NormalTok{gdpPercap }\OperatorTok{<}\StringTok{ }\KeywordTok{mean}\NormalTok{(gdpPercap), }\DataTypeTok{label_key =}\NormalTok{ country, }\DataTypeTok{use_direct_label =} \OtherTok{FALSE}\NormalTok{)}\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{theme_classic}\NormalTok{()}\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title=} \StringTok{"gghighlight: Filter for countries with Life Expectancy >75 and GDP < mean"}\NormalTok{ )  }
+\NormalTok{plot }\OtherTok{=}\NormalTok{ mydata }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(year }\SpecialCharTok{==} \StringTok{"2002"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ gdpPercap, }\AttributeTok{y =}\NormalTok{ lifeExp, }\AttributeTok{colour=}\NormalTok{continent)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{gghighlight}\NormalTok{(lifeExp }\SpecialCharTok{\textgreater{}} \DecValTok{75} \SpecialCharTok{\&}\NormalTok{ gdpPercap }\SpecialCharTok{\textless{}} \FunctionTok{mean}\NormalTok{(gdpPercap), }\AttributeTok{label\_key =}\NormalTok{ country, }\AttributeTok{use\_direct\_label =} \ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{+} 
+  \FunctionTok{theme\_classic}\NormalTok{()}\SpecialCharTok{+} 
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title=} \StringTok{"gghighlight: Filter for countries with Life Expectancy \textgreater{}75 and GDP \textless{} mean"}\NormalTok{ )  }
 
-\NormalTok{plot }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_label_repel}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{label=}\NormalTok{ country), }\DataTypeTok{show.legend =} \OtherTok{FALSE}\NormalTok{) }\CommentTok{#only needed if you use  use_direct_label = FALSE. This allows you to have a colour legend as well. }
+\NormalTok{plot }\SpecialCharTok{+} \FunctionTok{geom\_label\_repel}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label=}\NormalTok{ country), }\AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{) }\CommentTok{\#only needed if you use  use\_direct\_label = FALSE. This allows you to have a colour legend as well. }
 \end{Highlighting}
 \end{Shaded}
 
@@ -1732,13 +1765,13 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
 
-\CommentTok{# unflipped (yes this plot has no purpose :)}
-\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ continent, }\DataTypeTok{fill =} \KeywordTok{factor}\NormalTok{(year))) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_bar}\NormalTok{() }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{scale_fill_brewer}\NormalTok{(}\DataTypeTok{palette =} \StringTok{"Paired"}\NormalTok{)}
+\CommentTok{\# unflipped (yes this plot has no purpose :)}
+\NormalTok{gapminder }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ continent, }\AttributeTok{fill =} \FunctionTok{factor}\NormalTok{(year))) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_bar}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Paired"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1746,13 +1779,13 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# flipped}
-\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{fct_rev}\NormalTok{(continent), }\DataTypeTok{fill =} \KeywordTok{factor}\NormalTok{(year))) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_bar}\NormalTok{() }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{coord_flip}\NormalTok{() }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{scale_fill_brewer}\NormalTok{(}\DataTypeTok{palette =} \StringTok{"Paired"}\NormalTok{, }\DataTypeTok{breaks =}\NormalTok{ rev) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{fill =} \KeywordTok{guide_legend}\NormalTok{(}\DataTypeTok{reverse =} \OtherTok{TRUE}\NormalTok{))}
+\CommentTok{\# flipped}
+\NormalTok{gapminder }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{fct\_rev}\NormalTok{(continent), }\AttributeTok{fill =} \FunctionTok{factor}\NormalTok{(year))) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_bar}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Paired"}\NormalTok{, }\AttributeTok{breaks =}\NormalTok{ rev) }\SpecialCharTok{+} 
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{fill =} \FunctionTok{guide\_legend}\NormalTok{(}\AttributeTok{reverse =} \ConstantTok{TRUE}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1760,17 +1793,17 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{## This is actually the same as the previous plot so is achieving the aim. }
-\CommentTok{## But the unflipped plot isn't that great given the order of the year}
-\CommentTok{## Hence why wanting to flip}
+\DocumentationTok{\#\# This is actually the same as the previous plot so is achieving the aim. }
+\DocumentationTok{\#\# But the unflipped plot isn\textquotesingle{}t that great given the order of the year}
+\DocumentationTok{\#\# Hence why wanting to flip}
 
-\CommentTok{# Better flipped}
-\CommentTok{# This way, new fill levels get added on the end}
-\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{fct_rev}\NormalTok{(continent), }\DataTypeTok{fill =} \KeywordTok{fct_rev}\NormalTok{(}\KeywordTok{factor}\NormalTok{(year)))) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_bar}\NormalTok{() }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{coord_flip}\NormalTok{() }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{scale_fill_brewer}\NormalTok{(}\DataTypeTok{palette =} \StringTok{"Paired"}\NormalTok{, }\DataTypeTok{breaks =}\NormalTok{ rev, }\DataTypeTok{direction =} \DecValTok{-1}\NormalTok{)}
+\CommentTok{\# Better flipped}
+\CommentTok{\# This way, new fill levels get added on the end}
+\NormalTok{gapminder }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{fct\_rev}\NormalTok{(continent), }\AttributeTok{fill =} \FunctionTok{fct\_rev}\NormalTok{(}\FunctionTok{factor}\NormalTok{(year)))) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_bar}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Paired"}\NormalTok{, }\AttributeTok{breaks =}\NormalTok{ rev, }\AttributeTok{direction =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1781,25 +1814,25 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# OPTION 1: theme(axis.text = element_text(size = 12, colour = "black"))}
-\CommentTok{# OPTION 2: width and height arguments of ggsave()}
+\CommentTok{\# OPTION 1: theme(axis.text = element\_text(size = 12, colour = "black"))}
+\CommentTok{\# OPTION 2: width and height arguments of ggsave()}
 
-\KeywordTok{library}\NormalTok{(tidyverse)}
-\KeywordTok{library}\NormalTok{(scales)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(scales)}
 
-\CommentTok{# made-up example data}
-\NormalTok{mydata =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{group    =} \KeywordTok{c}\NormalTok{(}\StringTok{"UMIC"}\NormalTok{, }\StringTok{"LMIC"}\NormalTok{, }\StringTok{"LIC"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DataTypeTok{each =} \DecValTok{2}\NormalTok{),}
-                \DataTypeTok{value    =} \DecValTok{1}\OperatorTok{:}\DecValTok{6}\NormalTok{, }
-                \DataTypeTok{variable =} \KeywordTok{c}\NormalTok{(}\StringTok{"Yes"}\NormalTok{, }\StringTok{"No"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{3}\NormalTok{))}
+\CommentTok{\# made{-}up example data}
+\NormalTok{mydata }\OtherTok{=} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{group    =} \FunctionTok{c}\NormalTok{(}\StringTok{"UMIC"}\NormalTok{, }\StringTok{"LMIC"}\NormalTok{, }\StringTok{"LIC"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{rep}\NormalTok{(}\AttributeTok{each =} \DecValTok{2}\NormalTok{),}
+                \AttributeTok{value    =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, }
+                \AttributeTok{variable =} \FunctionTok{c}\NormalTok{(}\StringTok{"Yes"}\NormalTok{, }\StringTok{"No"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{rep}\NormalTok{(}\DecValTok{3}\NormalTok{))}
 
-\NormalTok{mydata }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ group, }\DataTypeTok{y =}\NormalTok{ value, }\DataTypeTok{fill =}\NormalTok{ variable)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_col}\NormalTok{(}\DataTypeTok{position =} \StringTok{"fill"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{labels =}\NormalTok{ percent, }\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\CommentTok{# OPTION 1: change font with theme()}
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text  =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{12}\NormalTok{, }\DataTypeTok{colour =} \StringTok{"black"}\NormalTok{),}
-        \DataTypeTok{axis.title =} \KeywordTok{element_blank}\NormalTok{())}
+\NormalTok{mydata }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ group, }\AttributeTok{y =}\NormalTok{ value, }\AttributeTok{fill =}\NormalTok{ variable)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{position =} \StringTok{"fill"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =}\NormalTok{ percent, }\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+  \CommentTok{\# OPTION 1: change font with theme()}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text  =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{, }\AttributeTok{colour =} \StringTok{"black"}\NormalTok{),}
+        \AttributeTok{axis.title =} \FunctionTok{element\_blank}\NormalTok{())}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1807,22 +1840,22 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# OPTION 2: play around with export size. Since PDF will always have max resolution anyway}
-\CommentTok{# but changing width and height modifies text size}
-\NormalTok{mywidth  =}\StringTok{ }\DecValTok{5}
-\NormalTok{myheight =}\StringTok{ }\DecValTok{4}
-\CommentTok{#ggsave("barplot_5x4.pdf", width = mywidth, height = myheight)}
+\CommentTok{\# OPTION 2: play around with export size. Since PDF will always have max resolution anyway}
+\CommentTok{\# but changing width and height modifies text size}
+\NormalTok{mywidth  }\OtherTok{=} \DecValTok{5}
+\NormalTok{myheight }\OtherTok{=} \DecValTok{4}
+\CommentTok{\#ggsave("barplot\_5x4.pdf", width = mywidth, height = myheight)}
 
-\NormalTok{mywidth  =}\StringTok{ }\DecValTok{10}
-\NormalTok{myheight =}\StringTok{ }\DecValTok{8}
-\CommentTok{#ggsave("barplot_10x8.pdf", width = mywidth, height = myheight)}
+\NormalTok{mywidth  }\OtherTok{=} \DecValTok{10}
+\NormalTok{myheight }\OtherTok{=} \DecValTok{8}
+\CommentTok{\#ggsave("barplot\_10x8.pdf", width = mywidth, height = myheight)}
 \end{Highlighting}
 \end{Shaded}
 
 Same plot 5x4 inches vs 10x8 inches:
 
-\includegraphics[width=0.5\linewidth]{/home/common/users/cfairfield/cookbook/img/barplot_5x4}
-\includegraphics[width=0.5\linewidth]{/home/common/users/cfairfield/cookbook/img/barplot_10x8}
+\includegraphics[width=0.5\linewidth]{/home/eharrison/cookbook/img/barplot_5x4}
+\includegraphics[width=0.5\linewidth]{/home/eharrison/cookbook/img/barplot_10x8}
 
 \hypertarget{shorten-arrows-on-a-dag}{%
 \section{Shorten Arrows on a DAG}\label{shorten-arrows-on-a-dag}}
@@ -1831,9 +1864,9 @@ Plot 1 with large nodes and arrows not shortened:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{DAG <-}\StringTok{ }\NormalTok{ggdag}\OperatorTok{::}\KeywordTok{dagify}\NormalTok{(y }\OperatorTok{~}\StringTok{ }\NormalTok{x)}
-\NormalTok{DAG <-}\StringTok{ }\NormalTok{ggdag}\OperatorTok{::}\KeywordTok{tidy_dagitty}\NormalTok{(DAG)}
-\NormalTok{PLOT1 <-}\StringTok{ }\NormalTok{ggdag}\OperatorTok{::}\KeywordTok{ggdag}\NormalTok{(DAG, }\DataTypeTok{node_size =} \DecValTok{50}\NormalTok{)}
+\NormalTok{DAG }\OtherTok{\textless{}{-}}\NormalTok{ ggdag}\SpecialCharTok{::}\FunctionTok{dagify}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x)}
+\NormalTok{DAG }\OtherTok{\textless{}{-}}\NormalTok{ ggdag}\SpecialCharTok{::}\FunctionTok{tidy\_dagitty}\NormalTok{(DAG)}
+\NormalTok{PLOT1 }\OtherTok{\textless{}{-}}\NormalTok{ ggdag}\SpecialCharTok{::}\FunctionTok{ggdag}\NormalTok{(DAG, }\AttributeTok{node\_size =} \DecValTok{50}\NormalTok{)}
 \NormalTok{PLOT1}
 \end{Highlighting}
 \end{Shaded}
@@ -1842,18 +1875,18 @@ Plot 1 with large nodes and arrows not shortened:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{shorten_dag_arrows <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(tidy_dag, shorten_distance)\{}
-  \CommentTok{# Update underlying ggdag object}
-\NormalTok{  tidy_dag}\OperatorTok{$}\NormalTok{data =}\StringTok{ }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{mutate}\NormalTok{(tidy_dag}\OperatorTok{$}\NormalTok{data, }\DataTypeTok{slope =}\NormalTok{ (yend }\OperatorTok{-}\StringTok{ }\NormalTok{y) }\OperatorTok{/}\StringTok{ }\NormalTok{(xend }\OperatorTok{-}\StringTok{ }\NormalTok{x), }\CommentTok{# Calculate slope of line}
-                  \DataTypeTok{distance =} \KeywordTok{sqrt}\NormalTok{((xend}\OperatorTok{-}\NormalTok{x)}\OperatorTok{^}\DecValTok{2} \OperatorTok{+}\StringTok{ }\NormalTok{(yend }\OperatorTok{-}\StringTok{ }\NormalTok{y)}\OperatorTok{^}\DecValTok{2}\NormalTok{), }\CommentTok{# Calculate total distance of line}
-                  \DataTypeTok{proportion =}\NormalTok{ shorten_distance}\OperatorTok{/}\NormalTok{distance, }\CommentTok{# Calculate proportion by which to be shortened}
-                  \DataTypeTok{xend =}\NormalTok{ (}\DecValTok{1}\OperatorTok{-}\NormalTok{proportion)}\OperatorTok{*}\NormalTok{xend }\OperatorTok{+}\StringTok{ }\NormalTok{(proportion}\OperatorTok{*}\NormalTok{x), }\CommentTok{# Shorten xend}
-                  \DataTypeTok{yend =}\NormalTok{ (}\DecValTok{1}\OperatorTok{-}\NormalTok{proportion)}\OperatorTok{*}\NormalTok{yend }\OperatorTok{+}\StringTok{ }\NormalTok{(proportion}\OperatorTok{*}\NormalTok{y)) }\OperatorTok{%>%}\StringTok{ }\CommentTok{# Shorten yend}
-\StringTok{    }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{slope, }\OperatorTok{-}\NormalTok{distance, }\OperatorTok{-}\NormalTok{proportion) }\CommentTok{# Drop intermediate values}
-  \KeywordTok{return}\NormalTok{(tidy_dag)}
+\NormalTok{shorten\_dag\_arrows }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(tidy\_dag, shorten\_distance)\{}
+  \CommentTok{\# Update underlying ggdag object}
+\NormalTok{  tidy\_dag}\SpecialCharTok{$}\NormalTok{data }\OtherTok{=}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{mutate}\NormalTok{(tidy\_dag}\SpecialCharTok{$}\NormalTok{data, }\AttributeTok{slope =}\NormalTok{ (yend }\SpecialCharTok{{-}}\NormalTok{ y) }\SpecialCharTok{/}\NormalTok{ (xend }\SpecialCharTok{{-}}\NormalTok{ x), }\CommentTok{\# Calculate slope of line}
+                  \AttributeTok{distance =} \FunctionTok{sqrt}\NormalTok{((xend}\SpecialCharTok{{-}}\NormalTok{x)}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{+}\NormalTok{ (yend }\SpecialCharTok{{-}}\NormalTok{ y)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{), }\CommentTok{\# Calculate total distance of line}
+                  \AttributeTok{proportion =}\NormalTok{ shorten\_distance}\SpecialCharTok{/}\NormalTok{distance, }\CommentTok{\# Calculate proportion by which to be shortened}
+                  \AttributeTok{xend =}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{proportion)}\SpecialCharTok{*}\NormalTok{xend }\SpecialCharTok{+}\NormalTok{ (proportion}\SpecialCharTok{*}\NormalTok{x), }\CommentTok{\# Shorten xend}
+                  \AttributeTok{yend =}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{proportion)}\SpecialCharTok{*}\NormalTok{yend }\SpecialCharTok{+}\NormalTok{ (proportion}\SpecialCharTok{*}\NormalTok{y)) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\# Shorten yend}
+\NormalTok{    dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{slope, }\SpecialCharTok{{-}}\NormalTok{distance, }\SpecialCharTok{{-}}\NormalTok{proportion) }\CommentTok{\# Drop intermediate values}
+  \FunctionTok{return}\NormalTok{(tidy\_dag)}
 \NormalTok{\}}
-\NormalTok{DAG <-}\StringTok{ }\KeywordTok{shorten_dag_arrows}\NormalTok{(DAG, }\DataTypeTok{shorten_distance =} \FloatTok{0.1}\NormalTok{)}
-\NormalTok{PLOT2 <-}\StringTok{ }\NormalTok{ggdag}\OperatorTok{::}\KeywordTok{ggdag}\NormalTok{(DAG, }\DataTypeTok{node_size =} \DecValTok{50}\NormalTok{)}
+\NormalTok{DAG }\OtherTok{\textless{}{-}} \FunctionTok{shorten\_dag\_arrows}\NormalTok{(DAG, }\AttributeTok{shorten\_distance =} \FloatTok{0.1}\NormalTok{)}
+\NormalTok{PLOT2 }\OtherTok{\textless{}{-}}\NormalTok{ ggdag}\SpecialCharTok{::}\FunctionTok{ggdag}\NormalTok{(DAG, }\AttributeTok{node\_size =} \DecValTok{50}\NormalTok{)}
 \NormalTok{PLOT2}
 \end{Highlighting}
 \end{Shaded}
@@ -1873,32 +1906,32 @@ Single cell analyses are ofetn collated in Seurat objects which can be huge. We 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{#library(Seurat)}
-\CommentTok{#library(dplyr)}
+\CommentTok{\#library(Seurat)}
+\CommentTok{\#library(dplyr)}
 
 
-\CommentTok{#Load in the data}
+\CommentTok{\#Load in the data}
 
-\NormalTok{pathtoglobaldata <-}\StringTok{"mac_shiny/data/Global_sc_object"}
-\NormalTok{object_global<-}\KeywordTok{readRDS}\NormalTok{(pathtoglobaldata)}
-
-
-\CommentTok{# Get sparse assay data}
-\NormalTok{sizetest_global<-}\KeywordTok{GetAssayData}\NormalTok{(}\DataTypeTok{object =}\NormalTok{ object_global, }\DataTypeTok{slot =} \StringTok{"data"}\NormalTok{) }\CommentTok{# counts don’t work, scaled breaks my pc with memory errors, not sure it matters that much}
-\NormalTok{object_global_small<-}\StringTok{ }\KeywordTok{CreateSeuratObject}\NormalTok{(sizetest_global)}
-
-\CommentTok{# Add in classifications. }
-
-\NormalTok{object_global_small}\OperatorTok{@}\NormalTok{reductions}\OperatorTok{$}\NormalTok{tsne<-object_global}\OperatorTok{@}\NormalTok{reductions}\OperatorTok{$}\NormalTok{tsne }\CommentTok{# reduction embeddings for tsnegraph}
-\NormalTok{object_global_small}\OperatorTok{$}\NormalTok{Phenotype<-}\StringTok{ }\NormalTok{object_global}\OperatorTok{$}\NormalTok{Phenotype}
-
-\NormalTok{object_global_small}\OperatorTok{@}\NormalTok{meta.data}\OperatorTok{$}\NormalTok{final_classification<-}\StringTok{ }\NormalTok{object_global}\OperatorTok{@}\NormalTok{meta.data}\OperatorTok{$}\NormalTok{final_classification}
-\NormalTok{object_global_small}\OperatorTok{$}\NormalTok{final_classificaiton<-}\StringTok{ }\NormalTok{object_global}\OperatorTok{$}\NormalTok{final_classification }\CommentTok{#cell classifications}
-\KeywordTok{Idents}\NormalTok{(}\DataTypeTok{object =}\NormalTok{ object_global_small) <-}\StringTok{ "final_classificaiton"} \CommentTok{#set forever}
+\NormalTok{pathtoglobaldata }\OtherTok{\textless{}{-}}\StringTok{"mac\_shiny/data/Global\_sc\_object"}
+\NormalTok{object\_global}\OtherTok{\textless{}{-}}\FunctionTok{readRDS}\NormalTok{(pathtoglobaldata)}
 
 
-\CommentTok{#same}
-\KeywordTok{saveRDS}\NormalTok{(object_global_small,}\StringTok{"mac_shiny/data/global_object_sml"}\NormalTok{)}
+\CommentTok{\# Get sparse assay data}
+\NormalTok{sizetest\_global}\OtherTok{\textless{}{-}}\FunctionTok{GetAssayData}\NormalTok{(}\AttributeTok{object =}\NormalTok{ object\_global, }\AttributeTok{slot =} \StringTok{"data"}\NormalTok{) }\CommentTok{\# counts don’t work, scaled breaks my pc with memory errors, not sure it matters that much}
+\NormalTok{object\_global\_small}\OtherTok{\textless{}{-}} \FunctionTok{CreateSeuratObject}\NormalTok{(sizetest\_global)}
+
+\CommentTok{\# Add in classifications. }
+
+\NormalTok{object\_global\_small}\SpecialCharTok{@}\NormalTok{reductions}\SpecialCharTok{$}\NormalTok{tsne}\OtherTok{\textless{}{-}}\NormalTok{object\_global}\SpecialCharTok{@}\NormalTok{reductions}\SpecialCharTok{$}\NormalTok{tsne }\CommentTok{\# reduction embeddings for tsnegraph}
+\NormalTok{object\_global\_small}\SpecialCharTok{$}\NormalTok{Phenotype}\OtherTok{\textless{}{-}}\NormalTok{ object\_global}\SpecialCharTok{$}\NormalTok{Phenotype}
+
+\NormalTok{object\_global\_small}\SpecialCharTok{@}\NormalTok{meta.data}\SpecialCharTok{$}\NormalTok{final\_classification}\OtherTok{\textless{}{-}}\NormalTok{ object\_global}\SpecialCharTok{@}\NormalTok{meta.data}\SpecialCharTok{$}\NormalTok{final\_classification}
+\NormalTok{object\_global\_small}\SpecialCharTok{$}\NormalTok{final\_classificaiton}\OtherTok{\textless{}{-}}\NormalTok{ object\_global}\SpecialCharTok{$}\NormalTok{final\_classification }\CommentTok{\#cell classifications}
+\FunctionTok{Idents}\NormalTok{(}\AttributeTok{object =}\NormalTok{ object\_global\_small) }\OtherTok{\textless{}{-}} \StringTok{"final\_classificaiton"} \CommentTok{\#set forever}
+
+
+\CommentTok{\#same}
+\FunctionTok{saveRDS}\NormalTok{(object\_global\_small,}\StringTok{"mac\_shiny/data/global\_object\_sml"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1924,47 +1957,47 @@ We'll use an example where we want to summarise by different outcomes in a dynam
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(tidyverse)}
-\CommentTok{#Make data - here nonsense numbers on deaths per 100k from guns say}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\CommentTok{\#Make data {-} here nonsense numbers on deaths per 100k from guns say}
 
-\NormalTok{example_data =}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{countries =} \KeywordTok{c}\NormalTok{(}\StringTok{'UK'}\NormalTok{, }\StringTok{'USA'}\NormalTok{, }\StringTok{'Pakistan'}\NormalTok{, }\StringTok{'Mexico'}\NormalTok{, }\StringTok{'Ireland'}\NormalTok{, }\StringTok{'Estonia'}\NormalTok{),}
-                      \DataTypeTok{region =} \KeywordTok{c}\NormalTok{(}\StringTok{'Europe'}\NormalTok{, }\StringTok{'Americas'}\NormalTok{, }\StringTok{'Asia'}\NormalTok{, }\StringTok{'Americas'}\NormalTok{, }\StringTok{'Europe'}\NormalTok{, }\StringTok{'Europe'}\NormalTok{),}
-                      \DataTypeTok{Death_from_guns =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{200}\NormalTok{, }\DecValTok{150}\NormalTok{, }\DecValTok{450}\NormalTok{, }\DecValTok{3}\NormalTok{, }\FloatTok{3.5}\NormalTok{),}
-                      \DataTypeTok{Death_from_smoking =} \KeywordTok{c}\NormalTok{(}\DecValTok{100}\NormalTok{, }\DecValTok{300}\NormalTok{, }\DecValTok{140}\NormalTok{, }\DecValTok{150}\NormalTok{, }\DecValTok{120}\NormalTok{, }\DecValTok{300}\NormalTok{))}
+\NormalTok{example\_data }\OtherTok{=} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{countries =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}UK\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}USA\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Pakistan\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Mexico\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Ireland\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Estonia\textquotesingle{}}\NormalTok{),}
+                      \AttributeTok{region =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Europe\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Americas\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Asia\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Americas\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Europe\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Europe\textquotesingle{}}\NormalTok{),}
+                      \AttributeTok{Death\_from\_guns =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{200}\NormalTok{, }\DecValTok{150}\NormalTok{, }\DecValTok{450}\NormalTok{, }\DecValTok{3}\NormalTok{, }\FloatTok{3.5}\NormalTok{),}
+                      \AttributeTok{Death\_from\_smoking =} \FunctionTok{c}\NormalTok{(}\DecValTok{100}\NormalTok{, }\DecValTok{300}\NormalTok{, }\DecValTok{140}\NormalTok{, }\DecValTok{150}\NormalTok{, }\DecValTok{120}\NormalTok{, }\DecValTok{300}\NormalTok{))}
 
 
-\CommentTok{#example function for summarising using dynamic variables and bang bangs}
-\CommentTok{#note metric must be numeric}
-\NormalTok{summarise_feature =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(df, col_var, ...)\{}
-  \KeywordTok{require}\NormalTok{(tidyverse)}
+\CommentTok{\#example function for summarising using dynamic variables and bang bangs}
+\CommentTok{\#note metric must be numeric}
+\NormalTok{summarise\_feature }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(df, col\_var, ...)\{}
+  \FunctionTok{require}\NormalTok{(tidyverse)}
   
-\NormalTok{  wurly_curly =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(.)\{}\CommentTok{#The wurly_curly function makes things nicer}
-  \KeywordTok{require}\NormalTok{(rlang)}
-  \OperatorTok{!!}\KeywordTok{quo_name}\NormalTok{(}\KeywordTok{enquo}\NormalTok{(.))\}}
+\NormalTok{  wurly\_curly }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(.)\{}\CommentTok{\#The wurly\_curly function makes things nicer}
+  \FunctionTok{require}\NormalTok{(rlang)}
+  \SpecialCharTok{!!}\FunctionTok{quo\_name}\NormalTok{(}\FunctionTok{enquo}\NormalTok{(.))\}}
 
-\NormalTok{  summary_nm_sum <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(}\StringTok{"metric_"}\NormalTok{, }\KeywordTok{wurly_curly}\NormalTok{(col_var))}\CommentTok{#The new LHS variable must have a different name from that on the RHS}
+\NormalTok{  summary\_nm\_sum }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\StringTok{"metric\_"}\NormalTok{, }\FunctionTok{wurly\_curly}\NormalTok{(col\_var))}\CommentTok{\#The new LHS variable must have a different name from that on the RHS}
 
-\NormalTok{  df }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{group_by}\NormalTok{(...) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\OperatorTok{!!}\DataTypeTok{summary_nm_sum :=} \KeywordTok{sum}\NormalTok{(\{\{col_var\}\}))}
+\NormalTok{  df }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{group\_by}\NormalTok{(...) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{summarise}\NormalTok{(}\SpecialCharTok{!!}\AttributeTok{summary\_nm\_sum :=} \FunctionTok{sum}\NormalTok{(\{\{col\_var\}\}))}
 \NormalTok{\}}
 
 
-\CommentTok{#output new variable}
-\NormalTok{example_data }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{summarise_feature}\NormalTok{(Death_from_guns, region) }
+\CommentTok{\#output new variable}
+\NormalTok{example\_data }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise\_feature}\NormalTok{(Death\_from\_guns, region) }
 
-\CommentTok{#How to dynamically change names using mutate and rlang}
-\CommentTok{#Bang bang variables into mutate/tidyverse(so they can be dynamically changed)}
+\CommentTok{\#How to dynamically change names using mutate and rlang}
+\CommentTok{\#Bang bang variables into mutate/tidyverse(so they can be dynamically changed)}
 
-\CommentTok{#Select metric}
-\NormalTok{metric =}\StringTok{ 'metric_Death_from_guns'} \CommentTok{#example but can be any named column}
+\CommentTok{\#Select metric}
+\NormalTok{metric }\OtherTok{=} \StringTok{\textquotesingle{}metric\_Death\_from\_guns\textquotesingle{}} \CommentTok{\#example but can be any named column}
 
-\NormalTok{metric_mutate =}\StringTok{ }\KeywordTok{paste0}\NormalTok{(}\StringTok{'prefix_'}\NormalTok{, metric) }\CommentTok{#some reason doesn't take these within the mutate function so has to be outside}
+\NormalTok{metric\_mutate }\OtherTok{=} \FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}prefix\_\textquotesingle{}}\NormalTok{, metric) }\CommentTok{\#some reason doesn\textquotesingle{}t take these within the mutate function so has to be outside}
 
-\NormalTok{example_data }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{summarise_feature}\NormalTok{(Death_from_guns, region) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\OperatorTok{!!}\DataTypeTok{metric_mutate :=} \OperatorTok{!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{sym}\NormalTok{(metric) }\OperatorTok{*}\StringTok{ }\DecValTok{2}\NormalTok{)}\CommentTok{#apply arbitary multiplication by two}
+\NormalTok{example\_data }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise\_feature}\NormalTok{(Death\_from\_guns, region) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\SpecialCharTok{!!}\AttributeTok{metric\_mutate :=} \SpecialCharTok{!!}\NormalTok{rlang}\SpecialCharTok{::}\FunctionTok{sym}\NormalTok{(metric) }\SpecialCharTok{*} \DecValTok{2}\NormalTok{)}\CommentTok{\#apply arbitary multiplication by two}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1987,10 +2020,10 @@ The following will execute the \texttt{R} script at 7AM everyday. A log file is 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ExtensionTok{crontab}\NormalTok{ -e}
+\ExtensionTok{crontab} \AttributeTok{{-}e}
 
-\CommentTok{# Add line (using e.g. nano editor)}
-\ExtensionTok{00}\NormalTok{ 07 * * * Rscript /home/user/project/script.R }\OperatorTok{&>>}\NormalTok{ /home/user/project/cron.log}
+\CommentTok{\# Add line (using e.g. nano editor)}
+\ExtensionTok{00}\NormalTok{ 07 }\PreprocessorTok{*} \PreprocessorTok{*} \PreprocessorTok{*}\NormalTok{ Rscript /home/user/project/script.R }\OperatorTok{\&\textgreater{}\textgreater{}}\NormalTok{ /home/user/project/cron.log}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2000,11 +2033,11 @@ Include this at the top of your script.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Log}
-\KeywordTok{print}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"Start:"}\NormalTok{, }\KeywordTok{Sys.time}\NormalTok{()))}
+\CommentTok{\# Log}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Start:"}\NormalTok{, }\FunctionTok{Sys.time}\NormalTok{()))}
 
-\CommentTok{# Environment variables}
-\KeywordTok{readRenviron}\NormalTok{(}\StringTok{"/home/user/.Renviron"}\NormalTok{)}
+\CommentTok{\# Environment variables}
+\FunctionTok{readRenviron}\NormalTok{(}\StringTok{"/home/user/.Renviron"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2016,19 +2049,19 @@ Include this at the top of your script.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Delete user from argoshare}
-\CommentTok{## Connect must be stopped first}
-\FunctionTok{sudo}\NormalTok{ systemctl stop rstudio-connect}
+\CommentTok{\# Delete user from argoshare}
+\CommentTok{\#\# Connect must be stopped first}
+\FunctionTok{sudo}\NormalTok{ systemctl stop rstudio{-}connect}
 
-\CommentTok{## List all users}
-\FunctionTok{sudo}\NormalTok{ /opt/rstudio-connect/bin/usermanager list}
+\CommentTok{\#\# List all users}
+\FunctionTok{sudo}\NormalTok{ /opt/rstudio{-}connect/bin/usermanager list}
 
-\CommentTok{## Find guid for the user you want to delete, looks like below. }
-\CommentTok{## Delete user - need to say y/n}
-\FunctionTok{sudo}\NormalTok{ /opt/rstudio-connect/bin/usermanager delete --users --user-guid 46cb5adb-4036-451f-9f08-0da3197dbc6c}
+\CommentTok{\#\# Find guid for the user you want to delete, looks like below. }
+\CommentTok{\#\# Delete user {-} need to say y/n}
+\FunctionTok{sudo}\NormalTok{ /opt/rstudio{-}connect/bin/usermanager delete }\AttributeTok{{-}{-}users} \AttributeTok{{-}{-}user{-}guid}\NormalTok{ 46cb5adb{-}4036{-}451f{-}9f08{-}0da3197dbc6c}
 
-\CommentTok{## Restart connect}
-\FunctionTok{sudo}\NormalTok{ systemctl start rstudio-connect}
+\CommentTok{\#\# Restart connect}
+\FunctionTok{sudo}\NormalTok{ systemctl start rstudio{-}connect}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2054,7 +2087,7 @@ This guide assumes you're already on the University of Edinburgh local network. 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{chmod}\NormalTok{ 400 PATH-TO-PRIVATE-KEY}
+\FunctionTok{chmod}\NormalTok{ 400 PATH{-}TO{-}PRIVATE{-}KEY}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2070,12 +2103,12 @@ This guide assumes you're already on the University of Edinburgh local network. 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ssh}\NormalTok{ -i PATH-TO-PRIVATE-KEY ubuntu@YOUR-FLOATING-IP}
+\FunctionTok{ssh} \AttributeTok{{-}i}\NormalTok{ PATH{-}TO{-}PRIVATE{-}KEY ubuntu@YOUR{-}FLOATING{-}IP}
 
-\CommentTok{#All being well, you’ll now have a terminal for your lovely new Ububtu instance.}
-\CommentTok{#Get your instance up-to-date. Run:}
+\CommentTok{\#All being well, you’ll now have a terminal for your lovely new Ububtu instance.}
+\CommentTok{\#Get your instance up{-}to{-}date. Run:}
 
-\FunctionTok{sudo}\NormalTok{ apt-get update }\KeywordTok{&&} \FunctionTok{sudo}\NormalTok{ apt-get upgrade}
+\FunctionTok{sudo}\NormalTok{ apt{-}get update }\KeywordTok{\&\&} \FunctionTok{sudo}\NormalTok{ apt{-}get upgrade}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2087,8 +2120,8 @@ Nginx is the fast and light webserver that will host you Shiny code.
 \begin{Shaded}
 \begin{Highlighting}[]
 
-\CommentTok{#Install nginx}
-\FunctionTok{sudo}\NormalTok{ apt-get -y install nginx}
+\CommentTok{\#Install nginx}
+\FunctionTok{sudo}\NormalTok{ apt{-}get }\AttributeTok{{-}y}\NormalTok{ install nginx}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2106,16 +2139,16 @@ Installing the latest version of R isn't as easy as apt-get R. Sources and keys 
 \begin{Shaded}
 \begin{Highlighting}[]
 
-\FunctionTok{sudo}\NormalTok{ sh -c }\StringTok{'echo "deb http://cran.rstudio.com/bin/linux/ubuntu bionic-cran35/" >> /etc/apt/sources.list'}
-\FunctionTok{sudo}\NormalTok{ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9}
+\FunctionTok{sudo}\NormalTok{ sh }\AttributeTok{{-}c} \StringTok{\textquotesingle{}echo "deb http://cran.rstudio.com/bin/linux/ubuntu bionic{-}cran35/" \textgreater{}\textgreater{} /etc/apt/sources.list\textquotesingle{}}
+\FunctionTok{sudo}\NormalTok{ apt{-}key adv }\AttributeTok{{-}{-}keyserver}\NormalTok{ keyserver.ubuntu.com }\AttributeTok{{-}{-}recv{-}keys}\NormalTok{ E298A3A825C0D65DFD57CBB651716619E084DAB9}
 
-\FunctionTok{sudo}\NormalTok{ apt-get update}
-\FunctionTok{sudo}\NormalTok{ apt-get -y install r-base}
+\FunctionTok{sudo}\NormalTok{ apt{-}get update}
+\FunctionTok{sudo}\NormalTok{ apt{-}get }\AttributeTok{{-}y}\NormalTok{ install r{-}base}
 
 
-\CommentTok{#Now load R}
+\CommentTok{\#Now load R}
 \ExtensionTok{R}
-\CommentTok{#Enter the following in the R console}
+\CommentTok{\#Enter the following in the R console}
 \FunctionTok{sessionInfo()}
 \FunctionTok{quit()}
 \end{Highlighting}
@@ -2129,10 +2162,10 @@ There are a few external libraries that are required to use Shiny Server. Let's 
 \begin{Shaded}
 \begin{Highlighting}[]
 
-\FunctionTok{sudo}\NormalTok{ apt-get -y install gdebi-core}
-\FunctionTok{sudo}\NormalTok{ su - -c }\StringTok{"R -e }\DataTypeTok{\textbackslash{}"}\StringTok{install.packages('shiny', repos='http://cran.rstudio.com/')}\DataTypeTok{\textbackslash{}"}\StringTok{"}
-\FunctionTok{wget}\NormalTok{ https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.13.944-amd64.deb}
-\FunctionTok{sudo}\NormalTok{ gdebi shiny-server-1.5.13.944-amd64.deb}
+\FunctionTok{sudo}\NormalTok{ apt{-}get }\AttributeTok{{-}y}\NormalTok{ install gdebi{-}core}
+\FunctionTok{sudo}\NormalTok{ su }\AttributeTok{{-}} \AttributeTok{{-}c} \StringTok{"R {-}e }\DataTypeTok{\textbackslash{}"}\StringTok{install.packages(\textquotesingle{}shiny\textquotesingle{}, repos=\textquotesingle{}http://cran.rstudio.com/\textquotesingle{})}\DataTypeTok{\textbackslash{}"}\StringTok{"}
+\FunctionTok{wget}\NormalTok{ https://download3.rstudio.org/ubuntu{-}14.04/x86\_64/shiny{-}server{-}1.5.13.944{-}amd64.deb}
+\FunctionTok{sudo}\NormalTok{ gdebi shiny{-}server{-}1.5.13.944{-}amd64.deb}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2147,18 +2180,18 @@ You've got base-R installed and running now, but it's likely your Shiny app will
 \begin{Shaded}
 \begin{Highlighting}[]
 
-\FunctionTok{sudo}\NormalTok{ apt-get install -y \textbackslash{}}
-\NormalTok{    pandoc \textbackslash{}}
-\NormalTok{    pandoc-citeproc \textbackslash{}}
-\NormalTok{    libssl-dev \textbackslash{}}
-\NormalTok{    libcurl4-gnutls-dev \textbackslash{}}
-\NormalTok{    libcairo2-dev \textbackslash{}}
-\NormalTok{    libgdal-dev \textbackslash{}}
-\NormalTok{    libgeos-dev \textbackslash{}}
-\NormalTok{    libproj-dev \textbackslash{}}
-\NormalTok{    libxml2-dev \textbackslash{}}
-\NormalTok{    libxt-dev \textbackslash{}}
-\NormalTok{    libv8-dev \textbackslash{}}
+\FunctionTok{sudo}\NormalTok{ apt{-}get install }\AttributeTok{{-}y} \DataTypeTok{\textbackslash{}}
+\NormalTok{    pandoc }\DataTypeTok{\textbackslash{}}
+\NormalTok{    pandoc{-}citeproc }\DataTypeTok{\textbackslash{}}
+\NormalTok{    libssl{-}dev }\DataTypeTok{\textbackslash{}}
+\NormalTok{    libcurl4{-}gnutls{-}dev }\DataTypeTok{\textbackslash{}}
+\NormalTok{    libcairo2{-}dev }\DataTypeTok{\textbackslash{}}
+\NormalTok{    libgdal{-}dev }\DataTypeTok{\textbackslash{}}
+\NormalTok{    libgeos{-}dev }\DataTypeTok{\textbackslash{}}
+\NormalTok{    libproj{-}dev }\DataTypeTok{\textbackslash{}}
+\NormalTok{    libxml2{-}dev }\DataTypeTok{\textbackslash{}}
+\NormalTok{    libxt{-}dev }\DataTypeTok{\textbackslash{}}
+\NormalTok{    libv8{-}dev }\DataTypeTok{\textbackslash{}}
 \NormalTok{    git}
 \end{Highlighting}
 \end{Shaded}
@@ -2171,7 +2204,7 @@ You'll probably also need a bunch of extra libraries in R (we've already install
 \begin{Shaded}
 \begin{Highlighting}[]
 
-\FunctionTok{sudo}\NormalTok{ su - -c }\StringTok{"R -e }\DataTypeTok{\textbackslash{}"}\StringTok{install.packages(c('rmarkdown', 'ggplot2', 'dplyr', 'sp', 'rgdal', 'rgeos'), repos='http://cran.rstudio.com/')}\DataTypeTok{\textbackslash{}"}\StringTok{"}
+\FunctionTok{sudo}\NormalTok{ su }\AttributeTok{{-}} \AttributeTok{{-}c} \StringTok{"R {-}e }\DataTypeTok{\textbackslash{}"}\StringTok{install.packages(c(\textquotesingle{}rmarkdown\textquotesingle{}, \textquotesingle{}ggplot2\textquotesingle{}, \textquotesingle{}dplyr\textquotesingle{}, \textquotesingle{}sp\textquotesingle{}, \textquotesingle{}rgdal\textquotesingle{}, \textquotesingle{}rgeos\textquotesingle{}), repos=\textquotesingle{}http://cran.rstudio.com/\textquotesingle{})}\DataTypeTok{\textbackslash{}"}\StringTok{"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2195,22 +2228,22 @@ First, we're going to edit the nginx config file.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{sudo}\NormalTok{ nano /etc/nginx/sites-available/default}
+\FunctionTok{sudo}\NormalTok{ nano /etc/nginx/sites{-}available/default}
 
-\CommentTok{# Comment out (#) any other active server config lines, and add this…}
+\CommentTok{\# Comment out (\#) any other active server config lines, and add this…}
 
 \ExtensionTok{server}\NormalTok{ \{}
     \ExtensionTok{listen}\NormalTok{ 80}\KeywordTok{;}
 
     \ExtensionTok{location}\NormalTok{ / \{}
-        \ExtensionTok{proxy_pass}\NormalTok{ http://127.0.0.1:3838/}\KeywordTok{;}
-        \ExtensionTok{proxy_redirect}\NormalTok{ http://127.0.0.1:3838/ }\VariableTok{$scheme}\NormalTok{://}\VariableTok{$host}\NormalTok{/}\KeywordTok{;}
-        \CommentTok{# note, the following 3 lines added 2016-07-11, see updates section}
-        \ExtensionTok{proxy_http_version}\NormalTok{ 1.1}\KeywordTok{;}
-        \ExtensionTok{proxy_set_header}\NormalTok{ Upgrade }\VariableTok{$http_upgrade}\KeywordTok{;}
-        \ExtensionTok{proxy_set_header}\NormalTok{ Connection }\StringTok{"upgrade"}\KeywordTok{;}
-\NormalTok{     \}}
-\NormalTok{    \}}
+        \ExtensionTok{proxy\_pass}\NormalTok{ http://127.0.0.1:3838/}\KeywordTok{;}
+        \ExtensionTok{proxy\_redirect}\NormalTok{ http://127.0.0.1:3838/ }\VariableTok{$scheme}\NormalTok{://}\VariableTok{$host}\NormalTok{/}\KeywordTok{;}
+        \CommentTok{\# note, the following 3 lines added 2016{-}07{-}11, see updates section}
+        \ExtensionTok{proxy\_http\_version}\NormalTok{ 1.1}\KeywordTok{;}
+        \ExtensionTok{proxy\_set\_header}\NormalTok{ Upgrade }\VariableTok{$http\_upgrade}\KeywordTok{;}
+        \ExtensionTok{proxy\_set\_header}\NormalTok{ Connection }\StringTok{"upgrade"}\KeywordTok{;}
+     \ErrorTok{\}}
+    \ErrorTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2219,19 +2252,19 @@ Next, we're going to update the Shiny server config file
 \begin{Shaded}
 \begin{Highlighting}[]
 
-\FunctionTok{sudo}\NormalTok{ nano /etc/shiny-server/shiny-server.conf}
+\FunctionTok{sudo}\NormalTok{ nano /etc/shiny{-}server/shiny{-}server.conf}
 
-\CommentTok{#Add the following (if it’s not already there, which it may well be):}
+\CommentTok{\#Add the following (if it’s not already there, which it may well be):}
 
-\ExtensionTok{server}\NormalTok{\{}
+\ExtensionTok{server\{}
     \ExtensionTok{listen}\NormalTok{ 3838 127.0.0.1}\KeywordTok{;}
 
     \ExtensionTok{location}\NormalTok{ / \{}
-      \ExtensionTok{site_dir}\NormalTok{ /srv/shiny-server}\KeywordTok{;}
-      \ExtensionTok{log_dir}\NormalTok{ /var/log/shiny-server}\KeywordTok{;}
-      \ExtensionTok{directory_index}\NormalTok{ on}\KeywordTok{;}
-\NormalTok{    \}}
-\NormalTok{\}}
+      \ExtensionTok{site\_dir}\NormalTok{ /srv/shiny{-}server}\KeywordTok{;}
+      \ExtensionTok{log\_dir}\NormalTok{ /var/log/shiny{-}server}\KeywordTok{;}
+      \ExtensionTok{directory\_index}\NormalTok{ on}\KeywordTok{;}
+    \ErrorTok{\}}
+\ErrorTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2259,23 +2292,23 @@ First, make sure you have Apache2-utils installed:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{#First, make sure you have Apache2-utils installed:}
-\FunctionTok{sudo}\NormalTok{ apt-get install apache2-utils}
+\CommentTok{\#First, make sure you have Apache2{-}utils installed:}
+\FunctionTok{sudo}\NormalTok{ apt{-}get install apache2{-}utils}
 
-\CommentTok{#Now, stop nginx and shiny:}
+\CommentTok{\#Now, stop nginx and shiny:}
 \FunctionTok{sudo}\NormalTok{ service nginx stop}
-\FunctionTok{sudo}\NormalTok{ stop shiny-server}
+\FunctionTok{sudo}\NormalTok{ stop shiny{-}server}
 
-\CommentTok{#Next, you’ll need to go back into that Nginx config file, with }
-\FunctionTok{sudo}\NormalTok{ nano /etc/nginx/sites-available/default}
+\CommentTok{\#Next, you’ll need to go back into that Nginx config file, with }
+\FunctionTok{sudo}\NormalTok{ nano /etc/nginx/sites{-}available/default}
 
-\CommentTok{# Add the following two lines in the "location" section}
+\CommentTok{\# Add the following two lines in the "location" section}
 \ExtensionTok{location}\NormalTok{ / \{}
-      \ExtensionTok{proxy_pass}\NormalTok{ http://127.0.0.1:3838/}\KeywordTok{;}
-      \ExtensionTok{proxy_redirect}\NormalTok{ http://127.0.0.1:3838/ }\VariableTok{$scheme}\NormalTok{://}\VariableTok{$host}\NormalTok{/}\KeywordTok{;}
-      \ExtensionTok{auth_basic} \StringTok{"Username and Password are required"}\KeywordTok{;} 
-      \ExtensionTok{auth_basic_user_file}\NormalTok{ /etc/nginx/.htpasswd}\KeywordTok{;}
-\NormalTok{    \}}
+      \ExtensionTok{proxy\_pass}\NormalTok{ http://127.0.0.1:3838/}\KeywordTok{;}
+      \ExtensionTok{proxy\_redirect}\NormalTok{ http://127.0.0.1:3838/ }\VariableTok{$scheme}\NormalTok{://}\VariableTok{$host}\NormalTok{/}\KeywordTok{;}
+      \ExtensionTok{auth\_basic} \StringTok{"Username and Password are required"}\KeywordTok{;} 
+      \ExtensionTok{auth\_basic\_user\_file}\NormalTok{ /etc/nginx/.htpasswd}\KeywordTok{;}
+    \ErrorTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2283,18 +2316,18 @@ Once that's done, you'll need to edit Shiny Server's conf file so it only serves
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{sudo}\NormalTok{ nano /etc/shiny-server/shiny-server.conf}
+\FunctionTok{sudo}\NormalTok{ nano /etc/shiny{-}server/shiny{-}server.conf}
 
-\CommentTok{#Copy and paste the below to your shiny-server.conf.}
-\ExtensionTok{server}\NormalTok{\{}
+\CommentTok{\#Copy and paste the below to your shiny{-}server.conf.}
+\ExtensionTok{server\{}
     \ExtensionTok{listen}\NormalTok{ 3838 127.0.0.1}\KeywordTok{;}
     
     \ExtensionTok{location}\NormalTok{ / \{}
-    \ExtensionTok{site_dir}\NormalTok{ /srv/shiny-server}\KeywordTok{;}
-    \ExtensionTok{log_dir}\NormalTok{ /var/log/shiny-server}\KeywordTok{;}
-    \ExtensionTok{directory_index}\NormalTok{ on}\KeywordTok{;}
-\NormalTok{    \}}
-\NormalTok{\}}
+    \ExtensionTok{site\_dir}\NormalTok{ /srv/shiny{-}server}\KeywordTok{;}
+    \ExtensionTok{log\_dir}\NormalTok{ /var/log/shiny{-}server}\KeywordTok{;}
+    \ExtensionTok{directory\_index}\NormalTok{ on}\KeywordTok{;}
+    \ErrorTok{\}}
+\ErrorTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2304,11 +2337,11 @@ You're now ready to create the username and password visitors must enter to view
 \begin{Highlighting}[]
 
 \BuiltInTok{cd}\NormalTok{ /etc/nginx}
-\FunctionTok{sudo}\NormalTok{ htpasswd -c /etc/nginx/.htpasswd USERNAME}
+\FunctionTok{sudo}\NormalTok{ htpasswd }\AttributeTok{{-}c}\NormalTok{ /etc/nginx/.htpasswd USERNAME}
 
-\CommentTok{#Restart Nginx and Shiny and you’re good to go.}
+\CommentTok{\#Restart Nginx and Shiny and you’re good to go.}
 \FunctionTok{sudo}\NormalTok{ service nginx start}
-\FunctionTok{sudo}\NormalTok{ start shiny-server}
+\FunctionTok{sudo}\NormalTok{ start shiny{-}server}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2320,14 +2353,14 @@ If your instance grinds to a halt while compiling R packages, you've most likely
 \begin{Shaded}
 \begin{Highlighting}[]
 
-\FunctionTok{sudo}\NormalTok{ fallocate -l 2G /swapfile}
+\FunctionTok{sudo}\NormalTok{ fallocate }\AttributeTok{{-}l}\NormalTok{ 2G /swapfile}
 \FunctionTok{sudo}\NormalTok{ dd if=/dev/zero of=/swapfile bs=1024 count=1048576}
 \FunctionTok{sudo}\NormalTok{ chmod 600 /swapfile}
 \FunctionTok{sudo}\NormalTok{ mkswap /swapfile}
 \FunctionTok{sudo}\NormalTok{ swapon /swapfile}
 
-\CommentTok{#Finally, make sure everything as it should be by running:}
-\FunctionTok{sudo}\NormalTok{ free -h}
+\CommentTok{\#Finally, make sure everything as it should be by running:}
+\FunctionTok{sudo}\NormalTok{ free }\AttributeTok{{-}h}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2476,30 +2509,30 @@ The code will create two files, a token and the \texttt{.httr-oauth} file from w
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(rdrop2)}
-\KeywordTok{library}\NormalTok{(encryptr)}
+\FunctionTok{library}\NormalTok{(rdrop2)}
+\FunctionTok{library}\NormalTok{(encryptr)}
  
-\CommentTok{# Create token}
-\NormalTok{token <-}\StringTok{ }\KeywordTok{drop_auth}\NormalTok{()}
+\CommentTok{\# Create token}
+\NormalTok{token }\OtherTok{\textless{}{-}} \FunctionTok{drop\_auth}\NormalTok{()}
  
-\CommentTok{# Save token}
-\KeywordTok{saveRDS}\NormalTok{(token, }\StringTok{"droptoken.rds"}\NormalTok{)}
+\CommentTok{\# Save token}
+\FunctionTok{saveRDS}\NormalTok{(token, }\StringTok{"droptoken.rds"}\NormalTok{)}
  
-\CommentTok{# Encrypt token}
-\KeywordTok{genkeys}\NormalTok{()               }\CommentTok{# Default file names are id_rsa and id_rsa.pub}
-\KeywordTok{encrypt_file}\NormalTok{(}\StringTok{"droptoken.rds"}\NormalTok{, }\StringTok{"droptoken.rds.encryptr.bin"}\NormalTok{)}
-\KeywordTok{encrypt_file}\NormalTok{(}\StringTok{".httr-oauth"}\NormalTok{, }\StringTok{".httr-oauth.encryptr.bin"}\NormalTok{)}
+\CommentTok{\# Encrypt token}
+\FunctionTok{genkeys}\NormalTok{()               }\CommentTok{\# Default file names are id\_rsa and id\_rsa.pub}
+\FunctionTok{encrypt\_file}\NormalTok{(}\StringTok{"droptoken.rds"}\NormalTok{, }\StringTok{"droptoken.rds.encryptr.bin"}\NormalTok{)}
+\FunctionTok{encrypt\_file}\NormalTok{(}\StringTok{".httr{-}oauth"}\NormalTok{, }\StringTok{".httr{-}oauth.encryptr.bin"}\NormalTok{)}
  
-\CommentTok{# Same details should appear later}
-\KeywordTok{drop_acc}\NormalTok{()}
+\CommentTok{\# Same details should appear later}
+\FunctionTok{drop\_acc}\NormalTok{()}
  
-\CommentTok{# Remove token from local environment}
-\KeywordTok{rm}\NormalTok{(token)}
+\CommentTok{\# Remove token from local environment}
+\FunctionTok{rm}\NormalTok{(token)}
  
  
-\CommentTok{# Delete the unencrypted files}
-\KeywordTok{system}\NormalTok{(}\StringTok{"rm droptoken.rds"}\NormalTok{)}
-\KeywordTok{system}\NormalTok{(}\StringTok{"rm .httr-oauth"}\NormalTok{)}
+\CommentTok{\# Delete the unencrypted files}
+\FunctionTok{system}\NormalTok{(}\StringTok{"rm droptoken.rds"}\NormalTok{)}
+\FunctionTok{system}\NormalTok{(}\StringTok{"rm .httr{-}oauth"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2520,40 +2553,40 @@ Now that the encrypted token and necessary (password-protected) private key are 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(rdrop2)}
-\KeywordTok{library}\NormalTok{(encryptr)}
+\FunctionTok{library}\NormalTok{(rdrop2)}
+\FunctionTok{library}\NormalTok{(encryptr)}
  
-\CommentTok{# ******** }\AlertTok{WARNING}\CommentTok{ ********}
-\CommentTok{# Losing the unencrypted token will give anyone }
-\CommentTok{# complete control of your Dropbox account}
-\CommentTok{# If you are concerned this has happened,}
-\CommentTok{# you can then revoke the rdrop2 app from your}
-\CommentTok{# dropbox account and start over.}
-\CommentTok{# ******** }\AlertTok{WARNING}\CommentTok{ ********}
+\CommentTok{\# ******** }\AlertTok{WARNING}\CommentTok{ ********}
+\CommentTok{\# Losing the unencrypted token will give anyone }
+\CommentTok{\# complete control of your Dropbox account}
+\CommentTok{\# If you are concerned this has happened,}
+\CommentTok{\# you can then revoke the rdrop2 app from your}
+\CommentTok{\# dropbox account and start over.}
+\CommentTok{\# ******** }\AlertTok{WARNING}\CommentTok{ ********}
  
  
-\NormalTok{safely_extract_dropbox_token <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(}\DataTypeTok{encrypted_db_token =} \OtherTok{NULL}\NormalTok{, }
-                                         \DataTypeTok{private_key_file =} \OtherTok{NULL}\NormalTok{)\{}
-  \KeywordTok{decrypt_file}\NormalTok{(encrypted_db_token, }
-               \DataTypeTok{file_name =} \StringTok{"temporary_dropbox_token.rds"}\NormalTok{, }
-               \DataTypeTok{private_key_path =}\NormalTok{ private_key_file)}
+\NormalTok{safely\_extract\_dropbox\_token }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(}\AttributeTok{encrypted\_db\_token =} \ConstantTok{NULL}\NormalTok{, }
+                                         \AttributeTok{private\_key\_file =} \ConstantTok{NULL}\NormalTok{)\{}
+  \FunctionTok{decrypt\_file}\NormalTok{(encrypted\_db\_token, }
+               \AttributeTok{file\_name =} \StringTok{"temporary\_dropbox\_token.rds"}\NormalTok{, }
+               \AttributeTok{private\_key\_path =}\NormalTok{ private\_key\_file)}
   
-\NormalTok{  token <<-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\StringTok{"temporary_dropbox_token.rds"}\NormalTok{)}
+\NormalTok{  token }\OtherTok{\textless{}\textless{}{-}} \FunctionTok{readRDS}\NormalTok{(}\StringTok{"temporary\_dropbox\_token.rds"}\NormalTok{)}
   
-  \KeywordTok{system}\NormalTok{(}\StringTok{"rm temporary_dropbox_token.rds"}\NormalTok{)}
+  \FunctionTok{system}\NormalTok{(}\StringTok{"rm temporary\_dropbox\_token.rds"}\NormalTok{)}
 \NormalTok{\}}
  
-\KeywordTok{safely_extract_dropbox_token}\NormalTok{(}\DataTypeTok{encrypted_db_token =} \StringTok{"droptoken.rds.encryptr.bin"}\NormalTok{, }
-                             \DataTypeTok{private_key_file =} \StringTok{"id_rsa"}\NormalTok{)}
+\FunctionTok{safely\_extract\_dropbox\_token}\NormalTok{(}\AttributeTok{encrypted\_db\_token =} \StringTok{"droptoken.rds.encryptr.bin"}\NormalTok{, }
+                             \AttributeTok{private\_key\_file =} \StringTok{"id\_rsa"}\NormalTok{)}
  
-\CommentTok{# Then pass the token to each drop_ function}
-\KeywordTok{drop_acc}\NormalTok{(}\DataTypeTok{dtoken =}\NormalTok{ token)}
+\CommentTok{\# Then pass the token to each drop\_ function}
+\FunctionTok{drop\_acc}\NormalTok{(}\AttributeTok{dtoken =}\NormalTok{ token)}
  
-\CommentTok{# The path is the Dropbox file location}
-\KeywordTok{drop_download}\NormalTok{(}\DataTypeTok{path =} \StringTok{"My_Dropbox_Home_Directory/Zotero Library/my.bib"}\NormalTok{, }
-              \DataTypeTok{local_path =} \StringTok{"my.bib"}\NormalTok{, }
-              \DataTypeTok{dtoken =}\NormalTok{ token,}
-              \DataTypeTok{overwrite =} \OtherTok{TRUE}\NormalTok{)}
+\CommentTok{\# The path is the Dropbox file location}
+\FunctionTok{drop\_download}\NormalTok{(}\AttributeTok{path =} \StringTok{"My\_Dropbox\_Home\_Directory/Zotero Library/my.bib"}\NormalTok{, }
+              \AttributeTok{local\_path =} \StringTok{"my.bib"}\NormalTok{, }
+              \AttributeTok{dtoken =}\NormalTok{ token,}
+              \AttributeTok{overwrite =} \ConstantTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2566,12 +2599,13 @@ When citing R packages a separate \texttt{.bib} file can be created. The followi
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# automatically create a bib database for R packages}
-\NormalTok{knitr}\OperatorTok{::}\KeywordTok{write_bib}\NormalTok{(}\KeywordTok{c}\NormalTok{(}
-  \KeywordTok{.packages}\NormalTok{(), }\StringTok{'encryptr'}\NormalTok{, }\StringTok{'knitr'}\NormalTok{, }\StringTok{'rmarkdown'}
-\NormalTok{), }\StringTok{'packages.bib'}\NormalTok{)}
+\CommentTok{\# automatically create a bib database for R packages}
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{write\_bib}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
+  \FunctionTok{.packages}\NormalTok{(), }\StringTok{\textquotesingle{}encryptr\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}knitr\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}rmarkdown\textquotesingle{}}
+\NormalTok{), }\StringTok{\textquotesingle{}packages.bib\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
 
   \bibliography{book.bib,packages.bib}
 

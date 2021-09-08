@@ -121,9 +121,19 @@ mydata %>%
   filter_at(vars(starts_with("important_")), any_vars(! is.na(.)))
 ```
 
+## Vectorising rowwise procedures
 
+We frequently have to aggregate across columns. `dplyr::rowwise()` is the `group_by()` equivalent for rows. But this is painfully slow for large datasets. 
 
+The following works beautifully and allows tidyselect of variable names. 
 
+```{r}
+library(tidyverse)
+mydata = tibble(a = c(1,2,NA),
+       b = c(2,3,NA),
+       c = c(3,4,NA),
+       d = c(NA,NA,NA))
 
-
-
+mydata %>% 
+  mutate(s = pmap_dbl(select(., a:d), pmax, na.rm=TRUE))
+```
