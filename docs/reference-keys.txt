@@ -17,6 +17,7 @@ useful-rstudio-functions
 clean-restart
 remove-duplicated-packages-between-personal-and-system-libraries
 remove-large-file-accidentally-committed-to-git
+memory-and-efficient-ram-usage
 exporting-tables-that-work-in-both-pdf-and-word
 warning-in-kableextra.-please-specify-format-in-kable.-kableextra-can-customize-either-html-or-latex-outputs.
 creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker
@@ -31,6 +32,7 @@ working-with-dates
 difference-between-two-dates
 lags
 pulling-out-change-in-status-data
+guess-the-format-of-dates
 example-data
 compute-time-from-op-date-to-current-review
 pull-out-change-of-status
