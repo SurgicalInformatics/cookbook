@@ -327,7 +327,7 @@ If you have a number of episodes per patient, each with a status and a time, the
 
 This function helps guess the date format from a dataset you have received. Add in new formats (as per lubridate) if they don't match. Once you work out what format it is then extract date with `mdy()` or `dmy()` etc. based on format.
 
-```{r}
+```{r, eval = FALSE, echo = TRUE}
 library(tidyverse)
 library(lubridate)
 lakers = lakers %>%
