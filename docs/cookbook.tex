@@ -131,7 +131,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2021-09-08}
+\date{2021-11-24}
 
 \begin{document}
 \maketitle
@@ -578,7 +578,7 @@ Works for a single date or a vector of dates.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 50 77 72
+## [1] 51 78 72
 \end{verbatim}
 
 \begin{Shaded}
@@ -623,8 +623,8 @@ Works for a single date or a vector of dates.
 ## # A tibble: 3 x 4
 ##   chi        dob        gender   age
 ##   <chr>      <date>     <chr>  <dbl>
-## 1 1009701234 1970-09-10 Male      50
-## 2 1811431232 1943-11-18 Male      77
+## 1 1009701234 1970-09-10 Male      51
+## 2 1811431232 1943-11-18 Male      78
 ## 3 1304496368 1949-04-13 Female    72
 \end{verbatim}
 
@@ -674,8 +674,8 @@ The final digit of the CHI can be used to test that the number is correct via th
 ## # A tibble: 3 x 5
 ##   chi        dob        gender   age chi_valid
 ##   <chr>      <date>     <chr>  <dbl> <lgl>    
-## 1 1009701234 1970-09-10 Male      50 FALSE    
-## 2 1811431232 1943-11-18 Male      77 TRUE     
+## 1 1009701234 1970-09-10 Male      51 FALSE    
+## 2 1811431232 1943-11-18 Male      78 TRUE     
 ## 3 1304496368 1949-04-13 Female    72 TRUE
 \end{verbatim}
 

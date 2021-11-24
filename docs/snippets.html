@@ -24,7 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2021-09-08" />
+<meta name="date" content="2021-11-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -600,7 +600,7 @@ A test for even is <code>x modulus 2 == 0</code>.</p>
 <span id="cb18-7"><a href="snippets.html#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-8"><a href="snippets.html#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Today</span></span>
 <span id="cb18-9"><a href="snippets.html#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">chi_age</span>(chi, <span class="fu">Sys.time</span>())</span></code></pre></div>
-<pre><code>## [1] 50 77 72</code></pre>
+<pre><code>## [1] 51 78 72</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="snippets.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Single date</span></span>
 <span id="cb20-2"><a href="snippets.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
 <span id="cb20-3"><a href="snippets.html#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chi_age</span>(chi, <span class="fu">dmy</span>(<span class="st">&quot;11/09/2018&quot;</span>))</span></code></pre></div>
@@ -621,8 +621,8 @@ A test for even is <code>x modulus 2 == 0</code>.</p>
 <pre><code>## # A tibble: 3 × 4
 ##   chi        dob        gender   age
 ##   &lt;chr&gt;      &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt;
-## 1 1009701234 1970-09-10 Male      50
-## 2 1811431232 1943-11-18 Male      77
+## 1 1009701234 1970-09-10 Male      51
+## 2 1811431232 1943-11-18 Male      78
 ## 3 1304496368 1949-04-13 Female    72</code></pre>
 </div>
 <div id="chi_valid---logical-test-for-valid-chi" class="section level3" number="2.4.4">
@@ -655,8 +655,8 @@ A test for even is <code>x modulus 2 == 0</code>.</p>
 <pre><code>## # A tibble: 3 × 5
 ##   chi        dob        gender   age chi_valid
 ##   &lt;chr&gt;      &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt;    
-## 1 1009701234 1970-09-10 Male      50 FALSE    
-## 2 1811431232 1943-11-18 Male      77 TRUE     
+## 1 1009701234 1970-09-10 Male      51 FALSE    
+## 2 1811431232 1943-11-18 Male      78 TRUE     
 ## 3 1304496368 1949-04-13 Female    72 TRUE</code></pre>
 </div>
 </div>
