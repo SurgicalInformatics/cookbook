@@ -131,7 +131,11 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
+<<<<<<< HEAD
 \date{2021-11-24}
+=======
+\date{2021-09-09}
+>>>>>>> 7df02c2b16394b7a4a1e821a6ca4c20e19593b92
 
 \begin{document}
 \maketitle
@@ -144,7 +148,7 @@
 \chapter*{}\label{section}}
 \addcontentsline{toc}{chapter}{}
 
-\includegraphics[width=30.97in]{/home/eharrison/cookbook/img/surgical_informatics_minibanner}
+\includegraphics{/home/common/users/cfairfield/cookbook/img/surgical_informatics_minibanner.png}
 
 \hypertarget{introduction}{%
 \chapter{Introduction}\label{introduction}}
@@ -324,6 +328,39 @@ This removes any user library packages that are also present in the system libra
 \subsection{Remove large file accidentally committed to git}\label{remove-large-file-accidentally-committed-to-git}}
 
 \texttt{git\ filter-branch\ -f\ -\/-index-filter\ "git\ rm\ -rf\ -\/-cached\ -\/-ignore-unmatch\ filename.rda"\ HEAD}.
+
+\hypertarget{memory-and-efficient-ram-usage}{%
+\section{Memory and efficient RAM usage}\label{memory-and-efficient-ram-usage}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Restart R often
+\item
+  Use \texttt{rm(...)} to get rid of big files after using them
+\item
+  Save large objects (and compress with ``gz'') that take a while to create but are needed often (\texttt{write\_rds(x,\ "big\_file.rds.gz",\ compress\ =\ "gz)})
+\item
+  Run \texttt{gc()} (garbage collect)
+\item
+  Check memory usage: \texttt{pryr::mem\_used()}
+\end{enumerate}
+
+Most importantly if using big files (even if they aren't loaded in your environment!) do the following:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \texttt{save.image("temp.rda")}
+\item
+  Restart R
+\item
+  \texttt{load("temp.rda")}
+\item
+  Delete ``temp.rda'' from \texttt{Files} pane
+\end{enumerate}
 
 \hypertarget{exporting-tables-that-work-in-both-pdf-and-word}{%
 \section{Exporting tables that work in both PDF and Word}\label{exporting-tables-that-work-in-both-pdf-and-word}}
@@ -578,7 +615,11 @@ Works for a single date or a vector of dates.
 \end{Shaded}
 
 \begin{verbatim}
+<<<<<<< HEAD
 ## [1] 51 78 72
+=======
+## [1] 51 77 72
+>>>>>>> 7df02c2b16394b7a4a1e821a6ca4c20e19593b92
 \end{verbatim}
 
 \begin{Shaded}
@@ -624,7 +665,11 @@ Works for a single date or a vector of dates.
 ##   chi        dob        gender   age
 ##   <chr>      <date>     <chr>  <dbl>
 ## 1 1009701234 1970-09-10 Male      51
+<<<<<<< HEAD
 ## 2 1811431232 1943-11-18 Male      78
+=======
+## 2 1811431232 1943-11-18 Male      77
+>>>>>>> 7df02c2b16394b7a4a1e821a6ca4c20e19593b92
 ## 3 1304496368 1949-04-13 Female    72
 \end{verbatim}
 
@@ -675,7 +720,11 @@ The final digit of the CHI can be used to test that the number is correct via th
 ##   chi        dob        gender   age chi_valid
 ##   <chr>      <date>     <chr>  <dbl> <lgl>    
 ## 1 1009701234 1970-09-10 Male      51 FALSE    
+<<<<<<< HEAD
 ## 2 1811431232 1943-11-18 Male      78 TRUE     
+=======
+## 2 1811431232 1943-11-18 Male      77 TRUE     
+>>>>>>> 7df02c2b16394b7a4a1e821a6ca4c20e19593b92
 ## 3 1304496368 1949-04-13 Female    72 TRUE
 \end{verbatim}
 
@@ -763,6 +812,28 @@ This is useful for calculating, for instance, the period off medications. Lags a
 \subsection{Pulling out ``change in status'' data}\label{pulling-out-change-in-status-data}}
 
 If you have a number of episodes per patient, each with a status and a time, then you need to do this as a starting point for CPH analysis.
+
+\hypertarget{guess-the-format-of-dates}{%
+\subsection{Guess the Format of Dates}\label{guess-the-format-of-dates}}
+
+This function helps guess the date format from a dataset you have received. Add in new formats (as per lubridate) if they don't match. Once you work out what format it is then extract date with \texttt{mdy()} or \texttt{dmy()} etc. based on format.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(lubridate)}
+\NormalTok{lakers }\OtherTok{=}\NormalTok{ lakers }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{mm\_date =} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{str\_sub}\NormalTok{(date, }\AttributeTok{start =}\DecValTok{5}\NormalTok{, }\AttributeTok{end =} \DecValTok{6}\NormalTok{), }\StringTok{"/"}\NormalTok{,}
+                          \FunctionTok{str\_sub}\NormalTok{(date, }\AttributeTok{start =} \DecValTok{7}\NormalTok{, }\AttributeTok{end =} \DecValTok{8}\NormalTok{), }\StringTok{"/"}\NormalTok{,}
+                          \FunctionTok{str\_sub}\NormalTok{(date, }\AttributeTok{start =} \DecValTok{1}\NormalTok{, }\AttributeTok{end =} \DecValTok{4}\NormalTok{)),}
+         \AttributeTok{dd\_date =} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{str\_sub}\NormalTok{(date, }\AttributeTok{start =}\DecValTok{7}\NormalTok{, }\AttributeTok{end =} \DecValTok{8}\NormalTok{), }\StringTok{"/"}\NormalTok{,}
+                          \FunctionTok{str\_sub}\NormalTok{(date, }\AttributeTok{start =} \DecValTok{5}\NormalTok{, }\AttributeTok{end =} \DecValTok{6}\NormalTok{), }\StringTok{"/"}\NormalTok{,}
+                          \FunctionTok{str\_sub}\NormalTok{(date, }\AttributeTok{start =} \DecValTok{1}\NormalTok{, }\AttributeTok{end =} \DecValTok{4}\NormalTok{)))}
+
+\FunctionTok{guess\_formats}\NormalTok{(lakers}\SpecialCharTok{$}\NormalTok{mm\_date, }\FunctionTok{c}\NormalTok{(}\StringTok{"dmy"}\NormalTok{, }\StringTok{"mdy"}\NormalTok{), }\AttributeTok{print\_matches =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{guess\_formats}\NormalTok{(lakers}\SpecialCharTok{$}\NormalTok{dd\_date, }\FunctionTok{c}\NormalTok{(}\StringTok{"dmy"}\NormalTok{, }\StringTok{"mdy"}\NormalTok{), }\AttributeTok{print\_matches =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{example-data}{%
 \subsubsection{Example data}\label{example-data}}
@@ -1854,8 +1925,8 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 
 Same plot 5x4 inches vs 10x8 inches:
 
-\includegraphics[width=0.5\linewidth]{/home/eharrison/cookbook/img/barplot_5x4}
-\includegraphics[width=0.5\linewidth]{/home/eharrison/cookbook/img/barplot_10x8}
+\includegraphics[width=0.5\linewidth]{/home/common/users/cfairfield/cookbook/img/barplot_5x4}
+\includegraphics[width=0.5\linewidth]{/home/common/users/cfairfield/cookbook/img/barplot_10x8}
 
 \hypertarget{shorten-arrows-on-a-dag}{%
 \section{Shorten Arrows on a DAG}\label{shorten-arrows-on-a-dag}}
@@ -2383,7 +2454,9 @@ Set up an online account with Zotero so that your data is available remotely.
 \href{https://www.zotero.org/support/plugins}{Zotfile} should be installed to help with PDF storage. Download the \texttt{.xpi} file for Zotfile. To install \textbf{Zotfile} open Zotero and go to \texttt{Tools\ →\ Add-ons\ →\ cog\ in\ top\ right\ corner} and select downloaded \texttt{.xpi} file to install.
 
 \begin{figure}
-\includegraphics[width=36.78in]{img/zotero_add_on_install} \caption{Installing a Zotero Plug-in from an .xpi File}\label{fig:add-on-install}
+\centering
+\includegraphics{img/zotero_add_on_install.png}
+\caption{\label{fig:add-on-install}Installing a Zotero Plug-in from an .xpi File}
 \end{figure}
 
 \href{https://github.com/retorquere/zotero-better-bibtex/releases/tag/v5.1.76}{Better BibTeX} is another plug-in which generates citation keys in a robust and reproducible way which is needed for larger projects (e.g.~PhDs) to avoid duplicate citation handles. An \texttt{.xpi} file can be downloaded from GitHub and installed in the same way.
@@ -2422,13 +2495,17 @@ Generally a parent folder will be used to generate a bibliography file and anyth
 To setup Zotero so that retrieved PDFs are automatically stored and renamed in the cloud storage without consuming the Zotero storage quota go to ``Tools → ZotFile Preferences'' and on the first tab: \textbf{General Settings} and set the folder and subfolder naming strategy for PDFs. Set the location of the files to a Custom location in cloud storage e.g.(``\textasciitilde\textbackslash Google Drive\textbackslash Zotero PDF Library''). ZotFile will also store retrieved PDFs in subfolders to help with finding PDFs at a later date. A reasonable setup is to create a subfolder with the first author surname so that all papers authored by one (or more) author with the same name are stored together using the \textbackslash\%a in the subfolder field. Other alternatives are to store PDFs in subfolders using year (\textbackslash\%y); journal or publisher (\textbackslash\%w); or item type (\textbackslash\%T).
 
 \begin{figure}
-\includegraphics[width=44.44in]{img/zotfile_preferences} \caption{ZotFile PDF Storage Preferences}\label{fig:zotfile-preferences}
+\centering
+\includegraphics{img/zotfile_preferences.png}
+\caption{\label{fig:zotfile-preferences}ZotFile PDF Storage Preferences}
 \end{figure}
 
 Next the \textbf{Renaming Rules} tab can be configured to provide sensible names to each of the files (this is essential if PDFs are not to be stored as random strings of characters which provide no meaning). Setting the format to: \{\%a\_\}\{\%y\_\}\{\%t\} provides names for the PDFs in the format of: \texttt{Fairfield\_2019\_Gallstone\_Disease\_and\_the\_Risk\_of\_Cardiovascular\_Disease.pdf}. This shows author, year and first word of title without needing to expand the file name.
 
 \begin{figure}
-\includegraphics[width=44.47in]{img/zotfile_renaming} \caption{ZotFile PDF Storage Preferences}\label{fig:zotfile-renaming}
+\centering
+\includegraphics{img/zotfile_renaming.png}
+\caption{\label{fig:zotfile-renaming}ZotFile PDF Storage Preferences}
 \end{figure}
 
 In the \textbf{Advanced Settings} tab it is strongly recommended to select removal of ``Special characters'', leaving these in creates problems when knitting to PDF as LaTeX may recognise the special characters in unexpected ways.
@@ -2476,7 +2553,9 @@ Zotero has several configurable settings (accessed through: ``Edit → Preferenc
 If an author has published an article with the same first word of the title in the same year then the second article appends an ``a'' to the handle and the third a ``b'' and so on.
 
 \begin{figure}
-\includegraphics[width=44.42in]{img/zotero_citation_key} \caption{ZotFile PDF Storage Preferences}\label{fig:zotfile-citation-key}
+\centering
+\includegraphics{img/zotero_citation_key.png}
+\caption{\label{fig:zotfile-citation-key}ZotFile PDF Storage Preferences}
 \end{figure}
 
 \hypertarget{refresh-bibtex-citation-key}{%

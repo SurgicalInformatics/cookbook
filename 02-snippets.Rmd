@@ -41,6 +41,22 @@ remove.packages(to_remove)
 
 `git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch filename.rda" HEAD`.
 
+
+## Memory and efficient RAM usage
+
+1. Restart R often
+1. Use `rm(...)` to get rid of big files after using them
+1. Save large objects (and compress with "gz") that take a while to create but are needed often (`write_rds(x, "big_file.rds.gz", compress = "gz)`)
+1. Run `gc()` (garbage collect)
+1. Check memory usage: `pryr::mem_used()`
+
+Most importantly if using big files (even if they aren't loaded in your environment!) do the following:
+
+1. `save.image("temp.rda")`
+1. Restart R
+1. `load("temp.rda")`
+1. Delete "temp.rda" from `Files` pane
+
 ## Exporting tables that work in both PDF and Word
 
 The `kable()` function from `library(knitr)` formats tables for all 3 output formats, but it is a bit limited.
@@ -306,6 +322,26 @@ df %>%
 ### Pulling out "change in status" data
 
 If you have a number of episodes per patient, each with a status and a time, then you need to do this as a starting point for CPH analysis. 
+
+### Guess the Format of Dates
+
+This function helps guess the date format from a dataset you have received. Add in new formats (as per lubridate) if they don't match. Once you work out what format it is then extract date with `mdy()` or `dmy()` etc. based on format.
+
+```{r, eval = FALSE, echo = TRUE}
+library(tidyverse)
+library(lubridate)
+lakers = lakers %>%
+  mutate(mm_date = paste0(str_sub(date, start =5, end = 6), "/",
+                          str_sub(date, start = 7, end = 8), "/",
+                          str_sub(date, start = 1, end = 4)),
+         dd_date = paste0(str_sub(date, start =7, end = 8), "/",
+                          str_sub(date, start = 5, end = 6), "/",
+                          str_sub(date, start = 1, end = 4)))
+
+guess_formats(lakers$mm_date, c("dmy", "mdy"), print_matches = TRUE)
+guess_formats(lakers$dd_date, c("dmy", "mdy"), print_matches = TRUE)
+```
+
 
 #### Example data
 

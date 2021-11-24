@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Data manipulation | The Surgical Informatics Cookbook</title>
   <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
-  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Data manipulation | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,11 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
+<<<<<<< HEAD
 <meta name="date" content="2021-11-24" />
+=======
+<meta name="date" content="2021-09-09" />
+>>>>>>> 7df02c2b16394b7a4a1e821a6ca4c20e19593b92
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -35,6 +39,7 @@
 <link rel="next" href="machine-learning.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -42,7 +47,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
 
 
 
@@ -181,27 +185,29 @@ div.csl-indent {
 <li class="chapter" data-level="2.1.2" data-path="snippets.html"><a href="snippets.html#remove-duplicated-packages-between-personal-and-system-libraries"><i class="fa fa-check"></i><b>2.1.2</b> Remove duplicated packages between personal and system libraries</a></li>
 <li class="chapter" data-level="2.1.3" data-path="snippets.html"><a href="snippets.html#remove-large-file-accidentally-committed-to-git"><i class="fa fa-check"></i><b>2.1.3</b> Remove large file accidentally committed to git</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#exporting-tables-that-work-in-both-pdf-and-word"><i class="fa fa-check"></i><b>2.2</b> Exporting tables that work in both PDF and Word</a>
+<li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#memory-and-efficient-ram-usage"><i class="fa fa-check"></i><b>2.2</b> Memory and efficient RAM usage</a></li>
+<li class="chapter" data-level="2.3" data-path="snippets.html"><a href="snippets.html#exporting-tables-that-work-in-both-pdf-and-word"><i class="fa fa-check"></i><b>2.3</b> Exporting tables that work in both PDF and Word</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="snippets.html"><a href="snippets.html#warning-in-kableextra.-please-specify-format-in-kable.-kableextra-can-customize-either-html-or-latex-outputs."><i class="fa fa-check"></i><b>2.2.1</b> Warning in kableExtra. Please specify format in kable. kableExtra can customize either HTML or LaTeX outputs.</a></li>
+<li class="chapter" data-level="2.3.1" data-path="snippets.html"><a href="snippets.html#warning-in-kableextra.-please-specify-format-in-kable.-kableextra-can-customize-either-html-or-latex-outputs."><i class="fa fa-check"></i><b>2.3.1</b> Warning in kableExtra. Please specify format in kable. kableExtra can customize either HTML or LaTeX outputs.</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="snippets.html"><a href="snippets.html#creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker"><i class="fa fa-check"></i><b>2.3</b> Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)</a>
+<li class="chapter" data-level="2.4" data-path="snippets.html"><a href="snippets.html#creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker"><i class="fa fa-check"></i><b>2.4</b> Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="snippets.html"><a href="snippets.html#create-basic-reproducible-examples"><i class="fa fa-check"></i><b>2.3.1</b> Create Basic Reproducible Examples</a></li>
-<li class="chapter" data-level="2.3.2" data-path="snippets.html"><a href="snippets.html#holepunch---complex-reproducible-examples"><i class="fa fa-check"></i><b>2.3.2</b> <code>holepunch</code> - Complex Reproducible Examples</a></li>
+<li class="chapter" data-level="2.4.1" data-path="snippets.html"><a href="snippets.html#create-basic-reproducible-examples"><i class="fa fa-check"></i><b>2.4.1</b> Create Basic Reproducible Examples</a></li>
+<li class="chapter" data-level="2.4.2" data-path="snippets.html"><a href="snippets.html#holepunch---complex-reproducible-examples"><i class="fa fa-check"></i><b>2.4.2</b> <code>holepunch</code> - Complex Reproducible Examples</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="snippets.html"><a href="snippets.html#working-with-chis"><i class="fa fa-check"></i><b>2.4</b> Working with CHIs</a>
+<li class="chapter" data-level="2.5" data-path="snippets.html"><a href="snippets.html#working-with-chis"><i class="fa fa-check"></i><b>2.5</b> Working with CHIs</a>
 <ul>
-<li class="chapter" data-level="2.4.1" data-path="snippets.html"><a href="snippets.html#chi_dob---extract-date-of-birth-from-chi"><i class="fa fa-check"></i><b>2.4.1</b> <code>chi_dob()</code> - Extract date of birth from CHI</a></li>
-<li class="chapter" data-level="2.4.2" data-path="snippets.html"><a href="snippets.html#chi_gender---extract-gender-from-chi"><i class="fa fa-check"></i><b>2.4.2</b> <code>chi_gender()</code> - Extract gender from CHI</a></li>
-<li class="chapter" data-level="2.4.3" data-path="snippets.html"><a href="snippets.html#chi_age---extract-age-from-chi"><i class="fa fa-check"></i><b>2.4.3</b> <code>chi_age()</code> - Extract age from CHI</a></li>
-<li class="chapter" data-level="2.4.4" data-path="snippets.html"><a href="snippets.html#chi_valid---logical-test-for-valid-chi"><i class="fa fa-check"></i><b>2.4.4</b> <code>chi_valid()</code> - Logical test for valid CHI</a></li>
+<li class="chapter" data-level="2.5.1" data-path="snippets.html"><a href="snippets.html#chi_dob---extract-date-of-birth-from-chi"><i class="fa fa-check"></i><b>2.5.1</b> <code>chi_dob()</code> - Extract date of birth from CHI</a></li>
+<li class="chapter" data-level="2.5.2" data-path="snippets.html"><a href="snippets.html#chi_gender---extract-gender-from-chi"><i class="fa fa-check"></i><b>2.5.2</b> <code>chi_gender()</code> - Extract gender from CHI</a></li>
+<li class="chapter" data-level="2.5.3" data-path="snippets.html"><a href="snippets.html#chi_age---extract-age-from-chi"><i class="fa fa-check"></i><b>2.5.3</b> <code>chi_age()</code> - Extract age from CHI</a></li>
+<li class="chapter" data-level="2.5.4" data-path="snippets.html"><a href="snippets.html#chi_valid---logical-test-for-valid-chi"><i class="fa fa-check"></i><b>2.5.4</b> <code>chi_valid()</code> - Logical test for valid CHI</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.5</b> Working with dates</a>
+<li class="chapter" data-level="2.6" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.6</b> Working with dates</a>
 <ul>
-<li class="chapter" data-level="2.5.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.5.1</b> Difference between two dates</a></li>
-<li class="chapter" data-level="2.5.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.5.2</b> Lags</a></li>
-<li class="chapter" data-level="2.5.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.5.3</b> Pulling out “change in status” data</a></li>
+<li class="chapter" data-level="2.6.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.6.1</b> Difference between two dates</a></li>
+<li class="chapter" data-level="2.6.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.6.2</b> Lags</a></li>
+<li class="chapter" data-level="2.6.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.6.3</b> Pulling out “change in status” data</a></li>
+<li class="chapter" data-level="2.6.4" data-path="snippets.html"><a href="snippets.html#guess-the-format-of-dates"><i class="fa fa-check"></i><b>2.6.4</b> Guess the Format of Dates</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation</a>
@@ -347,39 +353,39 @@ div.csl-indent {
 <div id="collapse-multiple-no-and-yes-options" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Collapse multiple “no” and “yes” options</h2>
 <p>Common to have to do this in GlobalSurg projects:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="data-manipulation.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb44-2"><a href="data-manipulation.html#cb44-2" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">=</span> <span class="fu">tibble</span>(</span>
-<span id="cb44-3"><a href="data-manipulation.html#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ssi.factor =</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes, no treatment/wound opened only (CD 1)&quot;</span>,    </span>
-<span id="cb44-4"><a href="data-manipulation.html#cb44-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;Yes, antibiotics only (CD 2)&quot;</span>, <span class="st">&quot;Yes, return to operating theatre (CD 3)&quot;</span>, </span>
-<span id="cb44-5"><a href="data-manipulation.html#cb44-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;Yes, requiring critical care admission (CD 4)&quot;</span>, </span>
-<span id="cb44-6"><a href="data-manipulation.html#cb44-6" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;Yes, resulting in death (CD 5)&quot;</span>,</span>
-<span id="cb44-7"><a href="data-manipulation.html#cb44-7" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;Unknown&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb44-8"><a href="data-manipulation.html#cb44-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">factor</span>(),</span>
-<span id="cb44-9"><a href="data-manipulation.html#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">mri.factor =</span> <span class="fu">c</span>(<span class="st">&quot;No, not available&quot;</span>, <span class="st">&quot;No, not indicated&quot;</span>, </span>
-<span id="cb44-10"><a href="data-manipulation.html#cb44-10" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;No, indicated and facilities available, but patient not able to pay&quot;</span>,</span>
-<span id="cb44-11"><a href="data-manipulation.html#cb44-11" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;Unknown&quot;</span>, <span class="st">&quot;Unknown&quot;</span>, <span class="st">&quot;Unknown&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-12"><a href="data-manipulation.html#cb44-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">factor</span>()</span>
-<span id="cb44-13"><a href="data-manipulation.html#cb44-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb44-14"><a href="data-manipulation.html#cb44-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-15"><a href="data-manipulation.html#cb44-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Two functions make this work</span></span>
-<span id="cb44-16"><a href="data-manipulation.html#cb44-16" aria-hidden="true" tabindex="-1"></a>fct_collapse_yn <span class="ot">=</span> <span class="cf">function</span>(.f){</span>
-<span id="cb44-17"><a href="data-manipulation.html#cb44-17" aria-hidden="true" tabindex="-1"></a>  .f <span class="sc">%&gt;%</span> </span>
-<span id="cb44-18"><a href="data-manipulation.html#cb44-18" aria-hidden="true" tabindex="-1"></a>    forcats<span class="sc">::</span><span class="fu">fct_relabel</span>(<span class="sc">~</span> <span class="fu">gsub</span>(<span class="st">&quot;^No.*&quot;</span>, <span class="st">&quot;No&quot;</span>, .)) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-19"><a href="data-manipulation.html#cb44-19" aria-hidden="true" tabindex="-1"></a>    forcats<span class="sc">::</span><span class="fu">fct_relabel</span>(<span class="sc">~</span> <span class="fu">gsub</span>(<span class="st">&quot;^Yes.*&quot;</span>, <span class="st">&quot;Yes&quot;</span>, .))</span>
-<span id="cb44-20"><a href="data-manipulation.html#cb44-20" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb44-21"><a href="data-manipulation.html#cb44-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-22"><a href="data-manipulation.html#cb44-22" aria-hidden="true" tabindex="-1"></a>is.yn <span class="ot">=</span> <span class="cf">function</span>(.data){</span>
-<span id="cb44-23"><a href="data-manipulation.html#cb44-23" aria-hidden="true" tabindex="-1"></a>  .f <span class="ot">=</span> <span class="fu">is.factor</span>(.data)</span>
-<span id="cb44-24"><a href="data-manipulation.html#cb44-24" aria-hidden="true" tabindex="-1"></a>  .yn <span class="ot">=</span> .data <span class="sc">%&gt;%</span> </span>
-<span id="cb44-25"><a href="data-manipulation.html#cb44-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">levels</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb44-26"><a href="data-manipulation.html#cb44-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;(No.+)|(Yes.+)&quot;</span>, .) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-27"><a href="data-manipulation.html#cb44-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">any</span>()</span>
-<span id="cb44-28"><a href="data-manipulation.html#cb44-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">all</span>(.f, .yn)</span>
-<span id="cb44-29"><a href="data-manipulation.html#cb44-29" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb44-30"><a href="data-manipulation.html#cb44-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-31"><a href="data-manipulation.html#cb44-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Raw variable</span></span>
-<span id="cb44-32"><a href="data-manipulation.html#cb44-32" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb44-33"><a href="data-manipulation.html#cb44-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(ssi.factor)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="data-manipulation.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb45-2"><a href="data-manipulation.html#cb45-2" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">=</span> <span class="fu">tibble</span>(</span>
+<span id="cb45-3"><a href="data-manipulation.html#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ssi.factor =</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes, no treatment/wound opened only (CD 1)&quot;</span>,    </span>
+<span id="cb45-4"><a href="data-manipulation.html#cb45-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;Yes, antibiotics only (CD 2)&quot;</span>, <span class="st">&quot;Yes, return to operating theatre (CD 3)&quot;</span>, </span>
+<span id="cb45-5"><a href="data-manipulation.html#cb45-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;Yes, requiring critical care admission (CD 4)&quot;</span>, </span>
+<span id="cb45-6"><a href="data-manipulation.html#cb45-6" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;Yes, resulting in death (CD 5)&quot;</span>,</span>
+<span id="cb45-7"><a href="data-manipulation.html#cb45-7" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;Unknown&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb45-8"><a href="data-manipulation.html#cb45-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">factor</span>(),</span>
+<span id="cb45-9"><a href="data-manipulation.html#cb45-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">mri.factor =</span> <span class="fu">c</span>(<span class="st">&quot;No, not available&quot;</span>, <span class="st">&quot;No, not indicated&quot;</span>, </span>
+<span id="cb45-10"><a href="data-manipulation.html#cb45-10" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;No, indicated and facilities available, but patient not able to pay&quot;</span>,</span>
+<span id="cb45-11"><a href="data-manipulation.html#cb45-11" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;Unknown&quot;</span>, <span class="st">&quot;Unknown&quot;</span>, <span class="st">&quot;Unknown&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-12"><a href="data-manipulation.html#cb45-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">factor</span>()</span>
+<span id="cb45-13"><a href="data-manipulation.html#cb45-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb45-14"><a href="data-manipulation.html#cb45-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-15"><a href="data-manipulation.html#cb45-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Two functions make this work</span></span>
+<span id="cb45-16"><a href="data-manipulation.html#cb45-16" aria-hidden="true" tabindex="-1"></a>fct_collapse_yn <span class="ot">=</span> <span class="cf">function</span>(.f){</span>
+<span id="cb45-17"><a href="data-manipulation.html#cb45-17" aria-hidden="true" tabindex="-1"></a>  .f <span class="sc">%&gt;%</span> </span>
+<span id="cb45-18"><a href="data-manipulation.html#cb45-18" aria-hidden="true" tabindex="-1"></a>    forcats<span class="sc">::</span><span class="fu">fct_relabel</span>(<span class="sc">~</span> <span class="fu">gsub</span>(<span class="st">&quot;^No.*&quot;</span>, <span class="st">&quot;No&quot;</span>, .)) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-19"><a href="data-manipulation.html#cb45-19" aria-hidden="true" tabindex="-1"></a>    forcats<span class="sc">::</span><span class="fu">fct_relabel</span>(<span class="sc">~</span> <span class="fu">gsub</span>(<span class="st">&quot;^Yes.*&quot;</span>, <span class="st">&quot;Yes&quot;</span>, .))</span>
+<span id="cb45-20"><a href="data-manipulation.html#cb45-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb45-21"><a href="data-manipulation.html#cb45-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-22"><a href="data-manipulation.html#cb45-22" aria-hidden="true" tabindex="-1"></a>is.yn <span class="ot">=</span> <span class="cf">function</span>(.data){</span>
+<span id="cb45-23"><a href="data-manipulation.html#cb45-23" aria-hidden="true" tabindex="-1"></a>  .f <span class="ot">=</span> <span class="fu">is.factor</span>(.data)</span>
+<span id="cb45-24"><a href="data-manipulation.html#cb45-24" aria-hidden="true" tabindex="-1"></a>  .yn <span class="ot">=</span> .data <span class="sc">%&gt;%</span> </span>
+<span id="cb45-25"><a href="data-manipulation.html#cb45-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">levels</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb45-26"><a href="data-manipulation.html#cb45-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;(No.+)|(Yes.+)&quot;</span>, .) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-27"><a href="data-manipulation.html#cb45-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">any</span>()</span>
+<span id="cb45-28"><a href="data-manipulation.html#cb45-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">all</span>(.f, .yn)</span>
+<span id="cb45-29"><a href="data-manipulation.html#cb45-29" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb45-30"><a href="data-manipulation.html#cb45-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-31"><a href="data-manipulation.html#cb45-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Raw variable</span></span>
+<span id="cb45-32"><a href="data-manipulation.html#cb45-32" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb45-33"><a href="data-manipulation.html#cb45-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(ssi.factor)</span></code></pre></div>
 <pre><code>## # A tibble: 7 × 2
 ##   ssi.factor                                        n
 ##   &lt;fct&gt;                                         &lt;int&gt;
@@ -390,10 +396,10 @@ div.csl-indent {
 ## 5 Yes, requiring critical care admission (CD 4)     1
 ## 6 Yes, resulting in death (CD 5)                    1
 ## 7 Yes, return to operating theatre (CD 3)           1</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="data-manipulation.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Collapse to _yn version</span></span>
-<span id="cb46-2"><a href="data-manipulation.html#cb46-2" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb46-3"><a href="data-manipulation.html#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.yn), fct_collapse_yn, <span class="at">.names =</span> <span class="st">&quot;{col}_yn&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb46-4"><a href="data-manipulation.html#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(ssi.factor_yn)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="data-manipulation.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Collapse to _yn version</span></span>
+<span id="cb47-2"><a href="data-manipulation.html#cb47-2" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb47-3"><a href="data-manipulation.html#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.yn), fct_collapse_yn, <span class="at">.names =</span> <span class="st">&quot;{col}_yn&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-4"><a href="data-manipulation.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(ssi.factor_yn)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 2
 ##   ssi.factor_yn     n
 ##   &lt;fct&gt;         &lt;int&gt;
@@ -405,13 +411,13 @@ div.csl-indent {
 <h2><span class="header-section-number">3.2</span> Filter NA: Dropping rows where all specified variables are NA</h2>
 <p>I want to keep rows that have a value for <code>important_a</code> and/or <code>important_b</code> (so rows 1, 3, 4).
 I don’t care whether <code>whatever_c</code> is empty or not, but I do want to keep it.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="data-manipulation.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb48-2"><a href="data-manipulation.html#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-3"><a href="data-manipulation.html#cb48-3" aria-hidden="true" tabindex="-1"></a>mydata  <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">important_a =</span> <span class="fu">c</span>(<span class="st">&quot;Value&quot;</span>, <span class="cn">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="cn">NA</span>, <span class="cn">NA</span>),</span>
-<span id="cb48-4"><a href="data-manipulation.html#cb48-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">important_b =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="st">&quot;Value&quot;</span>, <span class="cn">NA</span>),</span>
-<span id="cb48-5"><a href="data-manipulation.html#cb48-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">whatever_c  =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>))</span>
-<span id="cb48-6"><a href="data-manipulation.html#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-7"><a href="data-manipulation.html#cb48-7" aria-hidden="true" tabindex="-1"></a>mydata</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="data-manipulation.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb49-2"><a href="data-manipulation.html#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="data-manipulation.html#cb49-3" aria-hidden="true" tabindex="-1"></a>mydata  <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">important_a =</span> <span class="fu">c</span>(<span class="st">&quot;Value&quot;</span>, <span class="cn">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="cn">NA</span>, <span class="cn">NA</span>),</span>
+<span id="cb49-4"><a href="data-manipulation.html#cb49-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">important_b =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="st">&quot;Value&quot;</span>, <span class="cn">NA</span>),</span>
+<span id="cb49-5"><a href="data-manipulation.html#cb49-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">whatever_c  =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>))</span>
+<span id="cb49-6"><a href="data-manipulation.html#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-7"><a href="data-manipulation.html#cb49-7" aria-hidden="true" tabindex="-1"></a>mydata</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 3
 ##   important_a important_b whatever_c
 ##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
@@ -424,16 +430,16 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 <ol style="list-style-type: decimal">
 <li>This keeps complete cases based on all columns:</li>
 </ol>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="data-manipulation.html#cb50-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb50-2"><a href="data-manipulation.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="data-manipulation.html#cb51-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb51-2"><a href="data-manipulation.html#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 0 × 3
 ## # … with 3 variables: important_a &lt;chr&gt;, important_b &lt;chr&gt;, whatever_c &lt;chr&gt;</code></pre>
 <p>(Returns 0 as we don’t have rows where all 3 columns have a value).</p>
 <ol start="2" style="list-style-type: decimal">
 <li>This keeps complete cases based on specified columns:</li>
 </ol>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="data-manipulation.html#cb52-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb52-2"><a href="data-manipulation.html#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(important_a, important_b)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="data-manipulation.html#cb53-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb53-2"><a href="data-manipulation.html#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(important_a, important_b)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##   important_a important_b whatever_c
 ##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
@@ -442,8 +448,8 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 <ol start="3" style="list-style-type: decimal">
 <li>This keeps rows that have a value in any column:</li>
 </ol>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="data-manipulation.html#cb54-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb54-2"><a href="data-manipulation.html#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_all</span>(<span class="fu">any_vars</span>(<span class="sc">!</span> <span class="fu">is.na</span>(.)))</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="data-manipulation.html#cb55-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb55-2"><a href="data-manipulation.html#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_all</span>(<span class="fu">any_vars</span>(<span class="sc">!</span> <span class="fu">is.na</span>(.)))</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 3
 ##   important_a important_b whatever_c
 ##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
@@ -452,8 +458,8 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 ## 3 Value       Value       &lt;NA&gt;      
 ## 4 &lt;NA&gt;        Value       &lt;NA&gt;</code></pre>
 <p>The third example is better achieved using the janitor package:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="data-manipulation.html#cb56-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb56-2"><a href="data-manipulation.html#cb56-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">remove_empty</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="data-manipulation.html#cb57-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb57-2"><a href="data-manipulation.html#cb57-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">remove_empty</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 3
 ##   important_a important_b whatever_c
 ##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
@@ -466,8 +472,8 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 <li>Simple solution</li>
 </ol>
 <p>A quick solution is to use <code>! is.na()</code> for each variable inside a <code>filter()</code>:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="data-manipulation.html#cb58-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb58-2"><a href="data-manipulation.html#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span> <span class="fu">is.na</span>(important_a) <span class="sc">|</span> <span class="sc">!</span> <span class="fu">is.na</span>(important_b))</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="data-manipulation.html#cb59-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb59-2"><a href="data-manipulation.html#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span> <span class="fu">is.na</span>(important_a) <span class="sc">|</span> <span class="sc">!</span> <span class="fu">is.na</span>(important_b))</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
 ##   important_a important_b whatever_c
 ##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
@@ -479,8 +485,8 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 <li>Powerful solution:</li>
 </ol>
 <p>A scalable solution is to use <code>filter_at()</code> with <code>vars()</code> with a select helper (e.g., <code>starts with()</code>), and then the <code>any_vars(! is.na(.))</code> that was introduced in (3).</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="data-manipulation.html#cb60-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb60-2"><a href="data-manipulation.html#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_at</span>(<span class="fu">vars</span>(<span class="fu">starts_with</span>(<span class="st">&quot;important_&quot;</span>)), <span class="fu">any_vars</span>(<span class="sc">!</span> <span class="fu">is.na</span>(.)))</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="data-manipulation.html#cb61-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb61-2"><a href="data-manipulation.html#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_at</span>(<span class="fu">vars</span>(<span class="fu">starts_with</span>(<span class="st">&quot;important_&quot;</span>)), <span class="fu">any_vars</span>(<span class="sc">!</span> <span class="fu">is.na</span>(.)))</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
 ##   important_a important_b whatever_c
 ##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
@@ -492,14 +498,14 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 <h2><span class="header-section-number">3.3</span> Vectorising rowwise procedures</h2>
 <p>We frequently have to aggregate across columns. <code>dplyr::rowwise()</code> is the <code>group_by()</code> equivalent for rows. But this is painfully slow for large datasets.</p>
 <p>The following works beautifully and allows tidyselect of variable names.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="data-manipulation.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb62-2"><a href="data-manipulation.html#cb62-2" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">a =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="cn">NA</span>),</span>
-<span id="cb62-3"><a href="data-manipulation.html#cb62-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">b =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="cn">NA</span>),</span>
-<span id="cb62-4"><a href="data-manipulation.html#cb62-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">c =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="cn">NA</span>),</span>
-<span id="cb62-5"><a href="data-manipulation.html#cb62-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">d =</span> <span class="fu">c</span>(<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>))</span>
-<span id="cb62-6"><a href="data-manipulation.html#cb62-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-7"><a href="data-manipulation.html#cb62-7" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb62-8"><a href="data-manipulation.html#cb62-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">s =</span> <span class="fu">pmap_dbl</span>(<span class="fu">select</span>(., a<span class="sc">:</span>d), pmax, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="data-manipulation.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb63-2"><a href="data-manipulation.html#cb63-2" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">a =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="cn">NA</span>),</span>
+<span id="cb63-3"><a href="data-manipulation.html#cb63-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">b =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="cn">NA</span>),</span>
+<span id="cb63-4"><a href="data-manipulation.html#cb63-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">c =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="cn">NA</span>),</span>
+<span id="cb63-5"><a href="data-manipulation.html#cb63-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">d =</span> <span class="fu">c</span>(<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>))</span>
+<span id="cb63-6"><a href="data-manipulation.html#cb63-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-7"><a href="data-manipulation.html#cb63-7" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb63-8"><a href="data-manipulation.html#cb63-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">s =</span> <span class="fu">pmap_dbl</span>(<span class="fu">select</span>(., a<span class="sc">:</span>d), pmax, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 5
 ##       a     b     c d         s
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;dbl&gt;
@@ -519,7 +525,6 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -560,7 +565,7 @@ gitbook.start({
 },
 "download": ["cookbook.pdf", "cookbook.epub"],
 "search": {
-"engine": "lunr",
+"engine": "fuse",
 "options": null
 },
 "toc": {
