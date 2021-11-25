@@ -37,6 +37,9 @@ example-data
 compute-time-from-op-date-to-current-review
 pull-out-change-of-status
 run-cph
+labelling-tables-and-figures-in-markdown-chunks
+plots
+tables
 data-manipulation
 collapse-multiple-no-and-yes-options
 filter-na-dropping-rows-where-all-specified-variables-are-na

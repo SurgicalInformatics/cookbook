@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Snippets | The Surgical Informatics Cookbook</title>
   <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Snippets | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
@@ -24,11 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<<<<<<< HEAD
 <meta name="date" content="2021-11-24" />
-=======
-<meta name="date" content="2021-09-09" />
->>>>>>> 7df02c2b16394b7a4a1e821a6ca4c20e19593b92
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -39,7 +35,6 @@
 <link rel="next" href="data-manipulation.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -47,6 +42,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
 
 
 
@@ -208,6 +204,11 @@ div.csl-indent {
 <li class="chapter" data-level="2.6.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.6.2</b> Lags</a></li>
 <li class="chapter" data-level="2.6.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.6.3</b> Pulling out “change in status” data</a></li>
 <li class="chapter" data-level="2.6.4" data-path="snippets.html"><a href="snippets.html#guess-the-format-of-dates"><i class="fa fa-check"></i><b>2.6.4</b> Guess the Format of Dates</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="snippets.html"><a href="snippets.html#labelling-tables-and-figures-in-markdown-chunks"><i class="fa fa-check"></i><b>2.7</b> Labelling tables and figures in markdown chunks</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="snippets.html"><a href="snippets.html#plots"><i class="fa fa-check"></i><b>2.7.1</b> Plots</a></li>
+<li class="chapter" data-level="2.7.2" data-path="snippets.html"><a href="snippets.html#tables"><i class="fa fa-check"></i><b>2.7.2</b> Tables</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation</a>
@@ -623,11 +624,7 @@ A test for even is <code>x modulus 2 == 0</code>.</p>
 <span id="cb18-7"><a href="snippets.html#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-8"><a href="snippets.html#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Today</span></span>
 <span id="cb18-9"><a href="snippets.html#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">chi_age</span>(chi, <span class="fu">Sys.time</span>())</span></code></pre></div>
-<<<<<<< HEAD
 <pre><code>## [1] 51 78 72</code></pre>
-=======
-<pre><code>## [1] 51 77 72</code></pre>
->>>>>>> 7df02c2b16394b7a4a1e821a6ca4c20e19593b92
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="snippets.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Single date</span></span>
 <span id="cb20-2"><a href="snippets.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
 <span id="cb20-3"><a href="snippets.html#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chi_age</span>(chi, <span class="fu">dmy</span>(<span class="st">&quot;11/09/2018&quot;</span>))</span></code></pre></div>
@@ -649,11 +646,7 @@ A test for even is <code>x modulus 2 == 0</code>.</p>
 ##   chi        dob        gender   age
 ##   &lt;chr&gt;      &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt;
 ## 1 1009701234 1970-09-10 Male      51
-<<<<<<< HEAD
 ## 2 1811431232 1943-11-18 Male      78
-=======
-## 2 1811431232 1943-11-18 Male      77
->>>>>>> 7df02c2b16394b7a4a1e821a6ca4c20e19593b92
 ## 3 1304496368 1949-04-13 Female    72</code></pre>
 </div>
 <div id="chi_valid---logical-test-for-valid-chi" class="section level3" number="2.5.4">
@@ -687,11 +680,7 @@ A test for even is <code>x modulus 2 == 0</code>.</p>
 ##   chi        dob        gender   age chi_valid
 ##   &lt;chr&gt;      &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt;    
 ## 1 1009701234 1970-09-10 Male      51 FALSE    
-<<<<<<< HEAD
 ## 2 1811431232 1943-11-18 Male      78 TRUE     
-=======
-## 2 1811431232 1943-11-18 Male      77 TRUE     
->>>>>>> 7df02c2b16394b7a4a1e821a6ca4c20e19593b92
 ## 3 1304496368 1949-04-13 Female    72 TRUE</code></pre>
 </div>
 </div>
@@ -875,8 +864,27 @@ I often want days as a numeric, not a lubridate type object.</p>
 ##         HR (multivariable)
 ##                          -
 ##  0.76 (0.10-5.51, p=0.786)</code></pre>
-
 </div>
+</div>
+</div>
+<div id="labelling-tables-and-figures-in-markdown-chunks" class="section level2" number="2.7">
+<h2><span class="header-section-number">2.7</span> Labelling tables and figures in markdown chunks</h2>
+<div id="plots" class="section level3" number="2.7.1">
+<h3><span class="header-section-number">2.7.1</span> Plots</h3>
+<p>I have made a plot and it looks nice (See Figure <code>\ref{fig:a-nice-plot}</code>)</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb45-1"><a href="snippets.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig.cap=&quot;A nice plot.\\label{fig:a-nice-plot}}</span></span>
+<span id="cb45-2"><a href="snippets.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="in">ggplot(mydata, aes(x = x)) +</span></span>
+<span id="cb45-3"><a href="snippets.html#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_histogram()</span></span>
+<span id="cb45-4"><a href="snippets.html#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+</div>
+<div id="tables" class="section level3" number="2.7.2">
+<h3><span class="header-section-number">2.7.2</span> Tables</h3>
+<p>I have made a table and it looks nice (See Table <code>\ref{tab:a-nice-table}</code>)</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb46-1"><a href="snippets.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb46-2"><a href="snippets.html#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="in">library(knitr)</span></span>
+<span id="cb46-3"><a href="snippets.html#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="in">kable(mtcars[1:3,1:4], caption=&quot;A nice table.\\label{tab:a-nice-table}&quot;)</span></span>
+<span id="cb46-4"><a href="snippets.html#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+
 </div>
 </div>
 </div>
@@ -890,6 +898,7 @@ I often want days as a numeric, not a lubridate type object.</p>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -930,7 +939,7 @@ gitbook.start({
 },
 "download": ["cookbook.pdf", "cookbook.epub"],
 "search": {
-"engine": "fuse",
+"engine": "lunr",
 "options": null
 },
 "toc": {

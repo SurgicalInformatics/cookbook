@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.9.8)  9 SEP 2021 20:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.9.8)  24 NOV 2021 17:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -606,7 +606,7 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 3.
 [3]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 7
-1.
+4.
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ))
@@ -614,19 +614,22 @@ File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 \openout4 = `cookbook.toc'.
 
 [4]
-</home/common/users/cfairfield/cookbook/img/surgical_informatics_minibanner.png
-, id=125, 1119.18124pt x 439.6425pt>
-File: /home/common/users/cfairfield/cookbook/img/surgical_informatics_minibanne
-r.png Graphic file (type png)
-<use /home/common/users/cfairfield/cookbook/img/surgical_informatics_minibanner
-.png>
-Package pdftex.def Info: /home/common/users/cfairfield/cookbook/img/surgical_in
-formatics_minibanner.png  used on input line 147.
-(pdftex.def)             Requested size: 344.99579pt x 135.523pt.
+</home/eharrison/cookbook/img/surgical_informatics_minibanner.png, id=127, 1119
+.18124pt x 439.6425pt>
+File: /home/eharrison/cookbook/img/surgical_informatics_minibanner.png Graphic 
+file (type png)
+<use /home/eharrison/cookbook/img/surgical_informatics_minibanner.png>
+Package pdftex.def Info: /home/eharrison/cookbook/img/surgical_informatics_mini
+banner.png  used on input line 147.
+(pdftex.def)             Requested size: 1119.21266pt x 439.65483pt.
+
+Overfull \hbox (774.21266pt too wide) in paragraph at lines 147--148
+[] 
+ []
+
 [5
 
- </home/common/users/cfairfield/cookbook/img/surgical_informatics_minibanner.pn
-g>] [6
+ </home/eharrison/cookbook/img/surgical_informatics_minibanner.png>] [6
 
 ]
 Chapter 1.
@@ -636,7 +639,7 @@ LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line
 (/usr/share/texmf/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-<01-intro_files/figure-latex/nice-fig-1.pdf, id=154, 464.73625pt x 351.3125pt>
+<01-intro_files/figure-latex/nice-fig-1.pdf, id=156, 464.73625pt x 351.3125pt>
 File: 01-intro_files/figure-latex/nice-fig-1.pdf Graphic file (type pdf)
 <use 01-intro_files/figure-latex/nice-fig-1.pdf>
 Package pdftex.def Info: 01-intro_files/figure-latex/nice-fig-1.pdf  used on in
@@ -769,16 +772,29 @@ Overfull \hbox (27.74892pt too wide) in paragraph at lines 962--962
 , p=0.786)[] 
  []
 
-[23] [24
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[23]
+
+LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
+(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 974.
+
+
+LaTeX Font Warning: Font shape `TS1/lmtt/bx/it' in size <10> not available
+(Font)              Font shape `TS1/lmtt/b/sl' tried instead on input line 974.
+
+
+[24]
+Chapter 3.
+[25
 
 ]
-Chapter 3.
-[25]
-Overfull \vbox (1.4403pt too high) detected at line 1057
+Overfull \vbox (1.4403pt too high) detected at line 1088
  []
 
 [26]
-Overfull \hbox (80.24876pt too wide) in paragraph at lines 1089--1089
+Overfull \hbox (80.24876pt too wide) in paragraph at lines 1120--1120
 []\T1/lmtt/m/n/10 ## # ... with 3 variables: important_a <chr>, important_b <ch
 r>, whatever_c <chr>[] 
  []
@@ -796,49 +812,38 @@ Chapter 4.
 [31] [32]
 Chapter 5.
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-346.
+377.
 (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [33
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 1364--1366
+Underfull \hbox (badness 10000) in paragraph at lines 1395--1397
 
  []
 
-[34] [35] [36] [37] [38]
-
-LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 1583.
-
-
-
-LaTeX Font Warning: Font shape `TS1/lmtt/bx/it' in size <10> not available
-(Font)              Font shape `TS1/lmtt/b/sl' tried instead on input line 1627
-.
-
-[39] [40]
-Underfull \hbox (badness 1292) in paragraph at lines 1657--1658
+[34] [35] [36] [37] [38] [39] [40]
+Underfull \hbox (badness 1292) in paragraph at lines 1688--1689
 \T1/lmr/m/n/10 (+20) which may be \T1/lmtt/m/n/10 /exports/applications/apps/SL
 7/R/3.5.3/lib64/R/etc/\T1/lmr/m/n/10 (+20) .
  []
 
 [41]
-Underfull \vbox (badness 10000) detected at line 1727
+Underfull \vbox (badness 10000) detected at line 1758
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1727
+Underfull \vbox (badness 10000) detected at line 1758
  []
 
 [42] [43] [44]
 Chapter 6.
-<06-plotting_files/figure-latex/gghighlight-1.pdf, id=473, 455.7025pt x 315.177
+<06-plotting_files/figure-latex/gghighlight-1.pdf, id=480, 455.7025pt x 315.177
 5pt>
 File: 06-plotting_files/figure-latex/gghighlight-1.pdf Graphic file (type pdf)
 <use 06-plotting_files/figure-latex/gghighlight-1.pdf>
 Package pdftex.def Info: 06-plotting_files/figure-latex/gghighlight-1.pdf  used
- on input line 1816.
+ on input line 1847.
 (pdftex.def)             Requested size: 345.00937pt x 238.61882pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -847,98 +852,94 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 1819.
-<06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf, id=479, 453.695pt x 313.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 1850.
+<06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf, id=486, 453.695pt x 313.
 17pt>
 File: 06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type p
 df)
 <use 06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf>
 Package pdftex.def Info: 06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf  
-used on input line 1833.
+used on input line 1864.
 (pdftex.def)             Requested size: 344.9987pt x 238.14069pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [46 <./06-plotting_files/figure-latex/gghighlight-1.pdf>]
-<06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf, id=496, 453.695pt x 313.
+<06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf, id=503, 453.695pt x 313.
 17pt>
 File: 06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf Graphic file (type p
 df)
 <use 06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf>
 Package pdftex.def Info: 06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf  
-used on input line 1847.
+used on input line 1878.
 (pdftex.def)             Requested size: 344.9987pt x 238.14069pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [47 <./06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf>]
-<06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf, id=510, 453.695pt x 313.
+<06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf, id=517, 453.695pt x 313.
 17pt>
 File: 06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf Graphic file (type p
 df)
 <use 06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf>
 Package pdftex.def Info: 06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf  
-used on input line 1865.
+used on input line 1896.
 (pdftex.def)             Requested size: 344.9987pt x 238.14069pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [48 <./06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf>]
-<06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf, id=522, 199.74625pt x 13
+<06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf, id=529, 199.74625pt x 13
 6.51pt>
 File: 06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type p
 df)
 <use 06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf>
 Package pdftex.def Info: 06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf  
-used on input line 1894.
+used on input line 1925.
 (pdftex.def)             Requested size: 199.7549pt x 136.5159pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [49 <./06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf>]
-</home/common/users/cfairfield/cookbook/img/barplot_5x4.png, id=536, 361.35pt x
- 289.08pt>
-File: /home/common/users/cfairfield/cookbook/img/barplot_5x4.png Graphic file (
-type png)
-<use /home/common/users/cfairfield/cookbook/img/barplot_5x4.png>
-Package pdftex.def Info: /home/common/users/cfairfield/cookbook/img/barplot_5x4
-.png  used on input line 1912.
+</home/eharrison/cookbook/img/barplot_5x4.png, id=543, 361.35pt x 289.08pt>
+File: /home/eharrison/cookbook/img/barplot_5x4.png Graphic file (type png)
+<use /home/eharrison/cookbook/img/barplot_5x4.png>
+Package pdftex.def Info: /home/eharrison/cookbook/img/barplot_5x4.png  used on 
+input line 1943.
 (pdftex.def)             Requested size: 172.49767pt x 137.99812pt.
-</home/common/users/cfairfield/cookbook/img/barplot_10x8.png, id=537, 722.7pt x
- 578.16pt>
-File: /home/common/users/cfairfield/cookbook/img/barplot_10x8.png Graphic file 
-(type png)
-<use /home/common/users/cfairfield/cookbook/img/barplot_10x8.png>
-Package pdftex.def Info: /home/common/users/cfairfield/cookbook/img/barplot_10x
-8.png  used on input line 1913.
+</home/eharrison/cookbook/img/barplot_10x8.png, id=544, 722.7pt x 578.16pt>
+File: /home/eharrison/cookbook/img/barplot_10x8.png Graphic file (type png)
+<use /home/eharrison/cookbook/img/barplot_10x8.png>
+Package pdftex.def Info: /home/eharrison/cookbook/img/barplot_10x8.png  used on
+ input line 1944.
 (pdftex.def)             Requested size: 172.49214pt x 137.99371pt.
 
-Overfull \hbox (2.21202pt too wide) in paragraph at lines 1912--1914
+Overfull \hbox (2.21202pt too wide) in paragraph at lines 1943--1945
 [][] [] 
  []
 
-<06-plotting_files/figure-latex/dag_big_nodes_part_1-1.pdf, id=538, 462.72874pt
- x 313.17pt>
+<06-plotting_files/figure-latex/dag_big_nodes_part_1-1.pdf, id=545, 457.71pt x 
+313.17pt>
 File: 06-plotting_files/figure-latex/dag_big_nodes_part_1-1.pdf Graphic file (t
 ype pdf)
 <use 06-plotting_files/figure-latex/dag_big_nodes_part_1-1.pdf>
 Package pdftex.def Info: 06-plotting_files/figure-latex/dag_big_nodes_part_1-1.
-pdf  used on input line 1929.
-(pdftex.def)             Requested size: 345.00517pt x 233.4959pt.
+pdf  used on input line 1960.
+(pdftex.def)             Requested size: 345.01372pt x 236.062pt.
 
 Underfull \vbox (badness 1460) has occurred while \output is active []
 
-[50 <./06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf> </home/common/user
-s/cfairfield/cookbook/img/barplot_5x4.png (PNG copy)> </home/common/users/cfair
-field/cookbook/img/barplot_10x8.png (PNG copy)>]
-<06-plotting_files/figure-latex/dag_big_nodes_part_2-1.pdf, id=551, 462.72874pt
- x 313.17pt>
+[50 <./06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf> </home/eharrison/c
+ookbook/img/barplot_5x4.png (PNG copy)> </home/eharrison/cookbook/img/barplot_1
+0x8.png (PNG copy)>]
+<06-plotting_files/figure-latex/dag_big_nodes_part_2-1.pdf, id=558, 457.71pt x 
+313.17pt>
 File: 06-plotting_files/figure-latex/dag_big_nodes_part_2-1.pdf Graphic file (t
 ype pdf)
 <use 06-plotting_files/figure-latex/dag_big_nodes_part_2-1.pdf>
 Package pdftex.def Info: 06-plotting_files/figure-latex/dag_big_nodes_part_2-1.
-pdf  used on input line 1949.
-(pdftex.def)             Requested size: 345.00517pt x 233.4959pt.
+pdf  used on input line 1980.
+(pdftex.def)             Requested size: 345.01372pt x 236.062pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -946,7 +947,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 otting_files/figure-latex/dag_big_nodes_part_2-1.pdf>]
 Chapter 7.
 
-Overfull \vbox (0.52762pt too high) detected at line 1991
+Overfull \vbox (0.52762pt too high) detected at line 2022
  []
 
 [53
@@ -963,7 +964,7 @@ Underfull \vbox (badness 4168) has occurred while \output is active []
 [57
 
 ]
-Underfull \hbox (badness 3872) in paragraph at lines 2124--2124
+Underfull \hbox (badness 3872) in paragraph at lines 2155--2155
 []\T1/lmr/bx/n/14.4 Shiny server open-source setup - UoE
  []
 
@@ -972,12 +973,17 @@ Underfull \vbox (badness 4108) has occurred while \output is active []
 
 [60] [61] [62] [63] [64]
 Chapter 10.
-<img/zotero_add_on_install.png, id=673, 797.379pt x 502.87875pt>
+<img/zotero_add_on_install.png, id=680, 797.379pt x 502.87875pt>
 File: img/zotero_add_on_install.png Graphic file (type png)
 <use img/zotero_add_on_install.png>
-Package pdftex.def Info: img/zotero_add_on_install.png  used on input line 2442
+Package pdftex.def Info: img/zotero_add_on_install.png  used on input line 2472
 .
-(pdftex.def)             Requested size: 344.99551pt x 217.57648pt.
+(pdftex.def)             Requested size: 797.37706pt x 502.87752pt.
+
+Overfull \hbox (452.37706pt too wide) in paragraph at lines 2472--2472
+[][]
+ []
+
 [65
 
 ] [66pdfTeX warning (ext4): destination with the same identifier (name{figure.1
@@ -985,77 +991,95 @@ Package pdftex.def Info: img/zotero_add_on_install.png  used on input line 2442
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.2472 
+l.2481 
         <./img/zotero_add_on_install.png>]
 <img/zotfile_preferences.png, id=696, 963.6pt x 510.10574pt>
 File: img/zotfile_preferences.png Graphic file (type png)
 <use img/zotfile_preferences.png>
-Package pdftex.def Info: img/zotfile_preferences.png  used on input line 2483.
-(pdftex.def)             Requested size: 344.99901pt x 182.63383pt.
+Package pdftex.def Info: img/zotfile_preferences.png  used on input line 2511.
+(pdftex.def)             Requested size: 963.61235pt x 510.11227pt.
 
-Overfull \hbox (49.53105pt too wide) in paragraph at lines 2487--2488
+Overfull \hbox (618.61235pt too wide) in paragraph at lines 2511--2511
+[][]
+ []
+
+
+Overfull \hbox (49.53105pt too wide) in paragraph at lines 2514--2515
 \T1/lmtt/m/n/10 Fairfield_2019_Gallstone_Disease_and_the_Risk_of_Cardiovascular
 _Disease.pdf\T1/lmr/m/n/10 (-20) .
  []
 
-<img/zotfile_renaming.png, id=697, 964.20226pt x 513.117pt>
+[67] [68pdfTeX warning (ext4): destination with the same identifier (name{figur
+e.10.2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.2515 
+        <./img/zotfile_preferences.png>]
+<img/zotfile_renaming.png, id=718, 964.20226pt x 513.117pt>
 File: img/zotfile_renaming.png Graphic file (type png)
 <use img/zotfile_renaming.png>
-Package pdftex.def Info: img/zotfile_renaming.png  used on input line 2491.
-(pdftex.def)             Requested size: 344.99394pt x 183.59453pt.
-[67pdfTeX warning (ext4): destination with the same identifier (name{figure.10.
-2}) has been already used, duplicate ignored
+Package pdftex.def Info: img/zotfile_renaming.png  used on input line 2517.
+(pdftex.def)             Requested size: 964.28818pt x 513.16272pt.
 
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.2493 \end{figure}
-                    <./img/zotfile_preferences.png>] [68pdfTeX warning (ext4): 
-destination with the same identifier (name{figure.10.3}) has been already used,
- duplicate ignored
+Overfull \hbox (619.28818pt too wide) in paragraph at lines 2517--2517
+[][]
+ []
 
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.2527 
-        <./img/zotfile_renaming.png>]
-Underfull \hbox (badness 1533) in paragraph at lines 2534--2536
+
+Underfull \hbox (badness 1533) in paragraph at lines 2559--2561
 []\T1/lmr/bx/n/10 Better Bib-Tex: \T1/lmr/m/n/10 (+20) + In this sec-tion set t
 he Ci-ta-tion Key for-mat to
  []
 
 
-Overfull \hbox (89.5249pt too wide) in paragraph at lines 2534--2536
+Overfull \hbox (89.5249pt too wide) in paragraph at lines 2559--2561
 \T1/lmr/m/n/10 (-20) [auth:lower:alphanum]\T1/lmr/m/it/10 (-20) [year:alphanum]
 \T1/lmr/m/n/10 (-20) [veryshorttitle:lower:alphanum]_[journal:lower:clean:alpha
 num]
  []
 
-<img/zotero_citation_key.png, id=715, 962.99776pt x 511.9125pt>
-File: img/zotero_citation_key.png Graphic file (type png)
-<use img/zotero_citation_key.png>
-Package pdftex.def Info: img/zotero_citation_key.png  used on input line 2541.
-(pdftex.def)             Requested size: 345.0038pt x 183.39789pt.
-[69pdfTeX warning (ext4): destination with the same identifier (name{figure.10.
-4}) has been already used, duplicate ignored
+[69] [70pdfTeX warning (ext4): destination with the same identifier (name{figur
+e.10.3}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.2554 
-        <./img/zotero_citation_key.png>] [70] [71] [72] (./cookbook.bbl [73] [7
-4
+l.2563 
+        <./img/zotfile_renaming.png>]
+<img/zotero_citation_key.png, id=730, 962.99776pt x 511.9125pt>
+File: img/zotero_citation_key.png Graphic file (type png)
+<use img/zotero_citation_key.png>
+Package pdftex.def Info: img/zotero_citation_key.png  used on input line 2565.
+(pdftex.def)             Requested size: 962.9954pt x 511.91125pt.
+
+Overfull \hbox (617.9954pt too wide) in paragraph at lines 2565--2565
+[][]
+ []
+
+[71] [72pdfTeX warning (ext4): destination with the same identifier (name{figur
+e.10.4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.2590 
+        <./img/zotero_citation_key.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[73] [74] (./cookbook.bbl [75] [76
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2675.
-[75]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2675.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2698.
+[77]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2698.
 (./cookbook.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2675.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 2675.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2698.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 2698.
  ) 
 Here is how much of TeX's memory you used:
- 15660 strings out of 483183
- 231640 string characters out of 5966293
- 518067 words of memory out of 5000000
- 29905 multiletter control sequences out of 15000+600000
+ 15682 strings out of 483183
+ 231867 string characters out of 5966293
+ 519223 words of memory out of 5000000
+ 29919 multiletter control sequences out of 15000+600000
  611033 words of font info for 134 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  41i,10n,42p,1181b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1068,10 +1092,10 @@ m/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf
 /type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtko10.pfb
 ></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf/fonts/typ
 e1/public/lm/lmtti10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtto10.pfb>
-Output written on cookbook.pdf (75 pages, 1984522 bytes).
+Output written on cookbook.pdf (77 pages, 1987047 bytes).
 PDF statistics:
- 1019 PDF objects out of 1200 (max. 8388607)
- 888 compressed objects within 9 object streams
- 336 named destinations out of 1000 (max. 500000)
- 14788 words of extra memory for PDF output out of 17280 (max. 10000000)
+ 1040 PDF objects out of 1200 (max. 8388607)
+ 906 compressed objects within 10 object streams
+ 344 named destinations out of 1000 (max. 500000)
+ 14796 words of extra memory for PDF output out of 17280 (max. 10000000)
 

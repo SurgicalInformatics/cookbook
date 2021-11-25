@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Machine learning | The Surgical Informatics Cookbook</title>
   <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Machine learning | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
@@ -24,11 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<<<<<<< HEAD
 <meta name="date" content="2021-11-24" />
-=======
-<meta name="date" content="2021-09-09" />
->>>>>>> 7df02c2b16394b7a4a1e821a6ca4c20e19593b92
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -39,7 +35,6 @@
 <link rel="next" href="data-transfer-and-eddie.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -47,6 +42,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
 
 
 
@@ -209,6 +205,11 @@ div.csl-indent {
 <li class="chapter" data-level="2.6.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.6.3</b> Pulling out “change in status” data</a></li>
 <li class="chapter" data-level="2.6.4" data-path="snippets.html"><a href="snippets.html#guess-the-format-of-dates"><i class="fa fa-check"></i><b>2.6.4</b> Guess the Format of Dates</a></li>
 </ul></li>
+<li class="chapter" data-level="2.7" data-path="snippets.html"><a href="snippets.html#labelling-tables-and-figures-in-markdown-chunks"><i class="fa fa-check"></i><b>2.7</b> Labelling tables and figures in markdown chunks</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="snippets.html"><a href="snippets.html#plots"><i class="fa fa-check"></i><b>2.7.1</b> Plots</a></li>
+<li class="chapter" data-level="2.7.2" data-path="snippets.html"><a href="snippets.html#tables"><i class="fa fa-check"></i><b>2.7.2</b> Tables</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation</a>
 <ul>
@@ -356,66 +357,66 @@ div.csl-indent {
 <h3><span class="header-section-number">4.1.1</span> Pulling images from REDCap directly to argodeep</h3>
 <div id="original-file-names" class="section level4" number="4.1.1.1">
 <h4><span class="header-section-number">4.1.1.1</span> Original file names</h4>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="machine-learning.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(REDCapR)</span>
-<span id="cb65-2"><a href="machine-learning.html#cb65-2" aria-hidden="true" tabindex="-1"></a>uri <span class="ot">=</span> <span class="st">&quot;https://redcap.cir.ed.ac.uk/api/&quot;</span></span>
-<span id="cb65-3"><a href="machine-learning.html#cb65-3" aria-hidden="true" tabindex="-1"></a>token <span class="ot">=</span> <span class="st">&quot;&quot;</span> <span class="co"># API token here</span></span>
-<span id="cb65-4"><a href="machine-learning.html#cb65-4" aria-hidden="true" tabindex="-1"></a>record_list <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">318</span></span>
-<span id="cb65-5"><a href="machine-learning.html#cb65-5" aria-hidden="true" tabindex="-1"></a>field_list <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;photo&quot;</span>, <span class="st">&quot;photo_2&quot;</span>, <span class="st">&quot;photo_3&quot;</span>, <span class="st">&quot;photo_4&quot;</span>)</span>
-<span id="cb65-6"><a href="machine-learning.html#cb65-6" aria-hidden="true" tabindex="-1"></a>event_list <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;wound_concerns_arm_2&quot;</span>, <span class="st">&quot;questionnaire_1_arm_2&quot;</span>,</span>
-<span id="cb65-7"><a href="machine-learning.html#cb65-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;questionnaire_2_arm_2&quot;</span>, <span class="st">&quot;questionnaire_3_arm_2&quot;</span>)</span>
-<span id="cb65-8"><a href="machine-learning.html#cb65-8" aria-hidden="true" tabindex="-1"></a>directory <span class="ot">=</span> <span class="st">&quot;wound_raw&quot;</span> <span class="co"># destination directory must exist already</span></span>
-<span id="cb65-9"><a href="machine-learning.html#cb65-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-10"><a href="machine-learning.html#cb65-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-11"><a href="machine-learning.html#cb65-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(record <span class="cf">in</span> record_list){</span>
-<span id="cb65-12"><a href="machine-learning.html#cb65-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(field <span class="cf">in</span> field_list){</span>
-<span id="cb65-13"><a href="machine-learning.html#cb65-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(event <span class="cf">in</span> event_list){</span>
-<span id="cb65-14"><a href="machine-learning.html#cb65-14" aria-hidden="true" tabindex="-1"></a>      result <span class="ot">=</span> </span>
-<span id="cb65-15"><a href="machine-learning.html#cb65-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tryCatch</span>({      <span class="co"># suppress breaking error when no image in slot</span></span>
-<span id="cb65-16"><a href="machine-learning.html#cb65-16" aria-hidden="true" tabindex="-1"></a>          <span class="fu">redcap_download_file_oneshot</span>(</span>
-<span id="cb65-17"><a href="machine-learning.html#cb65-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">record        =</span> record,</span>
-<span id="cb65-18"><a href="machine-learning.html#cb65-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">field         =</span> field,</span>
-<span id="cb65-19"><a href="machine-learning.html#cb65-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">redcap_uri    =</span> uri,</span>
-<span id="cb65-20"><a href="machine-learning.html#cb65-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">token         =</span> token,</span>
-<span id="cb65-21"><a href="machine-learning.html#cb65-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">event         =</span> event,</span>
-<span id="cb65-22"><a href="machine-learning.html#cb65-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">overwrite     =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb65-23"><a href="machine-learning.html#cb65-23" aria-hidden="true" tabindex="-1"></a>            <span class="at">directory     =</span> directory</span>
-<span id="cb65-24"><a href="machine-learning.html#cb65-24" aria-hidden="true" tabindex="-1"></a>          )</span>
-<span id="cb65-25"><a href="machine-learning.html#cb65-25" aria-hidden="true" tabindex="-1"></a>        }, <span class="at">error=</span><span class="cf">function</span>(e){})</span>
-<span id="cb65-26"><a href="machine-learning.html#cb65-26" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb65-27"><a href="machine-learning.html#cb65-27" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb65-28"><a href="machine-learning.html#cb65-28" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="machine-learning.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(REDCapR)</span>
+<span id="cb67-2"><a href="machine-learning.html#cb67-2" aria-hidden="true" tabindex="-1"></a>uri <span class="ot">=</span> <span class="st">&quot;https://redcap.cir.ed.ac.uk/api/&quot;</span></span>
+<span id="cb67-3"><a href="machine-learning.html#cb67-3" aria-hidden="true" tabindex="-1"></a>token <span class="ot">=</span> <span class="st">&quot;&quot;</span> <span class="co"># API token here</span></span>
+<span id="cb67-4"><a href="machine-learning.html#cb67-4" aria-hidden="true" tabindex="-1"></a>record_list <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">318</span></span>
+<span id="cb67-5"><a href="machine-learning.html#cb67-5" aria-hidden="true" tabindex="-1"></a>field_list <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;photo&quot;</span>, <span class="st">&quot;photo_2&quot;</span>, <span class="st">&quot;photo_3&quot;</span>, <span class="st">&quot;photo_4&quot;</span>)</span>
+<span id="cb67-6"><a href="machine-learning.html#cb67-6" aria-hidden="true" tabindex="-1"></a>event_list <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;wound_concerns_arm_2&quot;</span>, <span class="st">&quot;questionnaire_1_arm_2&quot;</span>,</span>
+<span id="cb67-7"><a href="machine-learning.html#cb67-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;questionnaire_2_arm_2&quot;</span>, <span class="st">&quot;questionnaire_3_arm_2&quot;</span>)</span>
+<span id="cb67-8"><a href="machine-learning.html#cb67-8" aria-hidden="true" tabindex="-1"></a>directory <span class="ot">=</span> <span class="st">&quot;wound_raw&quot;</span> <span class="co"># destination directory must exist already</span></span>
+<span id="cb67-9"><a href="machine-learning.html#cb67-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-10"><a href="machine-learning.html#cb67-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-11"><a href="machine-learning.html#cb67-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(record <span class="cf">in</span> record_list){</span>
+<span id="cb67-12"><a href="machine-learning.html#cb67-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(field <span class="cf">in</span> field_list){</span>
+<span id="cb67-13"><a href="machine-learning.html#cb67-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(event <span class="cf">in</span> event_list){</span>
+<span id="cb67-14"><a href="machine-learning.html#cb67-14" aria-hidden="true" tabindex="-1"></a>      result <span class="ot">=</span> </span>
+<span id="cb67-15"><a href="machine-learning.html#cb67-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tryCatch</span>({      <span class="co"># suppress breaking error when no image in slot</span></span>
+<span id="cb67-16"><a href="machine-learning.html#cb67-16" aria-hidden="true" tabindex="-1"></a>          <span class="fu">redcap_download_file_oneshot</span>(</span>
+<span id="cb67-17"><a href="machine-learning.html#cb67-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">record        =</span> record,</span>
+<span id="cb67-18"><a href="machine-learning.html#cb67-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">field         =</span> field,</span>
+<span id="cb67-19"><a href="machine-learning.html#cb67-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">redcap_uri    =</span> uri,</span>
+<span id="cb67-20"><a href="machine-learning.html#cb67-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">token         =</span> token,</span>
+<span id="cb67-21"><a href="machine-learning.html#cb67-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">event         =</span> event,</span>
+<span id="cb67-22"><a href="machine-learning.html#cb67-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">overwrite     =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb67-23"><a href="machine-learning.html#cb67-23" aria-hidden="true" tabindex="-1"></a>            <span class="at">directory     =</span> directory</span>
+<span id="cb67-24"><a href="machine-learning.html#cb67-24" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb67-25"><a href="machine-learning.html#cb67-25" aria-hidden="true" tabindex="-1"></a>        }, <span class="at">error=</span><span class="cf">function</span>(e){})</span>
+<span id="cb67-26"><a href="machine-learning.html#cb67-26" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb67-27"><a href="machine-learning.html#cb67-27" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb67-28"><a href="machine-learning.html#cb67-28" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="named-from-redcap-record-id-and-event" class="section level4" number="4.1.1.2">
 <h4><span class="header-section-number">4.1.1.2</span> Named from REDCap record ID and event</h4>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="machine-learning.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(REDCapR)</span>
-<span id="cb66-2"><a href="machine-learning.html#cb66-2" aria-hidden="true" tabindex="-1"></a>uri <span class="ot">=</span> <span class="st">&quot;https://redcap.cir.ed.ac.uk/api/&quot;</span></span>
-<span id="cb66-3"><a href="machine-learning.html#cb66-3" aria-hidden="true" tabindex="-1"></a>token <span class="ot">=</span> <span class="st">&quot;&quot;</span> <span class="co"># API token here</span></span>
-<span id="cb66-4"><a href="machine-learning.html#cb66-4" aria-hidden="true" tabindex="-1"></a>record_list <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">318</span></span>
-<span id="cb66-5"><a href="machine-learning.html#cb66-5" aria-hidden="true" tabindex="-1"></a>field_list <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;photo&quot;</span>, <span class="st">&quot;photo_2&quot;</span>, <span class="st">&quot;photo_3&quot;</span>, <span class="st">&quot;photo_4&quot;</span>)</span>
-<span id="cb66-6"><a href="machine-learning.html#cb66-6" aria-hidden="true" tabindex="-1"></a>event_list <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;wound_concerns_arm_2&quot;</span>, <span class="st">&quot;questionnaire_1_arm_2&quot;</span>,</span>
-<span id="cb66-7"><a href="machine-learning.html#cb66-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;questionnaire_2_arm_2&quot;</span>, <span class="st">&quot;questionnaire_3_arm_2&quot;</span>)</span>
-<span id="cb66-8"><a href="machine-learning.html#cb66-8" aria-hidden="true" tabindex="-1"></a>directory <span class="ot">=</span> <span class="st">&quot;wound_named&quot;</span> <span class="co"># destination directory must exist already</span></span>
-<span id="cb66-9"><a href="machine-learning.html#cb66-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-10"><a href="machine-learning.html#cb66-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(record <span class="cf">in</span> record_list){</span>
-<span id="cb66-11"><a href="machine-learning.html#cb66-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(field <span class="cf">in</span> field_list){</span>
-<span id="cb66-12"><a href="machine-learning.html#cb66-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(event <span class="cf">in</span> event_list){</span>
-<span id="cb66-13"><a href="machine-learning.html#cb66-13" aria-hidden="true" tabindex="-1"></a>      file_name <span class="ot">=</span> <span class="fu">paste0</span>(record, <span class="st">&quot;_&quot;</span>, field, <span class="st">&quot;_&quot;</span>, event, <span class="st">&quot;.jpg&quot;</span>)</span>
-<span id="cb66-14"><a href="machine-learning.html#cb66-14" aria-hidden="true" tabindex="-1"></a>      result <span class="ot">=</span> </span>
-<span id="cb66-15"><a href="machine-learning.html#cb66-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tryCatch</span>({</span>
-<span id="cb66-16"><a href="machine-learning.html#cb66-16" aria-hidden="true" tabindex="-1"></a>          <span class="fu">redcap_download_file_oneshot</span>(</span>
-<span id="cb66-17"><a href="machine-learning.html#cb66-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">record        =</span> record,</span>
-<span id="cb66-18"><a href="machine-learning.html#cb66-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">field         =</span> field,</span>
-<span id="cb66-19"><a href="machine-learning.html#cb66-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">redcap_uri    =</span> uri,</span>
-<span id="cb66-20"><a href="machine-learning.html#cb66-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">token         =</span> token,</span>
-<span id="cb66-21"><a href="machine-learning.html#cb66-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">event         =</span> event,</span>
-<span id="cb66-22"><a href="machine-learning.html#cb66-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">overwrite     =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb66-23"><a href="machine-learning.html#cb66-23" aria-hidden="true" tabindex="-1"></a>            <span class="at">directory     =</span> directory,</span>
-<span id="cb66-24"><a href="machine-learning.html#cb66-24" aria-hidden="true" tabindex="-1"></a>            <span class="at">file_name     =</span> file_name</span>
-<span id="cb66-25"><a href="machine-learning.html#cb66-25" aria-hidden="true" tabindex="-1"></a>          )</span>
-<span id="cb66-26"><a href="machine-learning.html#cb66-26" aria-hidden="true" tabindex="-1"></a>        }, <span class="at">error=</span><span class="cf">function</span>(e){})</span>
-<span id="cb66-27"><a href="machine-learning.html#cb66-27" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb66-28"><a href="machine-learning.html#cb66-28" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb66-29"><a href="machine-learning.html#cb66-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="machine-learning.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(REDCapR)</span>
+<span id="cb68-2"><a href="machine-learning.html#cb68-2" aria-hidden="true" tabindex="-1"></a>uri <span class="ot">=</span> <span class="st">&quot;https://redcap.cir.ed.ac.uk/api/&quot;</span></span>
+<span id="cb68-3"><a href="machine-learning.html#cb68-3" aria-hidden="true" tabindex="-1"></a>token <span class="ot">=</span> <span class="st">&quot;&quot;</span> <span class="co"># API token here</span></span>
+<span id="cb68-4"><a href="machine-learning.html#cb68-4" aria-hidden="true" tabindex="-1"></a>record_list <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">318</span></span>
+<span id="cb68-5"><a href="machine-learning.html#cb68-5" aria-hidden="true" tabindex="-1"></a>field_list <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;photo&quot;</span>, <span class="st">&quot;photo_2&quot;</span>, <span class="st">&quot;photo_3&quot;</span>, <span class="st">&quot;photo_4&quot;</span>)</span>
+<span id="cb68-6"><a href="machine-learning.html#cb68-6" aria-hidden="true" tabindex="-1"></a>event_list <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;wound_concerns_arm_2&quot;</span>, <span class="st">&quot;questionnaire_1_arm_2&quot;</span>,</span>
+<span id="cb68-7"><a href="machine-learning.html#cb68-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;questionnaire_2_arm_2&quot;</span>, <span class="st">&quot;questionnaire_3_arm_2&quot;</span>)</span>
+<span id="cb68-8"><a href="machine-learning.html#cb68-8" aria-hidden="true" tabindex="-1"></a>directory <span class="ot">=</span> <span class="st">&quot;wound_named&quot;</span> <span class="co"># destination directory must exist already</span></span>
+<span id="cb68-9"><a href="machine-learning.html#cb68-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-10"><a href="machine-learning.html#cb68-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(record <span class="cf">in</span> record_list){</span>
+<span id="cb68-11"><a href="machine-learning.html#cb68-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(field <span class="cf">in</span> field_list){</span>
+<span id="cb68-12"><a href="machine-learning.html#cb68-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(event <span class="cf">in</span> event_list){</span>
+<span id="cb68-13"><a href="machine-learning.html#cb68-13" aria-hidden="true" tabindex="-1"></a>      file_name <span class="ot">=</span> <span class="fu">paste0</span>(record, <span class="st">&quot;_&quot;</span>, field, <span class="st">&quot;_&quot;</span>, event, <span class="st">&quot;.jpg&quot;</span>)</span>
+<span id="cb68-14"><a href="machine-learning.html#cb68-14" aria-hidden="true" tabindex="-1"></a>      result <span class="ot">=</span> </span>
+<span id="cb68-15"><a href="machine-learning.html#cb68-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tryCatch</span>({</span>
+<span id="cb68-16"><a href="machine-learning.html#cb68-16" aria-hidden="true" tabindex="-1"></a>          <span class="fu">redcap_download_file_oneshot</span>(</span>
+<span id="cb68-17"><a href="machine-learning.html#cb68-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">record        =</span> record,</span>
+<span id="cb68-18"><a href="machine-learning.html#cb68-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">field         =</span> field,</span>
+<span id="cb68-19"><a href="machine-learning.html#cb68-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">redcap_uri    =</span> uri,</span>
+<span id="cb68-20"><a href="machine-learning.html#cb68-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">token         =</span> token,</span>
+<span id="cb68-21"><a href="machine-learning.html#cb68-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">event         =</span> event,</span>
+<span id="cb68-22"><a href="machine-learning.html#cb68-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">overwrite     =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb68-23"><a href="machine-learning.html#cb68-23" aria-hidden="true" tabindex="-1"></a>            <span class="at">directory     =</span> directory,</span>
+<span id="cb68-24"><a href="machine-learning.html#cb68-24" aria-hidden="true" tabindex="-1"></a>            <span class="at">file_name     =</span> file_name</span>
+<span id="cb68-25"><a href="machine-learning.html#cb68-25" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb68-26"><a href="machine-learning.html#cb68-26" aria-hidden="true" tabindex="-1"></a>        }, <span class="at">error=</span><span class="cf">function</span>(e){})</span>
+<span id="cb68-27"><a href="machine-learning.html#cb68-27" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb68-28"><a href="machine-learning.html#cb68-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb68-29"><a href="machine-learning.html#cb68-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 
 </div>
 </div>
@@ -431,6 +432,7 @@ div.csl-indent {
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -471,7 +473,7 @@ gitbook.start({
 },
 "download": ["cookbook.pdf", "cookbook.epub"],
 "search": {
-"engine": "fuse",
+"engine": "lunr",
 "options": null
 },
 "toc": {
