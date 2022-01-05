@@ -397,6 +397,45 @@ mydata %>%
   finalfit("Surv(time, status)", "group")
 ```
 
+### Isoweek and epiweek
+
+This is frequently painful, when working with weeks in a year to aggregate data, how to best plot and how to deal with multiple years. 
+
+Easiest solution I have found (EMH) is just to work with the first date of each isoweek. Make a look up table and join. 
+
+```{r}
+# Generate random set of dates for demonstration purposes
+## This is not required when using normally
+library(tidyverse)
+library(lubridate)
+library(finalfit)
+colon_s = colon_s %>% 
+  mutate(
+    date = seq(ymd(20200101), ymd(20220601), by="day") %>% 
+      sample(929, replace = TRUE)
+  )
+    
+# Make isoweek start date look-up table
+## Make sure includes entire range of your dates of interest. 
+isoweek_lookup = tibble(date = seq(ymd(20200101), ymd(20220601), by = 1)) %>% 
+  mutate(isoweek = lubridate::isoweek(date))
+
+isoweek_lookup = isoweek_lookup %>% 
+  left_join(isoweek_lookup %>% 
+  group_by(isoweek) %>% 
+  slice(1) %>% 
+  select(isoweek_date = date, isoweek)
+  )
+
+# Add isoweek_date (first date of a particular isoweek) and isoweek to analysis dataset. 
+colon_s %>% 
+  left_join(isoweek_lookup, by = c("date" = "date")) %>% 
+  select(date, isoweek, isoweek_date) %>% 
+  slice(1:6)
+```
+
+
+
 ## Labelling tables and figures in markdown chunks
 
 ### Plots

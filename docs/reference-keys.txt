@@ -37,6 +37,7 @@ example-data
 compute-time-from-op-date-to-current-review
 pull-out-change-of-status
 run-cph
+isoweek-and-epiweek
 labelling-tables-and-figures-in-markdown-chunks
 plots
 tables

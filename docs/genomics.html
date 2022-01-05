@@ -24,7 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2021-11-24" />
+<meta name="date" content="2022-01-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -204,6 +204,7 @@ div.csl-indent {
 <li class="chapter" data-level="2.6.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.6.2</b> Lags</a></li>
 <li class="chapter" data-level="2.6.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.6.3</b> Pulling out “change in status” data</a></li>
 <li class="chapter" data-level="2.6.4" data-path="snippets.html"><a href="snippets.html#guess-the-format-of-dates"><i class="fa fa-check"></i><b>2.6.4</b> Guess the Format of Dates</a></li>
+<li class="chapter" data-level="2.6.5" data-path="snippets.html"><a href="snippets.html#isoweek-and-epiweek"><i class="fa fa-check"></i><b>2.6.5</b> Isoweek and epiweek</a></li>
 </ul></li>
 <li class="chapter" data-level="2.7" data-path="snippets.html"><a href="snippets.html#labelling-tables-and-figures-in-markdown-chunks"><i class="fa fa-check"></i><b>2.7</b> Labelling tables and figures in markdown chunks</a>
 <ul>
@@ -356,32 +357,32 @@ div.csl-indent {
 <div id="minimising-the-size-of-a-seurat-object" class="section level3" number="7.1.1">
 <h3><span class="header-section-number">7.1.1</span> Minimising the size of a Seurat Object</h3>
 <p>Single cell analyses are ofetn collated in Seurat objects which can be huge. We reduced the size of our Seurat object by pulling the relevant sections using the code below reducing the object to &lt;20% of its original size. This works by only including the sparse matrices. This is not a workable example, but the PBMC dataset could be used if necessary.</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="genomics.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co">#library(Seurat)</span></span>
-<span id="cb97-2"><a href="genomics.html#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="co">#library(dplyr)</span></span>
-<span id="cb97-3"><a href="genomics.html#cb97-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-4"><a href="genomics.html#cb97-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-5"><a href="genomics.html#cb97-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Load in the data</span></span>
-<span id="cb97-6"><a href="genomics.html#cb97-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-7"><a href="genomics.html#cb97-7" aria-hidden="true" tabindex="-1"></a>pathtoglobaldata <span class="ot">&lt;-</span><span class="st">&quot;mac_shiny/data/Global_sc_object&quot;</span></span>
-<span id="cb97-8"><a href="genomics.html#cb97-8" aria-hidden="true" tabindex="-1"></a>object_global<span class="ot">&lt;-</span><span class="fu">readRDS</span>(pathtoglobaldata)</span>
-<span id="cb97-9"><a href="genomics.html#cb97-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-10"><a href="genomics.html#cb97-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-11"><a href="genomics.html#cb97-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Get sparse assay data</span></span>
-<span id="cb97-12"><a href="genomics.html#cb97-12" aria-hidden="true" tabindex="-1"></a>sizetest_global<span class="ot">&lt;-</span><span class="fu">GetAssayData</span>(<span class="at">object =</span> object_global, <span class="at">slot =</span> <span class="st">&quot;data&quot;</span>) <span class="co"># counts don’t work, scaled breaks my pc with memory errors, not sure it matters that much</span></span>
-<span id="cb97-13"><a href="genomics.html#cb97-13" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="ot">&lt;-</span> <span class="fu">CreateSeuratObject</span>(sizetest_global)</span>
-<span id="cb97-14"><a href="genomics.html#cb97-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-15"><a href="genomics.html#cb97-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Add in classifications. </span></span>
-<span id="cb97-16"><a href="genomics.html#cb97-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-17"><a href="genomics.html#cb97-17" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">@</span>reductions<span class="sc">$</span>tsne<span class="ot">&lt;-</span>object_global<span class="sc">@</span>reductions<span class="sc">$</span>tsne <span class="co"># reduction embeddings for tsnegraph</span></span>
-<span id="cb97-18"><a href="genomics.html#cb97-18" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">$</span>Phenotype<span class="ot">&lt;-</span> object_global<span class="sc">$</span>Phenotype</span>
-<span id="cb97-19"><a href="genomics.html#cb97-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-20"><a href="genomics.html#cb97-20" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">@</span>meta.data<span class="sc">$</span>final_classification<span class="ot">&lt;-</span> object_global<span class="sc">@</span>meta.data<span class="sc">$</span>final_classification</span>
-<span id="cb97-21"><a href="genomics.html#cb97-21" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">$</span>final_classificaiton<span class="ot">&lt;-</span> object_global<span class="sc">$</span>final_classification <span class="co">#cell classifications</span></span>
-<span id="cb97-22"><a href="genomics.html#cb97-22" aria-hidden="true" tabindex="-1"></a><span class="fu">Idents</span>(<span class="at">object =</span> object_global_small) <span class="ot">&lt;-</span> <span class="st">&quot;final_classificaiton&quot;</span> <span class="co">#set forever</span></span>
-<span id="cb97-23"><a href="genomics.html#cb97-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-24"><a href="genomics.html#cb97-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-25"><a href="genomics.html#cb97-25" aria-hidden="true" tabindex="-1"></a><span class="co">#same</span></span>
-<span id="cb97-26"><a href="genomics.html#cb97-26" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(object_global_small,<span class="st">&quot;mac_shiny/data/global_object_sml&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="genomics.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co">#library(Seurat)</span></span>
+<span id="cb101-2"><a href="genomics.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="co">#library(dplyr)</span></span>
+<span id="cb101-3"><a href="genomics.html#cb101-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-4"><a href="genomics.html#cb101-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-5"><a href="genomics.html#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Load in the data</span></span>
+<span id="cb101-6"><a href="genomics.html#cb101-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-7"><a href="genomics.html#cb101-7" aria-hidden="true" tabindex="-1"></a>pathtoglobaldata <span class="ot">&lt;-</span><span class="st">&quot;mac_shiny/data/Global_sc_object&quot;</span></span>
+<span id="cb101-8"><a href="genomics.html#cb101-8" aria-hidden="true" tabindex="-1"></a>object_global<span class="ot">&lt;-</span><span class="fu">readRDS</span>(pathtoglobaldata)</span>
+<span id="cb101-9"><a href="genomics.html#cb101-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-10"><a href="genomics.html#cb101-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-11"><a href="genomics.html#cb101-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Get sparse assay data</span></span>
+<span id="cb101-12"><a href="genomics.html#cb101-12" aria-hidden="true" tabindex="-1"></a>sizetest_global<span class="ot">&lt;-</span><span class="fu">GetAssayData</span>(<span class="at">object =</span> object_global, <span class="at">slot =</span> <span class="st">&quot;data&quot;</span>) <span class="co"># counts don’t work, scaled breaks my pc with memory errors, not sure it matters that much</span></span>
+<span id="cb101-13"><a href="genomics.html#cb101-13" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="ot">&lt;-</span> <span class="fu">CreateSeuratObject</span>(sizetest_global)</span>
+<span id="cb101-14"><a href="genomics.html#cb101-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-15"><a href="genomics.html#cb101-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Add in classifications. </span></span>
+<span id="cb101-16"><a href="genomics.html#cb101-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-17"><a href="genomics.html#cb101-17" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">@</span>reductions<span class="sc">$</span>tsne<span class="ot">&lt;-</span>object_global<span class="sc">@</span>reductions<span class="sc">$</span>tsne <span class="co"># reduction embeddings for tsnegraph</span></span>
+<span id="cb101-18"><a href="genomics.html#cb101-18" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">$</span>Phenotype<span class="ot">&lt;-</span> object_global<span class="sc">$</span>Phenotype</span>
+<span id="cb101-19"><a href="genomics.html#cb101-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-20"><a href="genomics.html#cb101-20" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">@</span>meta.data<span class="sc">$</span>final_classification<span class="ot">&lt;-</span> object_global<span class="sc">@</span>meta.data<span class="sc">$</span>final_classification</span>
+<span id="cb101-21"><a href="genomics.html#cb101-21" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">$</span>final_classificaiton<span class="ot">&lt;-</span> object_global<span class="sc">$</span>final_classification <span class="co">#cell classifications</span></span>
+<span id="cb101-22"><a href="genomics.html#cb101-22" aria-hidden="true" tabindex="-1"></a><span class="fu">Idents</span>(<span class="at">object =</span> object_global_small) <span class="ot">&lt;-</span> <span class="st">&quot;final_classificaiton&quot;</span> <span class="co">#set forever</span></span>
+<span id="cb101-23"><a href="genomics.html#cb101-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-24"><a href="genomics.html#cb101-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-25"><a href="genomics.html#cb101-25" aria-hidden="true" tabindex="-1"></a><span class="co">#same</span></span>
+<span id="cb101-26"><a href="genomics.html#cb101-26" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(object_global_small,<span class="st">&quot;mac_shiny/data/global_object_sml&quot;</span>)</span></code></pre></div>
 
 </div>
 </div>
