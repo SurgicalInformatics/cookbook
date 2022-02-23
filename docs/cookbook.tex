@@ -131,7 +131,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2022-01-05}
+\date{2022-02-23}
 
 \begin{document}
 \maketitle
@@ -1011,12 +1011,12 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 
 \begin{verbatim}
 ##         date isoweek isoweek_date
-## 1 2021-09-16      37   2020-09-07
-## 2 2021-04-02      13   2020-03-23
-## 3 2021-11-27      47   2020-11-16
-## 4 2021-05-05      18   2020-04-27
-## 5 2021-12-19      50   2020-12-07
-## 6 2021-09-13      37   2020-09-07
+## 1 2021-08-05      31   2020-07-27
+## 2 2021-09-07      36   2020-08-31
+## 3 2020-10-27      44   2020-10-26
+## 4 2020-02-13       7   2020-02-10
+## 5 2021-04-30      17   2020-04-20
+## 6 2020-03-22      12   2020-03-16
 \end{verbatim}
 
 \hypertarget{labelling-tables-and-figures-in-markdown-chunks}{%
@@ -1330,6 +1330,257 @@ The following works beautifully and allows tidyselect of variable names.
 ## 1     1     2     3 NA        3
 ## 2     2     3     4 NA        4
 ## 3    NA    NA    NA NA       NA
+\end{verbatim}
+
+\hypertarget{multiple-imputation-and-ipw-for-missing-data}{%
+\section{Multiple imputation and IPW for missing data}\label{multiple-imputation-and-ipw-for-missing-data}}
+
+Two approaches are commonly used for dealing with missing data.
+
+Multiple imputation (MI) ``fills in'' missing values. Inverse probability weighting (IPW) ``weights'' observed values to reflect characteristics of missing data.
+
+Missing data is discussed in detail here: \url{https://argonaut.is.ed.ac.uk/s/d5de83c1d3855a579434d/files/finalfit/docs/articles/missing.html}
+
+The IPW methods are taken from here: \url{https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/}
+
+\hypertarget{data}{%
+\subsection{Data}\label{data}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(finalfit)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(mice)}
+
+\DocumentationTok{\#\# Inspect dataset}
+\CommentTok{\# colon\_s \%\textgreater{}\% ff\_glimpse()}
+
+\DocumentationTok{\#\# Below we will use these variables to model, }
+\DocumentationTok{\#\# so remove missings from them and from outcome for this demonstration}
+\NormalTok{explanatory }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"age"}\NormalTok{, }
+                \StringTok{"sex.factor"}\NormalTok{, }
+                \StringTok{"obstruct.factor"}\NormalTok{, }
+                \StringTok{"perfor.factor"}\NormalTok{,}
+                \StringTok{"adhere.factor"}\NormalTok{,}
+                \StringTok{"nodes"}\NormalTok{,}
+                \StringTok{"differ.factor"}\NormalTok{,}
+                \StringTok{"rx"}\NormalTok{)}
+
+
+\DocumentationTok{\#\# Remove existing missings}
+\NormalTok{colon\_s }\OtherTok{=}\NormalTok{ colon\_s }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(mort\_5yr, explanatory) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{drop\_na}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+Here is the truth for mortality at 5 years in these data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Truth}
+\NormalTok{colon\_s }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summary\_factorlist}\NormalTok{(}\AttributeTok{explanatory =} \StringTok{"mort\_5yr"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             label levels        all
+##  Mortality 5 year  Alive 476 (55.7)
+##                     Died 378 (44.3)
+\end{verbatim}
+
+Let's conditionally delete some outcomes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1234}\NormalTok{)}
+\NormalTok{colon\_rs }\OtherTok{=}\NormalTok{ colon\_s }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{mort\_5yr =} \FunctionTok{ifelse}\NormalTok{(mort\_5yr }\SpecialCharTok{==} \StringTok{"Alive"}\NormalTok{, }
+                           \FunctionTok{sample}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Alive"}\NormalTok{, }\ConstantTok{NA\_character\_}\NormalTok{), }
+                                  \AttributeTok{size =} \FunctionTok{sum}\NormalTok{(colon\_s}\SpecialCharTok{$}\NormalTok{mort\_5yr }\SpecialCharTok{==} \StringTok{"Alive"}\NormalTok{), }
+                                  \AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{prob =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.9}\NormalTok{, }\FloatTok{0.1}\NormalTok{)),}
+                           \FunctionTok{sample}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Died"}\NormalTok{, }\ConstantTok{NA\_character\_}\NormalTok{), }
+                                  \AttributeTok{size =} \FunctionTok{sum}\NormalTok{(colon\_s}\SpecialCharTok{$}\NormalTok{mort\_5yr }\SpecialCharTok{==} \StringTok{"Died"}\NormalTok{), }
+                                  \AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{prob =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.85}\NormalTok{, }\FloatTok{0.15}\NormalTok{))) }\SpecialCharTok{\%\textgreater{}\%} 
+           \FunctionTok{factor}\NormalTok{()}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+The proportion that died, is now lower due to our artifically introduced reporting bias:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{colon\_rs }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summary\_factorlist}\NormalTok{(}\AttributeTok{explanatory =} \StringTok{"mort\_5yr"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     label levels        all
+##  mort_5yr  Alive 423 (57.2)
+##             Died 316 (42.8)
+\end{verbatim}
+
+\hypertarget{multiple-imputation}{%
+\subsection{Multiple imputation}\label{multiple-imputation}}
+
+First, let's use multiple imputation to ``fill in'' missing outcome using the existing information we have about the patient.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Choose which variables in dataset to include in imputation. }
+\NormalTok{predM }\OtherTok{=}\NormalTok{ colon\_rs }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(mort\_5yr, explanatory) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{missing\_predictorMatrix}\NormalTok{(}
+    \AttributeTok{drop\_from\_imputed =} \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{), }
+    \AttributeTok{drop\_from\_imputer =} \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{))}
+
+\CommentTok{\# This is needed to drop from imputed}
+\CommentTok{\# Include for completeness, but not used here. }
+\NormalTok{m0 }\OtherTok{=} \FunctionTok{mice}\NormalTok{(colon\_rs }\SpecialCharTok{\%\textgreater{}\%} 
+            \FunctionTok{select}\NormalTok{(mort\_5yr, explanatory), }\AttributeTok{maxit=}\DecValTok{0}\NormalTok{)}
+\CommentTok{\# m0$method[c("study\_id")] = ""}
+\CommentTok{\# m0$method[c("redcap\_data\_access\_group")] = ""}
+
+\NormalTok{colon\_rs\_imputed }\OtherTok{=}\NormalTok{ colon\_rs }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(mort\_5yr, explanatory) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mice}\NormalTok{(}\AttributeTok{m =} \DecValTok{10}\NormalTok{, }\AttributeTok{maxit =} \DecValTok{10}\NormalTok{, }\AttributeTok{predictorMatrix =}\NormalTok{ predM, }\AttributeTok{method =}\NormalTok{ m0}\SpecialCharTok{$}\NormalTok{method,}
+       \AttributeTok{print =} \ConstantTok{FALSE}\NormalTok{) }\CommentTok{\# print false just for example}
+
+\DocumentationTok{\#\# Check output here:}
+\CommentTok{\# summary(colon\_rs\_imputed)}
+\CommentTok{\# plot(colon\_rs\_imputed )}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{reduce-imputed-sets-mean}{%
+\subsubsection{Reduce imputed sets (mean)}\label{reduce-imputed-sets-mean}}
+
+As can be seen, the imputed proportion approaches that of the ``true'' value.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{colon\_rs\_imputed }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{complete}\NormalTok{(}\StringTok{"all"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{map}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ (.) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{count}\NormalTok{(mort\_5yr) }\SpecialCharTok{\%\textgreater{}\%} 
+        \FunctionTok{mutate}\NormalTok{(}\AttributeTok{nn =} \FunctionTok{sum}\NormalTok{(n),}
+               \AttributeTok{prop =}\NormalTok{ n}\SpecialCharTok{/}\NormalTok{nn) }\SpecialCharTok{\%\textgreater{}\%} 
+        \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{mort\_5yr)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{reduce}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{+}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{/} \DecValTok{10}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       n  nn      prop
+## 1 484.8 854 0.5676815
+## 2 369.2 854 0.4323185
+\end{verbatim}
+
+\hypertarget{ipw}{%
+\subsection{IPW}\label{ipw}}
+
+Rather than filling in the missing values, we can weight the observed values to reflect the characteristics of the missing data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Define observed vs non{-}observed groups}
+\NormalTok{colon\_rs }\OtherTok{=}\NormalTok{ colon\_rs }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{group\_fu =} \FunctionTok{if\_else}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(mort\_5yr), }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{  )}
+
+\NormalTok{colon\_rs }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(group\_fu)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   group_fu   n
+## 1        0 115
+## 2        1 739
+\end{verbatim}
+
+This method uses ``stabilised weights'', meaning weights should have a mean of 1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Numerator model}
+\NormalTok{fit\_num }\OtherTok{=}\NormalTok{ colon\_rs }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{glmmulti}\NormalTok{(}\StringTok{"group\_fu"}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# Denominator model}
+\NormalTok{fit\_dem }\OtherTok{=}\NormalTok{ colon\_rs }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{glmmulti}\NormalTok{(}\StringTok{"group\_fu"}\NormalTok{, explanatory)}
+
+\CommentTok{\# Check denominator model}
+\NormalTok{fit\_dem }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{fit2df}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Waiting for profiling to be done...
+\end{verbatim}
+
+\begin{verbatim}
+##              explanatory                         OR
+## 1                    age  1.00 (0.99-1.02, p=0.766)
+## 2         sex.factorMale  0.93 (0.62-1.38, p=0.710)
+## 3     obstruct.factorYes  1.07 (0.65-1.83, p=0.803)
+## 4       perfor.factorYes 4.71 (0.97-85.05, p=0.133)
+## 5       adhere.factorYes  0.72 (0.43-1.26, p=0.235)
+## 6                  nodes  0.96 (0.91-1.01, p=0.083)
+## 7  differ.factorModerate  1.61 (0.85-2.91, p=0.128)
+## 8      differ.factorPoor  1.49 (0.69-3.15, p=0.301)
+## 9                  rxLev  1.01 (0.63-1.63, p=0.961)
+## 10             rxLev+5FU  1.11 (0.68-1.82, p=0.687)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{colon\_rs }\OtherTok{=}\NormalTok{ colon\_rs }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{p =} \FunctionTok{predict}\NormalTok{(fit\_num, }\AttributeTok{type =} \StringTok{"response"}\NormalTok{),}
+    \AttributeTok{pi =} \FunctionTok{predict}\NormalTok{(fit\_dem, }\AttributeTok{type =} \StringTok{"response"}\NormalTok{),}
+    \AttributeTok{weights =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      group\_fu }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}}\NormalTok{ p }\SpecialCharTok{/}\NormalTok{ pi,}
+\NormalTok{      group\_fu }\SpecialCharTok{==} \DecValTok{0} \SpecialCharTok{\textasciitilde{}}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{p) }\SpecialCharTok{/}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{pi) }
+\NormalTok{    )}
+\NormalTok{  )}
+
+\FunctionTok{mean}\NormalTok{(colon\_rs}\SpecialCharTok{$}\NormalTok{weights)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9987887
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Whoop whoop if \textasciitilde{}1.0}
+\end{Highlighting}
+\end{Shaded}
+
+A weighted proportion can then be generated, which gives a very similar result to the multiple imputation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{colon\_rs }\SpecialCharTok{\%\textgreater{}\%}  
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{mort\_5yr\_wgt =}\NormalTok{ (}\FunctionTok{as.numeric}\NormalTok{(mort\_5yr) }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ weights}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summary\_factorlist}\NormalTok{(}\AttributeTok{explanatory =} \FunctionTok{c}\NormalTok{(}\StringTok{" mort\_5yr"}\NormalTok{, }\StringTok{" mort\_5yr\_wgt"}\NormalTok{), }\AttributeTok{digits =} \FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{) )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         label    levels             all
+##      mort_5yr     Alive      423 (57.2)
+##                    Died      316 (42.8)
+##  mort_5yr_wgt Mean (SD) 0.4317 (0.5008)
 \end{verbatim}
 
 \hypertarget{machine-learning}{%

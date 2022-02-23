@@ -24,7 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2022-01-05" />
+<meta name="date" content="2022-02-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -217,6 +217,12 @@ div.csl-indent {
 <li class="chapter" data-level="3.1" data-path="data-manipulation.html"><a href="data-manipulation.html#collapse-multiple-no-and-yes-options"><i class="fa fa-check"></i><b>3.1</b> Collapse multiple “no” and “yes” options</a></li>
 <li class="chapter" data-level="3.2" data-path="data-manipulation.html"><a href="data-manipulation.html#filter-na-dropping-rows-where-all-specified-variables-are-na"><i class="fa fa-check"></i><b>3.2</b> Filter NA: Dropping rows where all specified variables are NA</a></li>
 <li class="chapter" data-level="3.3" data-path="data-manipulation.html"><a href="data-manipulation.html#vectorising-rowwise-procedures"><i class="fa fa-check"></i><b>3.3</b> Vectorising rowwise procedures</a></li>
+<li class="chapter" data-level="3.4" data-path="data-manipulation.html"><a href="data-manipulation.html#multiple-imputation-and-ipw-for-missing-data"><i class="fa fa-check"></i><b>3.4</b> Multiple imputation and IPW for missing data</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="data-manipulation.html"><a href="data-manipulation.html#data"><i class="fa fa-check"></i><b>3.4.1</b> Data</a></li>
+<li class="chapter" data-level="3.4.2" data-path="data-manipulation.html"><a href="data-manipulation.html#multiple-imputation"><i class="fa fa-check"></i><b>3.4.2</b> Multiple imputation</a></li>
+<li class="chapter" data-level="3.4.3" data-path="data-manipulation.html"><a href="data-manipulation.html#ipw"><i class="fa fa-check"></i><b>3.4.3</b> IPW</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>4</b> Machine learning</a>
 <ul>
@@ -900,12 +906,12 @@ I often want days as a numeric, not a lubridate type object.</p>
 <span id="cb47-4"><a href="snippets.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date, isoweek, isoweek_date) <span class="sc">%&gt;%</span> </span>
 <span id="cb47-5"><a href="snippets.html#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div>
 <pre><code>##         date isoweek isoweek_date
-## 1 2021-11-04      44   2020-10-26
-## 2 2020-01-06       2   2020-01-06
-## 3 2021-11-15      46   2020-11-09
-## 4 2021-04-20      16   2020-04-13
-## 5 2021-09-11      36   2020-08-31
-## 6 2021-09-14      37   2020-09-07</code></pre>
+## 1 2021-02-10       6   2020-02-03
+## 2 2020-07-11      28   2020-07-06
+## 3 2020-10-01      40   2020-09-28
+## 4 2021-02-11       6   2020-02-03
+## 5 2020-12-21      52   2020-12-21
+## 6 2021-09-08      36   2020-08-31</code></pre>
 </div>
 </div>
 <div id="labelling-tables-and-figures-in-markdown-chunks" class="section level2" number="2.7">

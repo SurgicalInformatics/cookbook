@@ -24,7 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2022-01-05" />
+<meta name="date" content="2022-02-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -217,6 +217,12 @@ div.csl-indent {
 <li class="chapter" data-level="3.1" data-path="data-manipulation.html"><a href="data-manipulation.html#collapse-multiple-no-and-yes-options"><i class="fa fa-check"></i><b>3.1</b> Collapse multiple “no” and “yes” options</a></li>
 <li class="chapter" data-level="3.2" data-path="data-manipulation.html"><a href="data-manipulation.html#filter-na-dropping-rows-where-all-specified-variables-are-na"><i class="fa fa-check"></i><b>3.2</b> Filter NA: Dropping rows where all specified variables are NA</a></li>
 <li class="chapter" data-level="3.3" data-path="data-manipulation.html"><a href="data-manipulation.html#vectorising-rowwise-procedures"><i class="fa fa-check"></i><b>3.3</b> Vectorising rowwise procedures</a></li>
+<li class="chapter" data-level="3.4" data-path="data-manipulation.html"><a href="data-manipulation.html#multiple-imputation-and-ipw-for-missing-data"><i class="fa fa-check"></i><b>3.4</b> Multiple imputation and IPW for missing data</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="data-manipulation.html"><a href="data-manipulation.html#data"><i class="fa fa-check"></i><b>3.4.1</b> Data</a></li>
+<li class="chapter" data-level="3.4.2" data-path="data-manipulation.html"><a href="data-manipulation.html#multiple-imputation"><i class="fa fa-check"></i><b>3.4.2</b> Multiple imputation</a></li>
+<li class="chapter" data-level="3.4.3" data-path="data-manipulation.html"><a href="data-manipulation.html#ipw"><i class="fa fa-check"></i><b>3.4.3</b> IPW</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>4</b> Machine learning</a>
 <ul>
@@ -514,7 +520,167 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 ## 1     1     2     3 NA        3
 ## 2     2     3     4 NA        4
 ## 3    NA    NA    NA NA       NA</code></pre>
+</div>
+<div id="multiple-imputation-and-ipw-for-missing-data" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Multiple imputation and IPW for missing data</h2>
+<p>Two approaches are commonly used for dealing with missing data.</p>
+<p>Multiple imputation (MI) “fills in” missing values. Inverse probability weighting (IPW) “weights” observed values to reflect characteristics of missing data.</p>
+<p>Missing data is discussed in detail here: <a href="https://argonaut.is.ed.ac.uk/s/d5de83c1d3855a579434d/files/finalfit/docs/articles/missing.html" class="uri">https://argonaut.is.ed.ac.uk/s/d5de83c1d3855a579434d/files/finalfit/docs/articles/missing.html</a></p>
+<p>The IPW methods are taken from here: <a href="https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/" class="uri">https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/</a></p>
+<div id="data" class="section level3" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Data</h3>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="data-manipulation.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
+<span id="cb71-2"><a href="data-manipulation.html#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb71-3"><a href="data-manipulation.html#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mice)</span>
+<span id="cb71-4"><a href="data-manipulation.html#cb71-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-5"><a href="data-manipulation.html#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Inspect dataset</span></span>
+<span id="cb71-6"><a href="data-manipulation.html#cb71-6" aria-hidden="true" tabindex="-1"></a><span class="co"># colon_s %&gt;% ff_glimpse()</span></span>
+<span id="cb71-7"><a href="data-manipulation.html#cb71-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-8"><a href="data-manipulation.html#cb71-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Below we will use these variables to model, </span></span>
+<span id="cb71-9"><a href="data-manipulation.html#cb71-9" aria-hidden="true" tabindex="-1"></a><span class="do">## so remove missings from them and from outcome for this demonstration</span></span>
+<span id="cb71-10"><a href="data-manipulation.html#cb71-10" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, </span>
+<span id="cb71-11"><a href="data-manipulation.html#cb71-11" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;sex.factor&quot;</span>, </span>
+<span id="cb71-12"><a href="data-manipulation.html#cb71-12" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;obstruct.factor&quot;</span>, </span>
+<span id="cb71-13"><a href="data-manipulation.html#cb71-13" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;perfor.factor&quot;</span>,</span>
+<span id="cb71-14"><a href="data-manipulation.html#cb71-14" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;adhere.factor&quot;</span>,</span>
+<span id="cb71-15"><a href="data-manipulation.html#cb71-15" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;nodes&quot;</span>,</span>
+<span id="cb71-16"><a href="data-manipulation.html#cb71-16" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;differ.factor&quot;</span>,</span>
+<span id="cb71-17"><a href="data-manipulation.html#cb71-17" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;rx&quot;</span>)</span>
+<span id="cb71-18"><a href="data-manipulation.html#cb71-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-19"><a href="data-manipulation.html#cb71-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-20"><a href="data-manipulation.html#cb71-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Remove existing missings</span></span>
+<span id="cb71-21"><a href="data-manipulation.html#cb71-21" aria-hidden="true" tabindex="-1"></a>colon_s <span class="ot">=</span> colon_s <span class="sc">%&gt;%</span> </span>
+<span id="cb71-22"><a href="data-manipulation.html#cb71-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(mort_5yr, explanatory) <span class="sc">%&gt;%</span> </span>
+<span id="cb71-23"><a href="data-manipulation.html#cb71-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div>
+<p>Here is the truth for mortality at 5 years in these data.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="data-manipulation.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Truth</span></span>
+<span id="cb72-2"><a href="data-manipulation.html#cb72-2" aria-hidden="true" tabindex="-1"></a>colon_s <span class="sc">%&gt;%</span> </span>
+<span id="cb72-3"><a href="data-manipulation.html#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary_factorlist</span>(<span class="at">explanatory =</span> <span class="st">&quot;mort_5yr&quot;</span>)</span></code></pre></div>
+<pre><code>##             label levels        all
+##  Mortality 5 year  Alive 476 (55.7)
+##                     Died 378 (44.3)</code></pre>
+<p>Let’s conditionally delete some outcomes.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="data-manipulation.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb74-2"><a href="data-manipulation.html#cb74-2" aria-hidden="true" tabindex="-1"></a>colon_rs <span class="ot">=</span> colon_s <span class="sc">%&gt;%</span> </span>
+<span id="cb74-3"><a href="data-manipulation.html#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mort_5yr =</span> <span class="fu">ifelse</span>(mort_5yr <span class="sc">==</span> <span class="st">&quot;Alive&quot;</span>, </span>
+<span id="cb74-4"><a href="data-manipulation.html#cb74-4" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;Alive&quot;</span>, <span class="cn">NA_character_</span>), </span>
+<span id="cb74-5"><a href="data-manipulation.html#cb74-5" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">size =</span> <span class="fu">sum</span>(colon_s<span class="sc">$</span>mort_5yr <span class="sc">==</span> <span class="st">&quot;Alive&quot;</span>), </span>
+<span id="cb74-6"><a href="data-manipulation.html#cb74-6" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">0.1</span>)),</span>
+<span id="cb74-7"><a href="data-manipulation.html#cb74-7" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;Died&quot;</span>, <span class="cn">NA_character_</span>), </span>
+<span id="cb74-8"><a href="data-manipulation.html#cb74-8" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">size =</span> <span class="fu">sum</span>(colon_s<span class="sc">$</span>mort_5yr <span class="sc">==</span> <span class="st">&quot;Died&quot;</span>), </span>
+<span id="cb74-9"><a href="data-manipulation.html#cb74-9" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.85</span>, <span class="fl">0.15</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb74-10"><a href="data-manipulation.html#cb74-10" aria-hidden="true" tabindex="-1"></a>           <span class="fu">factor</span>()</span>
+<span id="cb74-11"><a href="data-manipulation.html#cb74-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>The proportion that died, is now lower due to our artifically introduced reporting bias:</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="data-manipulation.html#cb75-1" aria-hidden="true" tabindex="-1"></a>colon_rs <span class="sc">%&gt;%</span> </span>
+<span id="cb75-2"><a href="data-manipulation.html#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary_factorlist</span>(<span class="at">explanatory =</span> <span class="st">&quot;mort_5yr&quot;</span>)</span></code></pre></div>
+<pre><code>##     label levels        all
+##  mort_5yr  Alive 423 (57.2)
+##             Died 316 (42.8)</code></pre>
+</div>
+<div id="multiple-imputation" class="section level3" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Multiple imputation</h3>
+<p>First, let’s use multiple imputation to “fill in” missing outcome using the existing information we have about the patient.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="data-manipulation.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Choose which variables in dataset to include in imputation. </span></span>
+<span id="cb77-2"><a href="data-manipulation.html#cb77-2" aria-hidden="true" tabindex="-1"></a>predM <span class="ot">=</span> colon_rs <span class="sc">%&gt;%</span> </span>
+<span id="cb77-3"><a href="data-manipulation.html#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(mort_5yr, explanatory) <span class="sc">%&gt;%</span> </span>
+<span id="cb77-4"><a href="data-manipulation.html#cb77-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">missing_predictorMatrix</span>(</span>
+<span id="cb77-5"><a href="data-manipulation.html#cb77-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">drop_from_imputed =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>), </span>
+<span id="cb77-6"><a href="data-manipulation.html#cb77-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">drop_from_imputer =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>))</span>
+<span id="cb77-7"><a href="data-manipulation.html#cb77-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-8"><a href="data-manipulation.html#cb77-8" aria-hidden="true" tabindex="-1"></a><span class="co"># This is needed to drop from imputed</span></span>
+<span id="cb77-9"><a href="data-manipulation.html#cb77-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Include for completeness, but not used here. </span></span>
+<span id="cb77-10"><a href="data-manipulation.html#cb77-10" aria-hidden="true" tabindex="-1"></a>m0 <span class="ot">=</span> <span class="fu">mice</span>(colon_rs <span class="sc">%&gt;%</span> </span>
+<span id="cb77-11"><a href="data-manipulation.html#cb77-11" aria-hidden="true" tabindex="-1"></a>            <span class="fu">select</span>(mort_5yr, explanatory), <span class="at">maxit=</span><span class="dv">0</span>)</span>
+<span id="cb77-12"><a href="data-manipulation.html#cb77-12" aria-hidden="true" tabindex="-1"></a><span class="co"># m0$method[c(&quot;study_id&quot;)] = &quot;&quot;</span></span>
+<span id="cb77-13"><a href="data-manipulation.html#cb77-13" aria-hidden="true" tabindex="-1"></a><span class="co"># m0$method[c(&quot;redcap_data_access_group&quot;)] = &quot;&quot;</span></span>
+<span id="cb77-14"><a href="data-manipulation.html#cb77-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-15"><a href="data-manipulation.html#cb77-15" aria-hidden="true" tabindex="-1"></a>colon_rs_imputed <span class="ot">=</span> colon_rs <span class="sc">%&gt;%</span> </span>
+<span id="cb77-16"><a href="data-manipulation.html#cb77-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(mort_5yr, explanatory) <span class="sc">%&gt;%</span> </span>
+<span id="cb77-17"><a href="data-manipulation.html#cb77-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mice</span>(<span class="at">m =</span> <span class="dv">10</span>, <span class="at">maxit =</span> <span class="dv">10</span>, <span class="at">predictorMatrix =</span> predM, <span class="at">method =</span> m0<span class="sc">$</span>method,</span>
+<span id="cb77-18"><a href="data-manipulation.html#cb77-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">print =</span> <span class="cn">FALSE</span>) <span class="co"># print false just for example</span></span>
+<span id="cb77-19"><a href="data-manipulation.html#cb77-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-20"><a href="data-manipulation.html#cb77-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Check output here:</span></span>
+<span id="cb77-21"><a href="data-manipulation.html#cb77-21" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(colon_rs_imputed)</span></span>
+<span id="cb77-22"><a href="data-manipulation.html#cb77-22" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(colon_rs_imputed )</span></span></code></pre></div>
+<div id="reduce-imputed-sets-mean" class="section level4" number="3.4.2.1">
+<h4><span class="header-section-number">3.4.2.1</span> Reduce imputed sets (mean)</h4>
+<p>As can be seen, the imputed proportion approaches that of the “true” value.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="data-manipulation.html#cb78-1" aria-hidden="true" tabindex="-1"></a>colon_rs_imputed <span class="sc">%&gt;%</span> </span>
+<span id="cb78-2"><a href="data-manipulation.html#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">complete</span>(<span class="st">&quot;all&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb78-3"><a href="data-manipulation.html#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span> (.) <span class="sc">%&gt;%</span> <span class="fu">count</span>(mort_5yr) <span class="sc">%&gt;%</span> </span>
+<span id="cb78-4"><a href="data-manipulation.html#cb78-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">nn =</span> <span class="fu">sum</span>(n),</span>
+<span id="cb78-5"><a href="data-manipulation.html#cb78-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">prop =</span> n<span class="sc">/</span>nn) <span class="sc">%&gt;%</span> </span>
+<span id="cb78-6"><a href="data-manipulation.html#cb78-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">select</span>(<span class="sc">-</span>mort_5yr)) <span class="sc">%&gt;%</span> </span>
+<span id="cb78-7"><a href="data-manipulation.html#cb78-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reduce</span>(<span class="st">`</span><span class="at">+</span><span class="st">`</span>) <span class="sc">/</span> <span class="dv">10</span></span></code></pre></div>
+<pre><code>##       n  nn      prop
+## 1 484.8 854 0.5676815
+## 2 369.2 854 0.4323185</code></pre>
+</div>
+</div>
+<div id="ipw" class="section level3" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> IPW</h3>
+<p>Rather than filling in the missing values, we can weight the observed values to reflect the characteristics of the missing data.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="data-manipulation.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Define observed vs non-observed groups</span></span>
+<span id="cb80-2"><a href="data-manipulation.html#cb80-2" aria-hidden="true" tabindex="-1"></a>colon_rs <span class="ot">=</span> colon_rs <span class="sc">%&gt;%</span> </span>
+<span id="cb80-3"><a href="data-manipulation.html#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb80-4"><a href="data-manipulation.html#cb80-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">group_fu =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(mort_5yr), <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb80-5"><a href="data-manipulation.html#cb80-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb80-6"><a href="data-manipulation.html#cb80-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-7"><a href="data-manipulation.html#cb80-7" aria-hidden="true" tabindex="-1"></a>colon_rs <span class="sc">%&gt;%</span> </span>
+<span id="cb80-8"><a href="data-manipulation.html#cb80-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(group_fu)</span></code></pre></div>
+<pre><code>##   group_fu   n
+## 1        0 115
+## 2        1 739</code></pre>
+<p>This method uses “stabilised weights,” meaning weights should have a mean of 1.</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="data-manipulation.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Numerator model</span></span>
+<span id="cb82-2"><a href="data-manipulation.html#cb82-2" aria-hidden="true" tabindex="-1"></a>fit_num <span class="ot">=</span> colon_rs <span class="sc">%&gt;%</span> </span>
+<span id="cb82-3"><a href="data-manipulation.html#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glmmulti</span>(<span class="st">&quot;group_fu&quot;</span>, <span class="dv">1</span>)</span>
+<span id="cb82-4"><a href="data-manipulation.html#cb82-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-5"><a href="data-manipulation.html#cb82-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Denominator model</span></span>
+<span id="cb82-6"><a href="data-manipulation.html#cb82-6" aria-hidden="true" tabindex="-1"></a>fit_dem <span class="ot">=</span> colon_rs <span class="sc">%&gt;%</span> </span>
+<span id="cb82-7"><a href="data-manipulation.html#cb82-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glmmulti</span>(<span class="st">&quot;group_fu&quot;</span>, explanatory)</span>
+<span id="cb82-8"><a href="data-manipulation.html#cb82-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-9"><a href="data-manipulation.html#cb82-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Check denominator model</span></span>
+<span id="cb82-10"><a href="data-manipulation.html#cb82-10" aria-hidden="true" tabindex="-1"></a>fit_dem <span class="sc">%&gt;%</span> </span>
+<span id="cb82-11"><a href="data-manipulation.html#cb82-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit2df</span>()</span></code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##              explanatory                         OR
+## 1                    age  1.00 (0.99-1.02, p=0.766)
+## 2         sex.factorMale  0.93 (0.62-1.38, p=0.710)
+## 3     obstruct.factorYes  1.07 (0.65-1.83, p=0.803)
+## 4       perfor.factorYes 4.71 (0.97-85.05, p=0.133)
+## 5       adhere.factorYes  0.72 (0.43-1.26, p=0.235)
+## 6                  nodes  0.96 (0.91-1.01, p=0.083)
+## 7  differ.factorModerate  1.61 (0.85-2.91, p=0.128)
+## 8      differ.factorPoor  1.49 (0.69-3.15, p=0.301)
+## 9                  rxLev  1.01 (0.63-1.63, p=0.961)
+## 10             rxLev+5FU  1.11 (0.68-1.82, p=0.687)</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="data-manipulation.html#cb85-1" aria-hidden="true" tabindex="-1"></a>colon_rs <span class="ot">=</span> colon_rs <span class="sc">%&gt;%</span> </span>
+<span id="cb85-2"><a href="data-manipulation.html#cb85-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb85-3"><a href="data-manipulation.html#cb85-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> <span class="fu">predict</span>(fit_num, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>),</span>
+<span id="cb85-4"><a href="data-manipulation.html#cb85-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">pi =</span> <span class="fu">predict</span>(fit_dem, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>),</span>
+<span id="cb85-5"><a href="data-manipulation.html#cb85-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">weights =</span> <span class="fu">case_when</span>(</span>
+<span id="cb85-6"><a href="data-manipulation.html#cb85-6" aria-hidden="true" tabindex="-1"></a>      group_fu <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> p <span class="sc">/</span> pi,</span>
+<span id="cb85-7"><a href="data-manipulation.html#cb85-7" aria-hidden="true" tabindex="-1"></a>      group_fu <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> (<span class="dv">1</span><span class="sc">-</span>p) <span class="sc">/</span> (<span class="dv">1</span><span class="sc">-</span>pi) </span>
+<span id="cb85-8"><a href="data-manipulation.html#cb85-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb85-9"><a href="data-manipulation.html#cb85-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb85-10"><a href="data-manipulation.html#cb85-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-11"><a href="data-manipulation.html#cb85-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(colon_rs<span class="sc">$</span>weights)</span></code></pre></div>
+<pre><code>## [1] 0.9987887</code></pre>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="data-manipulation.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Whoop whoop if ~1.0</span></span></code></pre></div>
+<p>A weighted proportion can then be generated, which gives a very similar result to the multiple imputation.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="data-manipulation.html#cb88-1" aria-hidden="true" tabindex="-1"></a>colon_rs <span class="sc">%&gt;%</span>  </span>
+<span id="cb88-2"><a href="data-manipulation.html#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb88-3"><a href="data-manipulation.html#cb88-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mort_5yr_wgt =</span> (<span class="fu">as.numeric</span>(mort_5yr) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> weights</span>
+<span id="cb88-4"><a href="data-manipulation.html#cb88-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb88-5"><a href="data-manipulation.html#cb88-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary_factorlist</span>(<span class="at">explanatory =</span> <span class="fu">c</span>(<span class="st">&quot; mort_5yr&quot;</span>, <span class="st">&quot; mort_5yr_wgt&quot;</span>), <span class="at">digits =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>) )</span></code></pre></div>
+<pre><code>##         label    levels             all
+##      mort_5yr     Alive      423 (57.2)
+##                    Died      316 (42.8)
+##  mort_5yr_wgt Mean (SD) 0.4317 (0.5008)</code></pre>
 
+</div>
 </div>
 </div>
             </section>

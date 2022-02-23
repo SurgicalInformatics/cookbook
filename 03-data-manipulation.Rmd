@@ -137,3 +137,170 @@ mydata = tibble(a = c(1,2,NA),
 mydata %>% 
   mutate(s = pmap_dbl(select(., a:d), pmax, na.rm=TRUE))
 ```
+
+## Multiple imputation and IPW for missing data
+
+Two approaches are commonly used for dealing with missing data. 
+
+Multiple imputation (MI) "fills in" missing values. Inverse probability weighting (IPW) "weights" observed values to reflect characteristics of missing data. 
+
+Missing data is discussed in detail here: https://argonaut.is.ed.ac.uk/s/d5de83c1d3855a579434d/files/finalfit/docs/articles/missing.html
+
+The IPW methods are taken from here: https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/
+
+### Data
+
+```{r message=FALSE, warning=FALSE}
+library(finalfit)
+library(tidyverse)
+library(mice)
+
+## Inspect dataset
+# colon_s %>% ff_glimpse()
+
+## Below we will use these variables to model, 
+## so remove missings from them and from outcome for this demonstration
+explanatory = c("age", 
+                "sex.factor", 
+                "obstruct.factor", 
+                "perfor.factor",
+                "adhere.factor",
+                "nodes",
+                "differ.factor",
+                "rx")
+
+
+## Remove existing missings
+colon_s = colon_s %>% 
+  select(mort_5yr, explanatory) %>% 
+  drop_na()
+```
+
+Here is the truth for mortality at 5 years in these data. 
+
+```{r message=FALSE, warning=FALSE}
+## Truth
+colon_s %>% 
+  summary_factorlist(explanatory = "mort_5yr")
+```
+
+Let's conditionally delete some outcomes. 
+
+```{r}
+set.seed(1234)
+colon_rs = colon_s %>% 
+  mutate(mort_5yr = ifelse(mort_5yr == "Alive", 
+                           sample(c("Alive", NA_character_), 
+                                  size = sum(colon_s$mort_5yr == "Alive"), 
+                                  replace = TRUE, prob = c(0.9, 0.1)),
+                           sample(c("Died", NA_character_), 
+                                  size = sum(colon_s$mort_5yr == "Died"), 
+                                  replace = TRUE, prob = c(0.85, 0.15))) %>% 
+           factor()
+  )
+```
+
+The proportion that died, is now lower due to our artifically introduced reporting bias:
+
+```{r message=FALSE, warning=FALSE}
+colon_rs %>% 
+  summary_factorlist(explanatory = "mort_5yr")
+```
+
+### Multiple imputation
+First, let's use multiple imputation to "fill in" missing outcome using the existing information we have about the patient. 
+
+```{r}
+## Choose which variables in dataset to include in imputation. 
+predM = colon_rs %>% 
+  select(mort_5yr, explanatory) %>% 
+  missing_predictorMatrix(
+    drop_from_imputed = c(""), 
+    drop_from_imputer = c(""))
+
+# This is needed to drop from imputed
+# Include for completeness, but not used here. 
+m0 = mice(colon_rs %>% 
+            select(mort_5yr, explanatory), maxit=0)
+# m0$method[c("study_id")] = ""
+# m0$method[c("redcap_data_access_group")] = ""
+
+colon_rs_imputed = colon_rs %>% 
+  select(mort_5yr, explanatory) %>% 
+  mice(m = 10, maxit = 10, predictorMatrix = predM, method = m0$method,
+       print = FALSE) # print false just for example
+
+## Check output here:
+# summary(colon_rs_imputed)
+# plot(colon_rs_imputed )
+```
+
+#### Reduce imputed sets (mean)
+As can be seen, the imputed proportion approaches that of the "true" value. 
+
+```{r}
+colon_rs_imputed %>% 
+  complete("all") %>% 
+  map(~ (.) %>% count(mort_5yr) %>% 
+        mutate(nn = sum(n),
+               prop = n/nn) %>% 
+        select(-mort_5yr)) %>% 
+  reduce(`+`) / 10
+```
+
+### IPW
+Rather than filling in the missing values, we can weight the observed values to reflect the characteristics of the missing data. 
+
+```{r}
+## Define observed vs non-observed groups
+colon_rs = colon_rs %>% 
+  mutate(
+    group_fu = if_else(is.na(mort_5yr), 0, 1)
+  )
+
+colon_rs %>% 
+  count(group_fu)
+```
+
+This method uses "stabilised weights", meaning weights should have a mean of 1. 
+
+```{r}
+# Numerator model
+fit_num = colon_rs %>% 
+  glmmulti("group_fu", 1)
+
+# Denominator model
+fit_dem = colon_rs %>% 
+  glmmulti("group_fu", explanatory)
+
+# Check denominator model
+fit_dem %>% 
+  fit2df()
+```
+
+
+```{r}
+colon_rs = colon_rs %>% 
+  mutate(
+    p = predict(fit_num, type = "response"),
+    pi = predict(fit_dem, type = "response"),
+    weights = case_when(
+      group_fu == 1 ~ p / pi,
+      group_fu == 0 ~ (1-p) / (1-pi) 
+    )
+  )
+
+mean(colon_rs$weights)
+# Whoop whoop if ~1.0
+```
+
+A weighted proportion can then be generated, which gives a very similar result to the multiple imputation. 
+
+```{r message=FALSE, warning=FALSE}
+colon_rs %>%  
+  mutate(
+    mort_5yr_wgt = (as.numeric(mort_5yr) - 1) * weights
+  ) %>% 
+  summary_factorlist(explanatory = c(" mort_5yr", " mort_5yr_wgt"), digits = c(4, 4, 3, 1) )
+
+```

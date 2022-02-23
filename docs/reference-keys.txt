@@ -45,6 +45,11 @@ data-manipulation
 collapse-multiple-no-and-yes-options
 filter-na-dropping-rows-where-all-specified-variables-are-na
 vectorising-rowwise-procedures
+multiple-imputation-and-ipw-for-missing-data
+data
+multiple-imputation
+reduce-imputed-sets-mean
+ipw
 machine-learning
 deep-learning
 pulling-images-from-redcap-directly-to-argodeep
