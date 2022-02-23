@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.9.8)  23 FEB 2022 15:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.9.8)  23 FEB 2022 16:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -843,7 +843,7 @@ Underfull \vbox (badness 10000) detected at line 2067
 
 [48] [49] [50]
 Chapter 6.
-<06-plotting_files/figure-latex/gghighlight-1.pdf, id=523, 455.7025pt x 315.177
+<06-plotting_files/figure-latex/gghighlight-1.pdf, id=522, 455.7025pt x 315.177
 5pt>
 File: 06-plotting_files/figure-latex/gghighlight-1.pdf Graphic file (type pdf)
 <use 06-plotting_files/figure-latex/gghighlight-1.pdf>
@@ -858,7 +858,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 ]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 2159.
-<06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf, id=529, 453.695pt x 313.
+<06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf, id=528, 453.695pt x 313.
 17pt>
 File: 06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type p
 df)
@@ -870,7 +870,7 @@ used on input line 2173.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [52 <./06-plotting_files/figure-latex/gghighlight-1.pdf>]
-<06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf, id=546, 453.695pt x 313.
+<06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf, id=545, 453.695pt x 313.
 17pt>
 File: 06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf Graphic file (type p
 df)
@@ -882,7 +882,7 @@ used on input line 2187.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [53 <./06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf>]
-<06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf, id=559, 453.695pt x 313.
+<06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf, id=558, 453.695pt x 313.
 17pt>
 File: 06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf Graphic file (type p
 df)
@@ -894,7 +894,7 @@ used on input line 2205.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [54 <./06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf>]
-<06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf, id=571, 199.74625pt x 13
+<06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf, id=570, 199.74625pt x 13
 6.51pt>
 File: 06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type p
 df)
@@ -906,13 +906,13 @@ used on input line 2234.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [55 <./06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf>]
-</home/eharrison/cookbook/img/barplot_5x4.png, id=585, 361.35pt x 289.08pt>
+</home/eharrison/cookbook/img/barplot_5x4.png, id=584, 361.35pt x 289.08pt>
 File: /home/eharrison/cookbook/img/barplot_5x4.png Graphic file (type png)
 <use /home/eharrison/cookbook/img/barplot_5x4.png>
 Package pdftex.def Info: /home/eharrison/cookbook/img/barplot_5x4.png  used on 
 input line 2252.
 (pdftex.def)             Requested size: 172.49767pt x 137.99812pt.
-</home/eharrison/cookbook/img/barplot_10x8.png, id=586, 722.7pt x 578.16pt>
+</home/eharrison/cookbook/img/barplot_10x8.png, id=585, 722.7pt x 578.16pt>
 File: /home/eharrison/cookbook/img/barplot_10x8.png Graphic file (type png)
 <use /home/eharrison/cookbook/img/barplot_10x8.png>
 Package pdftex.def Info: /home/eharrison/cookbook/img/barplot_10x8.png  used on
@@ -923,7 +923,7 @@ Overfull \hbox (2.21202pt too wide) in paragraph at lines 2252--2254
 [][] [] 
  []
 
-<06-plotting_files/figure-latex/dag_big_nodes_part_1-1.pdf, id=587, 457.71pt x 
+<06-plotting_files/figure-latex/dag_big_nodes_part_1-1.pdf, id=586, 457.71pt x 
 313.17pt>
 File: 06-plotting_files/figure-latex/dag_big_nodes_part_1-1.pdf Graphic file (t
 ype pdf)
@@ -936,7 +936,7 @@ Underfull \vbox (badness 1460) has occurred while \output is active []
 
 [56 <./06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf> </home/eharrison/c
 ookbook/img/barplot_5x4.png> </home/eharrison/cookbook/img/barplot_10x8.png>]
-<06-plotting_files/figure-latex/dag_big_nodes_part_2-1.pdf, id=600, 457.71pt x 
+<06-plotting_files/figure-latex/dag_big_nodes_part_2-1.pdf, id=599, 457.71pt x 
 313.17pt>
 File: 06-plotting_files/figure-latex/dag_big_nodes_part_2-1.pdf Graphic file (t
 ype pdf)
@@ -977,7 +977,7 @@ Underfull \vbox (badness 4108) has occurred while \output is active []
 
 [66] [67] [68] [69] [70]
 Chapter 10.
-<img/zotero_add_on_install.png, id=722, 797.379pt x 502.87875pt>
+<img/zotero_add_on_install.png, id=721, 797.379pt x 502.87875pt>
 File: img/zotero_add_on_install.png Graphic file (type png)
 <use img/zotero_add_on_install.png>
 Package pdftex.def Info: img/zotero_add_on_install.png  used on input line 2781
@@ -997,7 +997,7 @@ Overfull \hbox (452.37706pt too wide) in paragraph at lines 2781--2781
                                                   \fi \fi 
 l.2790 
         <./img/zotero_add_on_install.png>]
-<img/zotfile_preferences.png, id=738, 963.6pt x 510.10574pt>
+<img/zotfile_preferences.png, id=737, 963.6pt x 510.10574pt>
 File: img/zotfile_preferences.png Graphic file (type png)
 <use img/zotfile_preferences.png>
 Package pdftex.def Info: img/zotfile_preferences.png  used on input line 2820.
@@ -1020,7 +1020,7 @@ e.10.2}) has been already used, duplicate ignored
                                                   \fi \fi 
 l.2824 
         <./img/zotfile_preferences.png>]
-<img/zotfile_renaming.png, id=761, 964.20226pt x 513.117pt>
+<img/zotfile_renaming.png, id=760, 964.20226pt x 513.117pt>
 File: img/zotfile_renaming.png Graphic file (type png)
 <use img/zotfile_renaming.png>
 Package pdftex.def Info: img/zotfile_renaming.png  used on input line 2826.
@@ -1050,7 +1050,7 @@ e.10.3}) has been already used, duplicate ignored
                                                   \fi \fi 
 l.2872 
         <./img/zotfile_renaming.png>]
-<img/zotero_citation_key.png, id=773, 962.99776pt x 511.9125pt>
+<img/zotero_citation_key.png, id=772, 962.99776pt x 511.9125pt>
 File: img/zotero_citation_key.png Graphic file (type png)
 <use img/zotero_citation_key.png>
 Package pdftex.def Info: img/zotero_citation_key.png  used on input line 2874.
@@ -1096,10 +1096,10 @@ m/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf
 /type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtko10.pfb
 ></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf/fonts/typ
 e1/public/lm/lmtti10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtto10.pfb>
-Output written on cookbook.pdf (83 pages, 2015974 bytes).
+Output written on cookbook.pdf (83 pages, 2015804 bytes).
 PDF statistics:
- 1089 PDF objects out of 1200 (max. 8388607)
- 949 compressed objects within 10 object streams
+ 1088 PDF objects out of 1200 (max. 8388607)
+ 948 compressed objects within 10 object streams
  362 named destinations out of 1000 (max. 500000)
  14804 words of extra memory for PDF output out of 17280 (max. 10000000)
 
