@@ -983,23 +983,24 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
     \AttributeTok{date =} \FunctionTok{seq}\NormalTok{(}\FunctionTok{ymd}\NormalTok{(}\DecValTok{20200101}\NormalTok{), }\FunctionTok{ymd}\NormalTok{(}\DecValTok{20220601}\NormalTok{), }\AttributeTok{by=}\StringTok{"day"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
       \FunctionTok{sample}\NormalTok{(}\DecValTok{929}\NormalTok{, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{)}
 \NormalTok{  )}
-    
+
 \CommentTok{\# Make isoweek start date look{-}up table}
 \DocumentationTok{\#\# Make sure includes entire range of your dates of interest. }
 \NormalTok{isoweek\_lookup }\OtherTok{=} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{date =} \FunctionTok{seq}\NormalTok{(}\FunctionTok{ymd}\NormalTok{(}\DecValTok{20200101}\NormalTok{), }\FunctionTok{ymd}\NormalTok{(}\DecValTok{20220601}\NormalTok{), }\AttributeTok{by =} \DecValTok{1}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{isoweek =}\NormalTok{ lubridate}\SpecialCharTok{::}\FunctionTok{isoweek}\NormalTok{(date))}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{isoweek =}\NormalTok{ lubridate}\SpecialCharTok{::}\FunctionTok{isoweek}\NormalTok{(date),}
+         \AttributeTok{year =}\NormalTok{ lubridate}\SpecialCharTok{::}\FunctionTok{year}\NormalTok{(date))}
 
 \NormalTok{isoweek\_lookup }\OtherTok{=}\NormalTok{ isoweek\_lookup }\SpecialCharTok{\%\textgreater{}\%} 
   \FunctionTok{left\_join}\NormalTok{(isoweek\_lookup }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{group\_by}\NormalTok{(isoweek) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{select}\NormalTok{(}\AttributeTok{isoweek\_date =}\NormalTok{ date, isoweek)}
+              \FunctionTok{group\_by}\NormalTok{(isoweek, year) }\SpecialCharTok{\%\textgreater{}\%} 
+              \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+              \FunctionTok{select}\NormalTok{(}\AttributeTok{isoweek\_date =}\NormalTok{ date, isoweek, year)}
 \NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## Joining, by = "isoweek"
+## Joining, by = c("isoweek", "year")
 \end{verbatim}
 
 \begin{Shaded}
@@ -1014,12 +1015,12 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 
 \begin{verbatim}
 ##         date isoweek isoweek_date
-## 1 2021-10-17      41   2020-10-05
-## 2 2021-05-06      18   2020-04-27
-## 3 2020-01-12       2   2020-01-06
-## 4 2020-11-02      45   2020-11-02
-## 5 2021-05-27      21   2020-05-18
-## 6 2020-11-20      47   2020-11-16
+## 1 2021-05-20      20   2021-05-17
+## 2 2021-02-11       6   2021-02-08
+## 3 2020-04-28      18   2020-04-27
+## 4 2021-05-04      18   2021-05-03
+## 5 2020-07-11      28   2020-07-06
+## 6 2021-07-27      30   2021-07-26
 \end{verbatim}
 
 \hypertarget{labelling-tables-and-figures-in-markdown-chunks}{%

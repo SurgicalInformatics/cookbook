@@ -414,17 +414,18 @@ colon_s = colon_s %>%
     date = seq(ymd(20200101), ymd(20220601), by="day") %>% 
       sample(929, replace = TRUE)
   )
-    
+
 # Make isoweek start date look-up table
 ## Make sure includes entire range of your dates of interest. 
 isoweek_lookup = tibble(date = seq(ymd(20200101), ymd(20220601), by = 1)) %>% 
-  mutate(isoweek = lubridate::isoweek(date))
+  mutate(isoweek = lubridate::isoweek(date),
+         year = lubridate::year(date))
 
 isoweek_lookup = isoweek_lookup %>% 
   left_join(isoweek_lookup %>% 
-  group_by(isoweek) %>% 
-  slice(1) %>% 
-  select(isoweek_date = date, isoweek)
+              group_by(isoweek, year) %>% 
+              slice(1) %>% 
+              select(isoweek_date = date, isoweek, year)
   )
 
 # Add isoweek_date (first date of a particular isoweek) and isoweek to analysis dataset. 

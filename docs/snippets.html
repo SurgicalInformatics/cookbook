@@ -890,31 +890,32 @@ I often want days as a numeric, not a lubridate type object.</p>
 <span id="cb45-8"><a href="snippets.html#cb45-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">seq</span>(<span class="fu">ymd</span>(<span class="dv">20200101</span>), <span class="fu">ymd</span>(<span class="dv">20220601</span>), <span class="at">by=</span><span class="st">&quot;day&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb45-9"><a href="snippets.html#cb45-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sample</span>(<span class="dv">929</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb45-10"><a href="snippets.html#cb45-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb45-11"><a href="snippets.html#cb45-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb45-11"><a href="snippets.html#cb45-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb45-12"><a href="snippets.html#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Make isoweek start date look-up table</span></span>
 <span id="cb45-13"><a href="snippets.html#cb45-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Make sure includes entire range of your dates of interest. </span></span>
 <span id="cb45-14"><a href="snippets.html#cb45-14" aria-hidden="true" tabindex="-1"></a>isoweek_lookup <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">date =</span> <span class="fu">seq</span>(<span class="fu">ymd</span>(<span class="dv">20200101</span>), <span class="fu">ymd</span>(<span class="dv">20220601</span>), <span class="at">by =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb45-15"><a href="snippets.html#cb45-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">isoweek =</span> lubridate<span class="sc">::</span><span class="fu">isoweek</span>(date))</span>
-<span id="cb45-16"><a href="snippets.html#cb45-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-17"><a href="snippets.html#cb45-17" aria-hidden="true" tabindex="-1"></a>isoweek_lookup <span class="ot">=</span> isoweek_lookup <span class="sc">%&gt;%</span> </span>
-<span id="cb45-18"><a href="snippets.html#cb45-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(isoweek_lookup <span class="sc">%&gt;%</span> </span>
-<span id="cb45-19"><a href="snippets.html#cb45-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(isoweek) <span class="sc">%&gt;%</span> </span>
-<span id="cb45-20"><a href="snippets.html#cb45-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb45-21"><a href="snippets.html#cb45-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">isoweek_date =</span> date, isoweek)</span>
-<span id="cb45-22"><a href="snippets.html#cb45-22" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<pre><code>## Joining, by = &quot;isoweek&quot;</code></pre>
+<span id="cb45-15"><a href="snippets.html#cb45-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">isoweek =</span> lubridate<span class="sc">::</span><span class="fu">isoweek</span>(date),</span>
+<span id="cb45-16"><a href="snippets.html#cb45-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> lubridate<span class="sc">::</span><span class="fu">year</span>(date))</span>
+<span id="cb45-17"><a href="snippets.html#cb45-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-18"><a href="snippets.html#cb45-18" aria-hidden="true" tabindex="-1"></a>isoweek_lookup <span class="ot">=</span> isoweek_lookup <span class="sc">%&gt;%</span> </span>
+<span id="cb45-19"><a href="snippets.html#cb45-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(isoweek_lookup <span class="sc">%&gt;%</span> </span>
+<span id="cb45-20"><a href="snippets.html#cb45-20" aria-hidden="true" tabindex="-1"></a>              <span class="fu">group_by</span>(isoweek, year) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-21"><a href="snippets.html#cb45-21" aria-hidden="true" tabindex="-1"></a>              <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-22"><a href="snippets.html#cb45-22" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(<span class="at">isoweek_date =</span> date, isoweek, year)</span>
+<span id="cb45-23"><a href="snippets.html#cb45-23" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>## Joining, by = c(&quot;isoweek&quot;, &quot;year&quot;)</code></pre>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="snippets.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add isoweek_date (first date of a particular isoweek) and isoweek to analysis dataset. </span></span>
 <span id="cb47-2"><a href="snippets.html#cb47-2" aria-hidden="true" tabindex="-1"></a>colon_s <span class="sc">%&gt;%</span> </span>
 <span id="cb47-3"><a href="snippets.html#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(isoweek_lookup, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;date&quot;</span> <span class="ot">=</span> <span class="st">&quot;date&quot;</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb47-4"><a href="snippets.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date, isoweek, isoweek_date) <span class="sc">%&gt;%</span> </span>
 <span id="cb47-5"><a href="snippets.html#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div>
 <pre><code>##         date isoweek isoweek_date
-## 1 2022-02-11       6   2020-02-03
-## 2 2020-10-18      42   2020-10-12
-## 3 2021-04-08      14   2020-03-30
-## 4 2022-02-15       7   2020-02-10
-## 5 2021-08-16      33   2020-08-10
-## 6 2020-03-02      10   2020-03-02</code></pre>
+## 1 2020-02-10       7   2020-02-10
+## 2 2021-08-26      34   2021-08-23
+## 3 2021-09-11      36   2021-09-06
+## 4 2021-08-03      31   2021-08-02
+## 5 2021-07-08      27   2021-07-05
+## 6 2020-10-15      42   2020-10-12</code></pre>
 </div>
 </div>
 <div id="labelling-tables-and-figures-in-markdown-chunks" class="section level2" number="2.7">
