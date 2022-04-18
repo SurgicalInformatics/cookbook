@@ -131,7 +131,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2022-02-23}
+\date{2022-04-18}
 
 \begin{document}
 \maketitle
@@ -447,9 +447,12 @@ If you have a small (and confidential) set of data in a tibble or data frame cal
 \end{Shaded}
 
 \begin{verbatim}
-## Error: Problem with `mutate()` column `newvar`.
+## Error in `mutate_cols()`:
+## ! Problem with `mutate()` column `newvar`.
 ## i `newvar = a/b`.
 ## x non-numeric argument to binary operator
+## Caused by error in `a / b`:
+## ! non-numeric argument to binary operator
 \end{verbatim}
 
 \hypertarget{holepunch---complex-reproducible-examples}{%
@@ -611,7 +614,7 @@ Works for a single date or a vector of dates.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 51 78 72
+## [1] 51 78 73
 \end{verbatim}
 
 \begin{Shaded}
@@ -658,7 +661,7 @@ Works for a single date or a vector of dates.
 ##   <chr>      <date>     <chr>  <dbl>
 ## 1 1009701234 1970-09-10 Male      51
 ## 2 1811431232 1943-11-18 Male      78
-## 3 1304496368 1949-04-13 Female    72
+## 3 1304496368 1949-04-13 Female    73
 \end{verbatim}
 
 \hypertarget{chi_valid---logical-test-for-valid-chi}{%
@@ -709,7 +712,7 @@ The final digit of the CHI can be used to test that the number is correct via th
 ##   <chr>      <date>     <chr>  <dbl> <lgl>    
 ## 1 1009701234 1970-09-10 Male      51 FALSE    
 ## 2 1811431232 1943-11-18 Male      78 TRUE     
-## 3 1304496368 1949-04-13 Female    72 TRUE
+## 3 1304496368 1949-04-13 Female    73 TRUE
 \end{verbatim}
 
 \hypertarget{working-with-dates}{%
@@ -953,9 +956,9 @@ This function helps guess the date format from a dataset you have received. Add 
 \end{Shaded}
 
 \begin{verbatim}
-##  Dependent: Surv(time, status)        all          HR (univariable)
-##                          group 0 2 (40.0)                         -
-##                                1 3 (60.0) 0.76 (0.10-5.51, p=0.786)
+##  Dependent: Surv(time, status)         all          HR (univariable)
+##                          group 0 2 (100.0)                         -
+##                                1 3 (100.0) 0.76 (0.10-5.51, p=0.786)
 ##         HR (multivariable)
 ##                          -
 ##  0.76 (0.10-5.51, p=0.786)
@@ -1011,12 +1014,12 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 
 \begin{verbatim}
 ##         date isoweek isoweek_date
-## 1 2020-06-18      25   2020-06-15
-## 2 2022-04-08      14   2020-03-30
-## 3 2021-04-15      15   2020-04-06
-## 4 2021-02-26       8   2020-02-17
-## 5 2020-12-21      52   2020-12-21
-## 6 2021-10-17      41   2020-10-05
+## 1 2021-10-17      41   2020-10-05
+## 2 2021-05-06      18   2020-04-27
+## 3 2020-01-12       2   2020-01-06
+## 4 2020-11-02      45   2020-11-02
+## 5 2021-05-27      21   2020-05-18
+## 6 2020-11-20      47   2020-11-16
 \end{verbatim}
 
 \hypertarget{labelling-tables-and-figures-in-markdown-chunks}{%
