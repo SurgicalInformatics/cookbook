@@ -110,6 +110,9 @@ make-your-app-the-default-index-page
 getting-a-user-friendly-domain-name
 appendix-1-password-protecting-your-site
 appendix-2-setting-up-a-swap-file
+redcap
+api-pull
+applying-a-redcap-factoring-script
 citations-with-r-markdown
 zotero-set-up
 file-storage-set-up

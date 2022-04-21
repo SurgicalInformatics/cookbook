@@ -1,0 +1,80 @@
+# REDCap
+
+## API pull
+
+1. REDCap's API can be used to automatically pull records from a REDCap project. Ask your project manager to give you API Export rights and then request an API token via the API page of the project (left hand menu when inside a project). The API option will only appear after the project manager can given you API rights.
+
+2. Put the API token in your .Renviron file and Restart R. Example format:
+
+```
+redcap_token = ABC10000000000000000000000001DFG
+```
+
+3. Go to the API playground in REDCap (left-hand menu inside a project) and from API Method select "Export Records".
+
+4. Scroll down and look at the R code example. Now, we've not found that copying this exact example works very well for us. But looking at the format can be useful if you've made custom selections at the top, e.g., to pull specific records or variables. In most cases though, you can ignore the example and copy these lines:
+
+```
+pulled_data = RCurl::postForm(uri='https://redcap.yourURL.com/api/',
+                        token=Sys.getenv(redcap_token),
+                        content='record',
+                        format='csv',
+                        rawOrLabel='raw',
+                        rawOrLabelHeaders='raw',
+                        exportCheckboxLabel='false',
+                        returnFormat='csv') %>% 
+    read_csv()
+```
+
+5. `rawOrLabel='raw'` vs `rawOrLabel='label'`. Pulling raw data will give you categorical variables in their raw coding, e.g., `1, 2` instead of `"Male", "Female"`. Pulling 'labels' will give you the latter, but their factor levels will be ordered alphabetically (as the information on which one was 1 and which one 2 is lost/not pulled). If I'm working with a small dataset with categorical variables that only have a couple of levels each then I find it easier to pull 'labels' and use `fct_relevel()` to order them as necessary. In most cases, however, you'll want to use the exact same ordering that's been set-up on the database. To do this, you'll have to pull 'raw' and apply what's called a REDCap's factoring script.
+
+## Applying a REDCap factoring script
+
+1. Getting the factoring script: leaving the API playground, click on "Data Exports, Reports, and Stats". On the line where it says "All data", click on Export Data, then select R Statistical Software, then click on Export Data. Then click on the R file:
+
+```{r, out.width = "800px", echo = FALSE}
+knitr::include_graphics("img/redcap_factoring_file.png")
+```
+
+Do not click on DATA CSV, because:
+
+* this exact data is already coming via the API pull
+* we don't download data onto our computers but pull it directly from REDCap to our secure analysis servers
+
+2. Move the factoring script to your project directory. The script needs editing to work well with the packages we use. Edit the factoring script as such:
+* Delete the first 7 lines.
+* Instead, add in
+```
+library(finalfit)
+library(magrittr)
+```
+* Change the labels() code from, e.g., 
+```
+label(data$record_id)="Record ID"
+label(data$redcap_data_access_group)="Data Access Group"
+label(data$sex)="Sex"
+label(data$age)="Age"
+```
+to
+```
+data$record_id %<>% ff_label("Record ID")
+data$redcap_data_access_group %<>% ff_label("Data Access Group")
+data$sex %<>% ff_label("Sex")
+data$age %<>% ff_label("Age")
+```
+
+Steps:
+
+* Remove `label(` from the beginning of each line
+* Replace  `)=` with ` %<>% ff_label(`
+* Complete each line with `)`
+
+3. Applying the factoring script on the pulled data: the factoring script assumes the tibble is called `data`. Instead of going through and changing each instance of this name, do this:
+
+
+```
+data = pulled_data
+source("REDCap_factoring_script.r")
+pulled_data = data
+rm(data)
+```

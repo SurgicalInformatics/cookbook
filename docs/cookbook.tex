@@ -131,7 +131,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2022-04-18}
+\date{2022-04-21}
 
 \begin{document}
 \maketitle
@@ -144,7 +144,7 @@
 \chapter*{}\label{section}}
 \addcontentsline{toc}{chapter}{}
 
-\includegraphics[width=30.97in]{/home/eharrison/cookbook/img/surgical_informatics_minibanner}
+\includegraphics[width=30.97in]{/home/rots/surginf/cookbook/img/surgical_informatics_minibanner}
 
 \hypertarget{introduction}{%
 \chapter{Introduction}\label{introduction}}
@@ -1015,12 +1015,12 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 
 \begin{verbatim}
 ##         date isoweek isoweek_date
-## 1 2021-05-20      20   2021-05-17
-## 2 2021-02-11       6   2021-02-08
-## 3 2020-04-28      18   2020-04-27
-## 4 2021-05-04      18   2021-05-03
-## 5 2020-07-11      28   2020-07-06
-## 6 2021-07-27      30   2021-07-26
+## 1 2021-05-01      17   2021-04-26
+## 2 2020-09-02      36   2020-08-31
+## 3 2021-04-11      14   2021-04-05
+## 4 2020-12-19      51   2020-12-14
+## 5 2021-12-07      49   2021-12-06
+## 6 2021-07-20      29   2021-07-19
 \end{verbatim}
 
 \hypertarget{labelling-tables-and-figures-in-markdown-chunks}{%
@@ -2253,8 +2253,8 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 
 Same plot 5x4 inches vs 10x8 inches:
 
-\includegraphics[width=0.5\linewidth]{/home/eharrison/cookbook/img/barplot_5x4}
-\includegraphics[width=0.5\linewidth]{/home/eharrison/cookbook/img/barplot_10x8}
+\includegraphics[width=0.5\linewidth]{/home/rots/surginf/cookbook/img/barplot_5x4}
+\includegraphics[width=0.5\linewidth]{/home/rots/surginf/cookbook/img/barplot_10x8}
 
 \hypertarget{shorten-arrows-on-a-dag}{%
 \section{Shorten Arrows on a DAG}\label{shorten-arrows-on-a-dag}}
@@ -2762,6 +2762,145 @@ If your instance grinds to a halt while compiling R packages, you've most likely
 \FunctionTok{sudo}\NormalTok{ free }\AttributeTok{{-}h}
 \end{Highlighting}
 \end{Shaded}
+
+\hypertarget{redcap}{%
+\chapter{REDCap}\label{redcap}}
+
+\hypertarget{api-pull}{%
+\section{API pull}\label{api-pull}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  REDCap's API can be used to automatically pull records from a REDCap project. Ask your project manager to give you API Export rights and then request an API token via the API page of the project (left hand menu when inside a project). The API option will only appear after the project manager can given you API rights.
+\item
+  Put the API token in your .Renviron file and Restart R. Example format:
+\end{enumerate}
+
+\begin{verbatim}
+redcap_token = ABC10000000000000000000000001DFG
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\item
+  Go to the API playground in REDCap (left-hand menu inside a project) and from API Method select ``Export Records''.
+\item
+  Scroll down and look at the R code example. Now, we've not found that copying this exact example works very well for us. But looking at the format can be useful if you've made custom selections at the top, e.g., to pull specific records or variables. In most cases though, you can ignore the example and copy these lines:
+\end{enumerate}
+
+\begin{verbatim}
+pulled_data = RCurl::postForm(uri='https://redcap.yourURL.com/api/',
+                        token=Sys.getenv(redcap_token),
+                        content='record',
+                        format='csv',
+                        rawOrLabel='raw',
+                        rawOrLabelHeaders='raw',
+                        exportCheckboxLabel='false',
+                        returnFormat='csv') %>% 
+    read_csv()
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  \texttt{rawOrLabel=\textquotesingle{}raw\textquotesingle{}} vs \texttt{rawOrLabel=\textquotesingle{}label\textquotesingle{}}. Pulling raw data will give you categorical variables in their raw coding, e.g., \texttt{1,\ 2} instead of \texttt{"Male",\ "Female"}. Pulling `labels' will give you the latter, but their factor levels will be ordered alphabetically (as the information on which one was 1 and which one 2 is lost/not pulled). If I'm working with a small dataset with categorical variables that only have a couple of levels each then I find it easier to pull `labels' and use \texttt{fct\_relevel()} to order them as necessary. In most cases, however, you'll want to use the exact same ordering that's been set-up on the database. To do this, you'll have to pull `raw' and apply what's called a REDCap's factoring script.
+\end{enumerate}
+
+\hypertarget{applying-a-redcap-factoring-script}{%
+\section{Applying a REDCap factoring script}\label{applying-a-redcap-factoring-script}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Getting the factoring script: leaving the API playground, click on ``Data Exports, Reports, and Stats''. On the line where it says ``All data'', click on Export Data, then select R Statistical Software, then click on Export Data. Then click on the R file:
+\end{enumerate}
+
+\includegraphics[width=800px]{img/redcap_factoring_file}
+
+Do not click on DATA CSV, because:
+
+\begin{itemize}
+\tightlist
+\item
+  this exact data is already coming via the API pull
+\item
+  we don't download data onto our computers but pull it directly from REDCap to our secure analysis servers
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Move the factoring script to your project directory. The script needs editing to work well with the packages we use. Edit the factoring script as such:
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Delete the first 7 lines.
+\item
+  Instead, add in
+\end{itemize}
+
+\begin{verbatim}
+library(finalfit)
+library(magrittr)
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Change the labels() code from, e.g.,
+\end{itemize}
+
+\begin{verbatim}
+label(data$record_id)="Record ID"
+label(data$redcap_data_access_group)="Data Access Group"
+label(data$sex)="Sex"
+label(data$age)="Age"
+\end{verbatim}
+
+to
+
+\begin{verbatim}
+data$record_id %<>% ff_label("Record ID")
+data$redcap_data_access_group %<>% ff_label("Data Access Group")
+data$sex %<>% ff_label("Sex")
+data$age %<>% ff_label("Age")
+\end{verbatim}
+
+Steps:
+
+\begin{itemize}
+\tightlist
+\item
+  Remove \texttt{label(} from the beginning of each line
+\item
+  Replace \texttt{)=} with \texttt{\%\textless{}\textgreater{}\%\ ff\_label(}
+\item
+  Complete each line with \texttt{)}
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Applying the factoring script on the pulled data: the factoring script assumes the tibble is called \texttt{data}. Instead of going through and changing each instance of this name, do this:
+\end{enumerate}
+
+\begin{verbatim}
+data = pulled_data
+source("REDCap_factoring_script.r")
+pulled_data = data
+rm(data)
+\end{verbatim}
 
 \hypertarget{citations-with-r-markdown}{%
 \chapter{Citations with R Markdown}\label{citations-with-r-markdown}}

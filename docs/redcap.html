@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | The Surgical Informatics Cookbook</title>
+  <title>Chapter 10 REDCap | The Surgical Informatics Cookbook</title>
   <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
   <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | The Surgical Informatics Cookbook" />
+  <meta property="og:title" content="Chapter 10 REDCap | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | The Surgical Informatics Cookbook" />
+  <meta name="twitter:title" content="Chapter 10 REDCap | The Surgical Informatics Cookbook" />
   
   <meta name="twitter:description" content="All the brilliant bits of code we don’t want to forget." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="citations-with-r-markdown.html"/>
-
+<link rel="prev" href="server-admin.html"/>
+<link rel="next" href="citations-with-r-markdown.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -361,16 +361,78 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
+<div id="redcap" class="section level1" number="10">
+<h1><span class="header-section-number">Chapter 10</span> REDCap</h1>
+<div id="api-pull" class="section level2" number="10.1">
+<h2><span class="header-section-number">10.1</span> API pull</h2>
+<ol style="list-style-type: decimal">
+<li><p>REDCap’s API can be used to automatically pull records from a REDCap project. Ask your project manager to give you API Export rights and then request an API token via the API page of the project (left hand menu when inside a project). The API option will only appear after the project manager can given you API rights.</p></li>
+<li><p>Put the API token in your .Renviron file and Restart R. Example format:</p></li>
+</ol>
+<pre><code>redcap_token = ABC10000000000000000000000001DFG</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Go to the API playground in REDCap (left-hand menu inside a project) and from API Method select “Export Records.”</p></li>
+<li><p>Scroll down and look at the R code example. Now, we’ve not found that copying this exact example works very well for us. But looking at the format can be useful if you’ve made custom selections at the top, e.g., to pull specific records or variables. In most cases though, you can ignore the example and copy these lines:</p></li>
+</ol>
+<pre><code>pulled_data = RCurl::postForm(uri=&#39;https://redcap.yourURL.com/api/&#39;,
+                        token=Sys.getenv(redcap_token),
+                        content=&#39;record&#39;,
+                        format=&#39;csv&#39;,
+                        rawOrLabel=&#39;raw&#39;,
+                        rawOrLabelHeaders=&#39;raw&#39;,
+                        exportCheckboxLabel=&#39;false&#39;,
+                        returnFormat=&#39;csv&#39;) %&gt;% 
+    read_csv()</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li><code>rawOrLabel='raw'</code> vs <code>rawOrLabel='label'</code>. Pulling raw data will give you categorical variables in their raw coding, e.g., <code>1, 2</code> instead of <code>"Male", "Female"</code>. Pulling ‘labels’ will give you the latter, but their factor levels will be ordered alphabetically (as the information on which one was 1 and which one 2 is lost/not pulled). If I’m working with a small dataset with categorical variables that only have a couple of levels each then I find it easier to pull ‘labels’ and use <code>fct_relevel()</code> to order them as necessary. In most cases, however, you’ll want to use the exact same ordering that’s been set-up on the database. To do this, you’ll have to pull ‘raw’ and apply what’s called a REDCap’s factoring script.</li>
+</ol>
+</div>
+<div id="applying-a-redcap-factoring-script" class="section level2" number="10.2">
+<h2><span class="header-section-number">10.2</span> Applying a REDCap factoring script</h2>
+<ol style="list-style-type: decimal">
+<li>Getting the factoring script: leaving the API playground, click on “Data Exports, Reports, and Stats.” On the line where it says “All data,” click on Export Data, then select R Statistical Software, then click on Export Data. Then click on the R file:</li>
+</ol>
+<p><img src="img/redcap_factoring_file.png" width="800px" /></p>
+<p>Do not click on DATA CSV, because:</p>
+<ul>
+<li>this exact data is already coming via the API pull</li>
+<li>we don’t download data onto our computers but pull it directly from REDCap to our secure analysis servers</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Move the factoring script to your project directory. The script needs editing to work well with the packages we use. Edit the factoring script as such:</li>
+</ol>
+<ul>
+<li>Delete the first 7 lines.</li>
+<li>Instead, add in</li>
+</ul>
+<pre><code>library(finalfit)
+library(magrittr)</code></pre>
+<ul>
+<li>Change the labels() code from, e.g.,</li>
+</ul>
+<pre><code>label(data$record_id)=&quot;Record ID&quot;
+label(data$redcap_data_access_group)=&quot;Data Access Group&quot;
+label(data$sex)=&quot;Sex&quot;
+label(data$age)=&quot;Age&quot;</code></pre>
+<p>to</p>
+<pre><code>data$record_id %&lt;&gt;% ff_label(&quot;Record ID&quot;)
+data$redcap_data_access_group %&lt;&gt;% ff_label(&quot;Data Access Group&quot;)
+data$sex %&lt;&gt;% ff_label(&quot;Sex&quot;)
+data$age %&lt;&gt;% ff_label(&quot;Age&quot;)</code></pre>
+<p>Steps:</p>
+<ul>
+<li>Remove <code>label(</code> from the beginning of each line</li>
+<li>Replace <code>)=</code> with <code>%&lt;&gt;% ff_label(</code></li>
+<li>Complete each line with <code>)</code></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Applying the factoring script on the pulled data: the factoring script assumes the tibble is called <code>data</code>. Instead of going through and changing each instance of this name, do this:</li>
+</ol>
+<pre><code>data = pulled_data
+source(&quot;REDCap_factoring_script.r&quot;)
+pulled_data = data
+rm(data)</code></pre>
 
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div class="csl-entry">
-Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.
-</div>
-<div class="csl-entry">
-———. 2021. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.
-</div>
 </div>
 </div>
             </section>
@@ -378,8 +440,8 @@ Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd 
           </div>
         </div>
       </div>
-<a href="citations-with-r-markdown.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="server-admin.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="citations-with-r-markdown.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
