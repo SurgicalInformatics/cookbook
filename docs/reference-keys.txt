@@ -113,6 +113,7 @@ appendix-2-setting-up-a-swap-file
 redcap
 api-pull
 applying-a-redcap-factoring-script
+alternative-to-the-factoring-script-redcap_label-from-librarycollaboratorr
 citations-with-r-markdown
 zotero-set-up
 file-storage-set-up

@@ -131,7 +131,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2022-04-21}
+\date{2022-04-25}
 
 \begin{document}
 \maketitle
@@ -175,7 +175,7 @@
 \end{enumerate}
 
 \begin{quote}
-Pro tip: instead of clicking on every single file in the Git tab, go to the terminal, \texttt{cd\ cookbook} to go to the project folder if still home, and do \texttt{git\ add\ -A} which is the same thing. Still need to Commit though!
+Pro tip: instead of clicking on every single file in the Git tab, go to the terminal, \texttt{cd\ cookbook} to go to the project folder if still home, and do \texttt{git\ add\ .} which is the same thing. Still need to Commit though!
 \end{quote}
 
 \textbf{8. Have fun!}
@@ -1015,12 +1015,12 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 
 \begin{verbatim}
 ##         date isoweek isoweek_date
-## 1 2021-05-01      17   2021-04-26
-## 2 2020-09-02      36   2020-08-31
-## 3 2021-04-11      14   2021-04-05
-## 4 2020-12-19      51   2020-12-14
-## 5 2021-12-07      49   2021-12-06
-## 6 2021-07-20      29   2021-07-19
+## 1 2021-12-11      49   2021-12-06
+## 2 2020-04-03      14   2020-03-30
+## 3 2020-06-30      27   2020-06-29
+## 4 2022-05-23      21   2022-05-23
+## 5 2020-08-22      34   2020-08-17
+## 6 2021-10-23      42   2021-10-18
 \end{verbatim}
 
 \hypertarget{labelling-tables-and-figures-in-markdown-chunks}{%
@@ -2790,17 +2790,70 @@ redcap_token = ABC10000000000000000000000001DFG
   Scroll down and look at the R code example. Now, we've not found that copying this exact example works very well for us. But looking at the format can be useful if you've made custom selections at the top, e.g., to pull specific records or variables. In most cases though, you can ignore the example and copy these lines:
 \end{enumerate}
 
-\begin{verbatim}
-pulled_data = RCurl::postForm(uri='https://redcap.yourURL.com/api/',
-                        token=Sys.getenv(redcap_token),
-                        content='record',
-                        format='csv',
-                        rawOrLabel='raw',
-                        rawOrLabelHeaders='raw',
-                        exportCheckboxLabel='false',
-                        returnFormat='csv') %>% 
-    read_csv()
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pulled\_data }\OtherTok{=}\NormalTok{ RCurl}\SpecialCharTok{::}\FunctionTok{postForm}\NormalTok{(}\AttributeTok{uri=}\StringTok{\textquotesingle{}https://redcap.yourURL.com/api/\textquotesingle{}}\NormalTok{,}
+                        \AttributeTok{token=}\FunctionTok{Sys.getenv}\NormalTok{(redcap\_token),}
+                        \AttributeTok{content=}\StringTok{\textquotesingle{}record\textquotesingle{}}\NormalTok{,}
+                        \AttributeTok{format=}\StringTok{\textquotesingle{}csv\textquotesingle{}}\NormalTok{,}
+                        \AttributeTok{rawOrLabel=}\StringTok{\textquotesingle{}raw\textquotesingle{}}\NormalTok{,}
+                        \AttributeTok{rawOrLabelHeaders=}\StringTok{\textquotesingle{}raw\textquotesingle{}}\NormalTok{,}
+                        \AttributeTok{exportCheckboxLabel=}\StringTok{\textquotesingle{}false\textquotesingle{}}\NormalTok{,}
+                        \AttributeTok{returnFormat=}\StringTok{\textquotesingle{}csv\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{read\_csv}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+The above code works well for the vast majority of projects. If, however, the project is huge then you'll need to pull data in batches using \texttt{redcap\_read()} from \texttt{library(REDCapR)}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Packages}
+\FunctionTok{library}\NormalTok{(RCurl)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(REDCapR)}
+
+\CommentTok{\# Functions for safe api pull}
+\NormalTok{rate }\OtherTok{=} \FunctionTok{rate\_backoff}\NormalTok{(}\AttributeTok{pause\_cap =} \DecValTok{60}\SpecialCharTok{*}\DecValTok{5}\NormalTok{, }\AttributeTok{max\_times =} \DecValTok{10}\NormalTok{)}
+\NormalTok{insistent\_postForm }\OtherTok{=}\NormalTok{ purrr}\SpecialCharTok{::}\FunctionTok{insistently}\NormalTok{(postForm, rate)}
+\NormalTok{insistent\_redcap\_read }\OtherTok{=}\NormalTok{ purrr}\SpecialCharTok{::}\FunctionTok{insistently}\NormalTok{(redcap\_read, rate)}
+\NormalTok{batch }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(.vector, }\AttributeTok{.n =} \DecValTok{200}\NormalTok{)\{}
+  \FunctionTok{split}\NormalTok{(.vector, }\FunctionTok{ceiling}\NormalTok{(}\FunctionTok{seq\_along}\NormalTok{(.vector)}\SpecialCharTok{/}\NormalTok{.n))}
+\NormalTok{\}}
+
+\CommentTok{\# Get subjid}
+\NormalTok{subjid }\OtherTok{=} \FunctionTok{insistent\_postForm}\NormalTok{(}
+  \AttributeTok{uri=}\StringTok{\textquotesingle{}https://ncov.medsci.ox.ac.uk/api/\textquotesingle{}}\NormalTok{,}
+  \AttributeTok{token=}\FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{"redcap\_token"}\NormalTok{),}
+  \AttributeTok{content=}\StringTok{\textquotesingle{}record\textquotesingle{}}\NormalTok{,}
+  \CommentTok{\#report\_id=\textquotesingle{}999\textquotesingle{},}
+  \StringTok{\textquotesingle{}fields[0]\textquotesingle{}}\OtherTok{=}\StringTok{\textquotesingle{}subjid\textquotesingle{}}\NormalTok{,}
+  \AttributeTok{format=}\StringTok{\textquotesingle{}csv\textquotesingle{}}\NormalTok{,}
+  \AttributeTok{type=}\StringTok{\textquotesingle{}flat\textquotesingle{}}\NormalTok{,}
+  \AttributeTok{rawOrLabel=}\StringTok{\textquotesingle{}raw\textquotesingle{}}\NormalTok{,}
+  \AttributeTok{rawOrLabelHeaders=}\StringTok{\textquotesingle{}raw\textquotesingle{}}\NormalTok{,}
+  \AttributeTok{exportCheckboxLabel=}\StringTok{\textquotesingle{}false\textquotesingle{}}\NormalTok{,}
+  \AttributeTok{exportSurveyFields=}\StringTok{\textquotesingle{}false\textquotesingle{}}\NormalTok{,}
+  \AttributeTok{exportDataAccessGroups=}\StringTok{\textquotesingle{}false\textquotesingle{}}\NormalTok{,}
+  \AttributeTok{returnFormat=}\StringTok{\textquotesingle{}json\textquotesingle{}}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{read\_csv}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{distinct}\NormalTok{(subjid) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pull}\NormalTok{(subjid)}
+
+\CommentTok{\# Get data in batches}
+\NormalTok{data }\OtherTok{=} \FunctionTok{batch}\NormalTok{(subjid) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{map\_df}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \FunctionTok{insistent\_redcap\_read}\NormalTok{(}
+    \AttributeTok{redcap\_uri =} \StringTok{"https://ncov.medsci.ox.ac.uk/api/"}\NormalTok{,}
+    \AttributeTok{export\_data\_access\_groups =} \ConstantTok{TRUE}\NormalTok{,}
+    \AttributeTok{token =} \FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{"redcap\_token"}\NormalTok{),}
+    \AttributeTok{records =}\NormalTok{ .x,}
+    \AttributeTok{guess\_type =} \ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{$}\NormalTok{data}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{type\_convert}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{as\_tibble}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2853,11 +2906,14 @@ library(finalfit)
 library(magrittr)
 \end{verbatim}
 
-\begin{itemize}
-\tightlist
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\item
+  Move the labelling section to the bottom of the script. This is because we are about to change it from Hmisc labels to finalfit labels, but the \texttt{factor()} function strips the latter. (Tidyverse functions, on the other hand, strip the former.)
 \item
   Change the labels() code from, e.g.,
-\end{itemize}
+\end{enumerate}
 
 \begin{verbatim}
 label(data$record_id)="Record ID"
@@ -2887,12 +2943,20 @@ Steps:
   Complete each line with \texttt{)}
 \end{itemize}
 
+Hints and tips:\\
+Consider using multiple cursors (click and drag your mouse while holding down Alt on Windows/Linux, or option on a Mac).\\
+When doing find and replace, make sure to click ``In selection'' so don't accidentally remove from other sections.\\
+For adding \texttt{)} to the end of line, use:
+
+\includegraphics[width=800px]{img/regexp_end_of_line}
+
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
+\setcounter{enumi}{4}
 \item
-  Applying the factoring script on the pulled data: the factoring script assumes the tibble is called \texttt{data}. Instead of going through and changing each instance of this name, do this:
+  Remove \texttt{.factor} from column names as this creates a duplicate of each column.
+\item
+  Apply the factoring script on the pulled data: the factoring script assumes the tibble is called \texttt{data}. Instead of going through and changing each instance of this name, do this:
 \end{enumerate}
 
 \begin{verbatim}
@@ -2901,6 +2965,11 @@ source("REDCap_factoring_script.r")
 pulled_data = data
 rm(data)
 \end{verbatim}
+
+\hypertarget{alternative-to-the-factoring-script-redcap_label-from-librarycollaboratorr}{%
+\section{\texorpdfstring{Alternative to the factoring script: \texttt{redcap\_label()} from \texttt{library(collaboratorR)}}{Alternative to the factoring script: redcap\_label() from library(collaboratorR)}}\label{alternative-to-the-factoring-script-redcap_label-from-librarycollaboratorr}}
+
+Optional: \texttt{redcap\_label()} from \texttt{library(collaboratorR)} will do factoring for you by applying information from the project's metadata (which is also pulled via the API). Currently, it uses Hmisc labels so not fully compatible with the tidyverse.
 
 \hypertarget{citations-with-r-markdown}{%
 \chapter{Citations with R Markdown}\label{citations-with-r-markdown}}

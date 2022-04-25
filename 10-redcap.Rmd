@@ -14,7 +14,7 @@ redcap_token = ABC10000000000000000000000001DFG
 
 4. Scroll down and look at the R code example. Now, we've not found that copying this exact example works very well for us. But looking at the format can be useful if you've made custom selections at the top, e.g., to pull specific records or variables. In most cases though, you can ignore the example and copy these lines:
 
-```
+```{r, eval = FALSE}
 pulled_data = RCurl::postForm(uri='https://redcap.yourURL.com/api/',
                         token=Sys.getenv(redcap_token),
                         content='record',
@@ -24,6 +24,56 @@ pulled_data = RCurl::postForm(uri='https://redcap.yourURL.com/api/',
                         exportCheckboxLabel='false',
                         returnFormat='csv') %>% 
     read_csv()
+```
+
+The above code works well for the vast majority of projects. If, however, the project is huge then you'll need to pull data in batches using `redcap_read()` from `library(REDCapR)`:
+
+```{r, eval = FALSE}
+# Packages
+library(RCurl)
+library(tidyverse)
+library(REDCapR)
+
+# Functions for safe api pull
+rate = rate_backoff(pause_cap = 60*5, max_times = 10)
+insistent_postForm = purrr::insistently(postForm, rate)
+insistent_redcap_read = purrr::insistently(redcap_read, rate)
+batch = function(.vector, .n = 200){
+  split(.vector, ceiling(seq_along(.vector)/.n))
+}
+
+# Get subjid
+subjid = insistent_postForm(
+  uri='https://ncov.medsci.ox.ac.uk/api/',
+  token=Sys.getenv("redcap_token"),
+  content='record',
+  #report_id='999',
+  'fields[0]'='subjid',
+  format='csv',
+  type='flat',
+  rawOrLabel='raw',
+  rawOrLabelHeaders='raw',
+  exportCheckboxLabel='false',
+  exportSurveyFields='false',
+  exportDataAccessGroups='false',
+  returnFormat='json'
+  ) %>% 
+  read_csv() %>% 
+  distinct(subjid) %>% 
+  pull(subjid)
+
+# Get data in batches
+data = batch(subjid) %>% 
+  map_df(~ insistent_redcap_read(
+    redcap_uri = "https://ncov.medsci.ox.ac.uk/api/",
+    export_data_access_groups = TRUE,
+    token = Sys.getenv("redcap_token"),
+    records = .x,
+    guess_type = FALSE)$data
+  ) %>% 
+  type_convert() %>% 
+  as_tibble()
+
 ```
 
 5. `rawOrLabel='raw'` vs `rawOrLabel='label'`. Pulling raw data will give you categorical variables in their raw coding, e.g., `1, 2` instead of `"Male", "Female"`. Pulling 'labels' will give you the latter, but their factor levels will be ordered alphabetically (as the information on which one was 1 and which one 2 is lost/not pulled). If I'm working with a small dataset with categorical variables that only have a couple of levels each then I find it easier to pull 'labels' and use `fct_relevel()` to order them as necessary. In most cases, however, you'll want to use the exact same ordering that's been set-up on the database. To do this, you'll have to pull 'raw' and apply what's called a REDCap's factoring script.
@@ -48,7 +98,9 @@ Do not click on DATA CSV, because:
 library(finalfit)
 library(magrittr)
 ```
-* Change the labels() code from, e.g., 
+3. Move the labelling section to the bottom of the script. This is because we are about to change it from Hmisc labels to finalfit labels, but the `factor()` function strips the latter. (Tidyverse functions, on the other hand, strip the former.)
+
+4. Change the labels() code from, e.g., 
 ```
 label(data$record_id)="Record ID"
 label(data$redcap_data_access_group)="Data Access Group"
@@ -69,7 +121,18 @@ Steps:
 * Replace  `)=` with ` %<>% ff_label(`
 * Complete each line with `)`
 
-3. Applying the factoring script on the pulled data: the factoring script assumes the tibble is called `data`. Instead of going through and changing each instance of this name, do this:
+Hints and tips:  
+Consider using multiple cursors (click and drag your mouse while holding down Alt on Windows/Linux, or option on a Mac).  
+When doing find and replace, make sure to click "In selection" so don't accidentally remove from other sections.  
+For adding `)` to the end of line, use:
+
+```{r, out.width = "800px", echo = FALSE}
+knitr::include_graphics("img/regexp_end_of_line.png")
+```
+
+5. Remove `.factor` from column names as this creates a duplicate of each column.
+
+6. Apply the factoring script on the pulled data: the factoring script assumes the tibble is called `data`. Instead of going through and changing each instance of this name, do this:
 
 
 ```
@@ -78,3 +141,7 @@ source("REDCap_factoring_script.r")
 pulled_data = data
 rm(data)
 ```
+
+## Alternative to the factoring script: `redcap_label()` from `library(collaboratorR)`
+
+Optional: `redcap_label()` from `library(collaboratorR)` will do factoring for you by applying information from the project's metadata (which is also pulled via the API). Currently, it uses Hmisc labels so not fully compatible with the tidyverse. 

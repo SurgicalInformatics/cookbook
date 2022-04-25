@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 Genomics | The Surgical Informatics Cookbook</title>
+  <title>Chapter 11 Alternative to the factoring script: redcap_label() from library(collaboratorR) | The Surgical Informatics Cookbook</title>
   <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
   <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 Genomics | The Surgical Informatics Cookbook" />
+  <meta property="og:title" content="Chapter 11 Alternative to the factoring script: redcap_label() from library(collaboratorR) | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Genomics | The Surgical Informatics Cookbook" />
+  <meta name="twitter:title" content="Chapter 11 Alternative to the factoring script: redcap_label() from library(collaboratorR) | The Surgical Informatics Cookbook" />
   
   <meta name="twitter:description" content="All the brilliant bits of code we don’t want to forget." />
   
@@ -24,15 +24,15 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2022-04-25" />
+<meta name="date" content="2022-04-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="plotting.html"/>
-<link rel="next" href="programming-in-rlang.html"/>
+<link rel="prev" href="redcap.html"/>
+<link rel="next" href="citations-with-r-markdown.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -53,8 +53,6 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -122,28 +120,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -315,31 +291,31 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="10.1" data-path="redcap.html"><a href="redcap.html#api-pull"><i class="fa fa-check"></i><b>10.1</b> API pull</a></li>
 <li class="chapter" data-level="10.2" data-path="redcap.html"><a href="redcap.html#applying-a-redcap-factoring-script"><i class="fa fa-check"></i><b>10.2</b> Applying a REDCap factoring script</a></li>
-<li class="chapter" data-level="10.3" data-path="redcap.html"><a href="redcap.html#alternative-to-the-factoring-script-redcap_label-from-librarycollaboratorr"><i class="fa fa-check"></i><b>10.3</b> Alternative to the factoring script: <code>redcap_label()</code> from <code>library(collaboratorR)</code></a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html"><i class="fa fa-check"></i><b>11</b> Citations with R Markdown</a>
+<li class="chapter" data-level="11" data-path="alternative-to-the-factoring-script-redcap_label-from-librarycollaboratorr.html"><a href="alternative-to-the-factoring-script-redcap_label-from-librarycollaboratorr.html"><i class="fa fa-check"></i><b>11</b> Alternative to the factoring script: <code>redcap_label()</code> from <code>library(collaboratorR)</code></a></li>
+<li class="chapter" data-level="12" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html"><i class="fa fa-check"></i><b>12</b> Citations with R Markdown</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#zotero-set-up"><i class="fa fa-check"></i><b>11.1</b> Zotero Set-up</a></li>
-<li class="chapter" data-level="11.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#file-storage-set-up"><i class="fa fa-check"></i><b>11.2</b> File Storage Set-up</a></li>
-<li class="chapter" data-level="11.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#folder-set-up"><i class="fa fa-check"></i><b>11.3</b> Folder Set-up</a>
+<li class="chapter" data-level="12.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#zotero-set-up"><i class="fa fa-check"></i><b>12.1</b> Zotero Set-up</a></li>
+<li class="chapter" data-level="12.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#file-storage-set-up"><i class="fa fa-check"></i><b>12.2</b> File Storage Set-up</a></li>
+<li class="chapter" data-level="12.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#folder-set-up"><i class="fa fa-check"></i><b>12.3</b> Folder Set-up</a>
 <ul>
-<li class="chapter" data-level="11.3.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#storing-pdfs"><i class="fa fa-check"></i><b>11.3.1</b> Storing PDFs</a></li>
-<li class="chapter" data-level="11.3.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#storing-bibliographies"><i class="fa fa-check"></i><b>11.3.2</b> Storing Bibliographies</a></li>
-<li class="chapter" data-level="11.3.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#subfolder-for-references"><i class="fa fa-check"></i><b>11.3.3</b> Subfolder for References</a></li>
+<li class="chapter" data-level="12.3.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#storing-pdfs"><i class="fa fa-check"></i><b>12.3.1</b> Storing PDFs</a></li>
+<li class="chapter" data-level="12.3.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#storing-bibliographies"><i class="fa fa-check"></i><b>12.3.2</b> Storing Bibliographies</a></li>
+<li class="chapter" data-level="12.3.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#subfolder-for-references"><i class="fa fa-check"></i><b>12.3.3</b> Subfolder for References</a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#configuring-zotero"><i class="fa fa-check"></i><b>11.4</b> Configuring Zotero</a>
+<li class="chapter" data-level="12.4" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#configuring-zotero"><i class="fa fa-check"></i><b>12.4</b> Configuring Zotero</a>
 <ul>
-<li class="chapter" data-level="11.4.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#zotfile-pdf-preferences"><i class="fa fa-check"></i><b>11.4.1</b> ZotFile PDF Preferences</a></li>
-<li class="chapter" data-level="11.4.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#general-zotero-settings"><i class="fa fa-check"></i><b>11.4.2</b> General Zotero Settings</a></li>
-<li class="chapter" data-level="11.4.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#refresh-bibtex-citation-key"><i class="fa fa-check"></i><b>11.4.3</b> Refresh BibTex Citation Key</a></li>
+<li class="chapter" data-level="12.4.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#zotfile-pdf-preferences"><i class="fa fa-check"></i><b>12.4.1</b> ZotFile PDF Preferences</a></li>
+<li class="chapter" data-level="12.4.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#general-zotero-settings"><i class="fa fa-check"></i><b>12.4.2</b> General Zotero Settings</a></li>
+<li class="chapter" data-level="12.4.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#refresh-bibtex-citation-key"><i class="fa fa-check"></i><b>12.4.3</b> Refresh BibTex Citation Key</a></li>
 </ul></li>
-<li class="chapter" data-level="11.5" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#generating-a-.bib-file"><i class="fa fa-check"></i><b>11.5</b> Generating a .bib File</a></li>
-<li class="chapter" data-level="11.6" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#linking-dropbox-and-rstudio-server"><i class="fa fa-check"></i><b>11.6</b> Linking DropBox and Rstudio Server</a>
+<li class="chapter" data-level="12.5" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#generating-a-.bib-file"><i class="fa fa-check"></i><b>12.5</b> Generating a .bib File</a></li>
+<li class="chapter" data-level="12.6" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#linking-dropbox-and-rstudio-server"><i class="fa fa-check"></i><b>12.6</b> Linking DropBox and Rstudio Server</a>
 <ul>
-<li class="chapter" data-level="11.6.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#token-creation"><i class="fa fa-check"></i><b>11.6.1</b> Token Creation</a></li>
-<li class="chapter" data-level="11.6.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#dropbox-linkage"><i class="fa fa-check"></i><b>11.6.2</b> DropBox Linkage</a></li>
+<li class="chapter" data-level="12.6.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#token-creation"><i class="fa fa-check"></i><b>12.6.1</b> Token Creation</a></li>
+<li class="chapter" data-level="12.6.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#dropbox-linkage"><i class="fa fa-check"></i><b>12.6.2</b> DropBox Linkage</a></li>
 </ul></li>
-<li class="chapter" data-level="11.7" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#citing-r-packages"><i class="fa fa-check"></i><b>11.7</b> Citing R Packages</a></li>
+<li class="chapter" data-level="12.7" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#citing-r-packages"><i class="fa fa-check"></i><b>12.7</b> Citing R Packages</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -362,50 +338,18 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="genomics" class="section level1" number="7">
-<h1><span class="header-section-number">Chapter 7</span> Genomics</h1>
-<div id="single-cell-analysis" class="section level2" number="7.1">
-<h2><span class="header-section-number">7.1</span> Single Cell Analysis</h2>
-<div id="minimising-the-size-of-a-seurat-object" class="section level3" number="7.1.1">
-<h3><span class="header-section-number">7.1.1</span> Minimising the size of a Seurat Object</h3>
-<p>Single cell analyses are ofetn collated in Seurat objects which can be huge. We reduced the size of our Seurat object by pulling the relevant sections using the code below reducing the object to &lt;20% of its original size. This works by only including the sparse matrices. This is not a workable example, but the PBMC dataset could be used if necessary.</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="genomics.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="co">#library(Seurat)</span></span>
-<span id="cb120-2"><a href="genomics.html#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="co">#library(dplyr)</span></span>
-<span id="cb120-3"><a href="genomics.html#cb120-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-4"><a href="genomics.html#cb120-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-5"><a href="genomics.html#cb120-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Load in the data</span></span>
-<span id="cb120-6"><a href="genomics.html#cb120-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-7"><a href="genomics.html#cb120-7" aria-hidden="true" tabindex="-1"></a>pathtoglobaldata <span class="ot">&lt;-</span><span class="st">&quot;mac_shiny/data/Global_sc_object&quot;</span></span>
-<span id="cb120-8"><a href="genomics.html#cb120-8" aria-hidden="true" tabindex="-1"></a>object_global<span class="ot">&lt;-</span><span class="fu">readRDS</span>(pathtoglobaldata)</span>
-<span id="cb120-9"><a href="genomics.html#cb120-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-10"><a href="genomics.html#cb120-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-11"><a href="genomics.html#cb120-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Get sparse assay data</span></span>
-<span id="cb120-12"><a href="genomics.html#cb120-12" aria-hidden="true" tabindex="-1"></a>sizetest_global<span class="ot">&lt;-</span><span class="fu">GetAssayData</span>(<span class="at">object =</span> object_global, <span class="at">slot =</span> <span class="st">&quot;data&quot;</span>) <span class="co"># counts don’t work, scaled breaks my pc with memory errors, not sure it matters that much</span></span>
-<span id="cb120-13"><a href="genomics.html#cb120-13" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="ot">&lt;-</span> <span class="fu">CreateSeuratObject</span>(sizetest_global)</span>
-<span id="cb120-14"><a href="genomics.html#cb120-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-15"><a href="genomics.html#cb120-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Add in classifications. </span></span>
-<span id="cb120-16"><a href="genomics.html#cb120-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-17"><a href="genomics.html#cb120-17" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">@</span>reductions<span class="sc">$</span>tsne<span class="ot">&lt;-</span>object_global<span class="sc">@</span>reductions<span class="sc">$</span>tsne <span class="co"># reduction embeddings for tsnegraph</span></span>
-<span id="cb120-18"><a href="genomics.html#cb120-18" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">$</span>Phenotype<span class="ot">&lt;-</span> object_global<span class="sc">$</span>Phenotype</span>
-<span id="cb120-19"><a href="genomics.html#cb120-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-20"><a href="genomics.html#cb120-20" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">@</span>meta.data<span class="sc">$</span>final_classification<span class="ot">&lt;-</span> object_global<span class="sc">@</span>meta.data<span class="sc">$</span>final_classification</span>
-<span id="cb120-21"><a href="genomics.html#cb120-21" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">$</span>final_classificaiton<span class="ot">&lt;-</span> object_global<span class="sc">$</span>final_classification <span class="co">#cell classifications</span></span>
-<span id="cb120-22"><a href="genomics.html#cb120-22" aria-hidden="true" tabindex="-1"></a><span class="fu">Idents</span>(<span class="at">object =</span> object_global_small) <span class="ot">&lt;-</span> <span class="st">&quot;final_classificaiton&quot;</span> <span class="co">#set forever</span></span>
-<span id="cb120-23"><a href="genomics.html#cb120-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-24"><a href="genomics.html#cb120-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-25"><a href="genomics.html#cb120-25" aria-hidden="true" tabindex="-1"></a><span class="co">#same</span></span>
-<span id="cb120-26"><a href="genomics.html#cb120-26" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(object_global_small,<span class="st">&quot;mac_shiny/data/global_object_sml&quot;</span>)</span></code></pre></div>
+<div id="alternative-to-the-factoring-script-redcap_label-from-librarycollaboratorr" class="section level1" number="11">
+<h1><span class="header-section-number">Chapter 11</span> Alternative to the factoring script: <code>redcap_label()</code> from <code>library(collaboratorR)</code></h1>
+<p>Optional: <code>redcap_label()</code> from <code>library(collaboratorR)</code> will do factoring for you by applying information from the project’s metadata (which is also pulled via the API).</p>
 
-</div>
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="plotting.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="programming-in-rlang.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="redcap.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="citations-with-r-markdown.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
