@@ -131,7 +131,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2022-04-25}
+\date{2022-06-14}
 
 \begin{document}
 \maketitle
@@ -144,7 +144,7 @@
 \chapter*{}\label{section}}
 \addcontentsline{toc}{chapter}{}
 
-\includegraphics[width=30.97in]{/home/rots/surginf/cookbook/img/surgical_informatics_minibanner}
+\includegraphics[width=30.97in]{img/surgical_informatics_minibanner}
 
 \hypertarget{introduction}{%
 \chapter{Introduction}\label{introduction}}
@@ -447,10 +447,8 @@ If you have a small (and confidential) set of data in a tibble or data frame cal
 \end{Shaded}
 
 \begin{verbatim}
-## Error in `mutate_cols()`:
-## ! Problem with `mutate()` column `newvar`.
-## i `newvar = a/b`.
-## x non-numeric argument to binary operator
+## Error in `mutate()`:
+## ! Problem while computing `newvar = a/b`.
 ## Caused by error in `a / b`:
 ## ! non-numeric argument to binary operator
 \end{verbatim}
@@ -1015,12 +1013,12 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 
 \begin{verbatim}
 ##         date isoweek isoweek_date
-## 1 2021-12-11      49   2021-12-06
-## 2 2020-04-03      14   2020-03-30
-## 3 2020-06-30      27   2020-06-29
-## 4 2022-05-23      21   2022-05-23
-## 5 2020-08-22      34   2020-08-17
-## 6 2021-10-23      42   2021-10-18
+## 1 2021-08-25      34   2021-08-23
+## 2 2020-03-24      13   2020-03-23
+## 3 2020-11-23      48   2020-11-23
+## 4 2021-05-24      21   2021-05-24
+## 5 2020-09-10      37   2020-09-07
+## 6 2021-06-06      22   2021-05-31
 \end{verbatim}
 
 \hypertarget{labelling-tables-and-figures-in-markdown-chunks}{%
@@ -1053,6 +1051,55 @@ I have made a table and it looks nice (See Table \texttt{\textbackslash{}ref\{ta
 \InformationTok{\textasciigrave{}\textasciigrave{}\textasciigrave{}}
 \end{Highlighting}
 \end{Shaded}
+
+\hypertarget{join-tables-and-overwrite-values-that-are-often-missing}{%
+\section{Join tables and overwrite values (that are often missing)}\label{join-tables-and-overwrite-values-that-are-often-missing}}
+
+From here: \url{https://stackoverflow.com/questions/35637135/left-join-two-data-frames-and-overwrite}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\NormalTok{.keys }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"key1"}\NormalTok{, }\StringTok{"key2"}\NormalTok{)}
+
+\NormalTok{.base\_table }\OtherTok{\textless{}{-}} \FunctionTok{tribble}\NormalTok{(}
+    \SpecialCharTok{\textasciitilde{}}\NormalTok{key1, }\SpecialCharTok{\textasciitilde{}}\NormalTok{key2, }\SpecialCharTok{\textasciitilde{}}\NormalTok{val1, }\SpecialCharTok{\textasciitilde{}}\NormalTok{val2,}
+    \StringTok{"A"}\NormalTok{, }\StringTok{"a"}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{,}
+    \StringTok{"A"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{,}
+    \StringTok{"B"}\NormalTok{, }\StringTok{"a"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{,}
+    \StringTok{"B"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+
+\NormalTok{.join\_table }\OtherTok{\textless{}{-}} \FunctionTok{tribble}\NormalTok{(}
+    \SpecialCharTok{\textasciitilde{}}\NormalTok{key1, }\SpecialCharTok{\textasciitilde{}}\NormalTok{key2, }\SpecialCharTok{\textasciitilde{}}\NormalTok{val2,}
+    \StringTok{"A"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\DecValTok{100}\NormalTok{,}
+    \StringTok{"B"}\NormalTok{, }\StringTok{"a"}\NormalTok{, }\DecValTok{111}\NormalTok{)}
+
+\CommentTok{\# This works}
+\NormalTok{df\_result }\OtherTok{\textless{}{-}}\NormalTok{ .base\_table }\SpecialCharTok{\%\textgreater{}\%}
+    \CommentTok{\# Pull off rows from base table that match the join table}
+    \FunctionTok{semi\_join}\NormalTok{(.join\_table, .keys) }\SpecialCharTok{\%\textgreater{}\%}
+    \CommentTok{\# Drop cols from base table that are in join table, except for the key columns}
+    \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{matches}\NormalTok{(}\FunctionTok{setdiff}\NormalTok{(}\FunctionTok{names}\NormalTok{(.join\_table), .keys))) }\SpecialCharTok{\%\textgreater{}\%}
+    \CommentTok{\# Left join on the join table columns}
+    \FunctionTok{left\_join}\NormalTok{(.join\_table, .keys) }\SpecialCharTok{\%\textgreater{}\%}
+    \CommentTok{\# Remove the matching rows from the base table, and }
+    \CommentTok{\# bind on the newly joined result from above.}
+    \FunctionTok{bind\_rows}\NormalTok{(.base\_table }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{anti\_join}\NormalTok{(.join\_table, .keys))}
+
+\NormalTok{df\_result }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{print}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 4
+##   key1  key2   val1  val2
+##   <chr> <chr> <dbl> <dbl>
+## 1 A     b         0   100
+## 2 B     a         1   111
+## 3 A     a         0     0
+## 4 B     b         1     1
+\end{verbatim}
 
 \hypertarget{data-manipulation}{%
 \chapter{Data manipulation}\label{data-manipulation}}
@@ -2253,8 +2300,8 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 
 Same plot 5x4 inches vs 10x8 inches:
 
-\includegraphics[width=0.5\linewidth]{/home/rots/surginf/cookbook/img/barplot_5x4}
-\includegraphics[width=0.5\linewidth]{/home/rots/surginf/cookbook/img/barplot_10x8}
+\includegraphics[width=0.5\linewidth]{img/barplot_5x4}
+\includegraphics[width=0.5\linewidth]{img/barplot_10x8}
 
 \hypertarget{shorten-arrows-on-a-dag}{%
 \section{Shorten Arrows on a DAG}\label{shorten-arrows-on-a-dag}}

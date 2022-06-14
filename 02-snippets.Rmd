@@ -460,3 +460,41 @@ library(knitr)
 kable(mtcars[1:3,1:4], caption="A nice table.\\label{tab:a-nice-table}")
 ```
 ````
+
+
+
+## Join tables and overwrite values (that are often missing)
+
+From here: https://stackoverflow.com/questions/35637135/left-join-two-data-frames-and-overwrite
+
+```{r}
+library(dplyr)
+.keys <- c("key1", "key2")
+
+.base_table <- tribble(
+    ~key1, ~key2, ~val1, ~val2,
+    "A", "a", 0, 0,
+    "A", "b", 0, 1,
+    "B", "a", 1, 0,
+    "B", "b", 1, 1)
+
+.join_table <- tribble(
+    ~key1, ~key2, ~val2,
+    "A", "b", 100,
+    "B", "a", 111)
+
+# This works
+df_result <- .base_table %>%
+    # Pull off rows from base table that match the join table
+    semi_join(.join_table, .keys) %>%
+    # Drop cols from base table that are in join table, except for the key columns
+    select(-matches(setdiff(names(.join_table), .keys))) %>%
+    # Left join on the join table columns
+    left_join(.join_table, .keys) %>%
+    # Remove the matching rows from the base table, and 
+    # bind on the newly joined result from above.
+    bind_rows(.base_table %>% anti_join(.join_table, .keys))
+
+df_result %>%
+    print()
+```
