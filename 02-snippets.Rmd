@@ -498,3 +498,15 @@ df_result <- .base_table %>%
 df_result %>%
     print()
 ```
+
+## Read in multiple files
+
+As of July 2021, library(readr) is happy to read in multiple files into the same tibble without you having to use `purrr::map_dfr()`.
+
+```{r, eval = FALSE}
+library(tidyverse)
+
+exampledata = read_csv(fs::dir_ls(path = "data_folder", glob = "*.csv"))
+```
+
+ It's also happy to automatically uncompress files ending with .zip, .gz or similar.

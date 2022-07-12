@@ -131,7 +131,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2022-06-14}
+\date{2022-07-12}
 
 \begin{document}
 \maketitle
@@ -954,9 +954,9 @@ This function helps guess the date format from a dataset you have received. Add 
 \end{Shaded}
 
 \begin{verbatim}
-##  Dependent: Surv(time, status)         all          HR (univariable)
-##                          group 0 2 (100.0)                         -
-##                                1 3 (100.0) 0.76 (0.10-5.51, p=0.786)
+##  Dependent: Surv(time, status)        all          HR (univariable)
+##                          group 0 2 (40.0)                         -
+##                                1 3 (60.0) 0.76 (0.10-5.51, p=0.786)
 ##         HR (multivariable)
 ##                          -
 ##  0.76 (0.10-5.51, p=0.786)
@@ -1013,12 +1013,12 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 
 \begin{verbatim}
 ##         date isoweek isoweek_date
-## 1 2021-08-25      34   2021-08-23
-## 2 2020-03-24      13   2020-03-23
-## 3 2020-11-23      48   2020-11-23
-## 4 2021-05-24      21   2021-05-24
-## 5 2020-09-10      37   2020-09-07
-## 6 2021-06-06      22   2021-05-31
+## 1 2020-02-20       8   2020-02-17
+## 2 2021-06-02      22   2021-05-31
+## 3 2022-05-11      19   2022-05-09
+## 4 2021-11-18      46   2021-11-15
+## 5 2020-01-04       1   2020-01-01
+## 6 2020-03-24      13   2020-03-23
 \end{verbatim}
 
 \hypertarget{labelling-tables-and-figures-in-markdown-chunks}{%
@@ -1100,6 +1100,21 @@ From here: \url{https://stackoverflow.com/questions/35637135/left-join-two-data-
 ## 3 A     a         0     0
 ## 4 B     b         1     1
 \end{verbatim}
+
+\hypertarget{read-in-multiple-files}{%
+\section{Read in multiple files}\label{read-in-multiple-files}}
+
+As of July 2021, library(readr) is happy to read in multiple files into the same tibble without you having to use \texttt{purrr::map\_dfr()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+
+\NormalTok{exampledata }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(fs}\SpecialCharTok{::}\FunctionTok{dir\_ls}\NormalTok{(}\AttributeTok{path =} \StringTok{"data\_folder"}\NormalTok{, }\AttributeTok{glob =} \StringTok{"*.csv"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+It's also happy to automatically uncompress files ending with .zip, .gz or similar.
 
 \hypertarget{data-manipulation}{%
 \chapter{Data manipulation}\label{data-manipulation}}

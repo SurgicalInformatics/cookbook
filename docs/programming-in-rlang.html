@@ -24,7 +24,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2022-06-14" />
+<meta name="date" content="2022-07-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -213,6 +213,7 @@ div.csl-indent {
 <li class="chapter" data-level="2.7.2" data-path="snippets.html"><a href="snippets.html#tables"><i class="fa fa-check"></i><b>2.7.2</b> Tables<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="2.8" data-path="snippets.html"><a href="snippets.html#join-tables-and-overwrite-values-that-are-often-missing"><i class="fa fa-check"></i><b>2.8</b> Join tables and overwrite values (that are often missing)<span></span></a></li>
+<li class="chapter" data-level="2.9" data-path="snippets.html"><a href="snippets.html#read-in-multiple-files"><i class="fa fa-check"></i><b>2.9</b> Read in multiple files<span></span></a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation<span></span></a>
 <ul>
@@ -377,47 +378,47 @@ div.csl-indent {
 <h3><span class="header-section-number">8.1.2</span> Dynamic calling of variables using dplyr<a href="programming-in-rlang.html#dynamic-calling-of-variables-using-dplyr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In this example, say we have a tibble of variables, but we want to apply dynamic changes to it (so we feed R a variable, that can change, either using another function like <code>purr::map</code> or in a ShinyApp). In this instance, specifying each variable and each different possible consequence using different logical functions would take forever and be very clunky. So we can use rlang to simply put a dynamic variable/object through the same function.</p>
 <p>We’ll use an example where we want to summarise by different outcomes in a dynamic way.</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="programming-in-rlang.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb123-2"><a href="programming-in-rlang.html#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Make data - here nonsense numbers on deaths per 100k from guns say</span></span>
-<span id="cb123-3"><a href="programming-in-rlang.html#cb123-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb123-4"><a href="programming-in-rlang.html#cb123-4" aria-hidden="true" tabindex="-1"></a>example_data <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">countries =</span> <span class="fu">c</span>(<span class="st">&#39;UK&#39;</span>, <span class="st">&#39;USA&#39;</span>, <span class="st">&#39;Pakistan&#39;</span>, <span class="st">&#39;Mexico&#39;</span>, <span class="st">&#39;Ireland&#39;</span>, <span class="st">&#39;Estonia&#39;</span>),</span>
-<span id="cb123-5"><a href="programming-in-rlang.html#cb123-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">region =</span> <span class="fu">c</span>(<span class="st">&#39;Europe&#39;</span>, <span class="st">&#39;Americas&#39;</span>, <span class="st">&#39;Asia&#39;</span>, <span class="st">&#39;Americas&#39;</span>, <span class="st">&#39;Europe&#39;</span>, <span class="st">&#39;Europe&#39;</span>),</span>
-<span id="cb123-6"><a href="programming-in-rlang.html#cb123-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">Death_from_guns =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">200</span>, <span class="dv">150</span>, <span class="dv">450</span>, <span class="dv">3</span>, <span class="fl">3.5</span>),</span>
-<span id="cb123-7"><a href="programming-in-rlang.html#cb123-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">Death_from_smoking =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">300</span>, <span class="dv">140</span>, <span class="dv">150</span>, <span class="dv">120</span>, <span class="dv">300</span>))</span>
-<span id="cb123-8"><a href="programming-in-rlang.html#cb123-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb123-9"><a href="programming-in-rlang.html#cb123-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb123-10"><a href="programming-in-rlang.html#cb123-10" aria-hidden="true" tabindex="-1"></a><span class="co">#example function for summarising using dynamic variables and bang bangs</span></span>
-<span id="cb123-11"><a href="programming-in-rlang.html#cb123-11" aria-hidden="true" tabindex="-1"></a><span class="co">#note metric must be numeric</span></span>
-<span id="cb123-12"><a href="programming-in-rlang.html#cb123-12" aria-hidden="true" tabindex="-1"></a>summarise_feature <span class="ot">=</span> <span class="cf">function</span>(df, col_var, ...){</span>
-<span id="cb123-13"><a href="programming-in-rlang.html#cb123-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(tidyverse)</span>
-<span id="cb123-14"><a href="programming-in-rlang.html#cb123-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb123-15"><a href="programming-in-rlang.html#cb123-15" aria-hidden="true" tabindex="-1"></a>  wurly_curly <span class="ot">=</span> <span class="cf">function</span>(.){<span class="co">#The wurly_curly function makes things nicer</span></span>
-<span id="cb123-16"><a href="programming-in-rlang.html#cb123-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(rlang)</span>
-<span id="cb123-17"><a href="programming-in-rlang.html#cb123-17" aria-hidden="true" tabindex="-1"></a>  <span class="sc">!!</span><span class="fu">quo_name</span>(<span class="fu">enquo</span>(.))}</span>
-<span id="cb123-18"><a href="programming-in-rlang.html#cb123-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb123-19"><a href="programming-in-rlang.html#cb123-19" aria-hidden="true" tabindex="-1"></a>  summary_nm_sum <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;metric_&quot;</span>, <span class="fu">wurly_curly</span>(col_var))<span class="co">#The new LHS variable must have a different name from that on the RHS</span></span>
-<span id="cb123-20"><a href="programming-in-rlang.html#cb123-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb123-21"><a href="programming-in-rlang.html#cb123-21" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
-<span id="cb123-22"><a href="programming-in-rlang.html#cb123-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(...) <span class="sc">%&gt;%</span> </span>
-<span id="cb123-23"><a href="programming-in-rlang.html#cb123-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="sc">!!</span><span class="at">summary_nm_sum :=</span> <span class="fu">sum</span>({{col_var}}))</span>
-<span id="cb123-24"><a href="programming-in-rlang.html#cb123-24" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb123-25"><a href="programming-in-rlang.html#cb123-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb123-26"><a href="programming-in-rlang.html#cb123-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb123-27"><a href="programming-in-rlang.html#cb123-27" aria-hidden="true" tabindex="-1"></a><span class="co">#output new variable</span></span>
-<span id="cb123-28"><a href="programming-in-rlang.html#cb123-28" aria-hidden="true" tabindex="-1"></a>example_data <span class="sc">%&gt;%</span> </span>
-<span id="cb123-29"><a href="programming-in-rlang.html#cb123-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_feature</span>(Death_from_guns, region) </span>
-<span id="cb123-30"><a href="programming-in-rlang.html#cb123-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb123-31"><a href="programming-in-rlang.html#cb123-31" aria-hidden="true" tabindex="-1"></a><span class="co">#How to dynamically change names using mutate and rlang</span></span>
-<span id="cb123-32"><a href="programming-in-rlang.html#cb123-32" aria-hidden="true" tabindex="-1"></a><span class="co">#Bang bang variables into mutate/tidyverse(so they can be dynamically changed)</span></span>
-<span id="cb123-33"><a href="programming-in-rlang.html#cb123-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb123-34"><a href="programming-in-rlang.html#cb123-34" aria-hidden="true" tabindex="-1"></a><span class="co">#Select metric</span></span>
-<span id="cb123-35"><a href="programming-in-rlang.html#cb123-35" aria-hidden="true" tabindex="-1"></a>metric <span class="ot">=</span> <span class="st">&#39;metric_Death_from_guns&#39;</span> <span class="co">#example but can be any named column</span></span>
-<span id="cb123-36"><a href="programming-in-rlang.html#cb123-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb123-37"><a href="programming-in-rlang.html#cb123-37" aria-hidden="true" tabindex="-1"></a>metric_mutate <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">&#39;prefix_&#39;</span>, metric) <span class="co">#some reason doesn&#39;t take these within the mutate function so has to be outside</span></span>
-<span id="cb123-38"><a href="programming-in-rlang.html#cb123-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb123-39"><a href="programming-in-rlang.html#cb123-39" aria-hidden="true" tabindex="-1"></a>example_data <span class="sc">%&gt;%</span> </span>
-<span id="cb123-40"><a href="programming-in-rlang.html#cb123-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_feature</span>(Death_from_guns, region) <span class="sc">%&gt;%</span> </span>
-<span id="cb123-41"><a href="programming-in-rlang.html#cb123-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="sc">!!</span><span class="at">metric_mutate :=</span> <span class="sc">!!</span>rlang<span class="sc">::</span><span class="fu">sym</span>(metric) <span class="sc">*</span> <span class="dv">2</span>)<span class="co">#apply arbitary multiplication by two</span></span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="programming-in-rlang.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb124-2"><a href="programming-in-rlang.html#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Make data - here nonsense numbers on deaths per 100k from guns say</span></span>
+<span id="cb124-3"><a href="programming-in-rlang.html#cb124-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-4"><a href="programming-in-rlang.html#cb124-4" aria-hidden="true" tabindex="-1"></a>example_data <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">countries =</span> <span class="fu">c</span>(<span class="st">&#39;UK&#39;</span>, <span class="st">&#39;USA&#39;</span>, <span class="st">&#39;Pakistan&#39;</span>, <span class="st">&#39;Mexico&#39;</span>, <span class="st">&#39;Ireland&#39;</span>, <span class="st">&#39;Estonia&#39;</span>),</span>
+<span id="cb124-5"><a href="programming-in-rlang.html#cb124-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">region =</span> <span class="fu">c</span>(<span class="st">&#39;Europe&#39;</span>, <span class="st">&#39;Americas&#39;</span>, <span class="st">&#39;Asia&#39;</span>, <span class="st">&#39;Americas&#39;</span>, <span class="st">&#39;Europe&#39;</span>, <span class="st">&#39;Europe&#39;</span>),</span>
+<span id="cb124-6"><a href="programming-in-rlang.html#cb124-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">Death_from_guns =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">200</span>, <span class="dv">150</span>, <span class="dv">450</span>, <span class="dv">3</span>, <span class="fl">3.5</span>),</span>
+<span id="cb124-7"><a href="programming-in-rlang.html#cb124-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">Death_from_smoking =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">300</span>, <span class="dv">140</span>, <span class="dv">150</span>, <span class="dv">120</span>, <span class="dv">300</span>))</span>
+<span id="cb124-8"><a href="programming-in-rlang.html#cb124-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-9"><a href="programming-in-rlang.html#cb124-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-10"><a href="programming-in-rlang.html#cb124-10" aria-hidden="true" tabindex="-1"></a><span class="co">#example function for summarising using dynamic variables and bang bangs</span></span>
+<span id="cb124-11"><a href="programming-in-rlang.html#cb124-11" aria-hidden="true" tabindex="-1"></a><span class="co">#note metric must be numeric</span></span>
+<span id="cb124-12"><a href="programming-in-rlang.html#cb124-12" aria-hidden="true" tabindex="-1"></a>summarise_feature <span class="ot">=</span> <span class="cf">function</span>(df, col_var, ...){</span>
+<span id="cb124-13"><a href="programming-in-rlang.html#cb124-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(tidyverse)</span>
+<span id="cb124-14"><a href="programming-in-rlang.html#cb124-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb124-15"><a href="programming-in-rlang.html#cb124-15" aria-hidden="true" tabindex="-1"></a>  wurly_curly <span class="ot">=</span> <span class="cf">function</span>(.){<span class="co">#The wurly_curly function makes things nicer</span></span>
+<span id="cb124-16"><a href="programming-in-rlang.html#cb124-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(rlang)</span>
+<span id="cb124-17"><a href="programming-in-rlang.html#cb124-17" aria-hidden="true" tabindex="-1"></a>  <span class="sc">!!</span><span class="fu">quo_name</span>(<span class="fu">enquo</span>(.))}</span>
+<span id="cb124-18"><a href="programming-in-rlang.html#cb124-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-19"><a href="programming-in-rlang.html#cb124-19" aria-hidden="true" tabindex="-1"></a>  summary_nm_sum <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;metric_&quot;</span>, <span class="fu">wurly_curly</span>(col_var))<span class="co">#The new LHS variable must have a different name from that on the RHS</span></span>
+<span id="cb124-20"><a href="programming-in-rlang.html#cb124-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-21"><a href="programming-in-rlang.html#cb124-21" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
+<span id="cb124-22"><a href="programming-in-rlang.html#cb124-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(...) <span class="sc">%&gt;%</span> </span>
+<span id="cb124-23"><a href="programming-in-rlang.html#cb124-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="sc">!!</span><span class="at">summary_nm_sum :=</span> <span class="fu">sum</span>({{col_var}}))</span>
+<span id="cb124-24"><a href="programming-in-rlang.html#cb124-24" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb124-25"><a href="programming-in-rlang.html#cb124-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-26"><a href="programming-in-rlang.html#cb124-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-27"><a href="programming-in-rlang.html#cb124-27" aria-hidden="true" tabindex="-1"></a><span class="co">#output new variable</span></span>
+<span id="cb124-28"><a href="programming-in-rlang.html#cb124-28" aria-hidden="true" tabindex="-1"></a>example_data <span class="sc">%&gt;%</span> </span>
+<span id="cb124-29"><a href="programming-in-rlang.html#cb124-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_feature</span>(Death_from_guns, region) </span>
+<span id="cb124-30"><a href="programming-in-rlang.html#cb124-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-31"><a href="programming-in-rlang.html#cb124-31" aria-hidden="true" tabindex="-1"></a><span class="co">#How to dynamically change names using mutate and rlang</span></span>
+<span id="cb124-32"><a href="programming-in-rlang.html#cb124-32" aria-hidden="true" tabindex="-1"></a><span class="co">#Bang bang variables into mutate/tidyverse(so they can be dynamically changed)</span></span>
+<span id="cb124-33"><a href="programming-in-rlang.html#cb124-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-34"><a href="programming-in-rlang.html#cb124-34" aria-hidden="true" tabindex="-1"></a><span class="co">#Select metric</span></span>
+<span id="cb124-35"><a href="programming-in-rlang.html#cb124-35" aria-hidden="true" tabindex="-1"></a>metric <span class="ot">=</span> <span class="st">&#39;metric_Death_from_guns&#39;</span> <span class="co">#example but can be any named column</span></span>
+<span id="cb124-36"><a href="programming-in-rlang.html#cb124-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-37"><a href="programming-in-rlang.html#cb124-37" aria-hidden="true" tabindex="-1"></a>metric_mutate <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">&#39;prefix_&#39;</span>, metric) <span class="co">#some reason doesn&#39;t take these within the mutate function so has to be outside</span></span>
+<span id="cb124-38"><a href="programming-in-rlang.html#cb124-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-39"><a href="programming-in-rlang.html#cb124-39" aria-hidden="true" tabindex="-1"></a>example_data <span class="sc">%&gt;%</span> </span>
+<span id="cb124-40"><a href="programming-in-rlang.html#cb124-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_feature</span>(Death_from_guns, region) <span class="sc">%&gt;%</span> </span>
+<span id="cb124-41"><a href="programming-in-rlang.html#cb124-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="sc">!!</span><span class="at">metric_mutate :=</span> <span class="sc">!!</span>rlang<span class="sc">::</span><span class="fu">sym</span>(metric) <span class="sc">*</span> <span class="dv">2</span>)<span class="co">#apply arbitary multiplication by two</span></span></code></pre></div>
 
 </div>
 </div>

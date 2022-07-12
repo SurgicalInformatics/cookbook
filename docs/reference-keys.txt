@@ -42,6 +42,7 @@ labelling-tables-and-figures-in-markdown-chunks
 plots
 tables
 join-tables-and-overwrite-values-that-are-often-missing
+read-in-multiple-files
 data-manipulation
 collapse-multiple-no-and-yes-options
 filter-na-dropping-rows-where-all-specified-variables-are-na
