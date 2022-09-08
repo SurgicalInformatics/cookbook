@@ -45,6 +45,8 @@ join-tables-and-overwrite-values-that-are-often-missing
 read-in-multiple-files
 data-manipulation
 collapse-multiple-no-and-yes-options
+filtering-best-practice
+from-jamie-farrell
 filter-na-dropping-rows-where-all-specified-variables-are-na
 vectorising-rowwise-procedures
 multiple-imputation-and-ipw-for-missing-data

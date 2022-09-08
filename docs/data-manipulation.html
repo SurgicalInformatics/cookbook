@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Data manipulation | The Surgical Informatics Cookbook</title>
   <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
-  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Data manipulation | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="All the brilliant bits of code we don’t want to forget." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2022-07-12" />
+<meta name="date" content="2022-09-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="snippets.html"/>
 <link rel="next" href="machine-learning.html"/>
-<script src="libs/header-attrs-2.14.1/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -42,7 +41,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
 
 
 
@@ -162,189 +160,193 @@ div.csl-indent {
 <li><a href="./">The Surgical Informatics Cookbook</a></li>
 
 <li class="divider"></li>
-<li><a href="index.html#section"></a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction<span></span></a>
+<li><a href="index.html#section" id="toc-section"></a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#how-to-contribute"><i class="fa fa-check"></i><b>1.1</b> How to contribute<span></span></a></li>
-<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#indexing"><i class="fa fa-check"></i><b>1.2</b> Indexing<span></span></a>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#how-to-contribute"><i class="fa fa-check"></i><b>1.1</b> How to contribute</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#indexing"><i class="fa fa-check"></i><b>1.2</b> Indexing</a>
 <ul>
-<li class="chapter" data-level="1.2.1" data-path="introduction.html"><a href="introduction.html#index"><i class="fa fa-check"></i><b>1.2.1</b> Index<span></span></a></li>
-<li class="chapter" data-level="1.2.2" data-path="introduction.html"><a href="introduction.html#chapter-and-section-references"><i class="fa fa-check"></i><b>1.2.2</b> Chapter and section references<span></span></a></li>
-<li class="chapter" data-level="1.2.3" data-path="introduction.html"><a href="introduction.html#figure-and-table-references"><i class="fa fa-check"></i><b>1.2.3</b> Figure and table references<span></span></a></li>
-<li class="chapter" data-level="1.2.4" data-path="introduction.html"><a href="introduction.html#citations"><i class="fa fa-check"></i><b>1.2.4</b> Citations<span></span></a></li>
+<li class="chapter" data-level="1.2.1" data-path="introduction.html"><a href="introduction.html#index"><i class="fa fa-check"></i><b>1.2.1</b> Index</a></li>
+<li class="chapter" data-level="1.2.2" data-path="introduction.html"><a href="introduction.html#chapter-and-section-references"><i class="fa fa-check"></i><b>1.2.2</b> Chapter and section references</a></li>
+<li class="chapter" data-level="1.2.3" data-path="introduction.html"><a href="introduction.html#figure-and-table-references"><i class="fa fa-check"></i><b>1.2.3</b> Figure and table references</a></li>
+<li class="chapter" data-level="1.2.4" data-path="introduction.html"><a href="introduction.html#citations"><i class="fa fa-check"></i><b>1.2.4</b> Citations</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="snippets.html"><a href="snippets.html"><i class="fa fa-check"></i><b>2</b> Snippets<span></span></a>
+<li class="chapter" data-level="2" data-path="snippets.html"><a href="snippets.html"><i class="fa fa-check"></i><b>2</b> Snippets</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="snippets.html"><a href="snippets.html#useful-rstudio-functions"><i class="fa fa-check"></i><b>2.1</b> Useful RStudio functions<span></span></a>
+<li class="chapter" data-level="2.1" data-path="snippets.html"><a href="snippets.html#useful-rstudio-functions"><i class="fa fa-check"></i><b>2.1</b> Useful RStudio functions</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="snippets.html"><a href="snippets.html#clean-restart"><i class="fa fa-check"></i><b>2.1.1</b> Clean restart<span></span></a></li>
-<li class="chapter" data-level="2.1.2" data-path="snippets.html"><a href="snippets.html#remove-duplicated-packages-between-personal-and-system-libraries"><i class="fa fa-check"></i><b>2.1.2</b> Remove duplicated packages between personal and system libraries<span></span></a></li>
-<li class="chapter" data-level="2.1.3" data-path="snippets.html"><a href="snippets.html#remove-large-file-accidentally-committed-to-git"><i class="fa fa-check"></i><b>2.1.3</b> Remove large file accidentally committed to git<span></span></a></li>
+<li class="chapter" data-level="2.1.1" data-path="snippets.html"><a href="snippets.html#clean-restart"><i class="fa fa-check"></i><b>2.1.1</b> Clean restart</a></li>
+<li class="chapter" data-level="2.1.2" data-path="snippets.html"><a href="snippets.html#remove-duplicated-packages-between-personal-and-system-libraries"><i class="fa fa-check"></i><b>2.1.2</b> Remove duplicated packages between personal and system libraries</a></li>
+<li class="chapter" data-level="2.1.3" data-path="snippets.html"><a href="snippets.html#remove-large-file-accidentally-committed-to-git"><i class="fa fa-check"></i><b>2.1.3</b> Remove large file accidentally committed to git</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#memory-and-efficient-ram-usage"><i class="fa fa-check"></i><b>2.2</b> Memory and efficient RAM usage<span></span></a></li>
-<li class="chapter" data-level="2.3" data-path="snippets.html"><a href="snippets.html#exporting-tables-that-work-in-both-pdf-and-word"><i class="fa fa-check"></i><b>2.3</b> Exporting tables that work in both PDF and Word<span></span></a>
+<li class="chapter" data-level="2.2" data-path="snippets.html"><a href="snippets.html#memory-and-efficient-ram-usage"><i class="fa fa-check"></i><b>2.2</b> Memory and efficient RAM usage</a></li>
+<li class="chapter" data-level="2.3" data-path="snippets.html"><a href="snippets.html#exporting-tables-that-work-in-both-pdf-and-word"><i class="fa fa-check"></i><b>2.3</b> Exporting tables that work in both PDF and Word</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="snippets.html"><a href="snippets.html#warning-in-kableextra.-please-specify-format-in-kable.-kableextra-can-customize-either-html-or-latex-outputs."><i class="fa fa-check"></i><b>2.3.1</b> Warning in kableExtra. Please specify format in kable. kableExtra can customize either HTML or LaTeX outputs.<span></span></a></li>
+<li class="chapter" data-level="2.3.1" data-path="snippets.html"><a href="snippets.html#warning-in-kableextra.-please-specify-format-in-kable.-kableextra-can-customize-either-html-or-latex-outputs."><i class="fa fa-check"></i><b>2.3.1</b> Warning in kableExtra. Please specify format in kable. kableExtra can customize either HTML or LaTeX outputs.</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="snippets.html"><a href="snippets.html#creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker"><i class="fa fa-check"></i><b>2.4</b> Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)<span></span></a>
+<li class="chapter" data-level="2.4" data-path="snippets.html"><a href="snippets.html#creating-reproducible-r-examples-to-share-in-the-group-binder-holepunch-and-docker"><i class="fa fa-check"></i><b>2.4</b> Creating Reproducible R Examples to Share in the Group (binder, holepunch and docker)</a>
 <ul>
-<li class="chapter" data-level="2.4.1" data-path="snippets.html"><a href="snippets.html#create-basic-reproducible-examples"><i class="fa fa-check"></i><b>2.4.1</b> Create Basic Reproducible Examples<span></span></a></li>
-<li class="chapter" data-level="2.4.2" data-path="snippets.html"><a href="snippets.html#holepunch---complex-reproducible-examples"><i class="fa fa-check"></i><b>2.4.2</b> <code>holepunch</code> - Complex Reproducible Examples<span></span></a></li>
+<li class="chapter" data-level="2.4.1" data-path="snippets.html"><a href="snippets.html#create-basic-reproducible-examples"><i class="fa fa-check"></i><b>2.4.1</b> Create Basic Reproducible Examples</a></li>
+<li class="chapter" data-level="2.4.2" data-path="snippets.html"><a href="snippets.html#holepunch---complex-reproducible-examples"><i class="fa fa-check"></i><b>2.4.2</b> <code>holepunch</code> - Complex Reproducible Examples</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="snippets.html"><a href="snippets.html#working-with-chis"><i class="fa fa-check"></i><b>2.5</b> Working with CHIs<span></span></a>
+<li class="chapter" data-level="2.5" data-path="snippets.html"><a href="snippets.html#working-with-chis"><i class="fa fa-check"></i><b>2.5</b> Working with CHIs</a>
 <ul>
-<li class="chapter" data-level="2.5.1" data-path="snippets.html"><a href="snippets.html#chi_dob---extract-date-of-birth-from-chi"><i class="fa fa-check"></i><b>2.5.1</b> <code>chi_dob()</code> - Extract date of birth from CHI<span></span></a></li>
-<li class="chapter" data-level="2.5.2" data-path="snippets.html"><a href="snippets.html#chi_gender---extract-gender-from-chi"><i class="fa fa-check"></i><b>2.5.2</b> <code>chi_gender()</code> - Extract gender from CHI<span></span></a></li>
-<li class="chapter" data-level="2.5.3" data-path="snippets.html"><a href="snippets.html#chi_age---extract-age-from-chi"><i class="fa fa-check"></i><b>2.5.3</b> <code>chi_age()</code> - Extract age from CHI<span></span></a></li>
-<li class="chapter" data-level="2.5.4" data-path="snippets.html"><a href="snippets.html#chi_valid---logical-test-for-valid-chi"><i class="fa fa-check"></i><b>2.5.4</b> <code>chi_valid()</code> - Logical test for valid CHI<span></span></a></li>
+<li class="chapter" data-level="2.5.1" data-path="snippets.html"><a href="snippets.html#chi_dob---extract-date-of-birth-from-chi"><i class="fa fa-check"></i><b>2.5.1</b> <code>chi_dob()</code> - Extract date of birth from CHI</a></li>
+<li class="chapter" data-level="2.5.2" data-path="snippets.html"><a href="snippets.html#chi_gender---extract-gender-from-chi"><i class="fa fa-check"></i><b>2.5.2</b> <code>chi_gender()</code> - Extract gender from CHI</a></li>
+<li class="chapter" data-level="2.5.3" data-path="snippets.html"><a href="snippets.html#chi_age---extract-age-from-chi"><i class="fa fa-check"></i><b>2.5.3</b> <code>chi_age()</code> - Extract age from CHI</a></li>
+<li class="chapter" data-level="2.5.4" data-path="snippets.html"><a href="snippets.html#chi_valid---logical-test-for-valid-chi"><i class="fa fa-check"></i><b>2.5.4</b> <code>chi_valid()</code> - Logical test for valid CHI</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.6</b> Working with dates<span></span></a>
+<li class="chapter" data-level="2.6" data-path="snippets.html"><a href="snippets.html#working-with-dates"><i class="fa fa-check"></i><b>2.6</b> Working with dates</a>
 <ul>
-<li class="chapter" data-level="2.6.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.6.1</b> Difference between two dates<span></span></a></li>
-<li class="chapter" data-level="2.6.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.6.2</b> Lags<span></span></a></li>
-<li class="chapter" data-level="2.6.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.6.3</b> Pulling out “change in status” data<span></span></a></li>
-<li class="chapter" data-level="2.6.4" data-path="snippets.html"><a href="snippets.html#guess-the-format-of-dates"><i class="fa fa-check"></i><b>2.6.4</b> Guess the Format of Dates<span></span></a></li>
-<li class="chapter" data-level="2.6.5" data-path="snippets.html"><a href="snippets.html#isoweek-and-epiweek"><i class="fa fa-check"></i><b>2.6.5</b> Isoweek and epiweek<span></span></a></li>
+<li class="chapter" data-level="2.6.1" data-path="snippets.html"><a href="snippets.html#difference-between-two-dates"><i class="fa fa-check"></i><b>2.6.1</b> Difference between two dates</a></li>
+<li class="chapter" data-level="2.6.2" data-path="snippets.html"><a href="snippets.html#lags"><i class="fa fa-check"></i><b>2.6.2</b> Lags</a></li>
+<li class="chapter" data-level="2.6.3" data-path="snippets.html"><a href="snippets.html#pulling-out-change-in-status-data"><i class="fa fa-check"></i><b>2.6.3</b> Pulling out “change in status” data</a></li>
+<li class="chapter" data-level="2.6.4" data-path="snippets.html"><a href="snippets.html#guess-the-format-of-dates"><i class="fa fa-check"></i><b>2.6.4</b> Guess the Format of Dates</a></li>
+<li class="chapter" data-level="2.6.5" data-path="snippets.html"><a href="snippets.html#isoweek-and-epiweek"><i class="fa fa-check"></i><b>2.6.5</b> Isoweek and epiweek</a></li>
 </ul></li>
-<li class="chapter" data-level="2.7" data-path="snippets.html"><a href="snippets.html#labelling-tables-and-figures-in-markdown-chunks"><i class="fa fa-check"></i><b>2.7</b> Labelling tables and figures in markdown chunks<span></span></a>
+<li class="chapter" data-level="2.7" data-path="snippets.html"><a href="snippets.html#labelling-tables-and-figures-in-markdown-chunks"><i class="fa fa-check"></i><b>2.7</b> Labelling tables and figures in markdown chunks</a>
 <ul>
-<li class="chapter" data-level="2.7.1" data-path="snippets.html"><a href="snippets.html#plots"><i class="fa fa-check"></i><b>2.7.1</b> Plots<span></span></a></li>
-<li class="chapter" data-level="2.7.2" data-path="snippets.html"><a href="snippets.html#tables"><i class="fa fa-check"></i><b>2.7.2</b> Tables<span></span></a></li>
+<li class="chapter" data-level="2.7.1" data-path="snippets.html"><a href="snippets.html#plots"><i class="fa fa-check"></i><b>2.7.1</b> Plots</a></li>
+<li class="chapter" data-level="2.7.2" data-path="snippets.html"><a href="snippets.html#tables"><i class="fa fa-check"></i><b>2.7.2</b> Tables</a></li>
 </ul></li>
-<li class="chapter" data-level="2.8" data-path="snippets.html"><a href="snippets.html#join-tables-and-overwrite-values-that-are-often-missing"><i class="fa fa-check"></i><b>2.8</b> Join tables and overwrite values (that are often missing)<span></span></a></li>
-<li class="chapter" data-level="2.9" data-path="snippets.html"><a href="snippets.html#read-in-multiple-files"><i class="fa fa-check"></i><b>2.9</b> Read in multiple files<span></span></a></li>
+<li class="chapter" data-level="2.8" data-path="snippets.html"><a href="snippets.html#join-tables-and-overwrite-values-that-are-often-missing"><i class="fa fa-check"></i><b>2.8</b> Join tables and overwrite values (that are often missing)</a></li>
+<li class="chapter" data-level="2.9" data-path="snippets.html"><a href="snippets.html#read-in-multiple-files"><i class="fa fa-check"></i><b>2.9</b> Read in multiple files</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation<span></span></a>
+<li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="data-manipulation.html"><a href="data-manipulation.html#collapse-multiple-no-and-yes-options"><i class="fa fa-check"></i><b>3.1</b> Collapse multiple “no” and “yes” options<span></span></a></li>
-<li class="chapter" data-level="3.2" data-path="data-manipulation.html"><a href="data-manipulation.html#filter-na-dropping-rows-where-all-specified-variables-are-na"><i class="fa fa-check"></i><b>3.2</b> Filter NA: Dropping rows where all specified variables are NA<span></span></a></li>
-<li class="chapter" data-level="3.3" data-path="data-manipulation.html"><a href="data-manipulation.html#vectorising-rowwise-procedures"><i class="fa fa-check"></i><b>3.3</b> Vectorising rowwise procedures<span></span></a></li>
-<li class="chapter" data-level="3.4" data-path="data-manipulation.html"><a href="data-manipulation.html#multiple-imputation-and-ipw-for-missing-data"><i class="fa fa-check"></i><b>3.4</b> Multiple imputation and IPW for missing data<span></span></a>
+<li class="chapter" data-level="3.1" data-path="data-manipulation.html"><a href="data-manipulation.html#collapse-multiple-no-and-yes-options"><i class="fa fa-check"></i><b>3.1</b> Collapse multiple “no” and “yes” options</a></li>
+<li class="chapter" data-level="3.2" data-path="data-manipulation.html"><a href="data-manipulation.html#filtering-best-practice"><i class="fa fa-check"></i><b>3.2</b> Filtering best practice</a>
 <ul>
-<li class="chapter" data-level="3.4.1" data-path="data-manipulation.html"><a href="data-manipulation.html#data"><i class="fa fa-check"></i><b>3.4.1</b> Data<span></span></a></li>
-<li class="chapter" data-level="3.4.2" data-path="data-manipulation.html"><a href="data-manipulation.html#multiple-imputation"><i class="fa fa-check"></i><b>3.4.2</b> Multiple imputation<span></span></a></li>
-<li class="chapter" data-level="3.4.3" data-path="data-manipulation.html"><a href="data-manipulation.html#ipw"><i class="fa fa-check"></i><b>3.4.3</b> IPW<span></span></a></li>
+<li class="chapter" data-level="3.2.1" data-path="data-manipulation.html"><a href="data-manipulation.html#from-jamie-farrell"><i class="fa fa-check"></i><b>3.2.1</b> From Jamie Farrell</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>4</b> Machine learning<span></span></a>
+<li class="chapter" data-level="3.3" data-path="data-manipulation.html"><a href="data-manipulation.html#filter-na-dropping-rows-where-all-specified-variables-are-na"><i class="fa fa-check"></i><b>3.3</b> Filter NA: Dropping rows where all specified variables are NA</a></li>
+<li class="chapter" data-level="3.4" data-path="data-manipulation.html"><a href="data-manipulation.html#vectorising-rowwise-procedures"><i class="fa fa-check"></i><b>3.4</b> Vectorising rowwise procedures</a></li>
+<li class="chapter" data-level="3.5" data-path="data-manipulation.html"><a href="data-manipulation.html#multiple-imputation-and-ipw-for-missing-data"><i class="fa fa-check"></i><b>3.5</b> Multiple imputation and IPW for missing data</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="machine-learning.html"><a href="machine-learning.html#deep-learning"><i class="fa fa-check"></i><b>4.1</b> Deep learning<span></span></a>
-<ul>
-<li class="chapter" data-level="4.1.1" data-path="machine-learning.html"><a href="machine-learning.html#pulling-images-from-redcap-directly-to-argodeep"><i class="fa fa-check"></i><b>4.1.1</b> Pulling images from REDCap directly to argodeep<span></span></a></li>
+<li class="chapter" data-level="3.5.1" data-path="data-manipulation.html"><a href="data-manipulation.html#data"><i class="fa fa-check"></i><b>3.5.1</b> Data</a></li>
+<li class="chapter" data-level="3.5.2" data-path="data-manipulation.html"><a href="data-manipulation.html#multiple-imputation"><i class="fa fa-check"></i><b>3.5.2</b> Multiple imputation</a></li>
+<li class="chapter" data-level="3.5.3" data-path="data-manipulation.html"><a href="data-manipulation.html#ipw"><i class="fa fa-check"></i><b>3.5.3</b> IPW</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html"><i class="fa fa-check"></i><b>5</b> Data Transfer and Eddie<span></span></a>
+<li class="chapter" data-level="4" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>4</b> Machine learning</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#uploading-and-downloading-data-the-easy-way"><i class="fa fa-check"></i><b>5.1</b> Uploading and Downloading Data the Easy Way<span></span></a></li>
-<li class="chapter" data-level="5.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#alternative-methods-when-the-easy-way-wont-work"><i class="fa fa-check"></i><b>5.2</b> Alternative Methods when the Easy Way won’t work<span></span></a>
+<li class="chapter" data-level="4.1" data-path="machine-learning.html"><a href="machine-learning.html#deep-learning"><i class="fa fa-check"></i><b>4.1</b> Deep learning</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#what-is-eddie"><i class="fa fa-check"></i><b>5.2.1</b> What is Eddie?<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#using-the-command-line"><i class="fa fa-check"></i><b>5.3</b> Using the Command Line<span></span></a>
-<ul>
-<li class="chapter" data-level="5.3.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#downloads-and-setup---eddie-example"><i class="fa fa-check"></i><b>5.3.1</b> Downloads and Setup - Eddie Example<span></span></a></li>
-<li class="chapter" data-level="5.3.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#copy-and-paste-with-putty"><i class="fa fa-check"></i><b>5.3.2</b> Copy and Paste with PuTTY<span></span></a></li>
-<li class="chapter" data-level="5.3.3" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#closing-a-session-in-putty"><i class="fa fa-check"></i><b>5.3.3</b> Closing a Session in PuTTY<span></span></a></li>
-<li class="chapter" data-level="5.3.4" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#eddie-file-structure"><i class="fa fa-check"></i><b>5.3.4</b> Eddie File Structure<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5.4" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#copying-data-from-eddie-into-rstudio-server"><i class="fa fa-check"></i><b>5.4</b> Copying Data from Eddie into RStudio server<span></span></a>
-<ul>
-<li class="chapter" data-level="5.4.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#method-1-using-putty-or-another-terminalshell-connected-to-eddie"><i class="fa fa-check"></i><b>5.4.1</b> Method 1: Using PuTTY (or another terminal/shell connected to Eddie)<span></span></a></li>
-<li class="chapter" data-level="5.4.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#method-2-using-the-rstudio-server-terminal"><i class="fa fa-check"></i><b>5.4.2</b> Method 2: Using the RStudio Server Terminal<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5.5" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#the-surgical-informatics-group-folder-on-eddie"><i class="fa fa-check"></i><b>5.5</b> The Surgical Informatics Group Folder (On Eddie)<span></span></a>
-<ul>
-<li class="chapter" data-level="5.5.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#the-scratch-space"><i class="fa fa-check"></i><b>5.5.1</b> The Scratch Space<span></span></a></li>
-<li class="chapter" data-level="5.5.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#other-spaces"><i class="fa fa-check"></i><b>5.5.2</b> Other Spaces<span></span></a></li>
-<li class="chapter" data-level="5.5.3" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#running-eddie-from-rstudio-server"><i class="fa fa-check"></i><b>5.5.3</b> Running Eddie from RStudio Server<span></span></a></li>
-<li class="chapter" data-level="5.5.4" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#modules-applications-in-eddie"><i class="fa fa-check"></i><b>5.5.4</b> Modules (Applications) in Eddie<span></span></a></li>
-<li class="chapter" data-level="5.5.5" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#working-with-r-in-eddie"><i class="fa fa-check"></i><b>5.5.5</b> Working with R in Eddie<span></span></a></li>
-<li class="chapter" data-level="5.5.6" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#specific-r-package-versions"><i class="fa fa-check"></i><b>5.5.6</b> Specific R Package Versions<span></span></a></li>
-<li class="chapter" data-level="5.5.7" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#general-eddie-etiquette"><i class="fa fa-check"></i><b>5.5.7</b> General Eddie Etiquette<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="5.6" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#unix-tutorials"><i class="fa fa-check"></i><b>5.6</b> Unix Tutorials<span></span></a></li>
-<li class="chapter" data-level="5.7" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#additional-resources"><i class="fa fa-check"></i><b>5.7</b> Additional Resources<span></span></a></li>
-<li class="chapter" data-level="5.8" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#using-rstudio-directly-in-eddie"><i class="fa fa-check"></i><b>5.8</b> Using RStudio directly in Eddie<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>6</b> Plotting<span></span></a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="plotting.html"><a href="plotting.html#gghighlight-example"><i class="fa fa-check"></i><b>6.1</b> GGHighlight Example<span></span></a></li>
-<li class="chapter" data-level="6.2" data-path="plotting.html"><a href="plotting.html#coord_flip-factor-orders"><i class="fa fa-check"></i><b>6.2</b> <code>coord_flip()</code> factor orders<span></span></a></li>
-<li class="chapter" data-level="6.3" data-path="plotting.html"><a href="plotting.html#axis-font-size"><i class="fa fa-check"></i><b>6.3</b> Axis font size<span></span></a></li>
-<li class="chapter" data-level="6.4" data-path="plotting.html"><a href="plotting.html#shorten-arrows-on-a-dag"><i class="fa fa-check"></i><b>6.4</b> Shorten Arrows on a DAG<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="genomics.html"><a href="genomics.html"><i class="fa fa-check"></i><b>7</b> Genomics<span></span></a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="genomics.html"><a href="genomics.html#single-cell-analysis"><i class="fa fa-check"></i><b>7.1</b> Single Cell Analysis<span></span></a>
-<ul>
-<li class="chapter" data-level="7.1.1" data-path="genomics.html"><a href="genomics.html#minimising-the-size-of-a-seurat-object"><i class="fa fa-check"></i><b>7.1.1</b> Minimising the size of a Seurat Object<span></span></a></li>
+<li class="chapter" data-level="4.1.1" data-path="machine-learning.html"><a href="machine-learning.html#pulling-images-from-redcap-directly-to-argodeep"><i class="fa fa-check"></i><b>4.1.1</b> Pulling images from REDCap directly to argodeep</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html"><i class="fa fa-check"></i><b>8</b> Programming in rlang<span></span></a>
+<li class="chapter" data-level="5" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html"><i class="fa fa-check"></i><b>5</b> Data Transfer and Eddie</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html#rlang"><i class="fa fa-check"></i><b>8.1</b> rlang<span></span></a>
+<li class="chapter" data-level="5.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#uploading-and-downloading-data-the-easy-way"><i class="fa fa-check"></i><b>5.1</b> Uploading and Downloading Data the Easy Way</a></li>
+<li class="chapter" data-level="5.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#alternative-methods-when-the-easy-way-wont-work"><i class="fa fa-check"></i><b>5.2</b> Alternative Methods when the Easy Way won’t work</a>
 <ul>
-<li class="chapter" data-level="8.1.1" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html#what-is-rlang"><i class="fa fa-check"></i><b>8.1.1</b> What is rlang?<span></span></a></li>
-<li class="chapter" data-level="8.1.2" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html#dynamic-calling-of-variables-using-dplyr"><i class="fa fa-check"></i><b>8.1.2</b> Dynamic calling of variables using dplyr<span></span></a></li>
+<li class="chapter" data-level="5.2.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#what-is-eddie"><i class="fa fa-check"></i><b>5.2.1</b> What is Eddie?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#using-the-command-line"><i class="fa fa-check"></i><b>5.3</b> Using the Command Line</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#downloads-and-setup---eddie-example"><i class="fa fa-check"></i><b>5.3.1</b> Downloads and Setup - Eddie Example</a></li>
+<li class="chapter" data-level="5.3.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#copy-and-paste-with-putty"><i class="fa fa-check"></i><b>5.3.2</b> Copy and Paste with PuTTY</a></li>
+<li class="chapter" data-level="5.3.3" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#closing-a-session-in-putty"><i class="fa fa-check"></i><b>5.3.3</b> Closing a Session in PuTTY</a></li>
+<li class="chapter" data-level="5.3.4" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#eddie-file-structure"><i class="fa fa-check"></i><b>5.3.4</b> Eddie File Structure</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#copying-data-from-eddie-into-rstudio-server"><i class="fa fa-check"></i><b>5.4</b> Copying Data from Eddie into RStudio server</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#method-1-using-putty-or-another-terminalshell-connected-to-eddie"><i class="fa fa-check"></i><b>5.4.1</b> Method 1: Using PuTTY (or another terminal/shell connected to Eddie)</a></li>
+<li class="chapter" data-level="5.4.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#method-2-using-the-rstudio-server-terminal"><i class="fa fa-check"></i><b>5.4.2</b> Method 2: Using the RStudio Server Terminal</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#the-surgical-informatics-group-folder-on-eddie"><i class="fa fa-check"></i><b>5.5</b> The Surgical Informatics Group Folder (On Eddie)</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#the-scratch-space"><i class="fa fa-check"></i><b>5.5.1</b> The Scratch Space</a></li>
+<li class="chapter" data-level="5.5.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#other-spaces"><i class="fa fa-check"></i><b>5.5.2</b> Other Spaces</a></li>
+<li class="chapter" data-level="5.5.3" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#running-eddie-from-rstudio-server"><i class="fa fa-check"></i><b>5.5.3</b> Running Eddie from RStudio Server</a></li>
+<li class="chapter" data-level="5.5.4" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#modules-applications-in-eddie"><i class="fa fa-check"></i><b>5.5.4</b> Modules (Applications) in Eddie</a></li>
+<li class="chapter" data-level="5.5.5" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#working-with-r-in-eddie"><i class="fa fa-check"></i><b>5.5.5</b> Working with R in Eddie</a></li>
+<li class="chapter" data-level="5.5.6" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#specific-r-package-versions"><i class="fa fa-check"></i><b>5.5.6</b> Specific R Package Versions</a></li>
+<li class="chapter" data-level="5.5.7" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#general-eddie-etiquette"><i class="fa fa-check"></i><b>5.5.7</b> General Eddie Etiquette</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#unix-tutorials"><i class="fa fa-check"></i><b>5.6</b> Unix Tutorials</a></li>
+<li class="chapter" data-level="5.7" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#additional-resources"><i class="fa fa-check"></i><b>5.7</b> Additional Resources</a></li>
+<li class="chapter" data-level="5.8" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#using-rstudio-directly-in-eddie"><i class="fa fa-check"></i><b>5.8</b> Using RStudio directly in Eddie</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>6</b> Plotting</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="plotting.html"><a href="plotting.html#gghighlight-example"><i class="fa fa-check"></i><b>6.1</b> GGHighlight Example</a></li>
+<li class="chapter" data-level="6.2" data-path="plotting.html"><a href="plotting.html#coord_flip-factor-orders"><i class="fa fa-check"></i><b>6.2</b> <code>coord_flip()</code> factor orders</a></li>
+<li class="chapter" data-level="6.3" data-path="plotting.html"><a href="plotting.html#axis-font-size"><i class="fa fa-check"></i><b>6.3</b> Axis font size</a></li>
+<li class="chapter" data-level="6.4" data-path="plotting.html"><a href="plotting.html#shorten-arrows-on-a-dag"><i class="fa fa-check"></i><b>6.4</b> Shorten Arrows on a DAG</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="genomics.html"><a href="genomics.html"><i class="fa fa-check"></i><b>7</b> Genomics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="genomics.html"><a href="genomics.html#single-cell-analysis"><i class="fa fa-check"></i><b>7.1</b> Single Cell Analysis</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="genomics.html"><a href="genomics.html#minimising-the-size-of-a-seurat-object"><i class="fa fa-check"></i><b>7.1.1</b> Minimising the size of a Seurat Object</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="server-admin.html"><a href="server-admin.html"><i class="fa fa-check"></i><b>9</b> Server admin<span></span></a>
+<li class="chapter" data-level="8" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html"><i class="fa fa-check"></i><b>8</b> Programming in rlang</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="server-admin.html"><a href="server-admin.html#rstudio-argonaut-and-argosafe"><i class="fa fa-check"></i><b>9.1</b> RStudio (argonaut and argosafe)<span></span></a>
+<li class="chapter" data-level="8.1" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html#rlang"><i class="fa fa-check"></i><b>8.1</b> rlang</a>
 <ul>
-<li class="chapter" data-level="9.1.1" data-path="server-admin.html"><a href="server-admin.html#scheduled-script-cron"><i class="fa fa-check"></i><b>9.1.1</b> Scheduled script (CRON)<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9.2" data-path="server-admin.html"><a href="server-admin.html#rstudio-connect-argoshare"><i class="fa fa-check"></i><b>9.2</b> RStudio Connect: argoshare<span></span></a>
-<ul>
-<li class="chapter" data-level="9.2.1" data-path="server-admin.html"><a href="server-admin.html#delete-user"><i class="fa fa-check"></i><b>9.2.1</b> Delete user<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="9.3" data-path="server-admin.html"><a href="server-admin.html#shiny-server-opensource-setup---uoe-eleanor"><i class="fa fa-check"></i><b>9.3</b> Shiny server opensource setup - UoE Eleanor<span></span></a>
-<ul>
-<li class="chapter" data-level="9.3.1" data-path="server-admin.html"><a href="server-admin.html#setting-up-ubuntu-instance"><i class="fa fa-check"></i><b>9.3.1</b> Setting up Ubuntu Instance<span></span></a></li>
-<li class="chapter" data-level="9.3.2" data-path="server-admin.html"><a href="server-admin.html#install-nginx"><i class="fa fa-check"></i><b>9.3.2</b> Install Nginx<span></span></a></li>
-<li class="chapter" data-level="9.3.3" data-path="server-admin.html"><a href="server-admin.html#installing-r"><i class="fa fa-check"></i><b>9.3.3</b> Installing R<span></span></a></li>
-<li class="chapter" data-level="9.3.4" data-path="server-admin.html"><a href="server-admin.html#installing-shiny-server"><i class="fa fa-check"></i><b>9.3.4</b> Installing Shiny Server<span></span></a></li>
-<li class="chapter" data-level="9.3.5" data-path="server-admin.html"><a href="server-admin.html#installing-other-linux-packages"><i class="fa fa-check"></i><b>9.3.5</b> Installing other Linux packages<span></span></a></li>
-<li class="chapter" data-level="9.3.6" data-path="server-admin.html"><a href="server-admin.html#installing-r-packages"><i class="fa fa-check"></i><b>9.3.6</b> Installing R packages<span></span></a></li>
-<li class="chapter" data-level="9.3.7" data-path="server-admin.html"><a href="server-admin.html#loading-your-app"><i class="fa fa-check"></i><b>9.3.7</b> Loading your app<span></span></a></li>
-<li class="chapter" data-level="9.3.8" data-path="server-admin.html"><a href="server-admin.html#make-your-app-the-default-index-page"><i class="fa fa-check"></i><b>9.3.8</b> Make your app the default index page<span></span></a></li>
-<li class="chapter" data-level="9.3.9" data-path="server-admin.html"><a href="server-admin.html#getting-a-user-friendly-domain-name"><i class="fa fa-check"></i><b>9.3.9</b> Getting a user-friendly domain name<span></span></a></li>
-<li class="chapter" data-level="9.3.10" data-path="server-admin.html"><a href="server-admin.html#appendix-1-password-protecting-your-site"><i class="fa fa-check"></i><b>9.3.10</b> Appendix 1 – Password protecting your site<span></span></a></li>
-<li class="chapter" data-level="9.3.11" data-path="server-admin.html"><a href="server-admin.html#appendix-2-setting-up-a-swap-file"><i class="fa fa-check"></i><b>9.3.11</b> APPENDIX 2 – Setting up a swap file<span></span></a></li>
+<li class="chapter" data-level="8.1.1" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html#what-is-rlang"><i class="fa fa-check"></i><b>8.1.1</b> What is rlang?</a></li>
+<li class="chapter" data-level="8.1.2" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html#dynamic-calling-of-variables-using-dplyr"><i class="fa fa-check"></i><b>8.1.2</b> Dynamic calling of variables using dplyr</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="redcap.html"><a href="redcap.html"><i class="fa fa-check"></i><b>10</b> REDCap<span></span></a>
+<li class="chapter" data-level="9" data-path="server-admin.html"><a href="server-admin.html"><i class="fa fa-check"></i><b>9</b> Server admin</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="redcap.html"><a href="redcap.html#api-pull"><i class="fa fa-check"></i><b>10.1</b> API pull<span></span></a></li>
-<li class="chapter" data-level="10.2" data-path="redcap.html"><a href="redcap.html#applying-a-redcap-factoring-script"><i class="fa fa-check"></i><b>10.2</b> Applying a REDCap factoring script<span></span></a></li>
-<li class="chapter" data-level="10.3" data-path="redcap.html"><a href="redcap.html#alternative-to-the-factoring-script-redcap_label-from-librarycollaboratorr"><i class="fa fa-check"></i><b>10.3</b> Alternative to the factoring script: <code>redcap_label()</code> from <code>library(collaboratorR)</code><span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html"><i class="fa fa-check"></i><b>11</b> Citations with R Markdown<span></span></a>
+<li class="chapter" data-level="9.1" data-path="server-admin.html"><a href="server-admin.html#rstudio-argonaut-and-argosafe"><i class="fa fa-check"></i><b>9.1</b> RStudio (argonaut and argosafe)</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#zotero-set-up"><i class="fa fa-check"></i><b>11.1</b> Zotero Set-up<span></span></a></li>
-<li class="chapter" data-level="11.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#file-storage-set-up"><i class="fa fa-check"></i><b>11.2</b> File Storage Set-up<span></span></a></li>
-<li class="chapter" data-level="11.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#folder-set-up"><i class="fa fa-check"></i><b>11.3</b> Folder Set-up<span></span></a>
+<li class="chapter" data-level="9.1.1" data-path="server-admin.html"><a href="server-admin.html#scheduled-script-cron"><i class="fa fa-check"></i><b>9.1.1</b> Scheduled script (CRON)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="server-admin.html"><a href="server-admin.html#rstudio-connect-argoshare"><i class="fa fa-check"></i><b>9.2</b> RStudio Connect: argoshare</a>
 <ul>
-<li class="chapter" data-level="11.3.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#storing-pdfs"><i class="fa fa-check"></i><b>11.3.1</b> Storing PDFs<span></span></a></li>
-<li class="chapter" data-level="11.3.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#storing-bibliographies"><i class="fa fa-check"></i><b>11.3.2</b> Storing Bibliographies<span></span></a></li>
-<li class="chapter" data-level="11.3.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#subfolder-for-references"><i class="fa fa-check"></i><b>11.3.3</b> Subfolder for References<span></span></a></li>
+<li class="chapter" data-level="9.2.1" data-path="server-admin.html"><a href="server-admin.html#delete-user"><i class="fa fa-check"></i><b>9.2.1</b> Delete user</a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#configuring-zotero"><i class="fa fa-check"></i><b>11.4</b> Configuring Zotero<span></span></a>
+<li class="chapter" data-level="9.3" data-path="server-admin.html"><a href="server-admin.html#shiny-server-opensource-setup---uoe-eleanor"><i class="fa fa-check"></i><b>9.3</b> Shiny server opensource setup - UoE Eleanor</a>
 <ul>
-<li class="chapter" data-level="11.4.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#zotfile-pdf-preferences"><i class="fa fa-check"></i><b>11.4.1</b> ZotFile PDF Preferences<span></span></a></li>
-<li class="chapter" data-level="11.4.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#general-zotero-settings"><i class="fa fa-check"></i><b>11.4.2</b> General Zotero Settings<span></span></a></li>
-<li class="chapter" data-level="11.4.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#refresh-bibtex-citation-key"><i class="fa fa-check"></i><b>11.4.3</b> Refresh BibTex Citation Key<span></span></a></li>
+<li class="chapter" data-level="9.3.1" data-path="server-admin.html"><a href="server-admin.html#setting-up-ubuntu-instance"><i class="fa fa-check"></i><b>9.3.1</b> Setting up Ubuntu Instance</a></li>
+<li class="chapter" data-level="9.3.2" data-path="server-admin.html"><a href="server-admin.html#install-nginx"><i class="fa fa-check"></i><b>9.3.2</b> Install Nginx</a></li>
+<li class="chapter" data-level="9.3.3" data-path="server-admin.html"><a href="server-admin.html#installing-r"><i class="fa fa-check"></i><b>9.3.3</b> Installing R</a></li>
+<li class="chapter" data-level="9.3.4" data-path="server-admin.html"><a href="server-admin.html#installing-shiny-server"><i class="fa fa-check"></i><b>9.3.4</b> Installing Shiny Server</a></li>
+<li class="chapter" data-level="9.3.5" data-path="server-admin.html"><a href="server-admin.html#installing-other-linux-packages"><i class="fa fa-check"></i><b>9.3.5</b> Installing other Linux packages</a></li>
+<li class="chapter" data-level="9.3.6" data-path="server-admin.html"><a href="server-admin.html#installing-r-packages"><i class="fa fa-check"></i><b>9.3.6</b> Installing R packages</a></li>
+<li class="chapter" data-level="9.3.7" data-path="server-admin.html"><a href="server-admin.html#loading-your-app"><i class="fa fa-check"></i><b>9.3.7</b> Loading your app</a></li>
+<li class="chapter" data-level="9.3.8" data-path="server-admin.html"><a href="server-admin.html#make-your-app-the-default-index-page"><i class="fa fa-check"></i><b>9.3.8</b> Make your app the default index page</a></li>
+<li class="chapter" data-level="9.3.9" data-path="server-admin.html"><a href="server-admin.html#getting-a-user-friendly-domain-name"><i class="fa fa-check"></i><b>9.3.9</b> Getting a user-friendly domain name</a></li>
+<li class="chapter" data-level="9.3.10" data-path="server-admin.html"><a href="server-admin.html#appendix-1-password-protecting-your-site"><i class="fa fa-check"></i><b>9.3.10</b> Appendix 1 – Password protecting your site</a></li>
+<li class="chapter" data-level="9.3.11" data-path="server-admin.html"><a href="server-admin.html#appendix-2-setting-up-a-swap-file"><i class="fa fa-check"></i><b>9.3.11</b> APPENDIX 2 – Setting up a swap file</a></li>
 </ul></li>
-<li class="chapter" data-level="11.5" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#generating-a-.bib-file"><i class="fa fa-check"></i><b>11.5</b> Generating a .bib File<span></span></a></li>
-<li class="chapter" data-level="11.6" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#linking-dropbox-and-rstudio-server"><i class="fa fa-check"></i><b>11.6</b> Linking DropBox and Rstudio Server<span></span></a>
+</ul></li>
+<li class="chapter" data-level="10" data-path="redcap.html"><a href="redcap.html"><i class="fa fa-check"></i><b>10</b> REDCap</a>
 <ul>
-<li class="chapter" data-level="11.6.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#token-creation"><i class="fa fa-check"></i><b>11.6.1</b> Token Creation<span></span></a></li>
-<li class="chapter" data-level="11.6.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#dropbox-linkage"><i class="fa fa-check"></i><b>11.6.2</b> DropBox Linkage<span></span></a></li>
+<li class="chapter" data-level="10.1" data-path="redcap.html"><a href="redcap.html#api-pull"><i class="fa fa-check"></i><b>10.1</b> API pull</a></li>
+<li class="chapter" data-level="10.2" data-path="redcap.html"><a href="redcap.html#applying-a-redcap-factoring-script"><i class="fa fa-check"></i><b>10.2</b> Applying a REDCap factoring script</a></li>
+<li class="chapter" data-level="10.3" data-path="redcap.html"><a href="redcap.html#alternative-to-the-factoring-script-redcap_label-from-librarycollaboratorr"><i class="fa fa-check"></i><b>10.3</b> Alternative to the factoring script: <code>redcap_label()</code> from <code>library(collaboratorR)</code></a></li>
 </ul></li>
-<li class="chapter" data-level="11.7" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#citing-r-packages"><i class="fa fa-check"></i><b>11.7</b> Citing R Packages<span></span></a></li>
+<li class="chapter" data-level="11" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html"><i class="fa fa-check"></i><b>11</b> Citations with R Markdown</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#zotero-set-up"><i class="fa fa-check"></i><b>11.1</b> Zotero Set-up</a></li>
+<li class="chapter" data-level="11.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#file-storage-set-up"><i class="fa fa-check"></i><b>11.2</b> File Storage Set-up</a></li>
+<li class="chapter" data-level="11.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#folder-set-up"><i class="fa fa-check"></i><b>11.3</b> Folder Set-up</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#storing-pdfs"><i class="fa fa-check"></i><b>11.3.1</b> Storing PDFs</a></li>
+<li class="chapter" data-level="11.3.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#storing-bibliographies"><i class="fa fa-check"></i><b>11.3.2</b> Storing Bibliographies</a></li>
+<li class="chapter" data-level="11.3.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#subfolder-for-references"><i class="fa fa-check"></i><b>11.3.3</b> Subfolder for References</a></li>
 </ul></li>
-<li><a href="references.html#references">References<span></span></a></li>
+<li class="chapter" data-level="11.4" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#configuring-zotero"><i class="fa fa-check"></i><b>11.4</b> Configuring Zotero</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#zotfile-pdf-preferences"><i class="fa fa-check"></i><b>11.4.1</b> ZotFile PDF Preferences</a></li>
+<li class="chapter" data-level="11.4.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#general-zotero-settings"><i class="fa fa-check"></i><b>11.4.2</b> General Zotero Settings</a></li>
+<li class="chapter" data-level="11.4.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#refresh-bibtex-citation-key"><i class="fa fa-check"></i><b>11.4.3</b> Refresh BibTex Citation Key</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#generating-a-.bib-file"><i class="fa fa-check"></i><b>11.5</b> Generating a .bib File</a></li>
+<li class="chapter" data-level="11.6" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#linking-dropbox-and-rstudio-server"><i class="fa fa-check"></i><b>11.6</b> Linking DropBox and Rstudio Server</a>
+<ul>
+<li class="chapter" data-level="11.6.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#token-creation"><i class="fa fa-check"></i><b>11.6.1</b> Token Creation</a></li>
+<li class="chapter" data-level="11.6.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#dropbox-linkage"><i class="fa fa-check"></i><b>11.6.2</b> DropBox Linkage</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#citing-r-packages"><i class="fa fa-check"></i><b>11.7</b> Citing R Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -424,17 +426,100 @@ div.csl-indent {
 ## 2 Unknown           1
 ## 3 Yes               5</code></pre>
 </div>
-<div id="filter-na-dropping-rows-where-all-specified-variables-are-na" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Filter NA: Dropping rows where all specified variables are NA<a href="data-manipulation.html#filter-na-dropping-rows-where-all-specified-variables-are-na" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="filtering-best-practice" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Filtering best practice<a href="data-manipulation.html#filtering-best-practice" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="from-jamie-farrell" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> From Jamie Farrell<a href="data-manipulation.html#from-jamie-farrell" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Particularly useful in OpenSAFELY, but should be adopted by us all.</p>
+<p>This creates inclusion flags, and then summarises those inclusion flags in a table. This allows us to see exactly how many rows are removed at each filter step.</p>
+<p>The inclusion flags are then used to run the final filter.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="data-manipulation.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
+<span id="cb58-2"><a href="data-manipulation.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb58-3"><a href="data-manipulation.html#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="data-manipulation.html#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Utility function ----</span></span>
+<span id="cb58-5"><a href="data-manipulation.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Ignore, just needed for the example. </span></span>
+<span id="cb58-6"><a href="data-manipulation.html#cb58-6" aria-hidden="true" tabindex="-1"></a>fct_case_when <span class="ot">&lt;-</span> <span class="cf">function</span>(...) {</span>
+<span id="cb58-7"><a href="data-manipulation.html#cb58-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># uses dplyr::case_when but converts the output to a factor,</span></span>
+<span id="cb58-8"><a href="data-manipulation.html#cb58-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># with factors ordered as they appear in the case_when&#39;s  ... argument</span></span>
+<span id="cb58-9"><a href="data-manipulation.html#cb58-9" aria-hidden="true" tabindex="-1"></a>  args <span class="ot">&lt;-</span> <span class="fu">as.list</span>(<span class="fu">match.call</span>())</span>
+<span id="cb58-10"><a href="data-manipulation.html#cb58-10" aria-hidden="true" tabindex="-1"></a>  levels <span class="ot">&lt;-</span> <span class="fu">sapply</span>(args[<span class="sc">-</span><span class="dv">1</span>], <span class="cf">function</span>(f) f[[<span class="dv">3</span>]])  <span class="co"># extract RHS of formula</span></span>
+<span id="cb58-11"><a href="data-manipulation.html#cb58-11" aria-hidden="true" tabindex="-1"></a>  levels <span class="ot">&lt;-</span> levels[<span class="sc">!</span><span class="fu">is.na</span>(levels)]</span>
+<span id="cb58-12"><a href="data-manipulation.html#cb58-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">factor</span>(dplyr<span class="sc">::</span><span class="fu">case_when</span>(...), <span class="at">levels=</span>levels)</span>
+<span id="cb58-13"><a href="data-manipulation.html#cb58-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb58-14"><a href="data-manipulation.html#cb58-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-15"><a href="data-manipulation.html#cb58-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data</span></span>
+<span id="cb58-16"><a href="data-manipulation.html#cb58-16" aria-hidden="true" tabindex="-1"></a>colon_s <span class="ot">=</span> colon_s</span>
+<span id="cb58-17"><a href="data-manipulation.html#cb58-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-18"><a href="data-manipulation.html#cb58-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Create inclusion flags:</span></span>
+<span id="cb58-19"><a href="data-manipulation.html#cb58-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Age over 50, male, obstruction data not missing</span></span>
+<span id="cb58-20"><a href="data-manipulation.html#cb58-20" aria-hidden="true" tabindex="-1"></a>colon_s <span class="ot">=</span> colon_s <span class="sc">%&gt;%</span> </span>
+<span id="cb58-21"><a href="data-manipulation.html#cb58-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb58-22"><a href="data-manipulation.html#cb58-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_age_abover_50 =</span> age <span class="sc">&gt;</span> <span class="dv">50</span>,</span>
+<span id="cb58-23"><a href="data-manipulation.html#cb58-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_male =</span> sex.factor <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>,</span>
+<span id="cb58-24"><a href="data-manipulation.html#cb58-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">obstruction_not_missing =</span> <span class="sc">!</span><span class="fu">is.na</span>(obstruct.factor)</span>
+<span id="cb58-25"><a href="data-manipulation.html#cb58-25" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb58-26"><a href="data-manipulation.html#cb58-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-27"><a href="data-manipulation.html#cb58-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Create exclusion table</span></span>
+<span id="cb58-28"><a href="data-manipulation.html#cb58-28" aria-hidden="true" tabindex="-1"></a>flowchart <span class="ot">=</span> colon_s <span class="sc">%&gt;%</span> </span>
+<span id="cb58-29"><a href="data-manipulation.html#cb58-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
+<span id="cb58-30"><a href="data-manipulation.html#cb58-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">c0 =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb58-31"><a href="data-manipulation.html#cb58-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">c1 =</span> c0 <span class="sc">&amp;</span> is_age_abover_50,</span>
+<span id="cb58-32"><a href="data-manipulation.html#cb58-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">c2 =</span> c1 <span class="sc">&amp;</span> is_male,</span>
+<span id="cb58-33"><a href="data-manipulation.html#cb58-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">c3 =</span> c2 <span class="sc">&amp;</span> obstruction_not_missing,</span>
+<span id="cb58-34"><a href="data-manipulation.html#cb58-34" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb58-35"><a href="data-manipulation.html#cb58-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb58-36"><a href="data-manipulation.html#cb58-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(<span class="at">.fns=</span>sum)</span>
+<span id="cb58-37"><a href="data-manipulation.html#cb58-37" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb58-38"><a href="data-manipulation.html#cb58-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pivot_col =</span> <span class="cn">NA</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-39"><a href="data-manipulation.html#cb58-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb58-40"><a href="data-manipulation.html#cb58-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols=</span><span class="sc">-</span>pivot_col,</span>
+<span id="cb58-41"><a href="data-manipulation.html#cb58-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to=</span><span class="st">&quot;criteria&quot;</span>,</span>
+<span id="cb58-42"><a href="data-manipulation.html#cb58-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to=</span><span class="st">&quot;n&quot;</span></span>
+<span id="cb58-43"><a href="data-manipulation.html#cb58-43" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-44"><a href="data-manipulation.html#cb58-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>pivot_col) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-45"><a href="data-manipulation.html#cb58-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb58-46"><a href="data-manipulation.html#cb58-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_exclude =</span> <span class="fu">lag</span>(n) <span class="sc">-</span> n,</span>
+<span id="cb58-47"><a href="data-manipulation.html#cb58-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_all =</span> (n<span class="sc">/</span><span class="fu">first</span>(n)) <span class="sc">%&gt;%</span> scales<span class="sc">::</span><span class="fu">percent</span>(<span class="fl">0.1</span>),</span>
+<span id="cb58-48"><a href="data-manipulation.html#cb58-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_exclude_step =</span> (n_exclude<span class="sc">/</span><span class="fu">lag</span>(n)) <span class="sc">%&gt;%</span> scales<span class="sc">::</span><span class="fu">percent</span>(<span class="fl">0.1</span>),</span>
+<span id="cb58-49"><a href="data-manipulation.html#cb58-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">crit =</span> <span class="fu">str_extract</span>(criteria, <span class="st">&quot;^c</span><span class="sc">\\</span><span class="st">d+&quot;</span>),</span>
+<span id="cb58-50"><a href="data-manipulation.html#cb58-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">criteria =</span> <span class="fu">fct_case_when</span>(</span>
+<span id="cb58-51"><a href="data-manipulation.html#cb58-51" aria-hidden="true" tabindex="-1"></a>      crit <span class="sc">==</span> <span class="st">&quot;c0&quot;</span> <span class="sc">~</span> <span class="st">&quot;Original dataset&quot;</span>,</span>
+<span id="cb58-52"><a href="data-manipulation.html#cb58-52" aria-hidden="true" tabindex="-1"></a>      crit <span class="sc">==</span> <span class="st">&quot;c1&quot;</span> <span class="sc">~</span> <span class="st">&quot;  with age over 50 years&quot;</span>,</span>
+<span id="cb58-53"><a href="data-manipulation.html#cb58-53" aria-hidden="true" tabindex="-1"></a>      crit <span class="sc">==</span> <span class="st">&quot;c2&quot;</span> <span class="sc">~</span> <span class="st">&quot;  is male&quot;</span>,</span>
+<span id="cb58-54"><a href="data-manipulation.html#cb58-54" aria-hidden="true" tabindex="-1"></a>      crit <span class="sc">==</span> <span class="st">&quot;c3&quot;</span> <span class="sc">~</span> <span class="st">&quot;  obstruction data not missing&quot;</span>,</span>
+<span id="cb58-55"><a href="data-manipulation.html#cb58-55" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span></span>
+<span id="cb58-56"><a href="data-manipulation.html#cb58-56" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb58-57"><a href="data-manipulation.html#cb58-57" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-58"><a href="data-manipulation.html#cb58-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(criteria, n, n_exclude, pct_all, pct_exclude_step)</span>
+<span id="cb58-59"><a href="data-manipulation.html#cb58-59" aria-hidden="true" tabindex="-1"></a>flowchart</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 5
+##   criteria                             n n_exclude pct_all pct_exclude_step
+##   &lt;fct&gt;                            &lt;int&gt;     &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;           
+## 1 &quot;Original dataset&quot;                 929        NA 100.0%  &lt;NA&gt;            
+## 2 &quot;  with age over 50 years&quot;         732       197 78.8%   21.2%           
+## 3 &quot;  is male&quot;                        385       347 41.4%   47.4%           
+## 4 &quot;  obstruction data not missing&quot;   375        10 40.4%   2.6%</code></pre>
+<p>Now filter the dataset in one step.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="data-manipulation.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtered dataset</span></span>
+<span id="cb60-2"><a href="data-manipulation.html#cb60-2" aria-hidden="true" tabindex="-1"></a>colon_filtered <span class="ot">=</span> colon_s <span class="sc">%&gt;%</span> </span>
+<span id="cb60-3"><a href="data-manipulation.html#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb60-4"><a href="data-manipulation.html#cb60-4" aria-hidden="true" tabindex="-1"></a>    is_age_abover_50,</span>
+<span id="cb60-5"><a href="data-manipulation.html#cb60-5" aria-hidden="true" tabindex="-1"></a>    is_male,</span>
+<span id="cb60-6"><a href="data-manipulation.html#cb60-6" aria-hidden="true" tabindex="-1"></a>    obstruction_not_missing</span>
+<span id="cb60-7"><a href="data-manipulation.html#cb60-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+</div>
+</div>
+<div id="filter-na-dropping-rows-where-all-specified-variables-are-na" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Filter NA: Dropping rows where all specified variables are NA<a href="data-manipulation.html#filter-na-dropping-rows-where-all-specified-variables-are-na" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>I want to keep rows that have a value for <code>important_a</code> and/or <code>important_b</code> (so rows 1, 3, 4).
 I don’t care whether <code>whatever_c</code> is empty or not, but I do want to keep it.</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="data-manipulation.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb58-2"><a href="data-manipulation.html#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-3"><a href="data-manipulation.html#cb58-3" aria-hidden="true" tabindex="-1"></a>mydata  <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">important_a =</span> <span class="fu">c</span>(<span class="st">&quot;Value&quot;</span>, <span class="cn">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="cn">NA</span>, <span class="cn">NA</span>),</span>
-<span id="cb58-4"><a href="data-manipulation.html#cb58-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">important_b =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="st">&quot;Value&quot;</span>, <span class="cn">NA</span>),</span>
-<span id="cb58-5"><a href="data-manipulation.html#cb58-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">whatever_c  =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>))</span>
-<span id="cb58-6"><a href="data-manipulation.html#cb58-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-7"><a href="data-manipulation.html#cb58-7" aria-hidden="true" tabindex="-1"></a>mydata</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="data-manipulation.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb61-2"><a href="data-manipulation.html#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-3"><a href="data-manipulation.html#cb61-3" aria-hidden="true" tabindex="-1"></a>mydata  <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">important_a =</span> <span class="fu">c</span>(<span class="st">&quot;Value&quot;</span>, <span class="cn">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="cn">NA</span>, <span class="cn">NA</span>),</span>
+<span id="cb61-4"><a href="data-manipulation.html#cb61-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">important_b =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="st">&quot;Value&quot;</span>, <span class="cn">NA</span>),</span>
+<span id="cb61-5"><a href="data-manipulation.html#cb61-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">whatever_c  =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="st">&quot;Value&quot;</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>))</span>
+<span id="cb61-6"><a href="data-manipulation.html#cb61-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-7"><a href="data-manipulation.html#cb61-7" aria-hidden="true" tabindex="-1"></a>mydata</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 3
 ##   important_a important_b whatever_c
 ##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
@@ -447,16 +532,16 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 <ol style="list-style-type: decimal">
 <li>This keeps complete cases based on all columns:</li>
 </ol>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="data-manipulation.html#cb60-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb60-2"><a href="data-manipulation.html#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="data-manipulation.html#cb63-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb63-2"><a href="data-manipulation.html#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 0 × 3
 ## # … with 3 variables: important_a &lt;chr&gt;, important_b &lt;chr&gt;, whatever_c &lt;chr&gt;</code></pre>
 <p>(Returns 0 as we don’t have rows where all 3 columns have a value).</p>
 <ol start="2" style="list-style-type: decimal">
 <li>This keeps complete cases based on specified columns:</li>
 </ol>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="data-manipulation.html#cb62-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb62-2"><a href="data-manipulation.html#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(important_a, important_b)</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="data-manipulation.html#cb65-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb65-2"><a href="data-manipulation.html#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(important_a, important_b)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##   important_a important_b whatever_c
 ##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
@@ -465,8 +550,8 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 <ol start="3" style="list-style-type: decimal">
 <li>This keeps rows that have a value in any column:</li>
 </ol>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="data-manipulation.html#cb64-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb64-2"><a href="data-manipulation.html#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_all</span>(<span class="fu">any_vars</span>(<span class="sc">!</span> <span class="fu">is.na</span>(.)))</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="data-manipulation.html#cb67-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb67-2"><a href="data-manipulation.html#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_all</span>(<span class="fu">any_vars</span>(<span class="sc">!</span> <span class="fu">is.na</span>(.)))</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 3
 ##   important_a important_b whatever_c
 ##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
@@ -475,8 +560,8 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 ## 3 Value       Value       &lt;NA&gt;      
 ## 4 &lt;NA&gt;        Value       &lt;NA&gt;</code></pre>
 <p>The third example is better achieved using the janitor package:</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="data-manipulation.html#cb66-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb66-2"><a href="data-manipulation.html#cb66-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">remove_empty</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="data-manipulation.html#cb69-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb69-2"><a href="data-manipulation.html#cb69-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">remove_empty</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 3
 ##   important_a important_b whatever_c
 ##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
@@ -489,8 +574,8 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 <li>Simple solution</li>
 </ol>
 <p>A quick solution is to use <code>! is.na()</code> for each variable inside a <code>filter()</code>:</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="data-manipulation.html#cb68-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb68-2"><a href="data-manipulation.html#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span> <span class="fu">is.na</span>(important_a) <span class="sc">|</span> <span class="sc">!</span> <span class="fu">is.na</span>(important_b))</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="data-manipulation.html#cb71-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb71-2"><a href="data-manipulation.html#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span> <span class="fu">is.na</span>(important_a) <span class="sc">|</span> <span class="sc">!</span> <span class="fu">is.na</span>(important_b))</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
 ##   important_a important_b whatever_c
 ##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
@@ -502,8 +587,8 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 <li>Powerful solution:</li>
 </ol>
 <p>A scalable solution is to use <code>filter_at()</code> with <code>vars()</code> with a select helper (e.g., <code>starts with()</code>), and then the <code>any_vars(! is.na(.))</code> that was introduced in (3).</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="data-manipulation.html#cb70-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb70-2"><a href="data-manipulation.html#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_at</span>(<span class="fu">vars</span>(<span class="fu">starts_with</span>(<span class="st">&quot;important_&quot;</span>)), <span class="fu">any_vars</span>(<span class="sc">!</span> <span class="fu">is.na</span>(.)))</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="data-manipulation.html#cb73-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb73-2"><a href="data-manipulation.html#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_at</span>(<span class="fu">vars</span>(<span class="fu">starts_with</span>(<span class="st">&quot;important_&quot;</span>)), <span class="fu">any_vars</span>(<span class="sc">!</span> <span class="fu">is.na</span>(.)))</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
 ##   important_a important_b whatever_c
 ##   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     
@@ -511,18 +596,18 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 ## 2 Value       Value       &lt;NA&gt;      
 ## 3 &lt;NA&gt;        Value       &lt;NA&gt;</code></pre>
 </div>
-<div id="vectorising-rowwise-procedures" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> Vectorising rowwise procedures<a href="data-manipulation.html#vectorising-rowwise-procedures" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="vectorising-rowwise-procedures" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Vectorising rowwise procedures<a href="data-manipulation.html#vectorising-rowwise-procedures" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We frequently have to aggregate across columns. <code>dplyr::rowwise()</code> is the <code>group_by()</code> equivalent for rows. But this is painfully slow for large datasets.</p>
 <p>The following works beautifully and allows tidyselect of variable names.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="data-manipulation.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb72-2"><a href="data-manipulation.html#cb72-2" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">a =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="cn">NA</span>),</span>
-<span id="cb72-3"><a href="data-manipulation.html#cb72-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">b =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="cn">NA</span>),</span>
-<span id="cb72-4"><a href="data-manipulation.html#cb72-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">c =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="cn">NA</span>),</span>
-<span id="cb72-5"><a href="data-manipulation.html#cb72-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">d =</span> <span class="fu">c</span>(<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>))</span>
-<span id="cb72-6"><a href="data-manipulation.html#cb72-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-7"><a href="data-manipulation.html#cb72-7" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb72-8"><a href="data-manipulation.html#cb72-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">s =</span> <span class="fu">pmap_dbl</span>(<span class="fu">select</span>(., a<span class="sc">:</span>d), pmax, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="data-manipulation.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb75-2"><a href="data-manipulation.html#cb75-2" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">a =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="cn">NA</span>),</span>
+<span id="cb75-3"><a href="data-manipulation.html#cb75-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">b =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="cn">NA</span>),</span>
+<span id="cb75-4"><a href="data-manipulation.html#cb75-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">c =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="cn">NA</span>),</span>
+<span id="cb75-5"><a href="data-manipulation.html#cb75-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">d =</span> <span class="fu">c</span>(<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>))</span>
+<span id="cb75-6"><a href="data-manipulation.html#cb75-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-7"><a href="data-manipulation.html#cb75-7" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb75-8"><a href="data-manipulation.html#cb75-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">s =</span> <span class="fu">pmap_dbl</span>(<span class="fu">select</span>(., a<span class="sc">:</span>d), pmax, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 5
 ##       a     b     c d         s
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;dbl&gt;
@@ -530,129 +615,129 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 ## 2     2     3     4 NA        4
 ## 3    NA    NA    NA NA       NA</code></pre>
 </div>
-<div id="multiple-imputation-and-ipw-for-missing-data" class="section level2 hasAnchor" number="3.4">
-<h2><span class="header-section-number">3.4</span> Multiple imputation and IPW for missing data<a href="data-manipulation.html#multiple-imputation-and-ipw-for-missing-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="multiple-imputation-and-ipw-for-missing-data" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Multiple imputation and IPW for missing data<a href="data-manipulation.html#multiple-imputation-and-ipw-for-missing-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Two approaches are commonly used for dealing with missing data.</p>
 <p>Multiple imputation (MI) “fills in” missing values. Inverse probability weighting (IPW) “weights” observed values to reflect characteristics of missing data.</p>
 <p>Missing data is discussed in detail here:<a href="https://finalfit.org/articles/missing.html" class="uri">https://finalfit.org/articles/missing.html</a></p>
 <p>The IPW methods are taken from here: <a href="https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/" class="uri">https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/</a></p>
-<div id="data" class="section level3 hasAnchor" number="3.4.1">
-<h3><span class="header-section-number">3.4.1</span> Data<a href="data-manipulation.html#data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="data-manipulation.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
-<span id="cb74-2"><a href="data-manipulation.html#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb74-3"><a href="data-manipulation.html#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mice)</span>
-<span id="cb74-4"><a href="data-manipulation.html#cb74-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-5"><a href="data-manipulation.html#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Inspect dataset</span></span>
-<span id="cb74-6"><a href="data-manipulation.html#cb74-6" aria-hidden="true" tabindex="-1"></a><span class="co"># colon_s %&gt;% ff_glimpse()</span></span>
-<span id="cb74-7"><a href="data-manipulation.html#cb74-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-8"><a href="data-manipulation.html#cb74-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Below we will use these variables to model, </span></span>
-<span id="cb74-9"><a href="data-manipulation.html#cb74-9" aria-hidden="true" tabindex="-1"></a><span class="do">## so remove missings from them and from outcome for this demonstration</span></span>
-<span id="cb74-10"><a href="data-manipulation.html#cb74-10" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, </span>
-<span id="cb74-11"><a href="data-manipulation.html#cb74-11" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;sex.factor&quot;</span>, </span>
-<span id="cb74-12"><a href="data-manipulation.html#cb74-12" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;obstruct.factor&quot;</span>, </span>
-<span id="cb74-13"><a href="data-manipulation.html#cb74-13" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;perfor.factor&quot;</span>,</span>
-<span id="cb74-14"><a href="data-manipulation.html#cb74-14" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;adhere.factor&quot;</span>,</span>
-<span id="cb74-15"><a href="data-manipulation.html#cb74-15" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;nodes&quot;</span>,</span>
-<span id="cb74-16"><a href="data-manipulation.html#cb74-16" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;differ.factor&quot;</span>,</span>
-<span id="cb74-17"><a href="data-manipulation.html#cb74-17" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;rx&quot;</span>)</span>
-<span id="cb74-18"><a href="data-manipulation.html#cb74-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-19"><a href="data-manipulation.html#cb74-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-20"><a href="data-manipulation.html#cb74-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Remove existing missings</span></span>
-<span id="cb74-21"><a href="data-manipulation.html#cb74-21" aria-hidden="true" tabindex="-1"></a>colon_s <span class="ot">=</span> colon_s <span class="sc">%&gt;%</span> </span>
-<span id="cb74-22"><a href="data-manipulation.html#cb74-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(mort_5yr, explanatory) <span class="sc">%&gt;%</span> </span>
-<span id="cb74-23"><a href="data-manipulation.html#cb74-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div>
+<div id="data" class="section level3 hasAnchor" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Data<a href="data-manipulation.html#data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="data-manipulation.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
+<span id="cb77-2"><a href="data-manipulation.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb77-3"><a href="data-manipulation.html#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mice)</span>
+<span id="cb77-4"><a href="data-manipulation.html#cb77-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-5"><a href="data-manipulation.html#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Inspect dataset</span></span>
+<span id="cb77-6"><a href="data-manipulation.html#cb77-6" aria-hidden="true" tabindex="-1"></a><span class="co"># colon_s %&gt;% ff_glimpse()</span></span>
+<span id="cb77-7"><a href="data-manipulation.html#cb77-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-8"><a href="data-manipulation.html#cb77-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Below we will use these variables to model, </span></span>
+<span id="cb77-9"><a href="data-manipulation.html#cb77-9" aria-hidden="true" tabindex="-1"></a><span class="do">## so remove missings from them and from outcome for this demonstration</span></span>
+<span id="cb77-10"><a href="data-manipulation.html#cb77-10" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, </span>
+<span id="cb77-11"><a href="data-manipulation.html#cb77-11" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;sex.factor&quot;</span>, </span>
+<span id="cb77-12"><a href="data-manipulation.html#cb77-12" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;obstruct.factor&quot;</span>, </span>
+<span id="cb77-13"><a href="data-manipulation.html#cb77-13" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;perfor.factor&quot;</span>,</span>
+<span id="cb77-14"><a href="data-manipulation.html#cb77-14" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;adhere.factor&quot;</span>,</span>
+<span id="cb77-15"><a href="data-manipulation.html#cb77-15" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;nodes&quot;</span>,</span>
+<span id="cb77-16"><a href="data-manipulation.html#cb77-16" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;differ.factor&quot;</span>,</span>
+<span id="cb77-17"><a href="data-manipulation.html#cb77-17" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;rx&quot;</span>)</span>
+<span id="cb77-18"><a href="data-manipulation.html#cb77-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-19"><a href="data-manipulation.html#cb77-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-20"><a href="data-manipulation.html#cb77-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Remove existing missings</span></span>
+<span id="cb77-21"><a href="data-manipulation.html#cb77-21" aria-hidden="true" tabindex="-1"></a>colon_s <span class="ot">=</span> colon_s <span class="sc">%&gt;%</span> </span>
+<span id="cb77-22"><a href="data-manipulation.html#cb77-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(mort_5yr, explanatory) <span class="sc">%&gt;%</span> </span>
+<span id="cb77-23"><a href="data-manipulation.html#cb77-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div>
 <p>Here is the truth for mortality at 5 years in these data.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="data-manipulation.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Truth</span></span>
-<span id="cb75-2"><a href="data-manipulation.html#cb75-2" aria-hidden="true" tabindex="-1"></a>colon_s <span class="sc">%&gt;%</span> </span>
-<span id="cb75-3"><a href="data-manipulation.html#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary_factorlist</span>(<span class="at">explanatory =</span> <span class="st">&quot;mort_5yr&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="data-manipulation.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Truth</span></span>
+<span id="cb78-2"><a href="data-manipulation.html#cb78-2" aria-hidden="true" tabindex="-1"></a>colon_s <span class="sc">%&gt;%</span> </span>
+<span id="cb78-3"><a href="data-manipulation.html#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary_factorlist</span>(<span class="at">explanatory =</span> <span class="st">&quot;mort_5yr&quot;</span>)</span></code></pre></div>
 <pre><code>##             label levels        all
 ##  Mortality 5 year  Alive 476 (55.7)
 ##                     Died 378 (44.3)</code></pre>
 <p>Let’s conditionally delete some outcomes.</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="data-manipulation.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb77-2"><a href="data-manipulation.html#cb77-2" aria-hidden="true" tabindex="-1"></a>colon_rs <span class="ot">=</span> colon_s <span class="sc">%&gt;%</span> </span>
-<span id="cb77-3"><a href="data-manipulation.html#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mort_5yr =</span> <span class="fu">ifelse</span>(mort_5yr <span class="sc">==</span> <span class="st">&quot;Alive&quot;</span>, </span>
-<span id="cb77-4"><a href="data-manipulation.html#cb77-4" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;Alive&quot;</span>, <span class="cn">NA_character_</span>), </span>
-<span id="cb77-5"><a href="data-manipulation.html#cb77-5" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">size =</span> <span class="fu">sum</span>(colon_s<span class="sc">$</span>mort_5yr <span class="sc">==</span> <span class="st">&quot;Alive&quot;</span>), </span>
-<span id="cb77-6"><a href="data-manipulation.html#cb77-6" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">0.1</span>)),</span>
-<span id="cb77-7"><a href="data-manipulation.html#cb77-7" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;Died&quot;</span>, <span class="cn">NA_character_</span>), </span>
-<span id="cb77-8"><a href="data-manipulation.html#cb77-8" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">size =</span> <span class="fu">sum</span>(colon_s<span class="sc">$</span>mort_5yr <span class="sc">==</span> <span class="st">&quot;Died&quot;</span>), </span>
-<span id="cb77-9"><a href="data-manipulation.html#cb77-9" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.85</span>, <span class="fl">0.15</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb77-10"><a href="data-manipulation.html#cb77-10" aria-hidden="true" tabindex="-1"></a>           <span class="fu">factor</span>()</span>
-<span id="cb77-11"><a href="data-manipulation.html#cb77-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="data-manipulation.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb80-2"><a href="data-manipulation.html#cb80-2" aria-hidden="true" tabindex="-1"></a>colon_rs <span class="ot">=</span> colon_s <span class="sc">%&gt;%</span> </span>
+<span id="cb80-3"><a href="data-manipulation.html#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mort_5yr =</span> <span class="fu">ifelse</span>(mort_5yr <span class="sc">==</span> <span class="st">&quot;Alive&quot;</span>, </span>
+<span id="cb80-4"><a href="data-manipulation.html#cb80-4" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;Alive&quot;</span>, <span class="cn">NA_character_</span>), </span>
+<span id="cb80-5"><a href="data-manipulation.html#cb80-5" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">size =</span> <span class="fu">sum</span>(colon_s<span class="sc">$</span>mort_5yr <span class="sc">==</span> <span class="st">&quot;Alive&quot;</span>), </span>
+<span id="cb80-6"><a href="data-manipulation.html#cb80-6" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">0.1</span>)),</span>
+<span id="cb80-7"><a href="data-manipulation.html#cb80-7" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;Died&quot;</span>, <span class="cn">NA_character_</span>), </span>
+<span id="cb80-8"><a href="data-manipulation.html#cb80-8" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">size =</span> <span class="fu">sum</span>(colon_s<span class="sc">$</span>mort_5yr <span class="sc">==</span> <span class="st">&quot;Died&quot;</span>), </span>
+<span id="cb80-9"><a href="data-manipulation.html#cb80-9" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.85</span>, <span class="fl">0.15</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb80-10"><a href="data-manipulation.html#cb80-10" aria-hidden="true" tabindex="-1"></a>           <span class="fu">factor</span>()</span>
+<span id="cb80-11"><a href="data-manipulation.html#cb80-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <p>The proportion that died, is now lower due to our artifically introduced reporting bias:</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="data-manipulation.html#cb78-1" aria-hidden="true" tabindex="-1"></a>colon_rs <span class="sc">%&gt;%</span> </span>
-<span id="cb78-2"><a href="data-manipulation.html#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary_factorlist</span>(<span class="at">explanatory =</span> <span class="st">&quot;mort_5yr&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="data-manipulation.html#cb81-1" aria-hidden="true" tabindex="-1"></a>colon_rs <span class="sc">%&gt;%</span> </span>
+<span id="cb81-2"><a href="data-manipulation.html#cb81-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary_factorlist</span>(<span class="at">explanatory =</span> <span class="st">&quot;mort_5yr&quot;</span>)</span></code></pre></div>
 <pre><code>##     label levels        all
 ##  mort_5yr  Alive 423 (57.2)
 ##             Died 316 (42.8)</code></pre>
 </div>
-<div id="multiple-imputation" class="section level3 hasAnchor" number="3.4.2">
-<h3><span class="header-section-number">3.4.2</span> Multiple imputation<a href="data-manipulation.html#multiple-imputation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="multiple-imputation" class="section level3 hasAnchor" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Multiple imputation<a href="data-manipulation.html#multiple-imputation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>First, let’s use multiple imputation to “fill in” missing outcome using the existing information we have about the patient.</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="data-manipulation.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Choose which variables in dataset to include in imputation. </span></span>
-<span id="cb80-2"><a href="data-manipulation.html#cb80-2" aria-hidden="true" tabindex="-1"></a>predM <span class="ot">=</span> colon_rs <span class="sc">%&gt;%</span> </span>
-<span id="cb80-3"><a href="data-manipulation.html#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(mort_5yr, explanatory) <span class="sc">%&gt;%</span> </span>
-<span id="cb80-4"><a href="data-manipulation.html#cb80-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">missing_predictorMatrix</span>(</span>
-<span id="cb80-5"><a href="data-manipulation.html#cb80-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">drop_from_imputed =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>), </span>
-<span id="cb80-6"><a href="data-manipulation.html#cb80-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">drop_from_imputer =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>))</span>
-<span id="cb80-7"><a href="data-manipulation.html#cb80-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb80-8"><a href="data-manipulation.html#cb80-8" aria-hidden="true" tabindex="-1"></a><span class="co"># This is needed to drop from imputed</span></span>
-<span id="cb80-9"><a href="data-manipulation.html#cb80-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Include for completeness, but not used here. </span></span>
-<span id="cb80-10"><a href="data-manipulation.html#cb80-10" aria-hidden="true" tabindex="-1"></a>m0 <span class="ot">=</span> <span class="fu">mice</span>(colon_rs <span class="sc">%&gt;%</span> </span>
-<span id="cb80-11"><a href="data-manipulation.html#cb80-11" aria-hidden="true" tabindex="-1"></a>            <span class="fu">select</span>(mort_5yr, explanatory), <span class="at">maxit=</span><span class="dv">0</span>)</span>
-<span id="cb80-12"><a href="data-manipulation.html#cb80-12" aria-hidden="true" tabindex="-1"></a><span class="co"># m0$method[c(&quot;study_id&quot;)] = &quot;&quot;</span></span>
-<span id="cb80-13"><a href="data-manipulation.html#cb80-13" aria-hidden="true" tabindex="-1"></a><span class="co"># m0$method[c(&quot;redcap_data_access_group&quot;)] = &quot;&quot;</span></span>
-<span id="cb80-14"><a href="data-manipulation.html#cb80-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb80-15"><a href="data-manipulation.html#cb80-15" aria-hidden="true" tabindex="-1"></a>colon_rs_imputed <span class="ot">=</span> colon_rs <span class="sc">%&gt;%</span> </span>
-<span id="cb80-16"><a href="data-manipulation.html#cb80-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(mort_5yr, explanatory) <span class="sc">%&gt;%</span> </span>
-<span id="cb80-17"><a href="data-manipulation.html#cb80-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mice</span>(<span class="at">m =</span> <span class="dv">10</span>, <span class="at">maxit =</span> <span class="dv">10</span>, <span class="at">predictorMatrix =</span> predM, <span class="at">method =</span> m0<span class="sc">$</span>method,</span>
-<span id="cb80-18"><a href="data-manipulation.html#cb80-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">print =</span> <span class="cn">FALSE</span>) <span class="co"># print false just for example</span></span>
-<span id="cb80-19"><a href="data-manipulation.html#cb80-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb80-20"><a href="data-manipulation.html#cb80-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Check output here:</span></span>
-<span id="cb80-21"><a href="data-manipulation.html#cb80-21" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(colon_rs_imputed)</span></span>
-<span id="cb80-22"><a href="data-manipulation.html#cb80-22" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(colon_rs_imputed )</span></span></code></pre></div>
-<div id="reduce-imputed-sets-mean" class="section level4 hasAnchor" number="3.4.2.1">
-<h4><span class="header-section-number">3.4.2.1</span> Reduce imputed sets (mean)<a href="data-manipulation.html#reduce-imputed-sets-mean" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="data-manipulation.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Choose which variables in dataset to include in imputation. </span></span>
+<span id="cb83-2"><a href="data-manipulation.html#cb83-2" aria-hidden="true" tabindex="-1"></a>predM <span class="ot">=</span> colon_rs <span class="sc">%&gt;%</span> </span>
+<span id="cb83-3"><a href="data-manipulation.html#cb83-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(mort_5yr, explanatory) <span class="sc">%&gt;%</span> </span>
+<span id="cb83-4"><a href="data-manipulation.html#cb83-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">missing_predictorMatrix</span>(</span>
+<span id="cb83-5"><a href="data-manipulation.html#cb83-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">drop_from_imputed =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>), </span>
+<span id="cb83-6"><a href="data-manipulation.html#cb83-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">drop_from_imputer =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>))</span>
+<span id="cb83-7"><a href="data-manipulation.html#cb83-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-8"><a href="data-manipulation.html#cb83-8" aria-hidden="true" tabindex="-1"></a><span class="co"># This is needed to drop from imputed</span></span>
+<span id="cb83-9"><a href="data-manipulation.html#cb83-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Include for completeness, but not used here. </span></span>
+<span id="cb83-10"><a href="data-manipulation.html#cb83-10" aria-hidden="true" tabindex="-1"></a>m0 <span class="ot">=</span> <span class="fu">mice</span>(colon_rs <span class="sc">%&gt;%</span> </span>
+<span id="cb83-11"><a href="data-manipulation.html#cb83-11" aria-hidden="true" tabindex="-1"></a>            <span class="fu">select</span>(mort_5yr, explanatory), <span class="at">maxit=</span><span class="dv">0</span>)</span>
+<span id="cb83-12"><a href="data-manipulation.html#cb83-12" aria-hidden="true" tabindex="-1"></a><span class="co"># m0$method[c(&quot;study_id&quot;)] = &quot;&quot;</span></span>
+<span id="cb83-13"><a href="data-manipulation.html#cb83-13" aria-hidden="true" tabindex="-1"></a><span class="co"># m0$method[c(&quot;redcap_data_access_group&quot;)] = &quot;&quot;</span></span>
+<span id="cb83-14"><a href="data-manipulation.html#cb83-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-15"><a href="data-manipulation.html#cb83-15" aria-hidden="true" tabindex="-1"></a>colon_rs_imputed <span class="ot">=</span> colon_rs <span class="sc">%&gt;%</span> </span>
+<span id="cb83-16"><a href="data-manipulation.html#cb83-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(mort_5yr, explanatory) <span class="sc">%&gt;%</span> </span>
+<span id="cb83-17"><a href="data-manipulation.html#cb83-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mice</span>(<span class="at">m =</span> <span class="dv">10</span>, <span class="at">maxit =</span> <span class="dv">10</span>, <span class="at">predictorMatrix =</span> predM, <span class="at">method =</span> m0<span class="sc">$</span>method,</span>
+<span id="cb83-18"><a href="data-manipulation.html#cb83-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">print =</span> <span class="cn">FALSE</span>) <span class="co"># print false just for example</span></span>
+<span id="cb83-19"><a href="data-manipulation.html#cb83-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-20"><a href="data-manipulation.html#cb83-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Check output here:</span></span>
+<span id="cb83-21"><a href="data-manipulation.html#cb83-21" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(colon_rs_imputed)</span></span>
+<span id="cb83-22"><a href="data-manipulation.html#cb83-22" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(colon_rs_imputed )</span></span></code></pre></div>
+<div id="reduce-imputed-sets-mean" class="section level4 hasAnchor" number="3.5.2.1">
+<h4><span class="header-section-number">3.5.2.1</span> Reduce imputed sets (mean)<a href="data-manipulation.html#reduce-imputed-sets-mean" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>As can be seen, the imputed proportion approaches that of the “true” value.</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="data-manipulation.html#cb81-1" aria-hidden="true" tabindex="-1"></a>colon_rs_imputed <span class="sc">%&gt;%</span> </span>
-<span id="cb81-2"><a href="data-manipulation.html#cb81-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">complete</span>(<span class="st">&quot;all&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb81-3"><a href="data-manipulation.html#cb81-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span> (.) <span class="sc">%&gt;%</span> <span class="fu">count</span>(mort_5yr) <span class="sc">%&gt;%</span> </span>
-<span id="cb81-4"><a href="data-manipulation.html#cb81-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">nn =</span> <span class="fu">sum</span>(n),</span>
-<span id="cb81-5"><a href="data-manipulation.html#cb81-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">prop =</span> n<span class="sc">/</span>nn) <span class="sc">%&gt;%</span> </span>
-<span id="cb81-6"><a href="data-manipulation.html#cb81-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">select</span>(<span class="sc">-</span>mort_5yr)) <span class="sc">%&gt;%</span> </span>
-<span id="cb81-7"><a href="data-manipulation.html#cb81-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reduce</span>(<span class="st">`</span><span class="at">+</span><span class="st">`</span>) <span class="sc">/</span> <span class="dv">10</span></span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="data-manipulation.html#cb84-1" aria-hidden="true" tabindex="-1"></a>colon_rs_imputed <span class="sc">%&gt;%</span> </span>
+<span id="cb84-2"><a href="data-manipulation.html#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">complete</span>(<span class="st">&quot;all&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb84-3"><a href="data-manipulation.html#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span> (.) <span class="sc">%&gt;%</span> <span class="fu">count</span>(mort_5yr) <span class="sc">%&gt;%</span> </span>
+<span id="cb84-4"><a href="data-manipulation.html#cb84-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">nn =</span> <span class="fu">sum</span>(n),</span>
+<span id="cb84-5"><a href="data-manipulation.html#cb84-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">prop =</span> n<span class="sc">/</span>nn) <span class="sc">%&gt;%</span> </span>
+<span id="cb84-6"><a href="data-manipulation.html#cb84-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">select</span>(<span class="sc">-</span>mort_5yr)) <span class="sc">%&gt;%</span> </span>
+<span id="cb84-7"><a href="data-manipulation.html#cb84-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reduce</span>(<span class="st">`</span><span class="at">+</span><span class="st">`</span>) <span class="sc">/</span> <span class="dv">10</span></span></code></pre></div>
 <pre><code>##       n  nn      prop
-## 1 484.8 854 0.5676815
-## 2 369.2 854 0.4323185</code></pre>
+## 1 482.1 854 0.5645199
+## 2 371.9 854 0.4354801</code></pre>
 </div>
 </div>
-<div id="ipw" class="section level3 hasAnchor" number="3.4.3">
-<h3><span class="header-section-number">3.4.3</span> IPW<a href="data-manipulation.html#ipw" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="ipw" class="section level3 hasAnchor" number="3.5.3">
+<h3><span class="header-section-number">3.5.3</span> IPW<a href="data-manipulation.html#ipw" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Rather than filling in the missing values, we can weight the observed values to reflect the characteristics of the missing data.</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="data-manipulation.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Define observed vs non-observed groups</span></span>
-<span id="cb83-2"><a href="data-manipulation.html#cb83-2" aria-hidden="true" tabindex="-1"></a>colon_rs <span class="ot">=</span> colon_rs <span class="sc">%&gt;%</span> </span>
-<span id="cb83-3"><a href="data-manipulation.html#cb83-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb83-4"><a href="data-manipulation.html#cb83-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">group_fu =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(mort_5yr), <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb83-5"><a href="data-manipulation.html#cb83-5" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb83-6"><a href="data-manipulation.html#cb83-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-7"><a href="data-manipulation.html#cb83-7" aria-hidden="true" tabindex="-1"></a>colon_rs <span class="sc">%&gt;%</span> </span>
-<span id="cb83-8"><a href="data-manipulation.html#cb83-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(group_fu)</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="data-manipulation.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Define observed vs non-observed groups</span></span>
+<span id="cb86-2"><a href="data-manipulation.html#cb86-2" aria-hidden="true" tabindex="-1"></a>colon_rs <span class="ot">=</span> colon_rs <span class="sc">%&gt;%</span> </span>
+<span id="cb86-3"><a href="data-manipulation.html#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb86-4"><a href="data-manipulation.html#cb86-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">group_fu =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(mort_5yr), <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb86-5"><a href="data-manipulation.html#cb86-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb86-6"><a href="data-manipulation.html#cb86-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-7"><a href="data-manipulation.html#cb86-7" aria-hidden="true" tabindex="-1"></a>colon_rs <span class="sc">%&gt;%</span> </span>
+<span id="cb86-8"><a href="data-manipulation.html#cb86-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(group_fu)</span></code></pre></div>
 <pre><code>##   group_fu   n
 ## 1        0 115
 ## 2        1 739</code></pre>
-<p>This method uses “stabilised weights,” meaning weights should have a mean of 1.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="data-manipulation.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Numerator model</span></span>
-<span id="cb85-2"><a href="data-manipulation.html#cb85-2" aria-hidden="true" tabindex="-1"></a>fit_num <span class="ot">=</span> colon_rs <span class="sc">%&gt;%</span> </span>
-<span id="cb85-3"><a href="data-manipulation.html#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glmmulti</span>(<span class="st">&quot;group_fu&quot;</span>, <span class="dv">1</span>)</span>
-<span id="cb85-4"><a href="data-manipulation.html#cb85-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-5"><a href="data-manipulation.html#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Denominator model</span></span>
-<span id="cb85-6"><a href="data-manipulation.html#cb85-6" aria-hidden="true" tabindex="-1"></a>fit_dem <span class="ot">=</span> colon_rs <span class="sc">%&gt;%</span> </span>
-<span id="cb85-7"><a href="data-manipulation.html#cb85-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glmmulti</span>(<span class="st">&quot;group_fu&quot;</span>, explanatory)</span>
-<span id="cb85-8"><a href="data-manipulation.html#cb85-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-9"><a href="data-manipulation.html#cb85-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Check denominator model</span></span>
-<span id="cb85-10"><a href="data-manipulation.html#cb85-10" aria-hidden="true" tabindex="-1"></a>fit_dem <span class="sc">%&gt;%</span> </span>
-<span id="cb85-11"><a href="data-manipulation.html#cb85-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit2df</span>()</span></code></pre></div>
+<p>This method uses “stabilised weights”, meaning weights should have a mean of 1.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="data-manipulation.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Numerator model</span></span>
+<span id="cb88-2"><a href="data-manipulation.html#cb88-2" aria-hidden="true" tabindex="-1"></a>fit_num <span class="ot">=</span> colon_rs <span class="sc">%&gt;%</span> </span>
+<span id="cb88-3"><a href="data-manipulation.html#cb88-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glmmulti</span>(<span class="st">&quot;group_fu&quot;</span>, <span class="dv">1</span>)</span>
+<span id="cb88-4"><a href="data-manipulation.html#cb88-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-5"><a href="data-manipulation.html#cb88-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Denominator model</span></span>
+<span id="cb88-6"><a href="data-manipulation.html#cb88-6" aria-hidden="true" tabindex="-1"></a>fit_dem <span class="ot">=</span> colon_rs <span class="sc">%&gt;%</span> </span>
+<span id="cb88-7"><a href="data-manipulation.html#cb88-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glmmulti</span>(<span class="st">&quot;group_fu&quot;</span>, explanatory)</span>
+<span id="cb88-8"><a href="data-manipulation.html#cb88-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-9"><a href="data-manipulation.html#cb88-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Check denominator model</span></span>
+<span id="cb88-10"><a href="data-manipulation.html#cb88-10" aria-hidden="true" tabindex="-1"></a>fit_dem <span class="sc">%&gt;%</span> </span>
+<span id="cb88-11"><a href="data-manipulation.html#cb88-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit2df</span>()</span></code></pre></div>
 <pre><code>## Waiting for profiling to be done...</code></pre>
 <pre><code>##              explanatory                         OR
 ## 1                    age  1.00 (0.99-1.02, p=0.766)
@@ -665,28 +750,28 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
 ## 8      differ.factorPoor  1.49 (0.69-3.15, p=0.301)
 ## 9                  rxLev  1.01 (0.63-1.63, p=0.961)
 ## 10             rxLev+5FU  1.11 (0.68-1.82, p=0.687)</code></pre>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="data-manipulation.html#cb88-1" aria-hidden="true" tabindex="-1"></a>colon_rs <span class="ot">=</span> colon_rs <span class="sc">%&gt;%</span> </span>
-<span id="cb88-2"><a href="data-manipulation.html#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb88-3"><a href="data-manipulation.html#cb88-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> <span class="fu">predict</span>(fit_num, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>),</span>
-<span id="cb88-4"><a href="data-manipulation.html#cb88-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">pi =</span> <span class="fu">predict</span>(fit_dem, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>),</span>
-<span id="cb88-5"><a href="data-manipulation.html#cb88-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">weights =</span> <span class="fu">case_when</span>(</span>
-<span id="cb88-6"><a href="data-manipulation.html#cb88-6" aria-hidden="true" tabindex="-1"></a>      group_fu <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> p <span class="sc">/</span> pi,</span>
-<span id="cb88-7"><a href="data-manipulation.html#cb88-7" aria-hidden="true" tabindex="-1"></a>      group_fu <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> (<span class="dv">1</span><span class="sc">-</span>p) <span class="sc">/</span> (<span class="dv">1</span><span class="sc">-</span>pi) </span>
-<span id="cb88-8"><a href="data-manipulation.html#cb88-8" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb88-9"><a href="data-manipulation.html#cb88-9" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb88-10"><a href="data-manipulation.html#cb88-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-11"><a href="data-manipulation.html#cb88-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(colon_rs<span class="sc">$</span>weights)</span></code></pre></div>
-<pre><code>## [1] 0.9987887</code></pre>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="data-manipulation.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Whoop whoop if ~1.0</span></span></code></pre></div>
-<p>A weighted proportion can then be generated, which gives a very similar result to the multiple imputation.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="data-manipulation.html#cb91-1" aria-hidden="true" tabindex="-1"></a>colon_rs <span class="sc">%&gt;%</span>  </span>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="data-manipulation.html#cb91-1" aria-hidden="true" tabindex="-1"></a>colon_rs <span class="ot">=</span> colon_rs <span class="sc">%&gt;%</span> </span>
 <span id="cb91-2"><a href="data-manipulation.html#cb91-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb91-3"><a href="data-manipulation.html#cb91-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mort_5yr_wgt =</span> (<span class="fu">as.numeric</span>(mort_5yr) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> weights</span>
-<span id="cb91-4"><a href="data-manipulation.html#cb91-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb91-5"><a href="data-manipulation.html#cb91-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary_factorlist</span>(<span class="at">explanatory =</span> <span class="fu">c</span>(<span class="st">&quot; mort_5yr&quot;</span>, <span class="st">&quot; mort_5yr_wgt&quot;</span>), <span class="at">digits =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>) )</span></code></pre></div>
+<span id="cb91-3"><a href="data-manipulation.html#cb91-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> <span class="fu">predict</span>(fit_num, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>),</span>
+<span id="cb91-4"><a href="data-manipulation.html#cb91-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">pi =</span> <span class="fu">predict</span>(fit_dem, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>),</span>
+<span id="cb91-5"><a href="data-manipulation.html#cb91-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">weights =</span> <span class="fu">case_when</span>(</span>
+<span id="cb91-6"><a href="data-manipulation.html#cb91-6" aria-hidden="true" tabindex="-1"></a>      group_fu <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> p <span class="sc">/</span> pi,</span>
+<span id="cb91-7"><a href="data-manipulation.html#cb91-7" aria-hidden="true" tabindex="-1"></a>      group_fu <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> (<span class="dv">1</span><span class="sc">-</span>p) <span class="sc">/</span> (<span class="dv">1</span><span class="sc">-</span>pi) </span>
+<span id="cb91-8"><a href="data-manipulation.html#cb91-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb91-9"><a href="data-manipulation.html#cb91-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb91-10"><a href="data-manipulation.html#cb91-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-11"><a href="data-manipulation.html#cb91-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(colon_rs<span class="sc">$</span>weights)</span></code></pre></div>
+<pre><code>## [1] 0.9987887</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="data-manipulation.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Whoop whoop if ~1.0</span></span></code></pre></div>
+<p>A weighted proportion can then be generated, which gives a very similar result to the multiple imputation.</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="data-manipulation.html#cb94-1" aria-hidden="true" tabindex="-1"></a>colon_rs <span class="sc">%&gt;%</span>  </span>
+<span id="cb94-2"><a href="data-manipulation.html#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb94-3"><a href="data-manipulation.html#cb94-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mort_5yr_wgt =</span> (<span class="fu">as.numeric</span>(mort_5yr) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> weights</span>
+<span id="cb94-4"><a href="data-manipulation.html#cb94-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb94-5"><a href="data-manipulation.html#cb94-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary_factorlist</span>(<span class="at">explanatory =</span> <span class="fu">c</span>(<span class="st">&quot; mort_5yr&quot;</span>, <span class="st">&quot; mort_5yr_wgt&quot;</span>), <span class="at">digits =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>) )</span></code></pre></div>
 <pre><code>##         label    levels             all
-##      mort_5yr     Alive      423 (57.2)
-##                    Died      316 (42.8)
+##      mort_5yr     Alive    423.0 (57.2)
+##                    Died    316.0 (42.8)
 ##  mort_5yr_wgt Mean (SD) 0.4317 (0.5008)</code></pre>
 
 </div>
@@ -702,7 +787,6 @@ I don’t care whether <code>whatever_c</code> is empty or not, but I do want to
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -743,7 +827,7 @@ gitbook.start({
 },
 "download": ["cookbook.pdf", "cookbook.epub"],
 "search": {
-"engine": "lunr",
+"engine": "fuse",
 "options": null
 },
 "toc": {

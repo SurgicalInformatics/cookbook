@@ -6,8 +6,8 @@
 ]{book}
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -33,14 +33,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\hypersetup{
-  pdftitle={The Surgical Informatics Cookbook},
-  pdfauthor={Surgical Informatics, University of Edinburgh},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-\urlstyle{same} % disable monospaced font for URLs
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -123,15 +115,23 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
-\ifluatex
+\ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
 \usepackage[]{natbib}
 \bibliographystyle{apalike}
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={The Surgical Informatics Cookbook},
+  pdfauthor={Surgical Informatics, University of Edinburgh},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2022-07-12}
+\date{2022-09-08}
 
 \begin{document}
 \maketitle
@@ -1013,12 +1013,12 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 
 \begin{verbatim}
 ##         date isoweek isoweek_date
-## 1 2020-02-20       8   2020-02-17
-## 2 2021-06-02      22   2021-05-31
-## 3 2022-05-11      19   2022-05-09
-## 4 2021-11-18      46   2021-11-15
-## 5 2020-01-04       1   2020-01-01
-## 6 2020-03-24      13   2020-03-23
+## 1 2020-11-09      46   2020-11-09
+## 2 2020-09-22      39   2020-09-21
+## 3 2020-04-24      17   2020-04-20
+## 4 2020-05-25      22   2020-05-25
+## 5 2020-02-18       8   2020-02-17
+## 6 2020-05-28      22   2020-05-25
 \end{verbatim}
 
 \hypertarget{labelling-tables-and-figures-in-markdown-chunks}{%
@@ -1192,6 +1192,106 @@ Common to have to do this in GlobalSurg projects:
 ## 2 Unknown           1
 ## 3 Yes               5
 \end{verbatim}
+
+\hypertarget{filtering-best-practice}{%
+\section{Filtering best practice}\label{filtering-best-practice}}
+
+\hypertarget{from-jamie-farrell}{%
+\subsection{From Jamie Farrell}\label{from-jamie-farrell}}
+
+Particularly useful in OpenSAFELY, but should be adopted by us all.
+
+This creates inclusion flags, and then summarises those inclusion flags in a table. This allows us to see exactly how many rows are removed at each filter step.
+
+The inclusion flags are then used to run the final filter.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(finalfit)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+
+\CommentTok{\# Utility function {-}{-}{-}{-}}
+\DocumentationTok{\#\# Ignore, just needed for the example. }
+\NormalTok{fct\_case\_when }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(...) \{}
+  \CommentTok{\# uses dplyr::case\_when but converts the output to a factor,}
+  \CommentTok{\# with factors ordered as they appear in the case\_when\textquotesingle{}s  ... argument}
+\NormalTok{  args }\OtherTok{\textless{}{-}} \FunctionTok{as.list}\NormalTok{(}\FunctionTok{match.call}\NormalTok{())}
+\NormalTok{  levels }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(args[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{], }\ControlFlowTok{function}\NormalTok{(f) f[[}\DecValTok{3}\NormalTok{]])  }\CommentTok{\# extract RHS of formula}
+\NormalTok{  levels }\OtherTok{\textless{}{-}}\NormalTok{ levels[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(levels)]}
+  \FunctionTok{factor}\NormalTok{(dplyr}\SpecialCharTok{::}\FunctionTok{case\_when}\NormalTok{(...), }\AttributeTok{levels=}\NormalTok{levels)}
+\NormalTok{\}}
+
+\CommentTok{\# Load data}
+\NormalTok{colon\_s }\OtherTok{=}\NormalTok{ colon\_s}
+
+\CommentTok{\# Create inclusion flags:}
+\CommentTok{\# Age over 50, male, obstruction data not missing}
+\NormalTok{colon\_s }\OtherTok{=}\NormalTok{ colon\_s }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{is\_age\_abover\_50 =}\NormalTok{ age }\SpecialCharTok{\textgreater{}} \DecValTok{50}\NormalTok{,}
+    \AttributeTok{is\_male =}\NormalTok{ sex.factor }\SpecialCharTok{==} \StringTok{"Male"}\NormalTok{,}
+    \AttributeTok{obstruction\_not\_missing =} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(obstruct.factor)}
+\NormalTok{  )}
+
+\CommentTok{\# Create exclusion table}
+\NormalTok{flowchart }\OtherTok{=}\NormalTok{ colon\_s }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{transmute}\NormalTok{(}
+  \AttributeTok{c0 =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{c1 =}\NormalTok{ c0 }\SpecialCharTok{\&}\NormalTok{ is\_age\_abover\_50,}
+  \AttributeTok{c2 =}\NormalTok{ c1 }\SpecialCharTok{\&}\NormalTok{ is\_male,}
+  \AttributeTok{c3 =}\NormalTok{ c2 }\SpecialCharTok{\&}\NormalTok{ obstruction\_not\_missing,}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \FunctionTok{across}\NormalTok{(}\AttributeTok{.fns=}\NormalTok{sum)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{pivot\_col =} \ConstantTok{NA}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pivot\_longer}\NormalTok{(}
+    \AttributeTok{cols=}\SpecialCharTok{{-}}\NormalTok{pivot\_col,}
+    \AttributeTok{names\_to=}\StringTok{"criteria"}\NormalTok{,}
+    \AttributeTok{values\_to=}\StringTok{"n"}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{pivot\_col) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{n\_exclude =} \FunctionTok{lag}\NormalTok{(n) }\SpecialCharTok{{-}}\NormalTok{ n,}
+    \AttributeTok{pct\_all =}\NormalTok{ (n}\SpecialCharTok{/}\FunctionTok{first}\NormalTok{(n)) }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{percent}\NormalTok{(}\FloatTok{0.1}\NormalTok{),}
+    \AttributeTok{pct\_exclude\_step =}\NormalTok{ (n\_exclude}\SpecialCharTok{/}\FunctionTok{lag}\NormalTok{(n)) }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{percent}\NormalTok{(}\FloatTok{0.1}\NormalTok{),}
+    \AttributeTok{crit =} \FunctionTok{str\_extract}\NormalTok{(criteria, }\StringTok{"\^{}c}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d+"}\NormalTok{),}
+    \AttributeTok{criteria =} \FunctionTok{fct\_case\_when}\NormalTok{(}
+\NormalTok{      crit }\SpecialCharTok{==} \StringTok{"c0"} \SpecialCharTok{\textasciitilde{}} \StringTok{"Original dataset"}\NormalTok{,}
+\NormalTok{      crit }\SpecialCharTok{==} \StringTok{"c1"} \SpecialCharTok{\textasciitilde{}} \StringTok{"  with age over 50 years"}\NormalTok{,}
+\NormalTok{      crit }\SpecialCharTok{==} \StringTok{"c2"} \SpecialCharTok{\textasciitilde{}} \StringTok{"  is male"}\NormalTok{,}
+\NormalTok{      crit }\SpecialCharTok{==} \StringTok{"c3"} \SpecialCharTok{\textasciitilde{}} \StringTok{"  obstruction data not missing"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(criteria, n, n\_exclude, pct\_all, pct\_exclude\_step)}
+\NormalTok{flowchart}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 5
+##   criteria                             n n_exclude pct_all pct_exclude_step
+##   <fct>                            <int>     <int> <chr>   <chr>           
+## 1 "Original dataset"                 929        NA 100.0%  <NA>            
+## 2 "  with age over 50 years"         732       197 78.8%   21.2%           
+## 3 "  is male"                        385       347 41.4%   47.4%           
+## 4 "  obstruction data not missing"   375        10 40.4%   2.6%
+\end{verbatim}
+
+Now filter the dataset in one step.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Filtered dataset}
+\NormalTok{colon\_filtered }\OtherTok{=}\NormalTok{ colon\_s }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(}
+\NormalTok{    is\_age\_abover\_50,}
+\NormalTok{    is\_male,}
+\NormalTok{    obstruction\_not\_missing}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{filter-na-dropping-rows-where-all-specified-variables-are-na}{%
 \section{Filter NA: Dropping rows where all specified variables are NA}\label{filter-na-dropping-rows-where-all-specified-variables-are-na}}
@@ -1540,8 +1640,8 @@ As can be seen, the imputed proportion approaches that of the ``true'' value.
 
 \begin{verbatim}
 ##       n  nn      prop
-## 1 484.8 854 0.5676815
-## 2 369.2 854 0.4323185
+## 1 482.1 854 0.5645199
+## 2 371.9 854 0.4354801
 \end{verbatim}
 
 \hypertarget{ipw}{%
@@ -1638,14 +1738,14 @@ A weighted proportion can then be generated, which gives a very similar result t
   \FunctionTok{mutate}\NormalTok{(}
     \AttributeTok{mort\_5yr\_wgt =}\NormalTok{ (}\FunctionTok{as.numeric}\NormalTok{(mort\_5yr) }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ weights}
 \NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{summary\_factorlist}\NormalTok{(}\AttributeTok{explanatory =} \FunctionTok{c}\NormalTok{(}\StringTok{" mort\_5yr"}\NormalTok{, }\StringTok{" mort\_5yr\_wgt"}\NormalTok{), }\AttributeTok{digits =} \FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{) )}
+  \FunctionTok{summary\_factorlist}\NormalTok{(}\AttributeTok{explanatory =} \FunctionTok{c}\NormalTok{(}\StringTok{" mort\_5yr"}\NormalTok{, }\StringTok{" mort\_5yr\_wgt"}\NormalTok{), }\AttributeTok{digits =} \FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{) )}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ##         label    levels             all
-##      mort_5yr     Alive      423 (57.2)
-##                    Died      316 (42.8)
+##      mort_5yr     Alive    423.0 (57.2)
+##                    Died    316.0 (42.8)
 ##  mort_5yr_wgt Mean (SD) 0.4317 (0.5008)
 \end{verbatim}
 
@@ -2481,7 +2581,7 @@ The following will execute the \texttt{R} script at 7AM everyday. A log file is 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ExtensionTok{crontab} \AttributeTok{{-}e}
+\FunctionTok{crontab} \AttributeTok{{-}e}
 
 \CommentTok{\# Add line (using e.g. nano editor)}
 \ExtensionTok{00}\NormalTok{ 07 }\PreprocessorTok{*} \PreprocessorTok{*} \PreprocessorTok{*}\NormalTok{ Rscript /home/user/project/script.R }\OperatorTok{\&\textgreater{}\textgreater{}}\NormalTok{ /home/user/project/cron.log}

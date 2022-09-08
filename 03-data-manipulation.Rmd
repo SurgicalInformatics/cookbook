@@ -46,6 +46,88 @@ mydata %>%
 
 ```
 
+## Filtering best practice
+### From Jamie Farrell 
+
+Particularly useful in OpenSAFELY, but should be adopted by us all. 
+
+This creates inclusion flags, and then summarises those inclusion flags in a table. This allows us to see exactly how many rows are removed at each filter step. 
+
+The inclusion flags are then used to run the final filter. 
+```{r message=FALSE, warning=FALSE}
+library(finalfit)
+library(tidyverse)
+
+# Utility function ----
+## Ignore, just needed for the example. 
+fct_case_when <- function(...) {
+  # uses dplyr::case_when but converts the output to a factor,
+  # with factors ordered as they appear in the case_when's  ... argument
+  args <- as.list(match.call())
+  levels <- sapply(args[-1], function(f) f[[3]])  # extract RHS of formula
+  levels <- levels[!is.na(levels)]
+  factor(dplyr::case_when(...), levels=levels)
+}
+
+# Load data
+colon_s = colon_s
+
+# Create inclusion flags:
+# Age over 50, male, obstruction data not missing
+colon_s = colon_s %>% 
+  mutate(
+    is_age_abover_50 = age > 50,
+    is_male = sex.factor == "Male",
+    obstruction_not_missing = !is.na(obstruct.factor)
+  )
+
+# Create exclusion table
+flowchart = colon_s %>% 
+  transmute(
+  c0 = TRUE,
+  c1 = c0 & is_age_abover_50,
+  c2 = c1 & is_male,
+  c3 = c2 & obstruction_not_missing,
+) %>%
+  summarise(
+    across(.fns=sum)
+  ) %>%
+  mutate(pivot_col = NA) %>% 
+  pivot_longer(
+    cols=-pivot_col,
+    names_to="criteria",
+    values_to="n"
+  ) %>% 
+  select(-pivot_col) %>% 
+  mutate(
+    n_exclude = lag(n) - n,
+    pct_all = (n/first(n)) %>% scales::percent(0.1),
+    pct_exclude_step = (n_exclude/lag(n)) %>% scales::percent(0.1),
+    crit = str_extract(criteria, "^c\\d+"),
+    criteria = fct_case_when(
+      crit == "c0" ~ "Original dataset",
+      crit == "c1" ~ "  with age over 50 years",
+      crit == "c2" ~ "  is male",
+      crit == "c3" ~ "  obstruction data not missing",
+      TRUE ~ NA_character_
+    )
+  ) %>% 
+  select(criteria, n, n_exclude, pct_all, pct_exclude_step)
+flowchart
+```
+
+Now filter the dataset in one step. 
+
+```{r message=FALSE, warning=FALSE}
+# Filtered dataset
+colon_filtered = colon_s %>% 
+  filter(
+    is_age_abover_50,
+    is_male,
+    obstruction_not_missing
+  )
+```
+
 
 ## Filter NA: Dropping rows where all specified variables are NA
 
@@ -301,6 +383,6 @@ colon_rs %>%
   mutate(
     mort_5yr_wgt = (as.numeric(mort_5yr) - 1) * weights
   ) %>% 
-  summary_factorlist(explanatory = c(" mort_5yr", " mort_5yr_wgt"), digits = c(4, 4, 3, 1) )
+  summary_factorlist(explanatory = c(" mort_5yr", " mort_5yr_wgt"), digits = c(4, 4, 3, 1, 1) )
 
 ```
