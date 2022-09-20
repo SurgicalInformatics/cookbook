@@ -131,7 +131,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2022-09-08}
+\date{2022-09-20}
 
 \begin{document}
 \maketitle
@@ -612,7 +612,7 @@ Works for a single date or a vector of dates.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 51 78 73
+## [1] 52 78 73
 \end{verbatim}
 
 \begin{Shaded}
@@ -657,7 +657,7 @@ Works for a single date or a vector of dates.
 ## # A tibble: 3 x 4
 ##   chi        dob        gender   age
 ##   <chr>      <date>     <chr>  <dbl>
-## 1 1009701234 1970-09-10 Male      51
+## 1 1009701234 1970-09-10 Male      52
 ## 2 1811431232 1943-11-18 Male      78
 ## 3 1304496368 1949-04-13 Female    73
 \end{verbatim}
@@ -708,7 +708,7 @@ The final digit of the CHI can be used to test that the number is correct via th
 ## # A tibble: 3 x 5
 ##   chi        dob        gender   age chi_valid
 ##   <chr>      <date>     <chr>  <dbl> <lgl>    
-## 1 1009701234 1970-09-10 Male      51 FALSE    
+## 1 1009701234 1970-09-10 Male      52 FALSE    
 ## 2 1811431232 1943-11-18 Male      78 TRUE     
 ## 3 1304496368 1949-04-13 Female    73 TRUE
 \end{verbatim}
@@ -1013,12 +1013,12 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 
 \begin{verbatim}
 ##         date isoweek isoweek_date
-## 1 2020-11-09      46   2020-11-09
-## 2 2020-09-22      39   2020-09-21
-## 3 2020-04-24      17   2020-04-20
-## 4 2020-05-25      22   2020-05-25
-## 5 2020-02-18       8   2020-02-17
-## 6 2020-05-28      22   2020-05-25
+## 1 2020-03-01       9   2020-02-24
+## 2 2020-05-30      22   2020-05-25
+## 3 2021-07-05      27   2021-07-05
+## 4 2021-12-14      50   2021-12-13
+## 5 2020-08-01      31   2020-07-27
+## 6 2020-08-23      34   2020-08-17
 \end{verbatim}
 
 \hypertarget{labelling-tables-and-figures-in-markdown-chunks}{%
@@ -3132,6 +3132,33 @@ rm(data)
 \section{\texorpdfstring{Alternative to the factoring script: \texttt{redcap\_label()} from \texttt{library(collaboratorR)}}{Alternative to the factoring script: redcap\_label() from library(collaboratorR)}}\label{alternative-to-the-factoring-script-redcap_label-from-librarycollaboratorr}}
 
 Optional: \texttt{redcap\_label()} from \texttt{library(collaboratorR)} will do factoring for you by applying information from the project's metadata (which is also pulled via the API). Currently, it uses Hmisc labels so not fully compatible with the tidyverse.
+
+\hypertarget{scannable-barcodes-in-redcap}{%
+\section{Scannable barcodes in REDCap}\label{scannable-barcodes-in-redcap}}
+
+Barcodes (1D - like in shops, or 2D - like QR codes) can be useful to allow machines to read data and avoid human mistakes. It can also facilitate de-identification of samples (so they can be processed / handled without compromising any personal information). One use case for this might be if you are doing a study of blood biomarkers on serum, where a separate sample management system might be used to coordinate sample tracking within a laboratory (like a laboratory information management system - LIMS).
+
+To do this, you will need to generate the barcodes, with the appropriate record number in the file name. In this example - we use the \texttt{record\_id} field in REDCap as the research identifier (NOT a personal identifier) to embed scannable barcodes into REDCap. The advice is to generate many fold more barcodes than you will need. These barcodes should be served either from the web server OR from a public server. Barcodes should not include any personal information.
+
+Once you have generated barcodes / QR codes with appropriate titles, then in REDCap set up three new fields - 1) an image / descriptive text field, then 2 x text fields.
+
+In the text fields, used the \texttt{@HIDDEN} and \texttt{@DEFAULT} action tags to embed the images, and pipe in the \texttt{{[}record\_id{]}} into the titles.
+
+Piped code example for 1D barcode:
+
+\includegraphics[width=14.88in]{img/1d_barcode}
+
+Piped code example for 2D barcode:
+
+\includegraphics[width=14.85in]{img/qr_code}
+
+Field layout in REDCap:
+
+\includegraphics[width=10.71in]{img/redcap_layout}
+
+Appearance after adding a record:
+
+\includegraphics[width=10.29in]{img/barcode_appearance}
 
 \hypertarget{citations-with-r-markdown}{%
 \chapter{Citations with R Markdown}\label{citations-with-r-markdown}}

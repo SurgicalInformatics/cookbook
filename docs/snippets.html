@@ -23,7 +23,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2022-09-08" />
+<meta name="date" content="2022-09-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -321,6 +321,7 @@ div.csl-indent {
 <li class="chapter" data-level="10.1" data-path="redcap.html"><a href="redcap.html#api-pull"><i class="fa fa-check"></i><b>10.1</b> API pull</a></li>
 <li class="chapter" data-level="10.2" data-path="redcap.html"><a href="redcap.html#applying-a-redcap-factoring-script"><i class="fa fa-check"></i><b>10.2</b> Applying a REDCap factoring script</a></li>
 <li class="chapter" data-level="10.3" data-path="redcap.html"><a href="redcap.html#alternative-to-the-factoring-script-redcap_label-from-librarycollaboratorr"><i class="fa fa-check"></i><b>10.3</b> Alternative to the factoring script: <code>redcap_label()</code> from <code>library(collaboratorR)</code></a></li>
+<li class="chapter" data-level="10.4" data-path="redcap.html"><a href="redcap.html#scannable-barcodes-in-redcap"><i class="fa fa-check"></i><b>10.4</b> Scannable barcodes in REDCap</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html"><i class="fa fa-check"></i><b>11</b> Citations with R Markdown</a>
 <ul>
@@ -643,7 +644,7 @@ A test for even is <code>x modulus 2 == 0</code>.</p>
 <span id="cb18-7"><a href="snippets.html#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-8"><a href="snippets.html#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Today</span></span>
 <span id="cb18-9"><a href="snippets.html#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">chi_age</span>(chi, <span class="fu">Sys.time</span>())</span></code></pre></div>
-<pre><code>## [1] 51 78 73</code></pre>
+<pre><code>## [1] 52 78 73</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="snippets.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Single date</span></span>
 <span id="cb20-2"><a href="snippets.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
 <span id="cb20-3"><a href="snippets.html#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chi_age</span>(chi, <span class="fu">dmy</span>(<span class="st">&quot;11/09/2018&quot;</span>))</span></code></pre></div>
@@ -664,7 +665,7 @@ A test for even is <code>x modulus 2 == 0</code>.</p>
 <pre><code>## # A tibble: 3 × 4
 ##   chi        dob        gender   age
 ##   &lt;chr&gt;      &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt;
-## 1 1009701234 1970-09-10 Male      51
+## 1 1009701234 1970-09-10 Male      52
 ## 2 1811431232 1943-11-18 Male      78
 ## 3 1304496368 1949-04-13 Female    73</code></pre>
 </div>
@@ -698,7 +699,7 @@ A test for even is <code>x modulus 2 == 0</code>.</p>
 <pre><code>## # A tibble: 3 × 5
 ##   chi        dob        gender   age chi_valid
 ##   &lt;chr&gt;      &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt;    
-## 1 1009701234 1970-09-10 Male      51 FALSE    
+## 1 1009701234 1970-09-10 Male      52 FALSE    
 ## 2 1811431232 1943-11-18 Male      78 TRUE     
 ## 3 1304496368 1949-04-13 Female    73 TRUE</code></pre>
 </div>
@@ -919,12 +920,12 @@ I often want days as a numeric, not a lubridate type object.</p>
 <span id="cb47-4"><a href="snippets.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date, isoweek, isoweek_date) <span class="sc">%&gt;%</span> </span>
 <span id="cb47-5"><a href="snippets.html#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div>
 <pre><code>##         date isoweek isoweek_date
-## 1 2021-02-19       7   2021-02-15
-## 2 2021-05-22      20   2021-05-17
-## 3 2020-03-31      14   2020-03-30
-## 4 2020-12-06      49   2020-11-30
-## 5 2021-12-08      49   2021-12-06
-## 6 2020-08-29      35   2020-08-24</code></pre>
+## 1 2020-03-21      12   2020-03-16
+## 2 2020-09-17      38   2020-09-14
+## 3 2020-05-08      19   2020-05-04
+## 4 2020-09-11      37   2020-09-07
+## 5 2020-10-30      44   2020-10-26
+## 6 2022-02-21       8   2022-02-21</code></pre>
 </div>
 </div>
 <div id="labelling-tables-and-figures-in-markdown-chunks" class="section level2 hasAnchor" number="2.7">

@@ -23,7 +23,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2022-09-08" />
+<meta name="date" content="2022-09-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -321,6 +321,7 @@ div.csl-indent {
 <li class="chapter" data-level="10.1" data-path="redcap.html"><a href="redcap.html#api-pull"><i class="fa fa-check"></i><b>10.1</b> API pull</a></li>
 <li class="chapter" data-level="10.2" data-path="redcap.html"><a href="redcap.html#applying-a-redcap-factoring-script"><i class="fa fa-check"></i><b>10.2</b> Applying a REDCap factoring script</a></li>
 <li class="chapter" data-level="10.3" data-path="redcap.html"><a href="redcap.html#alternative-to-the-factoring-script-redcap_label-from-librarycollaboratorr"><i class="fa fa-check"></i><b>10.3</b> Alternative to the factoring script: <code>redcap_label()</code> from <code>library(collaboratorR)</code></a></li>
+<li class="chapter" data-level="10.4" data-path="redcap.html"><a href="redcap.html#scannable-barcodes-in-redcap"><i class="fa fa-check"></i><b>10.4</b> Scannable barcodes in REDCap</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html"><i class="fa fa-check"></i><b>11</b> Citations with R Markdown</a>
 <ul>
@@ -375,6 +376,7 @@ div.csl-indent {
 <li><p>REDCap’s API can be used to automatically pull records from a REDCap project. Ask your project manager to give you API Export rights and then request an API token via the API page of the project (left hand menu when inside a project). The API option will only appear after the project manager can given you API rights.</p></li>
 <li><p>Put the API token in your .Renviron file and Restart R. Example format:</p></li>
 </ol>
+<!-- -->
 <pre><code>redcap_token = ABC10000000000000000000000001DFG</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li><p>Go to the API playground in REDCap (left-hand menu inside a project) and from API Method select “Export Records”.</p></li>
@@ -456,12 +458,14 @@ div.csl-indent {
 <li>Delete the first 7 lines.</li>
 <li>Instead, add in</li>
 </ul>
+<!-- -->
 <pre><code>library(finalfit)
 library(magrittr)</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li><p>Move the labelling section to the bottom of the script. This is because we are about to change it from Hmisc labels to finalfit labels, but the <code>factor()</code> function strips the latter. (Tidyverse functions, on the other hand, strip the former.)</p></li>
 <li><p>Change the labels() code from, e.g.,</p></li>
 </ol>
+<!-- -->
 <pre><code>label(data$record_id)=&quot;Record ID&quot;
 label(data$redcap_data_access_group)=&quot;Data Access Group&quot;
 label(data$sex)=&quot;Sex&quot;
@@ -486,6 +490,7 @@ For adding <code>)</code> to the end of line, use:</p>
 <li><p>Remove <code>.factor</code> from column names as this creates a duplicate of each column.</p></li>
 <li><p>Apply the factoring script on the pulled data: the factoring script assumes the tibble is called <code>data</code>. Instead of going through and changing each instance of this name, do this:</p></li>
 </ol>
+<!-- -->
 <pre><code>data = pulled_data
 source(&quot;REDCap_factoring_script.r&quot;)
 pulled_data = data
@@ -494,6 +499,21 @@ rm(data)</code></pre>
 <div id="alternative-to-the-factoring-script-redcap_label-from-librarycollaboratorr" class="section level2 hasAnchor" number="10.3">
 <h2><span class="header-section-number">10.3</span> Alternative to the factoring script: <code>redcap_label()</code> from <code>library(collaboratorR)</code><a href="redcap.html#alternative-to-the-factoring-script-redcap_label-from-librarycollaboratorr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Optional: <code>redcap_label()</code> from <code>library(collaboratorR)</code> will do factoring for you by applying information from the project’s metadata (which is also pulled via the API). Currently, it uses Hmisc labels so not fully compatible with the tidyverse.</p>
+</div>
+<div id="scannable-barcodes-in-redcap" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">10.4</span> Scannable barcodes in REDCap<a href="redcap.html#scannable-barcodes-in-redcap" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Barcodes (1D - like in shops, or 2D - like QR codes) can be useful to allow machines to read data and avoid human mistakes. It can also facilitate de-identification of samples (so they can be processed / handled without compromising any personal information). One use case for this might be if you are doing a study of blood biomarkers on serum, where a separate sample management system might be used to coordinate sample tracking within a laboratory (like a laboratory information management system - LIMS).</p>
+<p>To do this, you will need to generate the barcodes, with the appropriate record number in the file name. In this example - we use the <code>record_id</code> field in REDCap as the research identifier (NOT a personal identifier) to embed scannable barcodes into REDCap. The advice is to generate many fold more barcodes than you will need. These barcodes should be served either from the web server OR from a public server. Barcodes should not include any personal information.</p>
+<p>Once you have generated barcodes / QR codes with appropriate titles, then in REDCap set up three new fields - 1) an image / descriptive text field, then 2 x text fields.</p>
+<p>In the text fields, used the <code>@HIDDEN</code> and <code>@DEFAULT</code> action tags to embed the images, and pipe in the <code>[record_id]</code> into the titles.</p>
+<p>Piped code example for 1D barcode:</p>
+<p><img src="img/1d_barcode.png" width="536" /></p>
+<p>Piped code example for 2D barcode:</p>
+<p><img src="img/qr_code.png" width="534" /></p>
+<p>Field layout in REDCap:</p>
+<p><img src="img/redcap_layout.png" width="386" /></p>
+<p>Appearance after adding a record:</p>
+<p><img src="img/barcode_appearance.png" width="370" /></p>
 
 </div>
 </div>

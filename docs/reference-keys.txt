@@ -118,6 +118,7 @@ redcap
 api-pull
 applying-a-redcap-factoring-script
 alternative-to-the-factoring-script-redcap_label-from-librarycollaboratorr
+scannable-barcodes-in-redcap
 citations-with-r-markdown
 zotero-set-up
 file-storage-set-up
