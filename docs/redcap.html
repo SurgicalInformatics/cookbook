@@ -23,7 +23,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2022-09-20" />
+<meta name="date" content="2022-10-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -282,6 +282,12 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.1.1" data-path="genomics.html"><a href="genomics.html#minimising-the-size-of-a-seurat-object"><i class="fa fa-check"></i><b>7.1.1</b> Minimising the size of a Seurat Object</a></li>
 </ul></li>
+<li class="chapter" data-level="7.2" data-path="genomics.html"><a href="genomics.html#nextflow"><i class="fa fa-check"></i><b>7.2</b> Nextflow</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="genomics.html"><a href="genomics.html#rnaseq-example-with-sbatch-slurm"><i class="fa fa-check"></i><b>7.2.1</b> RNASeq example with sbatch (slurm)</a></li>
+<li class="chapter" data-level="7.2.2" data-path="genomics.html"><a href="genomics.html#dnaseq-example-with-sbatch-slurm"><i class="fa fa-check"></i><b>7.2.2</b> DNASeq example with sbatch (slurm)</a></li>
+<li class="chapter" data-level="7.2.3" data-path="genomics.html"><a href="genomics.html#atacseq-example-with-sbatch-slurm"><i class="fa fa-check"></i><b>7.2.3</b> ATACSeq example with sbatch (slurm)</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html"><i class="fa fa-check"></i><b>8</b> Programming in rlang</a>
 <ul>
@@ -382,60 +388,60 @@ div.csl-indent {
 <li><p>Go to the API playground in REDCap (left-hand menu inside a project) and from API Method select “Export Records”.</p></li>
 <li><p>Scroll down and look at the R code example. Now, we’ve not found that copying this exact example works very well for us. But looking at the format can be useful if you’ve made custom selections at the top, e.g., to pull specific records or variables. In most cases though, you can ignore the example and copy these lines:</p></li>
 </ol>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="redcap.html#cb145-1" aria-hidden="true" tabindex="-1"></a>pulled_data <span class="ot">=</span> RCurl<span class="sc">::</span><span class="fu">postForm</span>(<span class="at">uri=</span><span class="st">&#39;https://redcap.yourURL.com/api/&#39;</span>,</span>
-<span id="cb145-2"><a href="redcap.html#cb145-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">token=</span><span class="fu">Sys.getenv</span>(redcap_token),</span>
-<span id="cb145-3"><a href="redcap.html#cb145-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">content=</span><span class="st">&#39;record&#39;</span>,</span>
-<span id="cb145-4"><a href="redcap.html#cb145-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">format=</span><span class="st">&#39;csv&#39;</span>,</span>
-<span id="cb145-5"><a href="redcap.html#cb145-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">rawOrLabel=</span><span class="st">&#39;raw&#39;</span>,</span>
-<span id="cb145-6"><a href="redcap.html#cb145-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">rawOrLabelHeaders=</span><span class="st">&#39;raw&#39;</span>,</span>
-<span id="cb145-7"><a href="redcap.html#cb145-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">exportCheckboxLabel=</span><span class="st">&#39;false&#39;</span>,</span>
-<span id="cb145-8"><a href="redcap.html#cb145-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">returnFormat=</span><span class="st">&#39;csv&#39;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb145-9"><a href="redcap.html#cb145-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_csv</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="redcap.html#cb148-1" aria-hidden="true" tabindex="-1"></a>pulled_data <span class="ot">=</span> RCurl<span class="sc">::</span><span class="fu">postForm</span>(<span class="at">uri=</span><span class="st">&#39;https://redcap.yourURL.com/api/&#39;</span>,</span>
+<span id="cb148-2"><a href="redcap.html#cb148-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">token=</span><span class="fu">Sys.getenv</span>(redcap_token),</span>
+<span id="cb148-3"><a href="redcap.html#cb148-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">content=</span><span class="st">&#39;record&#39;</span>,</span>
+<span id="cb148-4"><a href="redcap.html#cb148-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">format=</span><span class="st">&#39;csv&#39;</span>,</span>
+<span id="cb148-5"><a href="redcap.html#cb148-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">rawOrLabel=</span><span class="st">&#39;raw&#39;</span>,</span>
+<span id="cb148-6"><a href="redcap.html#cb148-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">rawOrLabelHeaders=</span><span class="st">&#39;raw&#39;</span>,</span>
+<span id="cb148-7"><a href="redcap.html#cb148-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">exportCheckboxLabel=</span><span class="st">&#39;false&#39;</span>,</span>
+<span id="cb148-8"><a href="redcap.html#cb148-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">returnFormat=</span><span class="st">&#39;csv&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb148-9"><a href="redcap.html#cb148-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_csv</span>()</span></code></pre></div>
 <p>The above code works well for the vast majority of projects. If, however, the project is huge then you’ll need to pull data in batches using <code>redcap_read()</code> from <code>library(REDCapR)</code>:</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="redcap.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages</span></span>
-<span id="cb146-2"><a href="redcap.html#cb146-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RCurl)</span>
-<span id="cb146-3"><a href="redcap.html#cb146-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb146-4"><a href="redcap.html#cb146-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(REDCapR)</span>
-<span id="cb146-5"><a href="redcap.html#cb146-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb146-6"><a href="redcap.html#cb146-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Functions for safe api pull</span></span>
-<span id="cb146-7"><a href="redcap.html#cb146-7" aria-hidden="true" tabindex="-1"></a>rate <span class="ot">=</span> <span class="fu">rate_backoff</span>(<span class="at">pause_cap =</span> <span class="dv">60</span><span class="sc">*</span><span class="dv">5</span>, <span class="at">max_times =</span> <span class="dv">10</span>)</span>
-<span id="cb146-8"><a href="redcap.html#cb146-8" aria-hidden="true" tabindex="-1"></a>insistent_postForm <span class="ot">=</span> purrr<span class="sc">::</span><span class="fu">insistently</span>(postForm, rate)</span>
-<span id="cb146-9"><a href="redcap.html#cb146-9" aria-hidden="true" tabindex="-1"></a>insistent_redcap_read <span class="ot">=</span> purrr<span class="sc">::</span><span class="fu">insistently</span>(redcap_read, rate)</span>
-<span id="cb146-10"><a href="redcap.html#cb146-10" aria-hidden="true" tabindex="-1"></a>batch <span class="ot">=</span> <span class="cf">function</span>(.vector, <span class="at">.n =</span> <span class="dv">200</span>){</span>
-<span id="cb146-11"><a href="redcap.html#cb146-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split</span>(.vector, <span class="fu">ceiling</span>(<span class="fu">seq_along</span>(.vector)<span class="sc">/</span>.n))</span>
-<span id="cb146-12"><a href="redcap.html#cb146-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb146-13"><a href="redcap.html#cb146-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb146-14"><a href="redcap.html#cb146-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Get subjid</span></span>
-<span id="cb146-15"><a href="redcap.html#cb146-15" aria-hidden="true" tabindex="-1"></a>subjid <span class="ot">=</span> <span class="fu">insistent_postForm</span>(</span>
-<span id="cb146-16"><a href="redcap.html#cb146-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">uri=</span><span class="st">&#39;https://ncov.medsci.ox.ac.uk/api/&#39;</span>,</span>
-<span id="cb146-17"><a href="redcap.html#cb146-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">token=</span><span class="fu">Sys.getenv</span>(<span class="st">&quot;redcap_token&quot;</span>),</span>
-<span id="cb146-18"><a href="redcap.html#cb146-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">content=</span><span class="st">&#39;record&#39;</span>,</span>
-<span id="cb146-19"><a href="redcap.html#cb146-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">#report_id=&#39;999&#39;,</span></span>
-<span id="cb146-20"><a href="redcap.html#cb146-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;fields[0]&#39;</span><span class="ot">=</span><span class="st">&#39;subjid&#39;</span>,</span>
-<span id="cb146-21"><a href="redcap.html#cb146-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">format=</span><span class="st">&#39;csv&#39;</span>,</span>
-<span id="cb146-22"><a href="redcap.html#cb146-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="st">&#39;flat&#39;</span>,</span>
-<span id="cb146-23"><a href="redcap.html#cb146-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">rawOrLabel=</span><span class="st">&#39;raw&#39;</span>,</span>
-<span id="cb146-24"><a href="redcap.html#cb146-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">rawOrLabelHeaders=</span><span class="st">&#39;raw&#39;</span>,</span>
-<span id="cb146-25"><a href="redcap.html#cb146-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">exportCheckboxLabel=</span><span class="st">&#39;false&#39;</span>,</span>
-<span id="cb146-26"><a href="redcap.html#cb146-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">exportSurveyFields=</span><span class="st">&#39;false&#39;</span>,</span>
-<span id="cb146-27"><a href="redcap.html#cb146-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">exportDataAccessGroups=</span><span class="st">&#39;false&#39;</span>,</span>
-<span id="cb146-28"><a href="redcap.html#cb146-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">returnFormat=</span><span class="st">&#39;json&#39;</span></span>
-<span id="cb146-29"><a href="redcap.html#cb146-29" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb146-30"><a href="redcap.html#cb146-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb146-31"><a href="redcap.html#cb146-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(subjid) <span class="sc">%&gt;%</span> </span>
-<span id="cb146-32"><a href="redcap.html#cb146-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(subjid)</span>
-<span id="cb146-33"><a href="redcap.html#cb146-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb146-34"><a href="redcap.html#cb146-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Get data in batches</span></span>
-<span id="cb146-35"><a href="redcap.html#cb146-35" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">batch</span>(subjid) <span class="sc">%&gt;%</span> </span>
-<span id="cb146-36"><a href="redcap.html#cb146-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_df</span>(<span class="sc">~</span> <span class="fu">insistent_redcap_read</span>(</span>
-<span id="cb146-37"><a href="redcap.html#cb146-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">redcap_uri =</span> <span class="st">&quot;https://ncov.medsci.ox.ac.uk/api/&quot;</span>,</span>
-<span id="cb146-38"><a href="redcap.html#cb146-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">export_data_access_groups =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb146-39"><a href="redcap.html#cb146-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">token =</span> <span class="fu">Sys.getenv</span>(<span class="st">&quot;redcap_token&quot;</span>),</span>
-<span id="cb146-40"><a href="redcap.html#cb146-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">records =</span> .x,</span>
-<span id="cb146-41"><a href="redcap.html#cb146-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">guess_type =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>data</span>
-<span id="cb146-42"><a href="redcap.html#cb146-42" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb146-43"><a href="redcap.html#cb146-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">type_convert</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb146-44"><a href="redcap.html#cb146-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="redcap.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages</span></span>
+<span id="cb149-2"><a href="redcap.html#cb149-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RCurl)</span>
+<span id="cb149-3"><a href="redcap.html#cb149-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb149-4"><a href="redcap.html#cb149-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(REDCapR)</span>
+<span id="cb149-5"><a href="redcap.html#cb149-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-6"><a href="redcap.html#cb149-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Functions for safe api pull</span></span>
+<span id="cb149-7"><a href="redcap.html#cb149-7" aria-hidden="true" tabindex="-1"></a>rate <span class="ot">=</span> <span class="fu">rate_backoff</span>(<span class="at">pause_cap =</span> <span class="dv">60</span><span class="sc">*</span><span class="dv">5</span>, <span class="at">max_times =</span> <span class="dv">10</span>)</span>
+<span id="cb149-8"><a href="redcap.html#cb149-8" aria-hidden="true" tabindex="-1"></a>insistent_postForm <span class="ot">=</span> purrr<span class="sc">::</span><span class="fu">insistently</span>(postForm, rate)</span>
+<span id="cb149-9"><a href="redcap.html#cb149-9" aria-hidden="true" tabindex="-1"></a>insistent_redcap_read <span class="ot">=</span> purrr<span class="sc">::</span><span class="fu">insistently</span>(redcap_read, rate)</span>
+<span id="cb149-10"><a href="redcap.html#cb149-10" aria-hidden="true" tabindex="-1"></a>batch <span class="ot">=</span> <span class="cf">function</span>(.vector, <span class="at">.n =</span> <span class="dv">200</span>){</span>
+<span id="cb149-11"><a href="redcap.html#cb149-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split</span>(.vector, <span class="fu">ceiling</span>(<span class="fu">seq_along</span>(.vector)<span class="sc">/</span>.n))</span>
+<span id="cb149-12"><a href="redcap.html#cb149-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb149-13"><a href="redcap.html#cb149-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-14"><a href="redcap.html#cb149-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Get subjid</span></span>
+<span id="cb149-15"><a href="redcap.html#cb149-15" aria-hidden="true" tabindex="-1"></a>subjid <span class="ot">=</span> <span class="fu">insistent_postForm</span>(</span>
+<span id="cb149-16"><a href="redcap.html#cb149-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">uri=</span><span class="st">&#39;https://ncov.medsci.ox.ac.uk/api/&#39;</span>,</span>
+<span id="cb149-17"><a href="redcap.html#cb149-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">token=</span><span class="fu">Sys.getenv</span>(<span class="st">&quot;redcap_token&quot;</span>),</span>
+<span id="cb149-18"><a href="redcap.html#cb149-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">content=</span><span class="st">&#39;record&#39;</span>,</span>
+<span id="cb149-19"><a href="redcap.html#cb149-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">#report_id=&#39;999&#39;,</span></span>
+<span id="cb149-20"><a href="redcap.html#cb149-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;fields[0]&#39;</span><span class="ot">=</span><span class="st">&#39;subjid&#39;</span>,</span>
+<span id="cb149-21"><a href="redcap.html#cb149-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">format=</span><span class="st">&#39;csv&#39;</span>,</span>
+<span id="cb149-22"><a href="redcap.html#cb149-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="st">&#39;flat&#39;</span>,</span>
+<span id="cb149-23"><a href="redcap.html#cb149-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">rawOrLabel=</span><span class="st">&#39;raw&#39;</span>,</span>
+<span id="cb149-24"><a href="redcap.html#cb149-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">rawOrLabelHeaders=</span><span class="st">&#39;raw&#39;</span>,</span>
+<span id="cb149-25"><a href="redcap.html#cb149-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">exportCheckboxLabel=</span><span class="st">&#39;false&#39;</span>,</span>
+<span id="cb149-26"><a href="redcap.html#cb149-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">exportSurveyFields=</span><span class="st">&#39;false&#39;</span>,</span>
+<span id="cb149-27"><a href="redcap.html#cb149-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">exportDataAccessGroups=</span><span class="st">&#39;false&#39;</span>,</span>
+<span id="cb149-28"><a href="redcap.html#cb149-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">returnFormat=</span><span class="st">&#39;json&#39;</span></span>
+<span id="cb149-29"><a href="redcap.html#cb149-29" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb149-30"><a href="redcap.html#cb149-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb149-31"><a href="redcap.html#cb149-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(subjid) <span class="sc">%&gt;%</span> </span>
+<span id="cb149-32"><a href="redcap.html#cb149-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(subjid)</span>
+<span id="cb149-33"><a href="redcap.html#cb149-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-34"><a href="redcap.html#cb149-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Get data in batches</span></span>
+<span id="cb149-35"><a href="redcap.html#cb149-35" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">batch</span>(subjid) <span class="sc">%&gt;%</span> </span>
+<span id="cb149-36"><a href="redcap.html#cb149-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_df</span>(<span class="sc">~</span> <span class="fu">insistent_redcap_read</span>(</span>
+<span id="cb149-37"><a href="redcap.html#cb149-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">redcap_uri =</span> <span class="st">&quot;https://ncov.medsci.ox.ac.uk/api/&quot;</span>,</span>
+<span id="cb149-38"><a href="redcap.html#cb149-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">export_data_access_groups =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb149-39"><a href="redcap.html#cb149-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">token =</span> <span class="fu">Sys.getenv</span>(<span class="st">&quot;redcap_token&quot;</span>),</span>
+<span id="cb149-40"><a href="redcap.html#cb149-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">records =</span> .x,</span>
+<span id="cb149-41"><a href="redcap.html#cb149-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">guess_type =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>data</span>
+<span id="cb149-42"><a href="redcap.html#cb149-42" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb149-43"><a href="redcap.html#cb149-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">type_convert</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb149-44"><a href="redcap.html#cb149-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li><code>rawOrLabel='raw'</code> vs <code>rawOrLabel='label'</code>. Pulling raw data will give you categorical variables in their raw coding, e.g., <code>1, 2</code> instead of <code>"Male", "Female"</code>. Pulling ‘labels’ will give you the latter, but their factor levels will be ordered alphabetically (as the information on which one was 1 and which one 2 is lost/not pulled). If I’m working with a small dataset with categorical variables that only have a couple of levels each then I find it easier to pull ‘labels’ and use <code>fct_relevel()</code> to order them as necessary. In most cases, however, you’ll want to use the exact same ordering that’s been set-up on the database. To do this, you’ll have to pull ‘raw’ and apply what’s called a REDCap’s factoring script.</li>
 </ol>

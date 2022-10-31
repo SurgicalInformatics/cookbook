@@ -45,3 +45,84 @@ saveRDS(object_global_small,"mac_shiny/data/global_object_sml")
 
 
 ```
+
+
+## Nextflow
+
+Nextflow enables scalable and reproducible scientific workflows using software containers. These can either work using singularity (HPC and secure compute), docker (insecure compute - requires root) and using conda. Singularity is the preferred option.
+
+The core workflows can be found at [here](https://nf-co.re/).
+
+For a basic alignment job for RNASeq or DNASeq, you will require a machine with around 200GB memory and 24 cores. Fast scratch space is advantageous (NVMe fast disk is ideal). Fast disk space is needed for the working directory (cached files and staged files) and for the results storage. At least three times the size of the input data is ideal.
+
+### RNASeq example with sbatch (slurm)
+```{bash, eval = FALSE}
+#!/bin/bash --login
+#
+#SBATCH --job-name=single-node-multicore ### Replace with the name of your job
+#SBATCH --mail-user=thomas.drake@glasgow.ac.uk ### Your email address
+#SBATCH --mail-type=END,FAIL # Conditions when an email is sent
+#SBATCH --output=%x.%j.out ### output file: <job-name.job-id.out>
+#SBATCH --nodes=1 ### Keep the job on one computer/node.
+#SBATCH --ntasks=1 ### single task
+#SBATCH --cpus-per-task=64  ### each task uses up to 64 cpu cores (defaults to 1 if absent)
+#SBATCH --time=10-00:00:00 ### WallTime (10 days)
+#SBATCH --mem=480G
+#SBATCH --partition=compute ### Partition Name
+date
+hostname
+# Set OMP_NUM_THREADS to the same value as --cpus-per-task
+# with a fallback option in case it isn't set.
+module load nextflow-22.04.0
+module load singularity/singularity-3.8.7
+nextflow run nf-core/rnaseq -w "/nfs/sharedscratch2/users/tdrake/nf_work/" --input "/nfs/sharedscratch2/users/tdrake/sample_sheet_rna_hpc.csv" --genome GRCm38 --remove_ribo_rna -profile singularity --outdir "/nfs/sharedscratch2/users/tdrake/rna_seq_output/"
+date
+```
+
+### DNASeq example with sbatch (slurm)
+```{bash, eval = FALSE}
+#!/bin/bash --login
+#
+#SBATCH --job-name=single-node-multicore ### Replace with the name of your job
+#SBATCH --mail-user=thomas.drake@glasgow.ac.uk ### Your email address
+#SBATCH --mail-type=END,FAIL # Conditions when an email is sent
+#SBATCH --output=%x.%j.out ### output file: <job-name.job-id.out>
+#SBATCH --nodes=1 ### Keep the job on one computer/node.
+#SBATCH --ntasks=1 ### single task
+#SBATCH --cpus-per-task=64  ### each task uses up to 64 cpu cores (defaults to 1 if absent)
+#SBATCH --time=10-00:00:00 ### WallTime (10 days)
+#SBATCH --mem=480G
+#SBATCH --partition=compute ### Partition Name
+date
+hostname
+# Set OMP_NUM_THREADS to the same value as --cpus-per-task
+# with a fallback option in case it isn't set.
+module load nextflow-22.04.0
+module load singularity/singularity-3.8.7
+nextflow run nf-core/sarek -w "/nfs/sharedscratch2/users/tdrake/nf_work/" --input "/mnt/data/R09/seq_store/izy_22_2_r_wes_nextflow_sarek/izy_wes_samplesheet.csv"  -profile docker --genome GRCm38 --outdir "/mnt/data/R09/seq_store/izy_22_2_r_wes_nextflow_sarek/" --skip_tools baserecalibrator --tools vep,snpeff,sarek,cnvkit
+date
+```
+
+### ATACSeq example with sbatch (slurm)
+```{bash, eval = FALSE}
+#!/bin/bash --login
+#
+#SBATCH --job-name=single-node-multicore ### Replace with the name of your job
+#SBATCH --mail-user=thomas.drake@glasgow.ac.uk ### Your email address
+#SBATCH --mail-type=END,FAIL # Conditions when an email is sent
+#SBATCH --output=%x.%j.out ### output file: <job-name.job-id.out>
+#SBATCH --nodes=1 ### Keep the job on one computer/node.
+#SBATCH --ntasks=1 ### single task
+#SBATCH --cpus-per-task=64  ### each task uses up to 64 cpu cores (defaults to 1 if absent)
+#SBATCH --time=10-00:00:00 ### WallTime (10 days)
+#SBATCH --mem=480G
+#SBATCH --partition=compute ### Partition Name
+date
+hostname
+# Set OMP_NUM_THREADS to the same value as --cpus-per-task
+# with a fallback option in case it isn't set.
+module load nextflow-22.04.0
+module load singularity/singularity-3.8.7
+nextflow run nf-core/atacseq -w "/nfs/sharedscratch2/users/tdrake/nf_work/" --input "/nfs/sharedscratch2/users/tdrake/atac_seq_ctnnb_p53_myc/sample_atac.csv" --genome GRCm38 -profile singularity --outdir "/nfs/sharedscratch2/users/tdrake/atac_seq_output_broad/"
+date
+```

@@ -131,7 +131,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2022-09-20}
+\date{2022-10-31}
 
 \begin{document}
 \maketitle
@@ -1013,12 +1013,12 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 
 \begin{verbatim}
 ##         date isoweek isoweek_date
-## 1 2020-03-01       9   2020-02-24
-## 2 2020-05-30      22   2020-05-25
-## 3 2021-07-05      27   2021-07-05
-## 4 2021-12-14      50   2021-12-13
-## 5 2020-08-01      31   2020-07-27
-## 6 2020-08-23      34   2020-08-17
+## 1 2020-06-09      24   2020-06-08
+## 2 2020-11-01      44   2020-10-26
+## 3 2020-07-07      28   2020-07-06
+## 4 2021-04-12      15   2021-04-12
+## 5 2021-01-15       2   2021-01-11
+## 6 2021-04-07      14   2021-04-05
 \end{verbatim}
 
 \hypertarget{labelling-tables-and-figures-in-markdown-chunks}{%
@@ -2493,6 +2493,99 @@ Single cell analyses are ofetn collated in Seurat objects which can be huge. We 
 
 \CommentTok{\#same}
 \FunctionTok{saveRDS}\NormalTok{(object\_global\_small,}\StringTok{"mac\_shiny/data/global\_object\_sml"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{nextflow}{%
+\section{Nextflow}\label{nextflow}}
+
+Nextflow enables scalable and reproducible scientific workflows using software containers. These can either work using singularity (HPC and secure compute), docker (insecure compute - requires root) and using conda. Singularity is the preferred option.
+
+The core workflows can be found at \href{https://nf-co.re/}{here}.
+
+For a basic alignment job for RNASeq or DNASeq, you will require a machine with around 200GB memory and 24 cores. Fast scratch space is advantageous (NVMe fast disk is ideal). Fast disk space is needed for the working directory (cached files and staged files) and for the results storage. At least three times the size of the input data is ideal.
+
+\hypertarget{rnaseq-example-with-sbatch-slurm}{%
+\subsection{RNASeq example with sbatch (slurm)}\label{rnaseq-example-with-sbatch-slurm}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#!/bin/bash {-}{-}login}
+\CommentTok{\#}
+\CommentTok{\#SBATCH {-}{-}job{-}name=single{-}node{-}multicore }\AlertTok{\#\#\#}\CommentTok{ Replace with the name of your job}
+\CommentTok{\#SBATCH {-}{-}mail{-}user=thomas.drake@glasgow.ac.uk }\AlertTok{\#\#\#}\CommentTok{ Your email address}
+\CommentTok{\#SBATCH {-}{-}mail{-}type=}\RegionMarkerTok{END}\CommentTok{,FAIL \# Conditions when an email is sent}
+\CommentTok{\#SBATCH {-}{-}output=\%x.\%j.out }\AlertTok{\#\#\#}\CommentTok{ output file: \textless{}job{-}name.job{-}id.out\textgreater{}}
+\CommentTok{\#SBATCH {-}{-}nodes=1 }\AlertTok{\#\#\#}\CommentTok{ Keep the job on one computer/node.}
+\CommentTok{\#SBATCH {-}{-}ntasks=1 }\AlertTok{\#\#\#}\CommentTok{ single task}
+\CommentTok{\#SBATCH {-}{-}cpus{-}per{-}task=64  }\AlertTok{\#\#\#}\CommentTok{ each task uses up to 64 cpu cores (defaults to 1 if absent)}
+\CommentTok{\#SBATCH {-}{-}time=10{-}00:00:00 }\AlertTok{\#\#\#}\CommentTok{ WallTime (10 days)}
+\CommentTok{\#SBATCH {-}{-}mem=480G}
+\CommentTok{\#SBATCH {-}{-}partition=compute }\AlertTok{\#\#\#}\CommentTok{ Partition Name}
+\FunctionTok{date}
+\FunctionTok{hostname}
+\CommentTok{\# Set OMP\_NUM\_THREADS to the same value as {-}{-}cpus{-}per{-}task}
+\CommentTok{\# with a fallback option in case it isn\textquotesingle{}t set.}
+\ExtensionTok{module}\NormalTok{ load nextflow{-}22.04.0}
+\ExtensionTok{module}\NormalTok{ load singularity/singularity{-}3.8.7}
+\ExtensionTok{nextflow}\NormalTok{ run nf{-}core/rnaseq }\AttributeTok{{-}w} \StringTok{"/nfs/sharedscratch2/users/tdrake/nf\_work/"} \AttributeTok{{-}{-}input} \StringTok{"/nfs/sharedscratch2/users/tdrake/sample\_sheet\_rna\_hpc.csv"} \AttributeTok{{-}{-}genome}\NormalTok{ GRCm38 }\AttributeTok{{-}{-}remove\_ribo\_rna} \AttributeTok{{-}profile}\NormalTok{ singularity }\AttributeTok{{-}{-}outdir} \StringTok{"/nfs/sharedscratch2/users/tdrake/rna\_seq\_output/"}
+\FunctionTok{date}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{dnaseq-example-with-sbatch-slurm}{%
+\subsection{DNASeq example with sbatch (slurm)}\label{dnaseq-example-with-sbatch-slurm}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#!/bin/bash {-}{-}login}
+\CommentTok{\#}
+\CommentTok{\#SBATCH {-}{-}job{-}name=single{-}node{-}multicore }\AlertTok{\#\#\#}\CommentTok{ Replace with the name of your job}
+\CommentTok{\#SBATCH {-}{-}mail{-}user=thomas.drake@glasgow.ac.uk }\AlertTok{\#\#\#}\CommentTok{ Your email address}
+\CommentTok{\#SBATCH {-}{-}mail{-}type=}\RegionMarkerTok{END}\CommentTok{,FAIL \# Conditions when an email is sent}
+\CommentTok{\#SBATCH {-}{-}output=\%x.\%j.out }\AlertTok{\#\#\#}\CommentTok{ output file: \textless{}job{-}name.job{-}id.out\textgreater{}}
+\CommentTok{\#SBATCH {-}{-}nodes=1 }\AlertTok{\#\#\#}\CommentTok{ Keep the job on one computer/node.}
+\CommentTok{\#SBATCH {-}{-}ntasks=1 }\AlertTok{\#\#\#}\CommentTok{ single task}
+\CommentTok{\#SBATCH {-}{-}cpus{-}per{-}task=64  }\AlertTok{\#\#\#}\CommentTok{ each task uses up to 64 cpu cores (defaults to 1 if absent)}
+\CommentTok{\#SBATCH {-}{-}time=10{-}00:00:00 }\AlertTok{\#\#\#}\CommentTok{ WallTime (10 days)}
+\CommentTok{\#SBATCH {-}{-}mem=480G}
+\CommentTok{\#SBATCH {-}{-}partition=compute }\AlertTok{\#\#\#}\CommentTok{ Partition Name}
+\FunctionTok{date}
+\FunctionTok{hostname}
+\CommentTok{\# Set OMP\_NUM\_THREADS to the same value as {-}{-}cpus{-}per{-}task}
+\CommentTok{\# with a fallback option in case it isn\textquotesingle{}t set.}
+\ExtensionTok{module}\NormalTok{ load nextflow{-}22.04.0}
+\ExtensionTok{module}\NormalTok{ load singularity/singularity{-}3.8.7}
+\ExtensionTok{nextflow}\NormalTok{ run nf{-}core/sarek }\AttributeTok{{-}w} \StringTok{"/nfs/sharedscratch2/users/tdrake/nf\_work/"} \AttributeTok{{-}{-}input} \StringTok{"/mnt/data/R09/seq\_store/izy\_22\_2\_r\_wes\_nextflow\_sarek/izy\_wes\_samplesheet.csv"}  \AttributeTok{{-}profile}\NormalTok{ docker }\AttributeTok{{-}{-}genome}\NormalTok{ GRCm38 }\AttributeTok{{-}{-}outdir} \StringTok{"/mnt/data/R09/seq\_store/izy\_22\_2\_r\_wes\_nextflow\_sarek/"} \AttributeTok{{-}{-}skip\_tools}\NormalTok{ baserecalibrator }\AttributeTok{{-}{-}tools}\NormalTok{ vep,snpeff,sarek,cnvkit}
+\FunctionTok{date}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{atacseq-example-with-sbatch-slurm}{%
+\subsection{ATACSeq example with sbatch (slurm)}\label{atacseq-example-with-sbatch-slurm}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#!/bin/bash {-}{-}login}
+\CommentTok{\#}
+\CommentTok{\#SBATCH {-}{-}job{-}name=single{-}node{-}multicore }\AlertTok{\#\#\#}\CommentTok{ Replace with the name of your job}
+\CommentTok{\#SBATCH {-}{-}mail{-}user=thomas.drake@glasgow.ac.uk }\AlertTok{\#\#\#}\CommentTok{ Your email address}
+\CommentTok{\#SBATCH {-}{-}mail{-}type=}\RegionMarkerTok{END}\CommentTok{,FAIL \# Conditions when an email is sent}
+\CommentTok{\#SBATCH {-}{-}output=\%x.\%j.out }\AlertTok{\#\#\#}\CommentTok{ output file: \textless{}job{-}name.job{-}id.out\textgreater{}}
+\CommentTok{\#SBATCH {-}{-}nodes=1 }\AlertTok{\#\#\#}\CommentTok{ Keep the job on one computer/node.}
+\CommentTok{\#SBATCH {-}{-}ntasks=1 }\AlertTok{\#\#\#}\CommentTok{ single task}
+\CommentTok{\#SBATCH {-}{-}cpus{-}per{-}task=64  }\AlertTok{\#\#\#}\CommentTok{ each task uses up to 64 cpu cores (defaults to 1 if absent)}
+\CommentTok{\#SBATCH {-}{-}time=10{-}00:00:00 }\AlertTok{\#\#\#}\CommentTok{ WallTime (10 days)}
+\CommentTok{\#SBATCH {-}{-}mem=480G}
+\CommentTok{\#SBATCH {-}{-}partition=compute }\AlertTok{\#\#\#}\CommentTok{ Partition Name}
+\FunctionTok{date}
+\FunctionTok{hostname}
+\CommentTok{\# Set OMP\_NUM\_THREADS to the same value as {-}{-}cpus{-}per{-}task}
+\CommentTok{\# with a fallback option in case it isn\textquotesingle{}t set.}
+\ExtensionTok{module}\NormalTok{ load nextflow{-}22.04.0}
+\ExtensionTok{module}\NormalTok{ load singularity/singularity{-}3.8.7}
+\ExtensionTok{nextflow}\NormalTok{ run nf{-}core/atacseq }\AttributeTok{{-}w} \StringTok{"/nfs/sharedscratch2/users/tdrake/nf\_work/"} \AttributeTok{{-}{-}input} \StringTok{"/nfs/sharedscratch2/users/tdrake/atac\_seq\_ctnnb\_p53\_myc/sample\_atac.csv"} \AttributeTok{{-}{-}genome}\NormalTok{ GRCm38 }\AttributeTok{{-}profile}\NormalTok{ singularity }\AttributeTok{{-}{-}outdir} \StringTok{"/nfs/sharedscratch2/users/tdrake/atac\_seq\_output\_broad/"}
+\FunctionTok{date}
 \end{Highlighting}
 \end{Shaded}
 

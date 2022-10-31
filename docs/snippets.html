@@ -23,7 +23,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2022-09-20" />
+<meta name="date" content="2022-10-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -281,6 +281,12 @@ div.csl-indent {
 <li class="chapter" data-level="7.1" data-path="genomics.html"><a href="genomics.html#single-cell-analysis"><i class="fa fa-check"></i><b>7.1</b> Single Cell Analysis</a>
 <ul>
 <li class="chapter" data-level="7.1.1" data-path="genomics.html"><a href="genomics.html#minimising-the-size-of-a-seurat-object"><i class="fa fa-check"></i><b>7.1.1</b> Minimising the size of a Seurat Object</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="genomics.html"><a href="genomics.html#nextflow"><i class="fa fa-check"></i><b>7.2</b> Nextflow</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="genomics.html"><a href="genomics.html#rnaseq-example-with-sbatch-slurm"><i class="fa fa-check"></i><b>7.2.1</b> RNASeq example with sbatch (slurm)</a></li>
+<li class="chapter" data-level="7.2.2" data-path="genomics.html"><a href="genomics.html#dnaseq-example-with-sbatch-slurm"><i class="fa fa-check"></i><b>7.2.2</b> DNASeq example with sbatch (slurm)</a></li>
+<li class="chapter" data-level="7.2.3" data-path="genomics.html"><a href="genomics.html#atacseq-example-with-sbatch-slurm"><i class="fa fa-check"></i><b>7.2.3</b> ATACSeq example with sbatch (slurm)</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="programming-in-rlang.html"><a href="programming-in-rlang.html"><i class="fa fa-check"></i><b>8</b> Programming in rlang</a>
@@ -920,12 +926,12 @@ I often want days as a numeric, not a lubridate type object.</p>
 <span id="cb47-4"><a href="snippets.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date, isoweek, isoweek_date) <span class="sc">%&gt;%</span> </span>
 <span id="cb47-5"><a href="snippets.html#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div>
 <pre><code>##         date isoweek isoweek_date
-## 1 2020-03-21      12   2020-03-16
-## 2 2020-09-17      38   2020-09-14
-## 3 2020-05-08      19   2020-05-04
-## 4 2020-09-11      37   2020-09-07
-## 5 2020-10-30      44   2020-10-26
-## 6 2022-02-21       8   2022-02-21</code></pre>
+## 1 2020-03-23      13   2020-03-23
+## 2 2020-12-29      53   2020-12-28
+## 3 2020-06-17      25   2020-06-15
+## 4 2020-03-16      12   2020-03-16
+## 5 2022-01-18       3   2022-01-17
+## 6 2020-12-03      49   2020-11-30</code></pre>
 </div>
 </div>
 <div id="labelling-tables-and-figures-in-markdown-chunks" class="section level2 hasAnchor" number="2.7">

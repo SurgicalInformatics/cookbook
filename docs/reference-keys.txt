@@ -93,6 +93,10 @@ shorten-arrows-on-a-dag
 genomics
 single-cell-analysis
 minimising-the-size-of-a-seurat-object
+nextflow
+rnaseq-example-with-sbatch-slurm
+dnaseq-example-with-sbatch-slurm
+atacseq-example-with-sbatch-slurm
 programming-in-rlang
 rlang
 what-is-rlang
