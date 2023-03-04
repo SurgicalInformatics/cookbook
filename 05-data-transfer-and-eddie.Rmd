@@ -416,7 +416,7 @@ A sample code to request an interactive session with a Tesla K80 GPU and 16G mem
 
 Jupyter notebook can be a very efficient tool to develop python analytics pipeline. You can run a notebook server on the remote Eddie node and access the notebook from your local browser or editor. First, request an interactive session and activate the conda environment you need. Then use the following code to activate a jupyter notebook server:
 
-```{bash}
+```{bash, eval = FALSE}
 #!/usr/bin/bash
 ## get tunneling info
 ipnport=8515

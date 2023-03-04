@@ -85,6 +85,10 @@ general-eddie-etiquette
 unix-tutorials
 additional-resources
 using-rstudio-directly-in-eddie
+configuring-python-deep-learning-environment-in-eddie
+package-installation
+gpu-usage
+configuring-jupyter-notebook-access
 plotting
 gghighlight-example
 coord_flip-factor-orders
@@ -123,6 +127,14 @@ api-pull
 applying-a-redcap-factoring-script
 alternative-to-the-factoring-script-redcap_label-from-librarycollaboratorr
 scannable-barcodes-in-redcap
+working-with-digital-pathology-data-and-python
+installing-openslide
+using-openslide
+opening-a-slide-and-inspecting-properties
+whole-workflow
+using-python-and-r-together
+handling-errors-in-python
+iterating-over-many-many-slide-files
 citations-with-r-markdown
 zotero-set-up
 file-storage-set-up

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 11 Citations with R Markdown | The Surgical Informatics Cookbook</title>
+  <title>Chapter 12 Citations with R Markdown | The Surgical Informatics Cookbook</title>
   <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
   <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 11 Citations with R Markdown | The Surgical Informatics Cookbook" />
+  <meta property="og:title" content="Chapter 12 Citations with R Markdown | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="All the brilliant bits of code we don’t want to forget." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 11 Citations with R Markdown | The Surgical Informatics Cookbook" />
+  <meta name="twitter:title" content="Chapter 12 Citations with R Markdown | The Surgical Informatics Cookbook" />
   
   <meta name="twitter:description" content="All the brilliant bits of code we don’t want to forget." />
   
@@ -23,14 +23,14 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2022-10-31" />
+<meta name="date" content="2023-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="redcap.html"/>
+<link rel="prev" href="working-with-digital-pathology-data-and-python.html"/>
 <link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -94,7 +94,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -107,7 +107,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -268,6 +268,12 @@ div.csl-indent {
 <li class="chapter" data-level="5.6" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#unix-tutorials"><i class="fa fa-check"></i><b>5.6</b> Unix Tutorials</a></li>
 <li class="chapter" data-level="5.7" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#additional-resources"><i class="fa fa-check"></i><b>5.7</b> Additional Resources</a></li>
 <li class="chapter" data-level="5.8" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#using-rstudio-directly-in-eddie"><i class="fa fa-check"></i><b>5.8</b> Using RStudio directly in Eddie</a></li>
+<li class="chapter" data-level="5.9" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#configuring-python-deep-learning-environment-in-eddie"><i class="fa fa-check"></i><b>5.9</b> Configuring Python Deep Learning Environment in Eddie</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#package-installation"><i class="fa fa-check"></i><b>5.9.1</b> Package installation</a></li>
+<li class="chapter" data-level="5.9.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#gpu-usage"><i class="fa fa-check"></i><b>5.9.2</b> GPU usage</a></li>
+</ul></li>
+<li class="chapter" data-level="5.10" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#configuring-jupyter-notebook-access"><i class="fa fa-check"></i><b>5.10</b> Configuring Jupyter Notebook Access</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>6</b> Plotting</a>
 <ul>
@@ -329,29 +335,41 @@ div.csl-indent {
 <li class="chapter" data-level="10.3" data-path="redcap.html"><a href="redcap.html#alternative-to-the-factoring-script-redcap_label-from-librarycollaboratorr"><i class="fa fa-check"></i><b>10.3</b> Alternative to the factoring script: <code>redcap_label()</code> from <code>library(collaboratorR)</code></a></li>
 <li class="chapter" data-level="10.4" data-path="redcap.html"><a href="redcap.html#scannable-barcodes-in-redcap"><i class="fa fa-check"></i><b>10.4</b> Scannable barcodes in REDCap</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html"><i class="fa fa-check"></i><b>11</b> Citations with R Markdown</a>
+<li class="chapter" data-level="11" data-path="working-with-digital-pathology-data-and-python.html"><a href="working-with-digital-pathology-data-and-python.html"><i class="fa fa-check"></i><b>11</b> Working with digital pathology data and python</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#zotero-set-up"><i class="fa fa-check"></i><b>11.1</b> Zotero Set-up</a></li>
-<li class="chapter" data-level="11.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#file-storage-set-up"><i class="fa fa-check"></i><b>11.2</b> File Storage Set-up</a></li>
-<li class="chapter" data-level="11.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#folder-set-up"><i class="fa fa-check"></i><b>11.3</b> Folder Set-up</a>
+<li class="chapter" data-level="11.1" data-path="working-with-digital-pathology-data-and-python.html"><a href="working-with-digital-pathology-data-and-python.html#installing-openslide"><i class="fa fa-check"></i><b>11.1</b> Installing OpenSlide</a></li>
+<li class="chapter" data-level="11.2" data-path="working-with-digital-pathology-data-and-python.html"><a href="working-with-digital-pathology-data-and-python.html#using-openslide"><i class="fa fa-check"></i><b>11.2</b> Using OpenSlide</a>
 <ul>
-<li class="chapter" data-level="11.3.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#storing-pdfs"><i class="fa fa-check"></i><b>11.3.1</b> Storing PDFs</a></li>
-<li class="chapter" data-level="11.3.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#storing-bibliographies"><i class="fa fa-check"></i><b>11.3.2</b> Storing Bibliographies</a></li>
-<li class="chapter" data-level="11.3.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#subfolder-for-references"><i class="fa fa-check"></i><b>11.3.3</b> Subfolder for References</a></li>
+<li class="chapter" data-level="11.2.1" data-path="working-with-digital-pathology-data-and-python.html"><a href="working-with-digital-pathology-data-and-python.html#opening-a-slide-and-inspecting-properties"><i class="fa fa-check"></i><b>11.2.1</b> Opening a slide and inspecting properties</a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#configuring-zotero"><i class="fa fa-check"></i><b>11.4</b> Configuring Zotero</a>
-<ul>
-<li class="chapter" data-level="11.4.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#zotfile-pdf-preferences"><i class="fa fa-check"></i><b>11.4.1</b> ZotFile PDF Preferences</a></li>
-<li class="chapter" data-level="11.4.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#general-zotero-settings"><i class="fa fa-check"></i><b>11.4.2</b> General Zotero Settings</a></li>
-<li class="chapter" data-level="11.4.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#refresh-bibtex-citation-key"><i class="fa fa-check"></i><b>11.4.3</b> Refresh BibTex Citation Key</a></li>
+<li class="chapter" data-level="11.3" data-path="working-with-digital-pathology-data-and-python.html"><a href="working-with-digital-pathology-data-and-python.html#whole-workflow"><i class="fa fa-check"></i><b>11.3</b> Whole workflow</a></li>
+<li class="chapter" data-level="11.4" data-path="working-with-digital-pathology-data-and-python.html"><a href="working-with-digital-pathology-data-and-python.html#using-python-and-r-together"><i class="fa fa-check"></i><b>11.4</b> Using python and R together</a></li>
+<li class="chapter" data-level="11.5" data-path="working-with-digital-pathology-data-and-python.html"><a href="working-with-digital-pathology-data-and-python.html#handling-errors-in-python"><i class="fa fa-check"></i><b>11.5</b> Handling errors in python</a></li>
+<li class="chapter" data-level="11.6" data-path="working-with-digital-pathology-data-and-python.html"><a href="working-with-digital-pathology-data-and-python.html#iterating-over-many-many-slide-files"><i class="fa fa-check"></i><b>11.6</b> Iterating over many many slide files</a></li>
 </ul></li>
-<li class="chapter" data-level="11.5" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#generating-a-.bib-file"><i class="fa fa-check"></i><b>11.5</b> Generating a .bib File</a></li>
-<li class="chapter" data-level="11.6" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#linking-dropbox-and-rstudio-server"><i class="fa fa-check"></i><b>11.6</b> Linking DropBox and Rstudio Server</a>
+<li class="chapter" data-level="12" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html"><i class="fa fa-check"></i><b>12</b> Citations with R Markdown</a>
 <ul>
-<li class="chapter" data-level="11.6.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#token-creation"><i class="fa fa-check"></i><b>11.6.1</b> Token Creation</a></li>
-<li class="chapter" data-level="11.6.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#dropbox-linkage"><i class="fa fa-check"></i><b>11.6.2</b> DropBox Linkage</a></li>
+<li class="chapter" data-level="12.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#zotero-set-up"><i class="fa fa-check"></i><b>12.1</b> Zotero Set-up</a></li>
+<li class="chapter" data-level="12.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#file-storage-set-up"><i class="fa fa-check"></i><b>12.2</b> File Storage Set-up</a></li>
+<li class="chapter" data-level="12.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#folder-set-up"><i class="fa fa-check"></i><b>12.3</b> Folder Set-up</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#storing-pdfs"><i class="fa fa-check"></i><b>12.3.1</b> Storing PDFs</a></li>
+<li class="chapter" data-level="12.3.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#storing-bibliographies"><i class="fa fa-check"></i><b>12.3.2</b> Storing Bibliographies</a></li>
+<li class="chapter" data-level="12.3.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#subfolder-for-references"><i class="fa fa-check"></i><b>12.3.3</b> Subfolder for References</a></li>
 </ul></li>
-<li class="chapter" data-level="11.7" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#citing-r-packages"><i class="fa fa-check"></i><b>11.7</b> Citing R Packages</a></li>
+<li class="chapter" data-level="12.4" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#configuring-zotero"><i class="fa fa-check"></i><b>12.4</b> Configuring Zotero</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#zotfile-pdf-preferences"><i class="fa fa-check"></i><b>12.4.1</b> ZotFile PDF Preferences</a></li>
+<li class="chapter" data-level="12.4.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#general-zotero-settings"><i class="fa fa-check"></i><b>12.4.2</b> General Zotero Settings</a></li>
+<li class="chapter" data-level="12.4.3" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#refresh-bibtex-citation-key"><i class="fa fa-check"></i><b>12.4.3</b> Refresh BibTex Citation Key</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#generating-a-.bib-file"><i class="fa fa-check"></i><b>12.5</b> Generating a .bib File</a></li>
+<li class="chapter" data-level="12.6" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#linking-dropbox-and-rstudio-server"><i class="fa fa-check"></i><b>12.6</b> Linking DropBox and Rstudio Server</a>
+<ul>
+<li class="chapter" data-level="12.6.1" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#token-creation"><i class="fa fa-check"></i><b>12.6.1</b> Token Creation</a></li>
+<li class="chapter" data-level="12.6.2" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#dropbox-linkage"><i class="fa fa-check"></i><b>12.6.2</b> DropBox Linkage</a></li>
+</ul></li>
+<li class="chapter" data-level="12.7" data-path="citations-with-r-markdown.html"><a href="citations-with-r-markdown.html#citing-r-packages"><i class="fa fa-check"></i><b>12.7</b> Citing R Packages</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -374,66 +392,66 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="citations-with-r-markdown" class="section level1 hasAnchor" number="11">
-<h1><span class="header-section-number">Chapter 11</span> Citations with R Markdown<a href="citations-with-r-markdown.html#citations-with-r-markdown" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="citations-with-r-markdown" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">Chapter 12</span> Citations with R Markdown<a href="citations-with-r-markdown.html#citations-with-r-markdown" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Writing publications and other documents requires citations both of academic papers and of R packages.</p>
 <p>Zotero provides efficient and free reference management which generates new citation objects with the click of a button in Chrome and easy generation of <code>.bib</code> files which can be used to create references in <code>rmarkdown</code> and <code>bookdown</code>.</p>
 <p><em>Top tip: Do this on Day 1 of your PhD!</em></p>
-<div id="zotero-set-up" class="section level2 hasAnchor" number="11.1">
-<h2><span class="header-section-number">11.1</span> Zotero Set-up<a href="citations-with-r-markdown.html#zotero-set-up" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="zotero-set-up" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> Zotero Set-up<a href="citations-with-r-markdown.html#zotero-set-up" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://www.zotero.org/download/">Zotero</a> should be installed and provides 300MB of free storage which covers a few thousand references as long as PDFs are stored elsewhere. The <a href="https://www.zotero.org/download/">Chrome connector</a> can be downloaded to allow one-click saving of citations. Just click the icon at the top right of the browser to store meta-data and files.</p>
 <p>Set up an online account with Zotero so that your data is available remotely.</p>
 <p><a href="https://www.zotero.org/support/plugins">Zotfile</a> should be installed to help with PDF storage. Download the <code>.xpi</code> file for Zotfile. To install <strong>Zotfile</strong> open Zotero and go to <code>Tools → Add-ons → cog in top right corner</code> and select downloaded <code>.xpi</code> file to install.</p>
 <div class="figure"><span style="display:block;" id="fig:add-on-install"></span>
 <img src="img/zotero_add_on_install.png" alt="Installing a Zotero Plug-in from an .xpi File" width="1324" />
 <p class="caption">
-Figure 11.1: Installing a Zotero Plug-in from an .xpi File
+Figure 12.1: Installing a Zotero Plug-in from an .xpi File
 </p>
 </div>
 <p><a href="https://github.com/retorquere/zotero-better-bibtex/releases/tag/v5.1.76">Better BibTeX</a> is another plug-in which generates citation keys in a robust and reproducible way which is needed for larger projects (e.g. PhDs) to avoid duplicate citation handles. An <code>.xpi</code> file can be downloaded from GitHub and installed in the same way.</p>
 </div>
-<div id="file-storage-set-up" class="section level2 hasAnchor" number="11.2">
-<h2><span class="header-section-number">11.2</span> File Storage Set-up<a href="citations-with-r-markdown.html#file-storage-set-up" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="file-storage-set-up" class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> File Storage Set-up<a href="citations-with-r-markdown.html#file-storage-set-up" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In addition to Zotero set-up it is a good idea to have a cloud storage service to maintain a library of PDFs without using up Zotero storage capacity. These will also need to be accessible to the <code>Windows Explorer</code> or the <code>Mac Finder</code> - there are several guides on how to do this for <a href="https://www.howtogeek.com/228989/how-to-use-the-desktop-google-drive-app/">Google Drive</a> and <a href="https://www.dropboxforum.com/t5/Installation-and-desktop-app/How-do-I-put-Dropbox-on-my-File-Explorer-in-Win-10/td-p/313031">DropBox</a>.</p>
 </div>
-<div id="folder-set-up" class="section level2 hasAnchor" number="11.3">
-<h2><span class="header-section-number">11.3</span> Folder Set-up<a href="citations-with-r-markdown.html#folder-set-up" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="storing-pdfs" class="section level3 hasAnchor" number="11.3.1">
-<h3><span class="header-section-number">11.3.1</span> Storing PDFs<a href="citations-with-r-markdown.html#storing-pdfs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="folder-set-up" class="section level2 hasAnchor" number="12.3">
+<h2><span class="header-section-number">12.3</span> Folder Set-up<a href="citations-with-r-markdown.html#folder-set-up" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="storing-pdfs" class="section level3 hasAnchor" number="12.3.1">
+<h3><span class="header-section-number">12.3.1</span> Storing PDFs<a href="citations-with-r-markdown.html#storing-pdfs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Create a folder in a cloud storage service to store PDFs which can be accessed from your own file explorer.</p>
 </div>
-<div id="storing-bibliographies" class="section level3 hasAnchor" number="11.3.2">
-<h3><span class="header-section-number">11.3.2</span> Storing Bibliographies<a href="citations-with-r-markdown.html#storing-bibliographies" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="storing-bibliographies" class="section level3 hasAnchor" number="12.3.2">
+<h3><span class="header-section-number">12.3.2</span> Storing Bibliographies<a href="citations-with-r-markdown.html#storing-bibliographies" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Create a folder which will store your <code>.bib</code> file. This can then be used to provide the references for your <code>.rmd</code> files.</p>
 </div>
-<div id="subfolder-for-references" class="section level3 hasAnchor" number="11.3.3">
-<h3><span class="header-section-number">11.3.3</span> Subfolder for References<a href="citations-with-r-markdown.html#subfolder-for-references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="subfolder-for-references" class="section level3 hasAnchor" number="12.3.3">
+<h3><span class="header-section-number">12.3.3</span> Subfolder for References<a href="citations-with-r-markdown.html#subfolder-for-references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>It may be a good idea in Zotero to carefully categorise publications by their content. This makes it very easy to look up publications on a given topic (Zotero allows a citation to be shared across several folders such that a publication documenting an RCT with updated meta-analysis could be in folders for each type of study etc.).</p>
 <p>Generally a parent folder will be used to generate a bibliography file and anything likely to be cited in a document / thesis should be in that folder or one of its subfolders.</p>
 </div>
 </div>
-<div id="configuring-zotero" class="section level2 hasAnchor" number="11.4">
-<h2><span class="header-section-number">11.4</span> Configuring Zotero<a href="citations-with-r-markdown.html#configuring-zotero" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="zotfile-pdf-preferences" class="section level3 hasAnchor" number="11.4.1">
-<h3><span class="header-section-number">11.4.1</span> ZotFile PDF Preferences<a href="citations-with-r-markdown.html#zotfile-pdf-preferences" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="configuring-zotero" class="section level2 hasAnchor" number="12.4">
+<h2><span class="header-section-number">12.4</span> Configuring Zotero<a href="citations-with-r-markdown.html#configuring-zotero" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="zotfile-pdf-preferences" class="section level3 hasAnchor" number="12.4.1">
+<h3><span class="header-section-number">12.4.1</span> ZotFile PDF Preferences<a href="citations-with-r-markdown.html#zotfile-pdf-preferences" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To setup Zotero so that retrieved PDFs are automatically stored and renamed in the cloud storage without consuming the Zotero storage quota go to “Tools → ZotFile Preferences” and on the first tab: <strong>General Settings</strong> and set the folder and subfolder naming strategy for PDFs. Set the location of the files to a Custom location in cloud storage e.g.(“~\Google Drive\Zotero PDF Library”). ZotFile will also store retrieved PDFs in subfolders to help with finding PDFs at a later date. A reasonable setup is to create a subfolder with the first author surname so that all papers authored by one (or more) author with the same name are stored together using the \%a in the subfolder field. Other alternatives are to store PDFs in subfolders using year (\%y); journal or publisher (\%w); or item type (\%T).</p>
 <div class="figure"><span style="display:block;" id="fig:zotfile-preferences"></span>
 <img src="img/zotfile_preferences.png" alt="ZotFile PDF Storage Preferences" width="1600" />
 <p class="caption">
-Figure 11.2: ZotFile PDF Storage Preferences
+Figure 12.2: ZotFile PDF Storage Preferences
 </p>
 </div>
 <p>Next the <strong>Renaming Rules</strong> tab can be configured to provide sensible names to each of the files (this is essential if PDFs are not to be stored as random strings of characters which provide no meaning). Setting the format to: {%a_}{%y_}{%t} provides names for the PDFs in the format of: <code>Fairfield_2019_Gallstone_Disease_and_the_Risk_of_Cardiovascular_Disease.pdf</code>. This shows author, year and first word of title without needing to expand the file name.</p>
 <div class="figure"><span style="display:block;" id="fig:zotfile-renaming"></span>
 <img src="img/zotfile_renaming.png" alt="ZotFile PDF Storage Preferences" width="1601" />
 <p class="caption">
-Figure 11.3: ZotFile PDF Storage Preferences
+Figure 12.3: ZotFile PDF Storage Preferences
 </p>
 </div>
 <p>In the <strong>Advanced Settings</strong> tab it is strongly recommended to select removal of “Special characters”, leaving these in creates problems when knitting to PDF as LaTeX may recognise the special characters in unexpected ways.</p>
 </div>
-<div id="general-zotero-settings" class="section level3 hasAnchor" number="11.4.2">
-<h3><span class="header-section-number">11.4.2</span> General Zotero Settings<a href="citations-with-r-markdown.html#general-zotero-settings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="general-zotero-settings" class="section level3 hasAnchor" number="12.4.2">
+<h3><span class="header-section-number">12.4.2</span> General Zotero Settings<a href="citations-with-r-markdown.html#general-zotero-settings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Zotero has several configurable settings (accessed through: “Edit → Preferences”). The following settings are generally helpful (left as default if not mentioned):</p>
 <p><strong>General:</strong>
 + Tick the following:
@@ -467,106 +485,106 @@ Figure 11.3: ZotFile PDF Storage Preferences
 <div class="figure"><span style="display:block;" id="fig:zotfile-citation-key"></span>
 <img src="img/zotero_citation_key.png" alt="ZotFile PDF Storage Preferences" width="1599" />
 <p class="caption">
-Figure 11.4: ZotFile PDF Storage Preferences
+Figure 12.4: ZotFile PDF Storage Preferences
 </p>
 </div>
 </div>
-<div id="refresh-bibtex-citation-key" class="section level3 hasAnchor" number="11.4.3">
-<h3><span class="header-section-number">11.4.3</span> Refresh BibTex Citation Key<a href="citations-with-r-markdown.html#refresh-bibtex-citation-key" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refresh-bibtex-citation-key" class="section level3 hasAnchor" number="12.4.3">
+<h3><span class="header-section-number">12.4.3</span> Refresh BibTex Citation Key<a href="citations-with-r-markdown.html#refresh-bibtex-citation-key" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If you already have used Zotero without this setup and want to refresh your citation keys to follow the standard pattern then select all references, right click and use “Better BibTex → Refresh BibTeX Key”.</p>
 </div>
 </div>
-<div id="generating-a-.bib-file" class="section level2 hasAnchor" number="11.5">
-<h2><span class="header-section-number">11.5</span> Generating a .bib File<a href="citations-with-r-markdown.html#generating-a-.bib-file" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="generating-a-.bib-file" class="section level2 hasAnchor" number="12.5">
+<h2><span class="header-section-number">12.5</span> Generating a .bib File<a href="citations-with-r-markdown.html#generating-a-.bib-file" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>For referencing in a new project, publication or submission it may be helpful to have a dynamic <code>.bib</code> file that updates with every new publication added to Zotero and can be accessed from any device through cloud storage.</p>
 <p>To set up a <code>.bib</code> file, first find the folder that you wish to create the file from (this should be the folder which contains any citations you will use and ideally not the full library to cut down on unnecessary storage and syncing requirements).</p>
 <p>Note that the <code>.bib</code> file will generate a bibliography from any citations stored directly in the folder when using default settings. This prevents use of subfolders which are particularly helpful for organising citations so it may be helpful to change the setting so that folders also show any citations stored in subfolders. To make this change go to “Edit Preferences” and select the “Advanced” tab and at the bottom of the “General” subtab select “Config Editor”. This will bring up a searchable list of configurations (it may show a warning message before this) and search in the search box for “extensions.zotero.recursiveCollections”. Set “Value” to TRUE and then when you click a folder you should see all of the citations also stored in subfolders.</p>
 <p>Right click the folder which has all of the references (with or without subfolders) and select “Export Collection”. A pop-up window will appear at which point select “Keep Updated” and if using RStudio desktop save the file in the directory where you have your <code>.rmd</code> project files. If you are working with RStudio server then save the file in a cloud storage location which will then be accessed from the server. A <code>.bib</code> file stored in Dropbox can be copied into RStudio server for a given project as per below.</p>
 </div>
-<div id="linking-dropbox-and-rstudio-server" class="section level2 hasAnchor" number="11.6">
-<h2><span class="header-section-number">11.6</span> Linking DropBox and Rstudio Server<a href="citations-with-r-markdown.html#linking-dropbox-and-rstudio-server" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="linking-dropbox-and-rstudio-server" class="section level2 hasAnchor" number="12.6">
+<h2><span class="header-section-number">12.6</span> Linking DropBox and Rstudio Server<a href="citations-with-r-markdown.html#linking-dropbox-and-rstudio-server" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Dropbox provides a token to allow communication between different apps. The <code>rdrop2</code> package allows this. It may be necessary to create the token on RStudio desktop as creation on the server is buggy but this is perfectly ok.</p>
 <p><strong>Caution:</strong> The token generated by this process could be used to access your Dropbox from anywhere using RStudio if you do not keep it secure. If somebody were to access an unencrypted token then it would be equivalent to handing out your email and password. Use the <code>encryptr</code> package to allow safe storage of this token.</p>
-<div id="token-creation" class="section level3 hasAnchor" number="11.6.1">
-<h3><span class="header-section-number">11.6.1</span> Token Creation<a href="citations-with-r-markdown.html#token-creation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="token-creation" class="section level3 hasAnchor" number="12.6.1">
+<h3><span class="header-section-number">12.6.1</span> Token Creation<a href="citations-with-r-markdown.html#token-creation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The code will create two files, a token and the <code>.httr-oauth</code> file from which a token can also be made. The encryptr package can then encrypt the files using a public / private key pair. It is essential that the password that is set when using genkeys() is remembered otherwise the token cannot then be used. In this case the original token can’t be retrieved but could be created again from scratch.</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="citations-with-r-markdown.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rdrop2)</span>
-<span id="cb154-2"><a href="citations-with-r-markdown.html#cb154-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(encryptr)</span>
-<span id="cb154-3"><a href="citations-with-r-markdown.html#cb154-3" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb154-4"><a href="citations-with-r-markdown.html#cb154-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create token</span></span>
-<span id="cb154-5"><a href="citations-with-r-markdown.html#cb154-5" aria-hidden="true" tabindex="-1"></a>token <span class="ot">&lt;-</span> <span class="fu">drop_auth</span>()</span>
-<span id="cb154-6"><a href="citations-with-r-markdown.html#cb154-6" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb154-7"><a href="citations-with-r-markdown.html#cb154-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Save token</span></span>
-<span id="cb154-8"><a href="citations-with-r-markdown.html#cb154-8" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(token, <span class="st">&quot;droptoken.rds&quot;</span>)</span>
-<span id="cb154-9"><a href="citations-with-r-markdown.html#cb154-9" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb154-10"><a href="citations-with-r-markdown.html#cb154-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Encrypt token</span></span>
-<span id="cb154-11"><a href="citations-with-r-markdown.html#cb154-11" aria-hidden="true" tabindex="-1"></a><span class="fu">genkeys</span>()               <span class="co"># Default file names are id_rsa and id_rsa.pub</span></span>
-<span id="cb154-12"><a href="citations-with-r-markdown.html#cb154-12" aria-hidden="true" tabindex="-1"></a><span class="fu">encrypt_file</span>(<span class="st">&quot;droptoken.rds&quot;</span>, <span class="st">&quot;droptoken.rds.encryptr.bin&quot;</span>)</span>
-<span id="cb154-13"><a href="citations-with-r-markdown.html#cb154-13" aria-hidden="true" tabindex="-1"></a><span class="fu">encrypt_file</span>(<span class="st">&quot;.httr-oauth&quot;</span>, <span class="st">&quot;.httr-oauth.encryptr.bin&quot;</span>)</span>
-<span id="cb154-14"><a href="citations-with-r-markdown.html#cb154-14" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb154-15"><a href="citations-with-r-markdown.html#cb154-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Same details should appear later</span></span>
-<span id="cb154-16"><a href="citations-with-r-markdown.html#cb154-16" aria-hidden="true" tabindex="-1"></a><span class="fu">drop_acc</span>()</span>
-<span id="cb154-17"><a href="citations-with-r-markdown.html#cb154-17" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb154-18"><a href="citations-with-r-markdown.html#cb154-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove token from local environment</span></span>
-<span id="cb154-19"><a href="citations-with-r-markdown.html#cb154-19" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(token)</span>
-<span id="cb154-20"><a href="citations-with-r-markdown.html#cb154-20" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb154-21"><a href="citations-with-r-markdown.html#cb154-21" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb154-22"><a href="citations-with-r-markdown.html#cb154-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete the unencrypted files</span></span>
-<span id="cb154-23"><a href="citations-with-r-markdown.html#cb154-23" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="st">&quot;rm droptoken.rds&quot;</span>)</span>
-<span id="cb154-24"><a href="citations-with-r-markdown.html#cb154-24" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="st">&quot;rm .httr-oauth&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="citations-with-r-markdown.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rdrop2)</span>
+<span id="cb168-2"><a href="citations-with-r-markdown.html#cb168-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(encryptr)</span>
+<span id="cb168-3"><a href="citations-with-r-markdown.html#cb168-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb168-4"><a href="citations-with-r-markdown.html#cb168-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create token</span></span>
+<span id="cb168-5"><a href="citations-with-r-markdown.html#cb168-5" aria-hidden="true" tabindex="-1"></a>token <span class="ot">&lt;-</span> <span class="fu">drop_auth</span>()</span>
+<span id="cb168-6"><a href="citations-with-r-markdown.html#cb168-6" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb168-7"><a href="citations-with-r-markdown.html#cb168-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Save token</span></span>
+<span id="cb168-8"><a href="citations-with-r-markdown.html#cb168-8" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(token, <span class="st">&quot;droptoken.rds&quot;</span>)</span>
+<span id="cb168-9"><a href="citations-with-r-markdown.html#cb168-9" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb168-10"><a href="citations-with-r-markdown.html#cb168-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Encrypt token</span></span>
+<span id="cb168-11"><a href="citations-with-r-markdown.html#cb168-11" aria-hidden="true" tabindex="-1"></a><span class="fu">genkeys</span>()               <span class="co"># Default file names are id_rsa and id_rsa.pub</span></span>
+<span id="cb168-12"><a href="citations-with-r-markdown.html#cb168-12" aria-hidden="true" tabindex="-1"></a><span class="fu">encrypt_file</span>(<span class="st">&quot;droptoken.rds&quot;</span>, <span class="st">&quot;droptoken.rds.encryptr.bin&quot;</span>)</span>
+<span id="cb168-13"><a href="citations-with-r-markdown.html#cb168-13" aria-hidden="true" tabindex="-1"></a><span class="fu">encrypt_file</span>(<span class="st">&quot;.httr-oauth&quot;</span>, <span class="st">&quot;.httr-oauth.encryptr.bin&quot;</span>)</span>
+<span id="cb168-14"><a href="citations-with-r-markdown.html#cb168-14" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb168-15"><a href="citations-with-r-markdown.html#cb168-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Same details should appear later</span></span>
+<span id="cb168-16"><a href="citations-with-r-markdown.html#cb168-16" aria-hidden="true" tabindex="-1"></a><span class="fu">drop_acc</span>()</span>
+<span id="cb168-17"><a href="citations-with-r-markdown.html#cb168-17" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb168-18"><a href="citations-with-r-markdown.html#cb168-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove token from local environment</span></span>
+<span id="cb168-19"><a href="citations-with-r-markdown.html#cb168-19" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(token)</span>
+<span id="cb168-20"><a href="citations-with-r-markdown.html#cb168-20" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb168-21"><a href="citations-with-r-markdown.html#cb168-21" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb168-22"><a href="citations-with-r-markdown.html#cb168-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete the unencrypted files</span></span>
+<span id="cb168-23"><a href="citations-with-r-markdown.html#cb168-23" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="st">&quot;rm droptoken.rds&quot;</span>)</span>
+<span id="cb168-24"><a href="citations-with-r-markdown.html#cb168-24" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="st">&quot;rm .httr-oauth&quot;</span>)</span></code></pre></div>
 <p>The following files will then be needed to upload to the RStudio server:</p>
 <ul>
 <li><code>droptoken.rds.encryptr.bin</code> – or the name provided for the encrypted DropBox token</li>
 <li><code>id_rsa</code> – or the name provided for the private key from the private / public key pair</li>
 </ul>
 </div>
-<div id="dropbox-linkage" class="section level3 hasAnchor" number="11.6.2">
-<h3><span class="header-section-number">11.6.2</span> DropBox Linkage<a href="citations-with-r-markdown.html#dropbox-linkage" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="dropbox-linkage" class="section level3 hasAnchor" number="12.6.2">
+<h3><span class="header-section-number">12.6.2</span> DropBox Linkage<a href="citations-with-r-markdown.html#dropbox-linkage" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Now that the encrypted token and necessary (password-protected) private key are available in RStudio server, the following can be saved as a separate script. The script is designed to read in and decrypt the encrypted token (this will require a password and should be done if the .bib file needs updated). Only the drop_download() needs repeated if using the token again during the same session. The token should be cleared at the end of every session for additional security.</p>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="citations-with-r-markdown.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rdrop2)</span>
-<span id="cb155-2"><a href="citations-with-r-markdown.html#cb155-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(encryptr)</span>
-<span id="cb155-3"><a href="citations-with-r-markdown.html#cb155-3" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb155-4"><a href="citations-with-r-markdown.html#cb155-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ******** </span><span class="al">WARNING</span><span class="co"> ********</span></span>
-<span id="cb155-5"><a href="citations-with-r-markdown.html#cb155-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Losing the unencrypted token will give anyone </span></span>
-<span id="cb155-6"><a href="citations-with-r-markdown.html#cb155-6" aria-hidden="true" tabindex="-1"></a><span class="co"># complete control of your Dropbox account</span></span>
-<span id="cb155-7"><a href="citations-with-r-markdown.html#cb155-7" aria-hidden="true" tabindex="-1"></a><span class="co"># If you are concerned this has happened,</span></span>
-<span id="cb155-8"><a href="citations-with-r-markdown.html#cb155-8" aria-hidden="true" tabindex="-1"></a><span class="co"># you can then revoke the rdrop2 app from your</span></span>
-<span id="cb155-9"><a href="citations-with-r-markdown.html#cb155-9" aria-hidden="true" tabindex="-1"></a><span class="co"># dropbox account and start over.</span></span>
-<span id="cb155-10"><a href="citations-with-r-markdown.html#cb155-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ******** </span><span class="al">WARNING</span><span class="co"> ********</span></span>
-<span id="cb155-11"><a href="citations-with-r-markdown.html#cb155-11" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb155-12"><a href="citations-with-r-markdown.html#cb155-12" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb155-13"><a href="citations-with-r-markdown.html#cb155-13" aria-hidden="true" tabindex="-1"></a>safely_extract_dropbox_token <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">encrypted_db_token =</span> <span class="cn">NULL</span>, </span>
-<span id="cb155-14"><a href="citations-with-r-markdown.html#cb155-14" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">private_key_file =</span> <span class="cn">NULL</span>){</span>
-<span id="cb155-15"><a href="citations-with-r-markdown.html#cb155-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">decrypt_file</span>(encrypted_db_token, </span>
-<span id="cb155-16"><a href="citations-with-r-markdown.html#cb155-16" aria-hidden="true" tabindex="-1"></a>               <span class="at">file_name =</span> <span class="st">&quot;temporary_dropbox_token.rds&quot;</span>, </span>
-<span id="cb155-17"><a href="citations-with-r-markdown.html#cb155-17" aria-hidden="true" tabindex="-1"></a>               <span class="at">private_key_path =</span> private_key_file)</span>
-<span id="cb155-18"><a href="citations-with-r-markdown.html#cb155-18" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb155-19"><a href="citations-with-r-markdown.html#cb155-19" aria-hidden="true" tabindex="-1"></a>  token <span class="ot">&lt;&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;temporary_dropbox_token.rds&quot;</span>)</span>
-<span id="cb155-20"><a href="citations-with-r-markdown.html#cb155-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb155-21"><a href="citations-with-r-markdown.html#cb155-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(<span class="st">&quot;rm temporary_dropbox_token.rds&quot;</span>)</span>
-<span id="cb155-22"><a href="citations-with-r-markdown.html#cb155-22" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb155-23"><a href="citations-with-r-markdown.html#cb155-23" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb155-24"><a href="citations-with-r-markdown.html#cb155-24" aria-hidden="true" tabindex="-1"></a><span class="fu">safely_extract_dropbox_token</span>(<span class="at">encrypted_db_token =</span> <span class="st">&quot;droptoken.rds.encryptr.bin&quot;</span>, </span>
-<span id="cb155-25"><a href="citations-with-r-markdown.html#cb155-25" aria-hidden="true" tabindex="-1"></a>                             <span class="at">private_key_file =</span> <span class="st">&quot;id_rsa&quot;</span>)</span>
-<span id="cb155-26"><a href="citations-with-r-markdown.html#cb155-26" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb155-27"><a href="citations-with-r-markdown.html#cb155-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Then pass the token to each drop_ function</span></span>
-<span id="cb155-28"><a href="citations-with-r-markdown.html#cb155-28" aria-hidden="true" tabindex="-1"></a><span class="fu">drop_acc</span>(<span class="at">dtoken =</span> token)</span>
-<span id="cb155-29"><a href="citations-with-r-markdown.html#cb155-29" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb155-30"><a href="citations-with-r-markdown.html#cb155-30" aria-hidden="true" tabindex="-1"></a><span class="co"># The path is the Dropbox file location</span></span>
-<span id="cb155-31"><a href="citations-with-r-markdown.html#cb155-31" aria-hidden="true" tabindex="-1"></a><span class="fu">drop_download</span>(<span class="at">path =</span> <span class="st">&quot;My_Dropbox_Home_Directory/Zotero Library/my.bib&quot;</span>, </span>
-<span id="cb155-32"><a href="citations-with-r-markdown.html#cb155-32" aria-hidden="true" tabindex="-1"></a>              <span class="at">local_path =</span> <span class="st">&quot;my.bib&quot;</span>, </span>
-<span id="cb155-33"><a href="citations-with-r-markdown.html#cb155-33" aria-hidden="true" tabindex="-1"></a>              <span class="at">dtoken =</span> token,</span>
-<span id="cb155-34"><a href="citations-with-r-markdown.html#cb155-34" aria-hidden="true" tabindex="-1"></a>              <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="citations-with-r-markdown.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rdrop2)</span>
+<span id="cb169-2"><a href="citations-with-r-markdown.html#cb169-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(encryptr)</span>
+<span id="cb169-3"><a href="citations-with-r-markdown.html#cb169-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb169-4"><a href="citations-with-r-markdown.html#cb169-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ******** </span><span class="al">WARNING</span><span class="co"> ********</span></span>
+<span id="cb169-5"><a href="citations-with-r-markdown.html#cb169-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Losing the unencrypted token will give anyone </span></span>
+<span id="cb169-6"><a href="citations-with-r-markdown.html#cb169-6" aria-hidden="true" tabindex="-1"></a><span class="co"># complete control of your Dropbox account</span></span>
+<span id="cb169-7"><a href="citations-with-r-markdown.html#cb169-7" aria-hidden="true" tabindex="-1"></a><span class="co"># If you are concerned this has happened,</span></span>
+<span id="cb169-8"><a href="citations-with-r-markdown.html#cb169-8" aria-hidden="true" tabindex="-1"></a><span class="co"># you can then revoke the rdrop2 app from your</span></span>
+<span id="cb169-9"><a href="citations-with-r-markdown.html#cb169-9" aria-hidden="true" tabindex="-1"></a><span class="co"># dropbox account and start over.</span></span>
+<span id="cb169-10"><a href="citations-with-r-markdown.html#cb169-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ******** </span><span class="al">WARNING</span><span class="co"> ********</span></span>
+<span id="cb169-11"><a href="citations-with-r-markdown.html#cb169-11" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb169-12"><a href="citations-with-r-markdown.html#cb169-12" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb169-13"><a href="citations-with-r-markdown.html#cb169-13" aria-hidden="true" tabindex="-1"></a>safely_extract_dropbox_token <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">encrypted_db_token =</span> <span class="cn">NULL</span>, </span>
+<span id="cb169-14"><a href="citations-with-r-markdown.html#cb169-14" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">private_key_file =</span> <span class="cn">NULL</span>){</span>
+<span id="cb169-15"><a href="citations-with-r-markdown.html#cb169-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">decrypt_file</span>(encrypted_db_token, </span>
+<span id="cb169-16"><a href="citations-with-r-markdown.html#cb169-16" aria-hidden="true" tabindex="-1"></a>               <span class="at">file_name =</span> <span class="st">&quot;temporary_dropbox_token.rds&quot;</span>, </span>
+<span id="cb169-17"><a href="citations-with-r-markdown.html#cb169-17" aria-hidden="true" tabindex="-1"></a>               <span class="at">private_key_path =</span> private_key_file)</span>
+<span id="cb169-18"><a href="citations-with-r-markdown.html#cb169-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb169-19"><a href="citations-with-r-markdown.html#cb169-19" aria-hidden="true" tabindex="-1"></a>  token <span class="ot">&lt;&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;temporary_dropbox_token.rds&quot;</span>)</span>
+<span id="cb169-20"><a href="citations-with-r-markdown.html#cb169-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb169-21"><a href="citations-with-r-markdown.html#cb169-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(<span class="st">&quot;rm temporary_dropbox_token.rds&quot;</span>)</span>
+<span id="cb169-22"><a href="citations-with-r-markdown.html#cb169-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb169-23"><a href="citations-with-r-markdown.html#cb169-23" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb169-24"><a href="citations-with-r-markdown.html#cb169-24" aria-hidden="true" tabindex="-1"></a><span class="fu">safely_extract_dropbox_token</span>(<span class="at">encrypted_db_token =</span> <span class="st">&quot;droptoken.rds.encryptr.bin&quot;</span>, </span>
+<span id="cb169-25"><a href="citations-with-r-markdown.html#cb169-25" aria-hidden="true" tabindex="-1"></a>                             <span class="at">private_key_file =</span> <span class="st">&quot;id_rsa&quot;</span>)</span>
+<span id="cb169-26"><a href="citations-with-r-markdown.html#cb169-26" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb169-27"><a href="citations-with-r-markdown.html#cb169-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Then pass the token to each drop_ function</span></span>
+<span id="cb169-28"><a href="citations-with-r-markdown.html#cb169-28" aria-hidden="true" tabindex="-1"></a><span class="fu">drop_acc</span>(<span class="at">dtoken =</span> token)</span>
+<span id="cb169-29"><a href="citations-with-r-markdown.html#cb169-29" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb169-30"><a href="citations-with-r-markdown.html#cb169-30" aria-hidden="true" tabindex="-1"></a><span class="co"># The path is the Dropbox file location</span></span>
+<span id="cb169-31"><a href="citations-with-r-markdown.html#cb169-31" aria-hidden="true" tabindex="-1"></a><span class="fu">drop_download</span>(<span class="at">path =</span> <span class="st">&quot;My_Dropbox_Home_Directory/Zotero Library/my.bib&quot;</span>, </span>
+<span id="cb169-32"><a href="citations-with-r-markdown.html#cb169-32" aria-hidden="true" tabindex="-1"></a>              <span class="at">local_path =</span> <span class="st">&quot;my.bib&quot;</span>, </span>
+<span id="cb169-33"><a href="citations-with-r-markdown.html#cb169-33" aria-hidden="true" tabindex="-1"></a>              <span class="at">dtoken =</span> token,</span>
+<span id="cb169-34"><a href="citations-with-r-markdown.html#cb169-34" aria-hidden="true" tabindex="-1"></a>              <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Now that the <code>.bib</code> file has been created and is stored as “my.bib” in the local directory, it should update whenever the token is loaded and drop_download() is run. The <code>.bib</code> file should be listed in the <code>.rmd</code> YAML.</p>
 </div>
 </div>
-<div id="citing-r-packages" class="section level2 hasAnchor" number="11.7">
-<h2><span class="header-section-number">11.7</span> Citing R Packages<a href="citations-with-r-markdown.html#citing-r-packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="citing-r-packages" class="section level2 hasAnchor" number="12.7">
+<h2><span class="header-section-number">12.7</span> Citing R Packages<a href="citations-with-r-markdown.html#citing-r-packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>When citing R packages a separate <code>.bib</code> file can be created. The following code could be added to an <code>index.rmd</code> file in <code>bookdown</code> or in a setup chunk in a stand-alone <code>.rmd</code>.</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="citations-with-r-markdown.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="co"># automatically create a bib database for R packages</span></span>
-<span id="cb156-2"><a href="citations-with-r-markdown.html#cb156-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">write_bib</span>(<span class="fu">c</span>(</span>
-<span id="cb156-3"><a href="citations-with-r-markdown.html#cb156-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">.packages</span>(), <span class="st">&#39;encryptr&#39;</span>, <span class="st">&#39;knitr&#39;</span>, <span class="st">&#39;rmarkdown&#39;</span></span>
-<span id="cb156-4"><a href="citations-with-r-markdown.html#cb156-4" aria-hidden="true" tabindex="-1"></a>), <span class="st">&#39;packages.bib&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="citations-with-r-markdown.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="co"># automatically create a bib database for R packages</span></span>
+<span id="cb170-2"><a href="citations-with-r-markdown.html#cb170-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">write_bib</span>(<span class="fu">c</span>(</span>
+<span id="cb170-3"><a href="citations-with-r-markdown.html#cb170-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">.packages</span>(), <span class="st">&#39;encryptr&#39;</span>, <span class="st">&#39;knitr&#39;</span>, <span class="st">&#39;rmarkdown&#39;</span></span>
+<span id="cb170-4"><a href="citations-with-r-markdown.html#cb170-4" aria-hidden="true" tabindex="-1"></a>), <span class="st">&#39;packages.bib&#39;</span>)</span></code></pre></div>
 
 </div>
 </div>
@@ -575,7 +593,7 @@ Figure 11.4: ZotFile PDF Storage Preferences
           </div>
         </div>
       </div>
-<a href="redcap.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="working-with-digital-pathology-data-and-python.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

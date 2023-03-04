@@ -131,7 +131,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2022-10-31}
+\date{2023-03-04}
 
 \begin{document}
 \maketitle
@@ -612,7 +612,7 @@ Works for a single date or a vector of dates.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 52 78 73
+## [1] 52 79 73
 \end{verbatim}
 
 \begin{Shaded}
@@ -658,7 +658,7 @@ Works for a single date or a vector of dates.
 ##   chi        dob        gender   age
 ##   <chr>      <date>     <chr>  <dbl>
 ## 1 1009701234 1970-09-10 Male      52
-## 2 1811431232 1943-11-18 Male      78
+## 2 1811431232 1943-11-18 Male      79
 ## 3 1304496368 1949-04-13 Female    73
 \end{verbatim}
 
@@ -709,7 +709,7 @@ The final digit of the CHI can be used to test that the number is correct via th
 ##   chi        dob        gender   age chi_valid
 ##   <chr>      <date>     <chr>  <dbl> <lgl>    
 ## 1 1009701234 1970-09-10 Male      52 FALSE    
-## 2 1811431232 1943-11-18 Male      78 TRUE     
+## 2 1811431232 1943-11-18 Male      79 TRUE     
 ## 3 1304496368 1949-04-13 Female    73 TRUE
 \end{verbatim}
 
@@ -1013,12 +1013,12 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 
 \begin{verbatim}
 ##         date isoweek isoweek_date
-## 1 2020-06-09      24   2020-06-08
-## 2 2020-11-01      44   2020-10-26
-## 3 2020-07-07      28   2020-07-06
-## 4 2021-04-12      15   2021-04-12
-## 5 2021-01-15       2   2021-01-11
-## 6 2021-04-07      14   2021-04-05
+## 1 2020-12-31      53   2020-12-28
+## 2 2020-03-06      10   2020-03-02
+## 3 2021-12-05      48   2021-11-29
+## 4 2022-01-03       1   2022-01-03
+## 5 2020-07-13      29   2020-07-13
+## 6 2021-01-31       4   2021-01-25
 \end{verbatim}
 
 \hypertarget{labelling-tables-and-figures-in-markdown-chunks}{%
@@ -1640,8 +1640,8 @@ As can be seen, the imputed proportion approaches that of the ``true'' value.
 
 \begin{verbatim}
 ##       n  nn      prop
-## 1 482.1 854 0.5645199
-## 2 371.9 854 0.4354801
+## 1 484.8 854 0.5676815
+## 2 369.2 854 0.4323185
 \end{verbatim}
 
 \hypertarget{ipw}{%
@@ -2291,6 +2291,66 @@ rstudio
 Of the qlogin line requesting an interactive session times out then try \texttt{qlogin\ -l\ h\_vmem=4G} instead. 2GB is the absolute minimum that will work.
 
 Use \texttt{module\ avail} to check what the latest installed RStudio and R versions are.
+
+\hypertarget{configuring-python-deep-learning-environment-in-eddie}{%
+\section{Configuring Python Deep Learning Environment in Eddie}\label{configuring-python-deep-learning-environment-in-eddie}}
+
+In this section, we will show how to configure the deep learning development environment in Eddie with Anaconda, PyTorch and Python.
+
+\hypertarget{package-installation}{%
+\subsection{Package installation}\label{package-installation}}
+
+Anaconda is a package management tool that can easily help us manage different python versions and package reliance. To use anaconda, simply try \texttt{module\ load\ anaconda}.
+
+Then we need to redirect the package and environment installation folder to the group folder to prevent these folders from becoming too huge and occupying your personal storage:
+
+\begin{verbatim}
+conda config --add envs_dirs /exports/cmvm/eddie/edmed/groups/SurgInfGrp/anaconda/envs
+conda config --add pkgs_dirs /exports/cmvm/eddie/edmed/groups/SurgInfGrp/anaconda/pkgs
+\end{verbatim}
+
+We already have a configured pytorch environment in these folders. To use that, try \texttt{conda\ activate\ torch}.
+
+If you want to build your own env from scratch, use \texttt{conda\ create\ -n\ mypython\ python=3.7.4}, where 3.7.4 can be any python version you want to use and mypython is the env name. Then you can activate your environment by using \texttt{conda\ activate\ mypython} and installing packages with \texttt{pip\ install} or \texttt{conda\ install}.
+
+\hypertarget{gpu-usage}{%
+\subsection{GPU usage}\label{gpu-usage}}
+
+To use GPU computation, please refer to the \url{https://www.wiki.ed.ac.uk/display/ResearchServices/GPUs} for the detailed documents. Generally I recommend using an interactive session during model development phase and using a normal job session for long-term training.
+
+A sample code to request an interactive session with a Tesla K80 GPU and 16G memory is \texttt{qlogin\ -pe\ gpu\ 1\ -l\ h\_vmem=16g}. You also need to \texttt{module\ load\ cuda} to enable cuda acceleration.
+
+\hypertarget{configuring-jupyter-notebook-access}{%
+\section{Configuring Jupyter Notebook Access}\label{configuring-jupyter-notebook-access}}
+
+Jupyter notebook can be a very efficient tool to develop python analytics pipeline. You can run a notebook server on the remote Eddie node and access the notebook from your local browser or editor. First, request an interactive session and activate the conda environment you need. Then use the following code to activate a jupyter notebook server:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#!/usr/bin/bash}
+\CommentTok{\#\# get tunneling info}
+\VariableTok{ipnport}\OperatorTok{=}\NormalTok{8515}
+\VariableTok{ipnip}\OperatorTok{=}\VariableTok{$(}\FunctionTok{hostname} \AttributeTok{{-}i}\VariableTok{)}
+\CommentTok{\#\# print tunneling instructions to jupyter{-}log{-}\{jobid\}.txt}
+\BuiltInTok{echo} \AttributeTok{{-}e} \StringTok{"}
+\StringTok{        Copy/ Paste this in your local terminal to ssh tunnel with remote}
+\StringTok{        {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\StringTok{        \#\#ssh {-}N {-}L }\VariableTok{$ipnport}\StringTok{:}\VariableTok{$ipnip}\StringTok{:}\VariableTok{$ipnport}\StringTok{ [USERNAME]@eddie.ecdf.ed.ac.uk}
+\StringTok{    ssh {-}N {-}L }\VariableTok{$ipnport}\StringTok{:}\VariableTok{$ipnip}\StringTok{:}\VariableTok{$ipnport}
+\StringTok{        {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\StringTok{        Then open a browser on your local machine to the following address}
+\StringTok{        {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\StringTok{        localhost:}\VariableTok{$ipnport}\StringTok{ (prefix w/ https:// if using password)}
+\StringTok{        {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\StringTok{        "}
+
+\CommentTok{\#\# launch jupyter server}
+\ExtensionTok{jupyter{-}notebook} \AttributeTok{{-}{-}no{-}browser} \AttributeTok{{-}{-}port}\OperatorTok{=}\VariableTok{$ipnport} \AttributeTok{{-}{-}ip}\OperatorTok{=}\VariableTok{$ipnip}
+\end{Highlighting}
+\end{Shaded}
+
+If you want to have the access to the node after you close your terminal, you can use \texttt{screen}.
 
 \hypertarget{plotting}{%
 \chapter{Plotting}\label{plotting}}
@@ -3252,6 +3312,355 @@ Field layout in REDCap:
 Appearance after adding a record:
 
 \includegraphics[width=10.29in]{img/barcode_appearance}
+
+\hypertarget{working-with-digital-pathology-data-and-python}{%
+\chapter{Working with digital pathology data and python}\label{working-with-digital-pathology-data-and-python}}
+
+Histopathology is used to analyse tissues from the body under the microscope. When a sample of tissue is taken during and operation or biopsy, it is put into a preservative, dehydrated and then impregnated with paraffin wax. It may also be frozen. This allows the tissue to be very thinly sliced and mounted onto glass slides, where the tissue can then be stained and studied under the microscope. Different types of stains can be used to look at different things.
+
+These stained slides can be scanned with a slide scanner to allow the image to be digitised using scanners. There are two main types of images. Brightfield - generated by using white light, which requires deconvolution to produce separate colour channels. Fluorescence - generated using a light source to excite fluorescent probes, this typically generates images with 2+ colour channels.
+
+The file formats produced by these scanners varies by manufacturer and scanning technique. Essentially, data is stored as tiled TIFF images within what is possibly an XML structure. There are usually multiple images produced, not only of the tissue but also of the slide, including a macro image (no magnification, sometimes helps scanner locate tissue), and the slide label.
+
+Unfortunately, it's quite a difficult format to interrogate easily. However, there is a nice program written that can solve this issue, known as \href{https://openslide.org/}{OpenSlide}.
+
+OpenSlide has C, Python and Java versions. The python version is probably easiest to interact with, either directly in Python, or it can be combined with R using \texttt{reticulate}.
+
+This chapter will not go into depth about issues around environments or how to install python properly. Please familiarise yourself with how to use \texttt{pip}, particularly \texttt{pip\ install} and set / activate python environments.
+
+You can use RStudio for working in python too and this is what is suggested here. Other formats exist including jupyter notebooks.
+
+For more information, \href{https://github.com/bnsreenu/python_for_microscopists}{Python for microscopists} has excellent resources.
+
+\hypertarget{installing-openslide}{%
+\section{Installing OpenSlide}\label{installing-openslide}}
+
+First install the linux version of openslide - the python files act as a wrapper to this system library.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{apt{-}get}\NormalTok{ install python3{-}openslide}
+\end{Highlighting}
+\end{Shaded}
+
+To install openslide and the libraries we will need, first create a python environment. Do this inside the folder you are going to be working in.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{virtualenv} \AttributeTok{{-}p}\NormalTok{ python3 openslide\_env}
+\end{Highlighting}
+\end{Shaded}
+
+You can then either activate the virtual environment to install python libraries there, or install them system/user wide.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{python3} \AttributeTok{{-}m}\NormalTok{ pip install openslide{-}python}
+\end{Highlighting}
+\end{Shaded}
+
+We will also need some other libraries
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{python3} \AttributeTok{{-}m}\NormalTok{ pip install numpy matplotlib tifffile}
+\end{Highlighting}
+\end{Shaded}
+
+Installation is fairly straighforward -if there are issues, do it as a sudo user. Most of the problems will appear if you are trying to use different or conflicting versions of python or if there are incorrect permissions for installation.
+
+\hypertarget{using-openslide}{%
+\section{Using OpenSlide}\label{using-openslide}}
+
+Once openslide is installed, we can now write python scripts. Do this in RStudio or other IDE in the same folder as your virtual environment. You can create a project in RStudio using this existing folder, then add new python scripts. Python scripts have the suffix \texttt{.py}.
+
+First, start by checking you can successfully import the libraries.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ openslide }\ImportTok{import}\NormalTok{ open\_slide}
+\ImportTok{import}\NormalTok{ openslide}
+\ImportTok{from}\NormalTok{ PIL }\ImportTok{import}\NormalTok{ Image}
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\ImportTok{from}\NormalTok{ matplotlib }\ImportTok{import}\NormalTok{ pyplot }\ImportTok{as}\NormalTok{ plt}
+\ImportTok{import}\NormalTok{ tifffile }\ImportTok{as}\NormalTok{ tiff}
+\end{Highlighting}
+\end{Shaded}
+
+If you get an error- try installing the libraries with \texttt{pip} as above.
+
+\hypertarget{opening-a-slide-and-inspecting-properties}{%
+\subsection{Opening a slide and inspecting properties}\label{opening-a-slide-and-inspecting-properties}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{file\_path }\OperatorTok{=} \StringTok{\textquotesingle{}/home/test/slides/myslide.svs\textquotesingle{}} \CommentTok{\# replace with where your slides are}
+
+\NormalTok{slide\_in }\OperatorTok{=}\NormalTok{ open\_slide(file\_path)}
+
+\NormalTok{slide\_in\_props }\OperatorTok{=}\NormalTok{ slide\_in.properties}
+
+\NormalTok{slide\_in\_assc\_images }\OperatorTok{=}\NormalTok{ slide\_in.associated\_images.items() }\CommentTok{\# see if there are any associated images}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{whole-workflow}{%
+\section{Whole workflow}\label{whole-workflow}}
+
+Here is the whole workflow for extracting magnified tiles of the image, taken from \href{https://github.com/bnsreenu/python_for_microscopists}{Python for microscopists}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{file\_path }\OperatorTok{=} \StringTok{\textquotesingle{}/home/test/slide\_ins/myslide\_in.svs\textquotesingle{}} \CommentTok{\# replace with where your slide\_ins are}
+
+\NormalTok{slide\_in }\OperatorTok{=}\NormalTok{ open\_slide(file\_path)}
+
+\NormalTok{slide\_in\_props }\OperatorTok{=}\NormalTok{ slide\_in.properties}
+
+\BuiltInTok{print}\NormalTok{(slide\_in\_props)}
+
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Vendor is:"}\NormalTok{, slide\_in\_props[}\StringTok{\textquotesingle{}openslide.vendor\textquotesingle{}}\NormalTok{])}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Pixel size of X in um is:"}\NormalTok{, slide\_in\_props[}\StringTok{\textquotesingle{}openslide.mpp{-}x\textquotesingle{}}\NormalTok{])}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Pixel size of Y in um is:"}\NormalTok{, slide\_in\_props[}\StringTok{\textquotesingle{}openslide.mpp{-}y\textquotesingle{}}\NormalTok{])}
+
+\CommentTok{\#Objective used to capture the image}
+\NormalTok{objective }\OperatorTok{=} \BuiltInTok{float}\NormalTok{(slide\_in.properties[openslide.PROPERTY\_NAME\_OBJECTIVE\_POWER])}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"The objective power is: "}\NormalTok{, objective)}
+
+\CommentTok{\# get slide\_in dimensions for the level 0 {-} max resolution level}
+\NormalTok{slide\_in\_dims }\OperatorTok{=}\NormalTok{ slide\_in.dimensions}
+\BuiltInTok{print}\NormalTok{(slide\_in\_dims)}
+
+\CommentTok{\#Get a thumbnail of the image and visualize}
+\NormalTok{slide\_in\_thumb\_600 }\OperatorTok{=}\NormalTok{ slide\_in.get\_thumbnail(size}\OperatorTok{=}\NormalTok{(}\DecValTok{600}\NormalTok{, }\DecValTok{600}\NormalTok{))}
+\NormalTok{slide\_in\_thumb\_600.show()}
+
+\CommentTok{\#Convert thumbnail to numpy array}
+\NormalTok{slide\_in\_thumb\_600\_np }\OperatorTok{=}\NormalTok{ np.array(slide\_in\_thumb\_600)}
+\NormalTok{plt.figure(figsize}\OperatorTok{=}\NormalTok{(}\DecValTok{8}\NormalTok{,}\DecValTok{8}\NormalTok{))}
+\NormalTok{plt.imshow(slide\_in\_thumb\_600\_np)    }
+
+
+\CommentTok{\#Get slide\_in dims at each level. Remember that whole slide\_in images store information}
+\CommentTok{\#as pyramid at various levels}
+\NormalTok{dims }\OperatorTok{=}\NormalTok{ slide\_in.level\_dimensions}
+
+\NormalTok{num\_levels }\OperatorTok{=} \BuiltInTok{len}\NormalTok{(dims)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Number of levels in this image are:"}\NormalTok{, num\_levels)}
+
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Dimensions of various levels in this image are:"}\NormalTok{, dims)}
+
+\CommentTok{\#By how much are levels downsampled from the original image?}
+\NormalTok{factors }\OperatorTok{=}\NormalTok{ slide\_in.level\_downsamples}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Each level is downsampled by an amount of: "}\NormalTok{, factors)}
+
+\CommentTok{\#Copy an image from a level}
+\NormalTok{level3\_dim }\OperatorTok{=}\NormalTok{ dims[}\DecValTok{2}\NormalTok{]}
+\CommentTok{\#Give pixel coordinates (top left pixel in the original large image)}
+\CommentTok{\#Also give the level number (for level 3 we are providing a valueof 2)}
+\CommentTok{\#Size of your output image}
+\CommentTok{\#Remember that the output would be a RGBA image (Not, RGB)}
+\NormalTok{level3\_img }\OperatorTok{=}\NormalTok{ slide\_in.read\_region((}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{), }\DecValTok{2}\NormalTok{, level3\_dim) }\CommentTok{\#Pillow object, mode=RGBA}
+
+\CommentTok{\#Convert the image to RGB}
+\NormalTok{level3\_img\_RGB }\OperatorTok{=}\NormalTok{ level3\_img.convert(}\StringTok{\textquotesingle{}RGB\textquotesingle{}}\NormalTok{)}
+\NormalTok{level3\_img\_RGB.show()}
+
+\CommentTok{\#Convert the image into numpy array for processing}
+\NormalTok{level3\_img\_np }\OperatorTok{=}\NormalTok{ np.array(level3\_img\_RGB)}
+\NormalTok{plt.imshow(level3\_img\_np)}
+
+
+\CommentTok{\#Return the best level for displaying the given downsample.}
+\NormalTok{SCALE\_FACTOR }\OperatorTok{=} \DecValTok{32}
+\NormalTok{best\_level }\OperatorTok{=}\NormalTok{ slide\_in.get\_best\_level\_for\_downsample(SCALE\_FACTOR)}
+\CommentTok{\#Here it returns the best level to be 2 (third level)}
+\CommentTok{\#If you change the scale factor to 2, it will suggest the best level to be 0 (our 1st level)}
+\CommentTok{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}
+
+\CommentTok{\#Generating tiles for deep learning training or other processing purposes}
+\CommentTok{\#We can use read\_region function and slide\_in over the large image to extract tiles}
+\CommentTok{\#but an easier approach would be to use DeepZoom based generator.}
+\CommentTok{\# https://openslide.org/api/python/}
+
+\ImportTok{from}\NormalTok{ openslide.deepzoom }\ImportTok{import}\NormalTok{ DeepZoomGenerator}
+
+\CommentTok{\#Generate object for tiles using the DeepZoomGenerator}
+\NormalTok{tiles }\OperatorTok{=}\NormalTok{ DeepZoomGenerator(slide\_in, tile\_size}\OperatorTok{=}\DecValTok{256}\NormalTok{, overlap}\OperatorTok{=}\DecValTok{0}\NormalTok{, limit\_bounds}\OperatorTok{=}\VariableTok{False}\NormalTok{)}
+\CommentTok{\#Here, we have divided our svs into tiles of size 256 with no overlap. }
+
+\CommentTok{\#The tiles object also contains data at many levels. }
+\CommentTok{\#To check the number of levels}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"The number of levels in the tiles object are: "}\NormalTok{, tiles.level\_count)}
+
+\BuiltInTok{print}\NormalTok{(}\StringTok{"The dimensions of data in each level are: "}\NormalTok{, tiles.level\_dimensions)}
+
+\CommentTok{\#Total number of tiles in the tiles object}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Total number of tiles = : "}\NormalTok{, tiles.tile\_count)}
+
+\CommentTok{\#How many tiles at a specific level?}
+\NormalTok{level\_num }\OperatorTok{=} \DecValTok{11}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Tiles shape at level "}\NormalTok{, level\_num, }\StringTok{" is: "}\NormalTok{, tiles.level\_tiles[level\_num])}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"This means there are "}\NormalTok{, tiles.level\_tiles[level\_num][}\DecValTok{0}\NormalTok{]}\OperatorTok{*}\NormalTok{tiles.level\_tiles[level\_num][}\DecValTok{1}\NormalTok{], }\StringTok{" total tiles in this level"}\NormalTok{)}
+
+\CommentTok{\#Dimensions of the tile (tile size) for a specific tile from a specific layer}
+\NormalTok{tile\_dims }\OperatorTok{=}\NormalTok{ tiles.get\_tile\_dimensions(}\DecValTok{11}\NormalTok{, (}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{)) }\CommentTok{\#Provide deep zoom level and address (column, row)}
+
+
+\CommentTok{\#Tile count at the highest resolution level (level 16 in our tiles)}
+\NormalTok{tile\_count\_in\_large\_image }\OperatorTok{=}\NormalTok{ tiles.level\_tiles[}\DecValTok{16}\NormalTok{] }\CommentTok{\#126 x 151 (32001/256 = 126 with no overlap pixels)}
+\CommentTok{\#Check tile size for some random tile}
+\NormalTok{tile\_dims }\OperatorTok{=}\NormalTok{ tiles.get\_tile\_dimensions(}\DecValTok{16}\NormalTok{, (}\DecValTok{120}\NormalTok{,}\DecValTok{140}\NormalTok{))}
+\CommentTok{\#Last tiles may not have full 256x256 dimensions as our large image is not exactly divisible by 256}
+\NormalTok{tile\_dims }\OperatorTok{=}\NormalTok{ tiles.get\_tile\_dimensions(}\DecValTok{16}\NormalTok{, (}\DecValTok{125}\NormalTok{,}\DecValTok{150}\NormalTok{))}
+
+
+\NormalTok{single\_tile }\OperatorTok{=}\NormalTok{ tiles.get\_tile(}\DecValTok{16}\NormalTok{, (}\DecValTok{62}\NormalTok{, }\DecValTok{70}\NormalTok{)) }\CommentTok{\#Provide deep zoom level and address (column, row)}
+\NormalTok{single\_tile\_RGB }\OperatorTok{=}\NormalTok{ single\_tile.convert(}\StringTok{\textquotesingle{}RGB\textquotesingle{}}\NormalTok{)}
+\NormalTok{single\_tile\_RGB.show()}
+
+\CommentTok{\#\#\#\#\#\# Saving each tile to local directory}
+\NormalTok{cols, rows }\OperatorTok{=}\NormalTok{ tiles.level\_tiles[}\DecValTok{16}\NormalTok{]}
+
+\ImportTok{import}\NormalTok{ os}
+\NormalTok{tile\_dir }\OperatorTok{=} \StringTok{"images/saved\_tiles/original\_tiles/"}
+\ControlFlowTok{for}\NormalTok{ row }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(rows):}
+    \ControlFlowTok{for}\NormalTok{ col }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(cols):}
+\NormalTok{        tile\_name }\OperatorTok{=}\NormalTok{ os.path.join(tile\_dir, }\StringTok{\textquotesingle{}}\SpecialCharTok{\%d}\StringTok{\_}\SpecialCharTok{\%d}\StringTok{\textquotesingle{}} \OperatorTok{\%}\NormalTok{ (col, row))}
+        \BuiltInTok{print}\NormalTok{(}\StringTok{"Now saving tile with title: "}\NormalTok{, tile\_name)}
+\NormalTok{        temp\_tile }\OperatorTok{=}\NormalTok{ tiles.get\_tile(}\DecValTok{16}\NormalTok{, (col, row))}
+\NormalTok{        temp\_tile\_RGB }\OperatorTok{=}\NormalTok{ temp\_tile.convert(}\StringTok{\textquotesingle{}RGB\textquotesingle{}}\NormalTok{)}
+\NormalTok{        temp\_tile\_np }\OperatorTok{=}\NormalTok{ np.array(temp\_tile\_RGB)}
+\NormalTok{        plt.imsave(tile\_name }\OperatorTok{+} \StringTok{".png"}\NormalTok{, temp\_tile\_np)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{using-python-and-r-together}{%
+\section{Using python and R together}\label{using-python-and-r-together}}
+
+Using the \texttt{reticulate} package, R can communicate with python. This is slightly glitchy at the time of writing. So writing python objects from R seems to not work (using \texttt{py\$} as mentioned in \texttt{reticulate} documentation), but python calling objects in the R environment seems reliable.
+
+To do this we simply access the R environment in python using \texttt{r{[}\textquotesingle{}myobject\textquotesingle{}{]}}. Lets use the \texttt{file\_path} example, where you might have used R to save the file path of specific slide file, then you want to use python to extract or manipulate the images.
+
+In R:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{file\_path }\OtherTok{=} \StringTok{\textquotesingle{}/home/test/slides/myslide.svs\textquotesingle{}} \CommentTok{\# replace with where your slides are}
+\end{Highlighting}
+\end{Shaded}
+
+In python:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{file\_path }\OperatorTok{=}\NormalTok{ r[}\StringTok{\textquotesingle{}file\_path\textquotesingle{}}\NormalTok{]}
+\NormalTok{slide\_in }\OperatorTok{=}\NormalTok{ open\_slide(file\_path)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{handling-errors-in-python}{%
+\section{Handling errors in python}\label{handling-errors-in-python}}
+
+Most slides will be scanned well, newer scanners use lasers and a variety of different tools to automatically detect where tissue is and the depth at which to scan. However, some files will not scan properly or be corrupted in transfer (files are at least 200M+ per scan, ususally around 500M).
+
+If there are errors, it is quite annoying, particularly given the size of files being handled if a run fails due to errors in opening. To avoid this we can use the python \texttt{try} commands, where it will attempt the command but continue on fail.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#import pyvips}
+\ImportTok{from}\NormalTok{ openslide }\ImportTok{import}\NormalTok{ open\_slide}
+\ImportTok{import}\NormalTok{ openslide}
+\ImportTok{from}\NormalTok{ PIL }\ImportTok{import}\NormalTok{ Image}
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\ImportTok{from}\NormalTok{ matplotlib }\ImportTok{import}\NormalTok{ pyplot }\ImportTok{as}\NormalTok{ plt}
+\ImportTok{import}\NormalTok{ tifffile }\ImportTok{as}\NormalTok{ tiff}
+
+\CommentTok{\#import}
+\NormalTok{file\_path }\OperatorTok{=}\NormalTok{ r[}\StringTok{\textquotesingle{}file\_path\textquotesingle{}}\NormalTok{]}
+
+\ControlFlowTok{try}\NormalTok{:}
+\NormalTok{  slide\_in }\OperatorTok{=}\NormalTok{ open\_slide(file\_path)}
+\NormalTok{  slide\_in\_props }\OperatorTok{=}\NormalTok{ slide\_in.properties}
+\NormalTok{  r[}\StringTok{\textquotesingle{}slide\_properties\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ slide\_in\_props}
+\NormalTok{  r[}\StringTok{\textquotesingle{}slide\_associated\_images\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ slide\_in.associated\_images.items()}
+\ControlFlowTok{except} \PreprocessorTok{Exception} \ImportTok{as}\NormalTok{ e:}
+\NormalTok{  r[}\StringTok{\textquotesingle{}slide\_properties\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \BuiltInTok{print}\NormalTok{(}\StringTok{"Error loading"}\NormalTok{) }\CommentTok{\# doesn\textquotesingle{}t save error}
+\NormalTok{  r[}\StringTok{\textquotesingle{}slide\_associated\_images\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \BuiltInTok{print}\NormalTok{(}\StringTok{"Error loading"}\NormalTok{) }\CommentTok{\# doesn\textquotesingle{}t save error}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{iterating-over-many-many-slide-files}{%
+\section{Iterating over many many slide files}\label{iterating-over-many-many-slide-files}}
+
+Combining all the above, we can massively extend functionality and the number of slides we can process, for example to extract hundreds of slides at once and apply the same analysis to them.
+
+In R:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(reticulate)}
+\FunctionTok{Sys.setenv}\NormalTok{(}\AttributeTok{RETICULATE\_PYTHON =} \StringTok{"/home/slides/openslide\_env/bin/python"}\NormalTok{)}
+
+\CommentTok{\#list files in a dir}
+\NormalTok{files }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{file\_path =} \FunctionTok{list.files}\NormalTok{(}\StringTok{\textquotesingle{}/home/slides\textquotesingle{}}\NormalTok{, }
+                                          \AttributeTok{pattern =} \StringTok{\textquotesingle{}.svs|.scn\textquotesingle{}}\NormalTok{,}
+                                          \AttributeTok{full.names =}\NormalTok{ T, }\AttributeTok{recursive =}\NormalTok{ T))}\CommentTok{\#scn needs different}
+
+\CommentTok{\#make names}
+\NormalTok{files }\OtherTok{=}\NormalTok{ files }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{file\_name =}  \FunctionTok{basename}\NormalTok{(file\_path),}
+         \AttributeTok{label\_path =} \FunctionTok{gsub}\NormalTok{(}\StringTok{\textquotesingle{}.svs|.scn\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, file\_name),}
+         \AttributeTok{out\_path =} \FunctionTok{gsub}\NormalTok{(}\StringTok{\textquotesingle{}.svs|.scn\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\_label.png\textquotesingle{}}\NormalTok{, file\_path),}
+         \AttributeTok{file\_info =} \FunctionTok{file.info}\NormalTok{(file\_path))}
+
+
+\CommentTok{\#first get label properties}
+\NormalTok{slide\_properties\_list }\OtherTok{=} \FunctionTok{list}\NormalTok{()}
+\NormalTok{associate\_images\_list }\OtherTok{=} \FunctionTok{list}\NormalTok{()}
+
+\CommentTok{\#get properties}
+
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(files}\SpecialCharTok{$}\NormalTok{label\_path))\{}
+\NormalTok{  label\_path }\OtherTok{=}\NormalTok{ files}\SpecialCharTok{$}\NormalTok{label\_path[i]}
+\NormalTok{  file\_path }\OtherTok{=}\NormalTok{ files}\SpecialCharTok{$}\NormalTok{file\_path[i]}
+\NormalTok{  out\_path }\OtherTok{=}\NormalTok{ files}\SpecialCharTok{$}\NormalTok{out\_path[i]}
+  \FunctionTok{source\_python}\NormalTok{(}\StringTok{\textquotesingle{}label\_properties.py\textquotesingle{}}\NormalTok{, }\AttributeTok{envir =} \FunctionTok{globalenv}\NormalTok{())}
+\NormalTok{  slide\_properties\_list[[i]] }\OtherTok{=} \FunctionTok{as.character}\NormalTok{(slide\_properties)}
+\NormalTok{  associate\_images\_list[[i]] }\OtherTok{=} \FunctionTok{as.character}\NormalTok{(slide\_associated\_images)}
+\NormalTok{\}}
+
+\NormalTok{openslide\_data }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{do.call}\NormalTok{(cbind, }\FunctionTok{list}\NormalTok{(files}\SpecialCharTok{$}\NormalTok{file\_path, associate\_images\_list, slide\_properties\_list)))}
+\end{Highlighting}
+\end{Shaded}
+
+In python \texttt{label\_properties.py}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#import pyvips}
+\ImportTok{from}\NormalTok{ openslide }\ImportTok{import}\NormalTok{ open\_slide}
+\ImportTok{import}\NormalTok{ openslide}
+\ImportTok{from}\NormalTok{ PIL }\ImportTok{import}\NormalTok{ Image}
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\ImportTok{from}\NormalTok{ matplotlib }\ImportTok{import}\NormalTok{ pyplot }\ImportTok{as}\NormalTok{ plt}
+\ImportTok{import}\NormalTok{ tifffile }\ImportTok{as}\NormalTok{ tiff}
+
+\CommentTok{\#import}
+\NormalTok{file\_path }\OperatorTok{=}\NormalTok{ r[}\StringTok{\textquotesingle{}file\_path\textquotesingle{}}\NormalTok{]}
+
+\ControlFlowTok{try}\NormalTok{:}
+  \CommentTok{\#slide\_in = open\_slide(\textquotesingle{}/mnt/data/tdrake/light\_microscopy/immune\_staining\_from\_colin/01082019/collection\_0000020061\_2019{-}08{-}01 13\_05\_34.scn\textquotesingle{})}
+\NormalTok{  slide\_in }\OperatorTok{=}\NormalTok{ open\_slide(file\_path)}
+\NormalTok{  slide\_in\_props }\OperatorTok{=}\NormalTok{ slide\_in.properties}
+\NormalTok{  r[}\StringTok{\textquotesingle{}slide\_properties\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ slide\_in\_props}
+\NormalTok{  r[}\StringTok{\textquotesingle{}slide\_associated\_images\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ slide\_in.associated\_images.items()}
+\ControlFlowTok{except} \PreprocessorTok{Exception} \ImportTok{as}\NormalTok{ e:}
+\NormalTok{  r[}\StringTok{\textquotesingle{}slide\_properties\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \BuiltInTok{print}\NormalTok{(}\StringTok{"Error loading"}\NormalTok{)}
+\NormalTok{  r[}\StringTok{\textquotesingle{}slide\_associated\_images\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \BuiltInTok{print}\NormalTok{(}\StringTok{"Error loading"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{citations-with-r-markdown}{%
 \chapter{Citations with R Markdown}\label{citations-with-r-markdown}}
