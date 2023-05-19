@@ -509,4 +509,32 @@ library(tidyverse)
 exampledata = read_csv(fs::dir_ls(path = "data_folder", glob = "*.csv"))
 ```
 
- It's also happy to automatically uncompress files ending with .zip, .gz or similar.
+It's also happy to automatically uncompress files ending with .zip, .gz or similar.
+
+## Averaging multiple AUCs (say from imputed datasets)
+
+Final method here probably makes most sense: `
+
+```{r eval=FALSE}
+auc = c(0.5, 0.6, 0.7, 0.8, 0.9, 0.99999)
+mean(auc)                       # Mean 
+median(auc)                     # Median
+prod(auc)^(1/length(auc))       # Geometric mean
+exp(mean(log(auc)))             # Geometric mean again
+log(auc)                        # Logs
+log(auc / (1-auc) )             # Put values on scale from 0 (0.5) to Inf (1)
+exp(mean(log(auc/(1-auc)))) /   # Mean on the above scale. 
+  (1 + exp(mean(log(auc/(1-auc)))))
+```
+
+```{r}
+auc = c(0.5, 0.6, 0.7, 0.8, 0.9, 0.99999)
+mean(auc)                       # Mean 
+median(auc)                     # Median
+prod(auc)^(1/length(auc))       # Geometric mean
+exp(mean(log(auc)))             # Geometric mean again
+log(auc)                        # Logs
+log(auc / (1-auc) )             # Put values on scale from 0 (0.5) to Inf (1)
+exp(mean(log(auc/(1-auc)))) /   # Mean on the above scale. 
+  (1 + exp(mean(log(auc/(1-auc)))))
+```

@@ -23,7 +23,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2023-03-04" />
+<meta name="date" content="2023-05-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -212,6 +212,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="2.8" data-path="snippets.html"><a href="snippets.html#join-tables-and-overwrite-values-that-are-often-missing"><i class="fa fa-check"></i><b>2.8</b> Join tables and overwrite values (that are often missing)</a></li>
 <li class="chapter" data-level="2.9" data-path="snippets.html"><a href="snippets.html#read-in-multiple-files"><i class="fa fa-check"></i><b>2.9</b> Read in multiple files</a></li>
+<li class="chapter" data-level="2.10" data-path="snippets.html"><a href="snippets.html#averaging-multiple-aucs-say-from-imputed-datasets"><i class="fa fa-check"></i><b>2.10</b> Averaging multiple AUCs (say from imputed datasets)</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation</a>
 <ul>
@@ -668,7 +669,7 @@ A test for even is <code>x modulus 2 == 0</code>.</p>
 <span id="cb18-7"><a href="snippets.html#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-8"><a href="snippets.html#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Today</span></span>
 <span id="cb18-9"><a href="snippets.html#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">chi_age</span>(chi, <span class="fu">Sys.time</span>())</span></code></pre></div>
-<pre><code>## [1] 52 79 73</code></pre>
+<pre><code>## [1] 52 79 74</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="snippets.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Single date</span></span>
 <span id="cb20-2"><a href="snippets.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
 <span id="cb20-3"><a href="snippets.html#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chi_age</span>(chi, <span class="fu">dmy</span>(<span class="st">&quot;11/09/2018&quot;</span>))</span></code></pre></div>
@@ -691,7 +692,7 @@ A test for even is <code>x modulus 2 == 0</code>.</p>
 ##   &lt;chr&gt;      &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt;
 ## 1 1009701234 1970-09-10 Male      52
 ## 2 1811431232 1943-11-18 Male      79
-## 3 1304496368 1949-04-13 Female    73</code></pre>
+## 3 1304496368 1949-04-13 Female    74</code></pre>
 </div>
 <div id="chi_valid---logical-test-for-valid-chi" class="section level3 hasAnchor" number="2.5.4">
 <h3><span class="header-section-number">2.5.4</span> <code>chi_valid()</code> - Logical test for valid CHI<a href="snippets.html#chi_valid---logical-test-for-valid-chi" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -725,7 +726,7 @@ A test for even is <code>x modulus 2 == 0</code>.</p>
 ##   &lt;chr&gt;      &lt;date&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt;    
 ## 1 1009701234 1970-09-10 Male      52 FALSE    
 ## 2 1811431232 1943-11-18 Male      79 TRUE     
-## 3 1304496368 1949-04-13 Female    73 TRUE</code></pre>
+## 3 1304496368 1949-04-13 Female    74 TRUE</code></pre>
 </div>
 </div>
 <div id="working-with-dates" class="section level2 hasAnchor" number="2.6">
@@ -944,12 +945,12 @@ I often want days as a numeric, not a lubridate type object.</p>
 <span id="cb47-4"><a href="snippets.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date, isoweek, isoweek_date) <span class="sc">%&gt;%</span> </span>
 <span id="cb47-5"><a href="snippets.html#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div>
 <pre><code>##         date isoweek isoweek_date
-## 1 2021-09-12      36   2021-09-06
-## 2 2021-03-27      12   2021-03-22
-## 3 2021-04-11      14   2021-04-05
-## 4 2022-03-15      11   2022-03-14
-## 5 2021-02-06       5   2021-02-01
-## 6 2022-03-01       9   2022-02-28</code></pre>
+## 1 2020-03-16      12   2020-03-16
+## 2 2021-02-07       5   2021-02-01
+## 3 2021-11-21      46   2021-11-15
+## 4 2021-12-28      52   2021-12-27
+## 5 2021-05-02      17   2021-04-26
+## 6 2022-03-02       9   2022-02-28</code></pre>
 </div>
 </div>
 <div id="labelling-tables-and-figures-in-markdown-chunks" class="section level2 hasAnchor" number="2.7">
@@ -1018,6 +1019,36 @@ I often want days as a numeric, not a lubridate type object.</p>
 <span id="cb53-2"><a href="snippets.html#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb53-3"><a href="snippets.html#cb53-3" aria-hidden="true" tabindex="-1"></a>exampledata <span class="ot">=</span> <span class="fu">read_csv</span>(fs<span class="sc">::</span><span class="fu">dir_ls</span>(<span class="at">path =</span> <span class="st">&quot;data_folder&quot;</span>, <span class="at">glob =</span> <span class="st">&quot;*.csv&quot;</span>))</span></code></pre></div>
 <p>It’s also happy to automatically uncompress files ending with .zip, .gz or similar.</p>
+</div>
+<div id="averaging-multiple-aucs-say-from-imputed-datasets" class="section level2 hasAnchor" number="2.10">
+<h2><span class="header-section-number">2.10</span> Averaging multiple AUCs (say from imputed datasets)<a href="snippets.html#averaging-multiple-aucs-say-from-imputed-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Final method here probably makes most sense: `</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="snippets.html#cb54-1" aria-hidden="true" tabindex="-1"></a>auc <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.6</span>, <span class="fl">0.7</span>, <span class="fl">0.8</span>, <span class="fl">0.9</span>, <span class="fl">0.99999</span>)</span>
+<span id="cb54-2"><a href="snippets.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(auc)                       <span class="co"># Mean </span></span>
+<span id="cb54-3"><a href="snippets.html#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(auc)                     <span class="co"># Median</span></span>
+<span id="cb54-4"><a href="snippets.html#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="fu">prod</span>(auc)<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">length</span>(auc))       <span class="co"># Geometric mean</span></span>
+<span id="cb54-5"><a href="snippets.html#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">mean</span>(<span class="fu">log</span>(auc)))             <span class="co"># Geometric mean again</span></span>
+<span id="cb54-6"><a href="snippets.html#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(auc)                        <span class="co"># Logs</span></span>
+<span id="cb54-7"><a href="snippets.html#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(auc <span class="sc">/</span> (<span class="dv">1</span><span class="sc">-</span>auc) )             <span class="co"># Put values on scale from 0 (0.5) to Inf (1)</span></span>
+<span id="cb54-8"><a href="snippets.html#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">mean</span>(<span class="fu">log</span>(auc<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>auc)))) <span class="sc">/</span>   <span class="co"># Mean on the above scale. </span></span>
+<span id="cb54-9"><a href="snippets.html#cb54-9" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="fu">mean</span>(<span class="fu">log</span>(auc<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>auc)))))</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="snippets.html#cb55-1" aria-hidden="true" tabindex="-1"></a>auc <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.6</span>, <span class="fl">0.7</span>, <span class="fl">0.8</span>, <span class="fl">0.9</span>, <span class="fl">0.99999</span>)</span>
+<span id="cb55-2"><a href="snippets.html#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(auc)                       <span class="co"># Mean </span></span></code></pre></div>
+<pre><code>## [1] 0.7499983</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="snippets.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(auc)                     <span class="co"># Median</span></span></code></pre></div>
+<pre><code>## [1] 0.75</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="snippets.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prod</span>(auc)<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">length</span>(auc))       <span class="co"># Geometric mean</span></span></code></pre></div>
+<pre><code>## [1] 0.7298908</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="snippets.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">mean</span>(<span class="fu">log</span>(auc)))             <span class="co"># Geometric mean again</span></span></code></pre></div>
+<pre><code>## [1] 0.7298908</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="snippets.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(auc)                        <span class="co"># Logs</span></span></code></pre></div>
+<pre><code>## [1] -6.931472e-01 -5.108256e-01 -3.566749e-01 -2.231436e-01 -1.053605e-01
+## [6] -1.000005e-05</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="snippets.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(auc <span class="sc">/</span> (<span class="dv">1</span><span class="sc">-</span>auc) )             <span class="co"># Put values on scale from 0 (0.5) to Inf (1)</span></span></code></pre></div>
+<pre><code>## [1]  0.0000000  0.4054651  0.8472979  1.3862944  2.1972246 11.5129155</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="snippets.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">mean</span>(<span class="fu">log</span>(auc<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>auc)))) <span class="sc">/</span>   <span class="co"># Mean on the above scale. </span></span>
+<span id="cb67-2"><a href="snippets.html#cb67-2" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="fu">mean</span>(<span class="fu">log</span>(auc<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>auc)))))</span></code></pre></div>
+<pre><code>## [1] 0.9384781</code></pre>
 
 </div>
 </div>

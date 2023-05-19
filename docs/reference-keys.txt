@@ -43,6 +43,7 @@ plots
 tables
 join-tables-and-overwrite-values-that-are-often-missing
 read-in-multiple-files
+averaging-multiple-aucs-say-from-imputed-datasets
 data-manipulation
 collapse-multiple-no-and-yes-options
 filtering-best-practice

@@ -131,7 +131,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2023-03-04}
+\date{2023-05-18}
 
 \begin{document}
 \maketitle
@@ -612,7 +612,7 @@ Works for a single date or a vector of dates.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 52 79 73
+## [1] 52 79 74
 \end{verbatim}
 
 \begin{Shaded}
@@ -659,7 +659,7 @@ Works for a single date or a vector of dates.
 ##   <chr>      <date>     <chr>  <dbl>
 ## 1 1009701234 1970-09-10 Male      52
 ## 2 1811431232 1943-11-18 Male      79
-## 3 1304496368 1949-04-13 Female    73
+## 3 1304496368 1949-04-13 Female    74
 \end{verbatim}
 
 \hypertarget{chi_valid---logical-test-for-valid-chi}{%
@@ -710,7 +710,7 @@ The final digit of the CHI can be used to test that the number is correct via th
 ##   <chr>      <date>     <chr>  <dbl> <lgl>    
 ## 1 1009701234 1970-09-10 Male      52 FALSE    
 ## 2 1811431232 1943-11-18 Male      79 TRUE     
-## 3 1304496368 1949-04-13 Female    73 TRUE
+## 3 1304496368 1949-04-13 Female    74 TRUE
 \end{verbatim}
 
 \hypertarget{working-with-dates}{%
@@ -1013,12 +1013,12 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 
 \begin{verbatim}
 ##         date isoweek isoweek_date
-## 1 2020-12-31      53   2020-12-28
-## 2 2020-03-06      10   2020-03-02
-## 3 2021-12-05      48   2021-11-29
-## 4 2022-01-03       1   2022-01-03
-## 5 2020-07-13      29   2020-07-13
-## 6 2021-01-31       4   2021-01-25
+## 1 2020-08-06      32   2020-08-03
+## 2 2020-06-16      25   2020-06-15
+## 3 2021-06-04      22   2021-05-31
+## 4 2020-11-29      48   2020-11-23
+## 5 2020-08-09      32   2020-08-03
+## 6 2020-02-19       8   2020-02-17
 \end{verbatim}
 
 \hypertarget{labelling-tables-and-figures-in-markdown-chunks}{%
@@ -1115,6 +1115,98 @@ As of July 2021, library(readr) is happy to read in multiple files into the same
 \end{Shaded}
 
 It's also happy to automatically uncompress files ending with .zip, .gz or similar.
+
+\hypertarget{averaging-multiple-aucs-say-from-imputed-datasets}{%
+\section{Averaging multiple AUCs (say from imputed datasets)}\label{averaging-multiple-aucs-say-from-imputed-datasets}}
+
+Final method here probably makes most sense: `
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{auc }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.6}\NormalTok{, }\FloatTok{0.7}\NormalTok{, }\FloatTok{0.8}\NormalTok{, }\FloatTok{0.9}\NormalTok{, }\FloatTok{0.99999}\NormalTok{)}
+\FunctionTok{mean}\NormalTok{(auc)                       }\CommentTok{\# Mean }
+\FunctionTok{median}\NormalTok{(auc)                     }\CommentTok{\# Median}
+\FunctionTok{prod}\NormalTok{(auc)}\SpecialCharTok{\^{}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{/}\FunctionTok{length}\NormalTok{(auc))       }\CommentTok{\# Geometric mean}
+\FunctionTok{exp}\NormalTok{(}\FunctionTok{mean}\NormalTok{(}\FunctionTok{log}\NormalTok{(auc)))             }\CommentTok{\# Geometric mean again}
+\FunctionTok{log}\NormalTok{(auc)                        }\CommentTok{\# Logs}
+\FunctionTok{log}\NormalTok{(auc }\SpecialCharTok{/}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{auc) )             }\CommentTok{\# Put values on scale from 0 (0.5) to Inf (1)}
+\FunctionTok{exp}\NormalTok{(}\FunctionTok{mean}\NormalTok{(}\FunctionTok{log}\NormalTok{(auc}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{auc)))) }\SpecialCharTok{/}   \CommentTok{\# Mean on the above scale. }
+\NormalTok{  (}\DecValTok{1} \SpecialCharTok{+} \FunctionTok{exp}\NormalTok{(}\FunctionTok{mean}\NormalTok{(}\FunctionTok{log}\NormalTok{(auc}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{auc)))))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{auc }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.6}\NormalTok{, }\FloatTok{0.7}\NormalTok{, }\FloatTok{0.8}\NormalTok{, }\FloatTok{0.9}\NormalTok{, }\FloatTok{0.99999}\NormalTok{)}
+\FunctionTok{mean}\NormalTok{(auc)                       }\CommentTok{\# Mean }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7499983
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{median}\NormalTok{(auc)                     }\CommentTok{\# Median}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.75
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{prod}\NormalTok{(auc)}\SpecialCharTok{\^{}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{/}\FunctionTok{length}\NormalTok{(auc))       }\CommentTok{\# Geometric mean}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7298908
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{exp}\NormalTok{(}\FunctionTok{mean}\NormalTok{(}\FunctionTok{log}\NormalTok{(auc)))             }\CommentTok{\# Geometric mean again}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7298908
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{log}\NormalTok{(auc)                        }\CommentTok{\# Logs}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -6.931472e-01 -5.108256e-01 -3.566749e-01 -2.231436e-01 -1.053605e-01
+## [6] -1.000005e-05
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{log}\NormalTok{(auc }\SpecialCharTok{/}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{auc) )             }\CommentTok{\# Put values on scale from 0 (0.5) to Inf (1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  0.0000000  0.4054651  0.8472979  1.3862944  2.1972246 11.5129155
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{exp}\NormalTok{(}\FunctionTok{mean}\NormalTok{(}\FunctionTok{log}\NormalTok{(auc}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{auc)))) }\SpecialCharTok{/}   \CommentTok{\# Mean on the above scale. }
+\NormalTok{  (}\DecValTok{1} \SpecialCharTok{+} \FunctionTok{exp}\NormalTok{(}\FunctionTok{mean}\NormalTok{(}\FunctionTok{log}\NormalTok{(auc}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{auc)))))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9384781
+\end{verbatim}
 
 \hypertarget{data-manipulation}{%
 \chapter{Data manipulation}\label{data-manipulation}}
