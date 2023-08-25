@@ -23,7 +23,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2023-05-18" />
+<meta name="date" content="2023-08-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -266,15 +266,14 @@ div.csl-indent {
 <li class="chapter" data-level="5.5.6" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#specific-r-package-versions"><i class="fa fa-check"></i><b>5.5.6</b> Specific R Package Versions</a></li>
 <li class="chapter" data-level="5.5.7" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#general-eddie-etiquette"><i class="fa fa-check"></i><b>5.5.7</b> General Eddie Etiquette</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#unix-tutorials"><i class="fa fa-check"></i><b>5.6</b> Unix Tutorials</a></li>
-<li class="chapter" data-level="5.7" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#additional-resources"><i class="fa fa-check"></i><b>5.7</b> Additional Resources</a></li>
-<li class="chapter" data-level="5.8" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#using-rstudio-directly-in-eddie"><i class="fa fa-check"></i><b>5.8</b> Using RStudio directly in Eddie</a></li>
-<li class="chapter" data-level="5.9" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#configuring-python-deep-learning-environment-in-eddie"><i class="fa fa-check"></i><b>5.9</b> Configuring Python Deep Learning Environment in Eddie</a>
+<li class="chapter" data-level="5.6" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#additional-resources"><i class="fa fa-check"></i><b>5.6</b> Additional Resources</a></li>
+<li class="chapter" data-level="5.7" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#using-rstudio-directly-in-eddie"><i class="fa fa-check"></i><b>5.7</b> Using RStudio directly in Eddie</a></li>
+<li class="chapter" data-level="5.8" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#configuring-python-deep-learning-environment-in-eddie"><i class="fa fa-check"></i><b>5.8</b> Configuring Python Deep Learning Environment in Eddie</a>
 <ul>
-<li class="chapter" data-level="5.9.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#package-installation"><i class="fa fa-check"></i><b>5.9.1</b> Package installation</a></li>
-<li class="chapter" data-level="5.9.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#gpu-usage"><i class="fa fa-check"></i><b>5.9.2</b> GPU usage</a></li>
+<li class="chapter" data-level="5.8.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#package-installation"><i class="fa fa-check"></i><b>5.8.1</b> Package installation</a></li>
+<li class="chapter" data-level="5.8.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#gpu-usage"><i class="fa fa-check"></i><b>5.8.2</b> GPU usage</a></li>
 </ul></li>
-<li class="chapter" data-level="5.10" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#configuring-jupyter-notebook-access"><i class="fa fa-check"></i><b>5.10</b> Configuring Jupyter Notebook Access</a></li>
+<li class="chapter" data-level="5.9" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#configuring-jupyter-notebook-access"><i class="fa fa-check"></i><b>5.9</b> Configuring Jupyter Notebook Access</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>6</b> Plotting</a>
 <ul>
@@ -564,7 +563,7 @@ dist
 <span id="cb6-8"><a href="snippets.html#cb6-8" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
 <span id="cb6-9"><a href="snippets.html#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">newvar =</span> a <span class="sc">/</span>b)</span></code></pre></div>
 <pre><code>## Error in `mutate()`:
-## ! Problem while computing `newvar = a/b`.
+## ℹ In argument: `newvar = a/b`.
 ## Caused by error in `a / b`:
 ## ! non-numeric argument to binary operator</code></pre>
 </div>
@@ -938,19 +937,19 @@ I often want days as a numeric, not a lubridate type object.</p>
 <span id="cb45-21"><a href="snippets.html#cb45-21" aria-hidden="true" tabindex="-1"></a>              <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb45-22"><a href="snippets.html#cb45-22" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(<span class="at">isoweek_date =</span> date, isoweek, year)</span>
 <span id="cb45-23"><a href="snippets.html#cb45-23" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<pre><code>## Joining, by = c(&quot;isoweek&quot;, &quot;year&quot;)</code></pre>
+<pre><code>## Joining with `by = join_by(isoweek, year)`</code></pre>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="snippets.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add isoweek_date (first date of a particular isoweek) and isoweek to analysis dataset. </span></span>
 <span id="cb47-2"><a href="snippets.html#cb47-2" aria-hidden="true" tabindex="-1"></a>colon_s <span class="sc">%&gt;%</span> </span>
 <span id="cb47-3"><a href="snippets.html#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(isoweek_lookup, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;date&quot;</span> <span class="ot">=</span> <span class="st">&quot;date&quot;</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb47-4"><a href="snippets.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date, isoweek, isoweek_date) <span class="sc">%&gt;%</span> </span>
 <span id="cb47-5"><a href="snippets.html#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div>
 <pre><code>##         date isoweek isoweek_date
-## 1 2020-03-16      12   2020-03-16
-## 2 2021-02-07       5   2021-02-01
-## 3 2021-11-21      46   2021-11-15
-## 4 2021-12-28      52   2021-12-27
-## 5 2021-05-02      17   2021-04-26
-## 6 2022-03-02       9   2022-02-28</code></pre>
+## 1 2022-04-21      16   2022-04-18
+## 2 2021-10-13      41   2021-10-11
+## 3 2020-08-19      34   2020-08-17
+## 4 2021-11-22      47   2021-11-22
+## 5 2020-08-24      35   2020-08-24
+## 6 2020-06-29      27   2020-06-29</code></pre>
 </div>
 </div>
 <div id="labelling-tables-and-figures-in-markdown-chunks" class="section level2 hasAnchor" number="2.7">

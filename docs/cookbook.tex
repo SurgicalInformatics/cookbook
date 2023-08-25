@@ -131,7 +131,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2023-05-18}
+\date{2023-08-25}
 
 \begin{document}
 \maketitle
@@ -448,7 +448,7 @@ If you have a small (and confidential) set of data in a tibble or data frame cal
 
 \begin{verbatim}
 ## Error in `mutate()`:
-## ! Problem while computing `newvar = a/b`.
+## i In argument: `newvar = a/b`.
 ## Caused by error in `a / b`:
 ## ! non-numeric argument to binary operator
 \end{verbatim}
@@ -998,7 +998,7 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 \end{Shaded}
 
 \begin{verbatim}
-## Joining, by = c("isoweek", "year")
+## Joining with `by = join_by(isoweek, year)`
 \end{verbatim}
 
 \begin{Shaded}
@@ -1013,12 +1013,12 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 
 \begin{verbatim}
 ##         date isoweek isoweek_date
-## 1 2020-08-06      32   2020-08-03
-## 2 2020-06-16      25   2020-06-15
-## 3 2021-06-04      22   2021-05-31
-## 4 2020-11-29      48   2020-11-23
-## 5 2020-08-09      32   2020-08-03
-## 6 2020-02-19       8   2020-02-17
+## 1 2020-06-13      24   2020-06-08
+## 2 2020-07-20      30   2020-07-20
+## 3 2020-10-07      41   2020-10-05
+## 4 2020-12-23      52   2020-12-21
+## 5 2021-01-07       1   2021-01-04
+## 6 2021-11-27      47   2021-11-22
 \end{verbatim}
 
 \hypertarget{labelling-tables-and-figures-in-markdown-chunks}{%
@@ -1432,7 +1432,7 @@ Functions for missing values that are very useful, but don't do what I want are:
 
 \begin{verbatim}
 ## # A tibble: 0 x 3
-## # ... with 3 variables: important_a <chr>, important_b <chr>, whatever_c <chr>
+## # i 3 variables: important_a <chr>, important_b <chr>, whatever_c <chr>
 \end{verbatim}
 
 (Returns 0 as we don't have rows where all 3 columns have a value).
@@ -2084,6 +2084,27 @@ On entering the command to the terminal you will be asked to enter your EASE pas
 \hypertarget{the-surgical-informatics-group-folder-on-eddie}{%
 \section{The Surgical Informatics Group Folder (On Eddie)}\label{the-surgical-informatics-group-folder-on-eddie}}
 
+Use the \texttt{quota} command to check your disk space, this will include the shared space, e.g., :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{[rots@login03}\ErrorTok{(}\ExtensionTok{eddie}\KeywordTok{)} \ExtensionTok{\textasciitilde{}]$}\NormalTok{ quota}
+
+\ExtensionTok{{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+                 \ExtensionTok{DISK}\NormalTok{ QUOTA AND USAGE}
+\ExtensionTok{/home/rots:}
+     \ExtensionTok{84.62}\NormalTok{ MB of 10240.00 MB }\ErrorTok{(}\ExtensionTok{.82\%}\KeywordTok{)} \ExtensionTok{used}
+
+\ExtensionTok{/exports/eddie/scratch/rots:}
+     \ExtensionTok{0}\NormalTok{ GB of 2048.00 GB }\ErrorTok{(}\ExtensionTok{0\%}\KeywordTok{)} \ExtensionTok{used}
+
+\ExtensionTok{/exports/cmvm/eddie/edmed/groups/SurgInfGrp:}
+     \ExtensionTok{918.89}\NormalTok{ GB of 3072.00 GB }\ErrorTok{(}\ExtensionTok{29.91\%}\KeywordTok{)} \ExtensionTok{used}
+
+\ExtensionTok{{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\end{Highlighting}
+\end{Shaded}
+
 To get to the Surgical Informatics shared group directory enter:
 
 \begin{Shaded}
@@ -2094,7 +2115,9 @@ To get to the Surgical Informatics shared group directory enter:
 
 If you don't have access then Riinu or Ewen can provide this as they have admin rights.
 
-This directory should be the place to store any group projects or apps or other files which are somewhat (but not very) large. The group space has 200GB of memory allocated by default which is much greater than your home directory (10GB) but much less than the group space on the datastore which is up to 1TB. The group space should be used to store bulk files which can be staged into Eddie for an active session but will not be permanently stored in Eddie.
+This directory should be the place to store any group projects or apps or other files which are somewhat (but not very) large.
+
+The group space should be used to store bulk files which can be staged into Eddie for an active session but will not be permanently stored in Eddie. Consider storing your files on DataStore or other services for longer term needs. DataStore can be checked from the quota.txt file that's in the main folder.
 
 \hypertarget{the-scratch-space}{%
 \subsection{The Scratch Space}\label{the-scratch-space}}
@@ -2352,11 +2375,6 @@ When working with other teams it is often necessary to work with particular R pa
 \subsection{General Eddie Etiquette}\label{general-eddie-etiquette}}
 
 Don't overwrite or change other users files without permission and set up your own files to prevent others doing that if appropriate. Please don't leave configuration files like \texttt{.Renviron} files in the shared space as this can play havoc with other users R tasks in Eddie - if you need a particular configuration (e.g.~a default package library for a project) then best to leave the config files in the directory for that project (or in your own home directory).
-
-\hypertarget{unix-tutorials}{%
-\section{Unix Tutorials}\label{unix-tutorials}}
-
-The University Digital Skills Framework offers a three-part tutorial covering Unix which is free. If you use a lot of Eddie etc. this may be helpful:\url{https://www.digitalskills.ed.ac.uk/all-resources/?wdt_column_filter\%5B1\%5D=Classroom}
 
 \hypertarget{additional-resources}{%
 \section{Additional Resources}\label{additional-resources}}

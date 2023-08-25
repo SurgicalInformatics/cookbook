@@ -83,7 +83,6 @@ creating-an-.rprofile-file
 renviron-file
 specific-r-package-versions
 general-eddie-etiquette
-unix-tutorials
 additional-resources
 using-rstudio-directly-in-eddie
 configuring-python-deep-learning-environment-in-eddie
