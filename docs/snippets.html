@@ -23,7 +23,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2023-08-25" />
+<meta name="date" content="2023-08-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -256,10 +256,10 @@ div.csl-indent {
 <li class="chapter" data-level="5.4.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#method-1-using-putty-or-another-terminalshell-connected-to-eddie"><i class="fa fa-check"></i><b>5.4.1</b> Method 1: Using PuTTY (or another terminal/shell connected to Eddie)</a></li>
 <li class="chapter" data-level="5.4.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#method-2-using-the-rstudio-server-terminal"><i class="fa fa-check"></i><b>5.4.2</b> Method 2: Using the RStudio Server Terminal</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#the-surgical-informatics-group-folder-on-eddie"><i class="fa fa-check"></i><b>5.5</b> The Surgical Informatics Group Folder (On Eddie)</a>
+<li class="chapter" data-level="5.5" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#group-folders-on-eddie-and-datastore"><i class="fa fa-check"></i><b>5.5</b> Group Folders on Eddie and DataStore</a>
 <ul>
 <li class="chapter" data-level="5.5.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#the-scratch-space"><i class="fa fa-check"></i><b>5.5.1</b> The Scratch Space</a></li>
-<li class="chapter" data-level="5.5.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#other-spaces"><i class="fa fa-check"></i><b>5.5.2</b> Other Spaces</a></li>
+<li class="chapter" data-level="5.5.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#datastore"><i class="fa fa-check"></i><b>5.5.2</b> DataStore</a></li>
 <li class="chapter" data-level="5.5.3" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#running-eddie-from-rstudio-server"><i class="fa fa-check"></i><b>5.5.3</b> Running Eddie from RStudio Server</a></li>
 <li class="chapter" data-level="5.5.4" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#modules-applications-in-eddie"><i class="fa fa-check"></i><b>5.5.4</b> Modules (Applications) in Eddie</a></li>
 <li class="chapter" data-level="5.5.5" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#working-with-r-in-eddie"><i class="fa fa-check"></i><b>5.5.5</b> Working with R in Eddie</a></li>
@@ -944,12 +944,12 @@ I often want days as a numeric, not a lubridate type object.</p>
 <span id="cb47-4"><a href="snippets.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date, isoweek, isoweek_date) <span class="sc">%&gt;%</span> </span>
 <span id="cb47-5"><a href="snippets.html#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div>
 <pre><code>##         date isoweek isoweek_date
-## 1 2022-04-21      16   2022-04-18
-## 2 2021-10-13      41   2021-10-11
-## 3 2020-08-19      34   2020-08-17
-## 4 2021-11-22      47   2021-11-22
-## 5 2020-08-24      35   2020-08-24
-## 6 2020-06-29      27   2020-06-29</code></pre>
+## 1 2020-05-30      22   2020-05-25
+## 2 2020-05-06      19   2020-05-04
+## 3 2022-01-14       2   2022-01-10
+## 4 2021-09-29      39   2021-09-27
+## 5 2020-04-20      17   2020-04-20
+## 6 2020-04-16      16   2020-04-13</code></pre>
 </div>
 </div>
 <div id="labelling-tables-and-figures-in-markdown-chunks" class="section level2 hasAnchor" number="2.7">

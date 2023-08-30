@@ -120,7 +120,7 @@ scp -r <UUN>@eddie.ecdf.ed.ac.uk:/exports/cmvm/eddie/edmed/groups/SurgInfGrp/<pr
 
 On entering the command to the terminal you will be asked to enter your EASE password (type this slowly if using RStudio Server Pro prior to web sockets issue being fixed). In order to move data in the other direction simply change the order of the file paths.
 
-## The Surgical Informatics Group Folder (On Eddie)
+## Group Folders on Eddie and DataStore
 
 Use the `quota` command to check your disk space, this will include the shared space, e.g., :
 
@@ -163,9 +163,15 @@ cd /exports/eddie/scratch/<UUN>
 
 Finally there is also a temporary directory (\$TMPDIR) which is only present and accessible whilst a job is running in Eddie. This has 1TB of available storage.
 
-### Other Spaces
+### DataStore
 
-Occasionally group members may have access to other directories to share / collaborate on projects. These are most often found at the path: `cd /exports/<COLLEGE>/eddie/<SCHOOL>/groups/<GROUP>` although for IGMM it may be: `cd /exports/igmm/eddie/<GROUP>`.
+Our shared DataStore folder is at:
+
+```{sh, eval = FALSE}
+/exports/cmvm/datastore/edmed/groups/SurgInfGrp
+```
+
+It should be mounted in argosafe at /home/common.
 
 ### Running Eddie from RStudio Server
 

@@ -131,7 +131,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2023-08-25}
+\date{2023-08-30}
 
 \begin{document}
 \maketitle
@@ -1013,12 +1013,12 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 
 \begin{verbatim}
 ##         date isoweek isoweek_date
-## 1 2020-06-13      24   2020-06-08
-## 2 2020-07-20      30   2020-07-20
-## 3 2020-10-07      41   2020-10-05
-## 4 2020-12-23      52   2020-12-21
-## 5 2021-01-07       1   2021-01-04
-## 6 2021-11-27      47   2021-11-22
+## 1 2020-12-03      49   2020-11-30
+## 2 2022-04-24      16   2022-04-18
+## 3 2020-03-29      13   2020-03-23
+## 4 2021-06-11      23   2021-06-07
+## 5 2021-05-02      17   2021-04-26
+## 6 2020-09-06      36   2020-08-31
 \end{verbatim}
 
 \hypertarget{labelling-tables-and-figures-in-markdown-chunks}{%
@@ -2081,8 +2081,8 @@ In the terminal enter the following command to copy a single file from Eddie int
 
 On entering the command to the terminal you will be asked to enter your EASE password (type this slowly if using RStudio Server Pro prior to web sockets issue being fixed). In order to move data in the other direction simply change the order of the file paths.
 
-\hypertarget{the-surgical-informatics-group-folder-on-eddie}{%
-\section{The Surgical Informatics Group Folder (On Eddie)}\label{the-surgical-informatics-group-folder-on-eddie}}
+\hypertarget{group-folders-on-eddie-and-datastore}{%
+\section{Group Folders on Eddie and DataStore}\label{group-folders-on-eddie-and-datastore}}
 
 Use the \texttt{quota} command to check your disk space, this will include the shared space, e.g., :
 
@@ -2132,10 +2132,18 @@ Your own personal scratch space is where you should work on active projects duri
 
 Finally there is also a temporary directory (\$TMPDIR) which is only present and accessible whilst a job is running in Eddie. This has 1TB of available storage.
 
-\hypertarget{other-spaces}{%
-\subsection{Other Spaces}\label{other-spaces}}
+\hypertarget{datastore}{%
+\subsection{DataStore}\label{datastore}}
 
-Occasionally group members may have access to other directories to share / collaborate on projects. These are most often found at the path: \texttt{cd\ /exports/\textless{}COLLEGE\textgreater{}/eddie/\textless{}SCHOOL\textgreater{}/groups/\textless{}GROUP\textgreater{}} although for IGMM it may be: \texttt{cd\ /exports/igmm/eddie/\textless{}GROUP\textgreater{}}.
+Our shared DataStore folder is at:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{/exports/cmvm/datastore/edmed/groups/SurgInfGrp}
+\end{Highlighting}
+\end{Shaded}
+
+It should be mounted in argosafe at /home/common.
 
 \hypertarget{running-eddie-from-rstudio-server}{%
 \subsection{Running Eddie from RStudio Server}\label{running-eddie-from-rstudio-server}}

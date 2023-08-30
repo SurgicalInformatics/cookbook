@@ -72,9 +72,9 @@ eddie-file-structure
 copying-data-from-eddie-into-rstudio-server
 method-1-using-putty-or-another-terminalshell-connected-to-eddie
 method-2-using-the-rstudio-server-terminal
-the-surgical-informatics-group-folder-on-eddie
+group-folders-on-eddie-and-datastore
 the-scratch-space
-other-spaces
+datastore
 running-eddie-from-rstudio-server
 modules-applications-in-eddie
 working-with-r-in-eddie

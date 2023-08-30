@@ -23,7 +23,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2023-08-25" />
+<meta name="date" content="2023-08-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -256,10 +256,10 @@ div.csl-indent {
 <li class="chapter" data-level="5.4.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#method-1-using-putty-or-another-terminalshell-connected-to-eddie"><i class="fa fa-check"></i><b>5.4.1</b> Method 1: Using PuTTY (or another terminal/shell connected to Eddie)</a></li>
 <li class="chapter" data-level="5.4.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#method-2-using-the-rstudio-server-terminal"><i class="fa fa-check"></i><b>5.4.2</b> Method 2: Using the RStudio Server Terminal</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#the-surgical-informatics-group-folder-on-eddie"><i class="fa fa-check"></i><b>5.5</b> The Surgical Informatics Group Folder (On Eddie)</a>
+<li class="chapter" data-level="5.5" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#group-folders-on-eddie-and-datastore"><i class="fa fa-check"></i><b>5.5</b> Group Folders on Eddie and DataStore</a>
 <ul>
 <li class="chapter" data-level="5.5.1" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#the-scratch-space"><i class="fa fa-check"></i><b>5.5.1</b> The Scratch Space</a></li>
-<li class="chapter" data-level="5.5.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#other-spaces"><i class="fa fa-check"></i><b>5.5.2</b> Other Spaces</a></li>
+<li class="chapter" data-level="5.5.2" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#datastore"><i class="fa fa-check"></i><b>5.5.2</b> DataStore</a></li>
 <li class="chapter" data-level="5.5.3" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#running-eddie-from-rstudio-server"><i class="fa fa-check"></i><b>5.5.3</b> Running Eddie from RStudio Server</a></li>
 <li class="chapter" data-level="5.5.4" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#modules-applications-in-eddie"><i class="fa fa-check"></i><b>5.5.4</b> Modules (Applications) in Eddie</a></li>
 <li class="chapter" data-level="5.5.5" data-path="data-transfer-and-eddie.html"><a href="data-transfer-and-eddie.html#working-with-r-in-eddie"><i class="fa fa-check"></i><b>5.5.5</b> Working with R in Eddie</a></li>
@@ -403,37 +403,37 @@ For certain applications, it may be desirable to do this on argonaut or argosafe
 For instance, if a scheduled job is required to be done in a trusted research environment.</p>
 <p>This can be done by adding a cron job.</p>
 <p>The following will execute the <code>R</code> script at 7AM everyday. A log file is written within the project.</p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb149-1"><a href="server-admin.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crontab</span> <span class="at">-e</span></span>
-<span id="cb149-2"><a href="server-admin.html#cb149-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb149-3"><a href="server-admin.html#cb149-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Add line (using e.g. nano editor)</span></span>
-<span id="cb149-4"><a href="server-admin.html#cb149-4" aria-hidden="true" tabindex="-1"></a><span class="ex">00</span> 07 <span class="pp">*</span> <span class="pp">*</span> <span class="pp">*</span> Rscript /home/user/project/script.R <span class="op">&amp;&gt;&gt;</span> /home/user/project/cron.log</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb150-1"><a href="server-admin.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crontab</span> <span class="at">-e</span></span>
+<span id="cb150-2"><a href="server-admin.html#cb150-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb150-3"><a href="server-admin.html#cb150-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Add line (using e.g. nano editor)</span></span>
+<span id="cb150-4"><a href="server-admin.html#cb150-4" aria-hidden="true" tabindex="-1"></a><span class="ex">00</span> 07 <span class="pp">*</span> <span class="pp">*</span> <span class="pp">*</span> Rscript /home/user/project/script.R <span class="op">&amp;&gt;&gt;</span> /home/user/project/cron.log</span></code></pre></div>
 <p>The cronjob does not load the user environment.
 If you are using environment variables in R, e.g. API tokens, then these can be loaded within the R script.
 Include this at the top of your script.</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="server-admin.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Log</span></span>
-<span id="cb150-2"><a href="server-admin.html#cb150-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Start:&quot;</span>, <span class="fu">Sys.time</span>()))</span>
-<span id="cb150-3"><a href="server-admin.html#cb150-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb150-4"><a href="server-admin.html#cb150-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Environment variables</span></span>
-<span id="cb150-5"><a href="server-admin.html#cb150-5" aria-hidden="true" tabindex="-1"></a><span class="fu">readRenviron</span>(<span class="st">&quot;/home/user/.Renviron&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="server-admin.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Log</span></span>
+<span id="cb151-2"><a href="server-admin.html#cb151-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Start:&quot;</span>, <span class="fu">Sys.time</span>()))</span>
+<span id="cb151-3"><a href="server-admin.html#cb151-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb151-4"><a href="server-admin.html#cb151-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Environment variables</span></span>
+<span id="cb151-5"><a href="server-admin.html#cb151-5" aria-hidden="true" tabindex="-1"></a><span class="fu">readRenviron</span>(<span class="st">&quot;/home/user/.Renviron&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="rstudio-connect-argoshare" class="section level2 hasAnchor" number="9.2">
 <h2><span class="header-section-number">9.2</span> RStudio Connect: argoshare<a href="server-admin.html#rstudio-connect-argoshare" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="delete-user" class="section level3 hasAnchor" number="9.2.1">
 <h3><span class="header-section-number">9.2.1</span> Delete user<a href="server-admin.html#delete-user" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb151"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb151-1"><a href="server-admin.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete user from argoshare</span></span>
-<span id="cb151-2"><a href="server-admin.html#cb151-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Connect must be stopped first</span></span>
-<span id="cb151-3"><a href="server-admin.html#cb151-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl stop rstudio-connect</span>
-<span id="cb151-4"><a href="server-admin.html#cb151-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb151-5"><a href="server-admin.html#cb151-5" aria-hidden="true" tabindex="-1"></a><span class="co">## List all users</span></span>
-<span id="cb151-6"><a href="server-admin.html#cb151-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> /opt/rstudio-connect/bin/usermanager list</span>
-<span id="cb151-7"><a href="server-admin.html#cb151-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb151-8"><a href="server-admin.html#cb151-8" aria-hidden="true" tabindex="-1"></a><span class="co">## Find guid for the user you want to delete, looks like below. </span></span>
-<span id="cb151-9"><a href="server-admin.html#cb151-9" aria-hidden="true" tabindex="-1"></a><span class="co">## Delete user - need to say y/n</span></span>
-<span id="cb151-10"><a href="server-admin.html#cb151-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> /opt/rstudio-connect/bin/usermanager delete <span class="at">--users</span> <span class="at">--user-guid</span> 46cb5adb-4036-451f-9f08-0da3197dbc6c</span>
-<span id="cb151-11"><a href="server-admin.html#cb151-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb151-12"><a href="server-admin.html#cb151-12" aria-hidden="true" tabindex="-1"></a><span class="co">## Restart connect</span></span>
-<span id="cb151-13"><a href="server-admin.html#cb151-13" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl start rstudio-connect</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb152-1"><a href="server-admin.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete user from argoshare</span></span>
+<span id="cb152-2"><a href="server-admin.html#cb152-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Connect must be stopped first</span></span>
+<span id="cb152-3"><a href="server-admin.html#cb152-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl stop rstudio-connect</span>
+<span id="cb152-4"><a href="server-admin.html#cb152-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-5"><a href="server-admin.html#cb152-5" aria-hidden="true" tabindex="-1"></a><span class="co">## List all users</span></span>
+<span id="cb152-6"><a href="server-admin.html#cb152-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> /opt/rstudio-connect/bin/usermanager list</span>
+<span id="cb152-7"><a href="server-admin.html#cb152-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-8"><a href="server-admin.html#cb152-8" aria-hidden="true" tabindex="-1"></a><span class="co">## Find guid for the user you want to delete, looks like below. </span></span>
+<span id="cb152-9"><a href="server-admin.html#cb152-9" aria-hidden="true" tabindex="-1"></a><span class="co">## Delete user - need to say y/n</span></span>
+<span id="cb152-10"><a href="server-admin.html#cb152-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> /opt/rstudio-connect/bin/usermanager delete <span class="at">--users</span> <span class="at">--user-guid</span> 46cb5adb-4036-451f-9f08-0da3197dbc6c</span>
+<span id="cb152-11"><a href="server-admin.html#cb152-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-12"><a href="server-admin.html#cb152-12" aria-hidden="true" tabindex="-1"></a><span class="co">## Restart connect</span></span>
+<span id="cb152-13"><a href="server-admin.html#cb152-13" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl start rstudio-connect</span></code></pre></div>
 </div>
 </div>
 <div id="shiny-server-opensource-setup---uoe-eleanor" class="section level2 hasAnchor" number="9.3">
@@ -447,25 +447,25 @@ Include this at the top of your script.</p>
 <li>Click on key pairs and create an SSH keypair, for securely logging on to the new instance.</li>
 <li>Save the private key to a secure place on your computer (~/.ssh is the usual spot for these things). Change the files permissions to make it secure. Eleanor will not let you SSH without this step. In a local terminal, type:</li>
 </ul>
-<div class="sourceCode" id="cb152"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb152-1"><a href="server-admin.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 400 PATH-TO-PRIVATE-KEY</span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb153-1"><a href="server-admin.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 400 PATH-TO-PRIVATE-KEY</span></code></pre></div>
 <ul>
 <li>Click on Network &gt; Floating IPs and create a new floating IP. Associate it with your new instance. Make a note of your floating IP – this is the address you’ll use to access your instance from now on.</li>
 <li>Click on Security Groups and create a new security group. Add new rules to this group, allowing TCP ingress and egress on the following ports: 80 (HTTP), 22 (SSH), 3838 (Shiny Server).</li>
 <li>Log into your instance using SSH. In a local terminal type:</li>
 </ul>
-<div class="sourceCode" id="cb153"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb153-1"><a href="server-admin.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-i</span> PATH-TO-PRIVATE-KEY ubuntu@YOUR-FLOATING-IP</span>
-<span id="cb153-2"><a href="server-admin.html#cb153-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb153-3"><a href="server-admin.html#cb153-3" aria-hidden="true" tabindex="-1"></a><span class="co">#All being well, you’ll now have a terminal for your lovely new Ububtu instance.</span></span>
-<span id="cb153-4"><a href="server-admin.html#cb153-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Get your instance up-to-date. Run:</span></span>
-<span id="cb153-5"><a href="server-admin.html#cb153-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb153-6"><a href="server-admin.html#cb153-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt-get upgrade</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb154-1"><a href="server-admin.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-i</span> PATH-TO-PRIVATE-KEY ubuntu@YOUR-FLOATING-IP</span>
+<span id="cb154-2"><a href="server-admin.html#cb154-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb154-3"><a href="server-admin.html#cb154-3" aria-hidden="true" tabindex="-1"></a><span class="co">#All being well, you’ll now have a terminal for your lovely new Ububtu instance.</span></span>
+<span id="cb154-4"><a href="server-admin.html#cb154-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Get your instance up-to-date. Run:</span></span>
+<span id="cb154-5"><a href="server-admin.html#cb154-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb154-6"><a href="server-admin.html#cb154-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt-get upgrade</span></code></pre></div>
 </div>
 <div id="install-nginx" class="section level3 hasAnchor" number="9.3.2">
 <h3><span class="header-section-number">9.3.2</span> Install Nginx<a href="server-admin.html#install-nginx" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Nginx is the fast and light webserver that will host you Shiny code.</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb154-1"><a href="server-admin.html#cb154-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb154-2"><a href="server-admin.html#cb154-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Install nginx</span></span>
-<span id="cb154-3"><a href="server-admin.html#cb154-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get <span class="at">-y</span> install nginx</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb155-1"><a href="server-admin.html#cb155-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb155-2"><a href="server-admin.html#cb155-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Install nginx</span></span>
+<span id="cb155-3"><a href="server-admin.html#cb155-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get <span class="at">-y</span> install nginx</span></code></pre></div>
 <ul>
 <li>In a browser, enter your floating IP address. All being well, you should now get a “Welcome to Nginx” page.</li>
 </ul>
@@ -473,54 +473,54 @@ Include this at the top of your script.</p>
 <div id="installing-r" class="section level3 hasAnchor" number="9.3.3">
 <h3><span class="header-section-number">9.3.3</span> Installing R<a href="server-admin.html#installing-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Installing the latest version of R isn’t as easy as apt-get R. Sources and keys need to be added to the source.list file, then R can be installed (the latest version). The first command sets the sources to the RStudio mirror, then grabs keys to authenticate the installation. Enter the following commands in order:</p>
-<div class="sourceCode" id="cb155"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb155-1"><a href="server-admin.html#cb155-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb155-2"><a href="server-admin.html#cb155-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> sh <span class="at">-c</span> <span class="st">&#39;echo &quot;deb http://cran.rstudio.com/bin/linux/ubuntu bionic-cran35/&quot; &gt;&gt; /etc/apt/sources.list&#39;</span></span>
-<span id="cb155-3"><a href="server-admin.html#cb155-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-key adv <span class="at">--keyserver</span> keyserver.ubuntu.com <span class="at">--recv-keys</span> E298A3A825C0D65DFD57CBB651716619E084DAB9</span>
-<span id="cb155-4"><a href="server-admin.html#cb155-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb155-5"><a href="server-admin.html#cb155-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update</span>
-<span id="cb155-6"><a href="server-admin.html#cb155-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get <span class="at">-y</span> install r-base</span>
-<span id="cb155-7"><a href="server-admin.html#cb155-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb155-8"><a href="server-admin.html#cb155-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb155-9"><a href="server-admin.html#cb155-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Now load R</span></span>
-<span id="cb155-10"><a href="server-admin.html#cb155-10" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span></span>
-<span id="cb155-11"><a href="server-admin.html#cb155-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Enter the following in the R console</span></span>
-<span id="cb155-12"><a href="server-admin.html#cb155-12" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo()</span></span>
-<span id="cb155-13"><a href="server-admin.html#cb155-13" aria-hidden="true" tabindex="-1"></a><span class="fu">quit()</span></span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb156-1"><a href="server-admin.html#cb156-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb156-2"><a href="server-admin.html#cb156-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> sh <span class="at">-c</span> <span class="st">&#39;echo &quot;deb http://cran.rstudio.com/bin/linux/ubuntu bionic-cran35/&quot; &gt;&gt; /etc/apt/sources.list&#39;</span></span>
+<span id="cb156-3"><a href="server-admin.html#cb156-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-key adv <span class="at">--keyserver</span> keyserver.ubuntu.com <span class="at">--recv-keys</span> E298A3A825C0D65DFD57CBB651716619E084DAB9</span>
+<span id="cb156-4"><a href="server-admin.html#cb156-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb156-5"><a href="server-admin.html#cb156-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update</span>
+<span id="cb156-6"><a href="server-admin.html#cb156-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get <span class="at">-y</span> install r-base</span>
+<span id="cb156-7"><a href="server-admin.html#cb156-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb156-8"><a href="server-admin.html#cb156-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb156-9"><a href="server-admin.html#cb156-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Now load R</span></span>
+<span id="cb156-10"><a href="server-admin.html#cb156-10" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span></span>
+<span id="cb156-11"><a href="server-admin.html#cb156-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Enter the following in the R console</span></span>
+<span id="cb156-12"><a href="server-admin.html#cb156-12" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo()</span></span>
+<span id="cb156-13"><a href="server-admin.html#cb156-13" aria-hidden="true" tabindex="-1"></a><span class="fu">quit()</span></span></code></pre></div>
 </div>
 <div id="installing-shiny-server" class="section level3 hasAnchor" number="9.3.4">
 <h3><span class="header-section-number">9.3.4</span> Installing Shiny Server<a href="server-admin.html#installing-shiny-server" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>There are a few external libraries that are required to use Shiny Server. Let’s install those, the R package shiny then move on to installing Shiny Server itself.</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb156-1"><a href="server-admin.html#cb156-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb156-2"><a href="server-admin.html#cb156-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get <span class="at">-y</span> install gdebi-core</span>
-<span id="cb156-3"><a href="server-admin.html#cb156-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> su <span class="at">-</span> <span class="at">-c</span> <span class="st">&quot;R -e </span><span class="dt">\&quot;</span><span class="st">install.packages(&#39;shiny&#39;, repos=&#39;http://cran.rstudio.com/&#39;)</span><span class="dt">\&quot;</span><span class="st">&quot;</span></span>
-<span id="cb156-4"><a href="server-admin.html#cb156-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.13.944-amd64.deb</span>
-<span id="cb156-5"><a href="server-admin.html#cb156-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> gdebi shiny-server-1.5.13.944-amd64.deb</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb157-1"><a href="server-admin.html#cb157-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-2"><a href="server-admin.html#cb157-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get <span class="at">-y</span> install gdebi-core</span>
+<span id="cb157-3"><a href="server-admin.html#cb157-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> su <span class="at">-</span> <span class="at">-c</span> <span class="st">&quot;R -e </span><span class="dt">\&quot;</span><span class="st">install.packages(&#39;shiny&#39;, repos=&#39;http://cran.rstudio.com/&#39;)</span><span class="dt">\&quot;</span><span class="st">&quot;</span></span>
+<span id="cb157-4"><a href="server-admin.html#cb157-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.13.944-amd64.deb</span>
+<span id="cb157-5"><a href="server-admin.html#cb157-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> gdebi shiny-server-1.5.13.944-amd64.deb</span></code></pre></div>
 <p>Back in your browser, go to: YOUR-FLOATING-IP:3838
 All being well, you’ll get a Shiny Server test page.</p>
 </div>
 <div id="installing-other-linux-packages" class="section level3 hasAnchor" number="9.3.5">
 <h3><span class="header-section-number">9.3.5</span> Installing other Linux packages<a href="server-admin.html#installing-other-linux-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You’ve got base-R installed and running now, but it’s likely your Shiny app will have other unmet dependencies. Here are a few common packages you’ll probably need, and the command needed to install them. Depending on your app, there may be others.</p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb157-1"><a href="server-admin.html#cb157-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb157-2"><a href="server-admin.html#cb157-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install <span class="at">-y</span> <span class="dt">\</span></span>
-<span id="cb157-3"><a href="server-admin.html#cb157-3" aria-hidden="true" tabindex="-1"></a>    pandoc <span class="dt">\</span></span>
-<span id="cb157-4"><a href="server-admin.html#cb157-4" aria-hidden="true" tabindex="-1"></a>    pandoc-citeproc <span class="dt">\</span></span>
-<span id="cb157-5"><a href="server-admin.html#cb157-5" aria-hidden="true" tabindex="-1"></a>    libssl-dev <span class="dt">\</span></span>
-<span id="cb157-6"><a href="server-admin.html#cb157-6" aria-hidden="true" tabindex="-1"></a>    libcurl4-gnutls-dev <span class="dt">\</span></span>
-<span id="cb157-7"><a href="server-admin.html#cb157-7" aria-hidden="true" tabindex="-1"></a>    libcairo2-dev <span class="dt">\</span></span>
-<span id="cb157-8"><a href="server-admin.html#cb157-8" aria-hidden="true" tabindex="-1"></a>    libgdal-dev <span class="dt">\</span></span>
-<span id="cb157-9"><a href="server-admin.html#cb157-9" aria-hidden="true" tabindex="-1"></a>    libgeos-dev <span class="dt">\</span></span>
-<span id="cb157-10"><a href="server-admin.html#cb157-10" aria-hidden="true" tabindex="-1"></a>    libproj-dev <span class="dt">\</span></span>
-<span id="cb157-11"><a href="server-admin.html#cb157-11" aria-hidden="true" tabindex="-1"></a>    libxml2-dev <span class="dt">\</span></span>
-<span id="cb157-12"><a href="server-admin.html#cb157-12" aria-hidden="true" tabindex="-1"></a>    libxt-dev <span class="dt">\</span></span>
-<span id="cb157-13"><a href="server-admin.html#cb157-13" aria-hidden="true" tabindex="-1"></a>    libv8-dev <span class="dt">\</span></span>
-<span id="cb157-14"><a href="server-admin.html#cb157-14" aria-hidden="true" tabindex="-1"></a>    git</span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb158-1"><a href="server-admin.html#cb158-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb158-2"><a href="server-admin.html#cb158-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install <span class="at">-y</span> <span class="dt">\</span></span>
+<span id="cb158-3"><a href="server-admin.html#cb158-3" aria-hidden="true" tabindex="-1"></a>    pandoc <span class="dt">\</span></span>
+<span id="cb158-4"><a href="server-admin.html#cb158-4" aria-hidden="true" tabindex="-1"></a>    pandoc-citeproc <span class="dt">\</span></span>
+<span id="cb158-5"><a href="server-admin.html#cb158-5" aria-hidden="true" tabindex="-1"></a>    libssl-dev <span class="dt">\</span></span>
+<span id="cb158-6"><a href="server-admin.html#cb158-6" aria-hidden="true" tabindex="-1"></a>    libcurl4-gnutls-dev <span class="dt">\</span></span>
+<span id="cb158-7"><a href="server-admin.html#cb158-7" aria-hidden="true" tabindex="-1"></a>    libcairo2-dev <span class="dt">\</span></span>
+<span id="cb158-8"><a href="server-admin.html#cb158-8" aria-hidden="true" tabindex="-1"></a>    libgdal-dev <span class="dt">\</span></span>
+<span id="cb158-9"><a href="server-admin.html#cb158-9" aria-hidden="true" tabindex="-1"></a>    libgeos-dev <span class="dt">\</span></span>
+<span id="cb158-10"><a href="server-admin.html#cb158-10" aria-hidden="true" tabindex="-1"></a>    libproj-dev <span class="dt">\</span></span>
+<span id="cb158-11"><a href="server-admin.html#cb158-11" aria-hidden="true" tabindex="-1"></a>    libxml2-dev <span class="dt">\</span></span>
+<span id="cb158-12"><a href="server-admin.html#cb158-12" aria-hidden="true" tabindex="-1"></a>    libxt-dev <span class="dt">\</span></span>
+<span id="cb158-13"><a href="server-admin.html#cb158-13" aria-hidden="true" tabindex="-1"></a>    libv8-dev <span class="dt">\</span></span>
+<span id="cb158-14"><a href="server-admin.html#cb158-14" aria-hidden="true" tabindex="-1"></a>    git</span></code></pre></div>
 </div>
 <div id="installing-r-packages" class="section level3 hasAnchor" number="9.3.6">
 <h3><span class="header-section-number">9.3.6</span> Installing R packages<a href="server-admin.html#installing-r-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You’ll probably also need a bunch of extra libraries in R (we’ve already installed Shiny, but that’s it). You install these from within R, rather than via apt-get. This is the syntax for installing R packages on the server – just replace the package names with the ones your app requires.</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb158-1"><a href="server-admin.html#cb158-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb158-2"><a href="server-admin.html#cb158-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> su <span class="at">-</span> <span class="at">-c</span> <span class="st">&quot;R -e </span><span class="dt">\&quot;</span><span class="st">install.packages(c(&#39;rmarkdown&#39;, &#39;ggplot2&#39;, &#39;dplyr&#39;, &#39;sp&#39;, &#39;rgdal&#39;, &#39;rgeos&#39;), repos=&#39;http://cran.rstudio.com/&#39;)</span><span class="dt">\&quot;</span><span class="st">&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb159-1"><a href="server-admin.html#cb159-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb159-2"><a href="server-admin.html#cb159-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> su <span class="at">-</span> <span class="at">-c</span> <span class="st">&quot;R -e </span><span class="dt">\&quot;</span><span class="st">install.packages(c(&#39;rmarkdown&#39;, &#39;ggplot2&#39;, &#39;dplyr&#39;, &#39;sp&#39;, &#39;rgdal&#39;, &#39;rgeos&#39;), repos=&#39;http://cran.rstudio.com/&#39;)</span><span class="dt">\&quot;</span><span class="st">&quot;</span></span></code></pre></div>
 <p>NB: Installing R packages can take a long time. As we’re only using the small, free instance in this guide, you may find it grinds to a halt completely when trying to compile large libraries like seurat. This probably means you’ve run out of system memory. If that happens - see Setting up a swap file at the end of this guide.</p>
 </div>
 <div id="loading-your-app" class="section level3 hasAnchor" number="9.3.7">
@@ -534,37 +534,37 @@ Again, in your browser, go to YOUR-FLOATING-IP:3838. You’ll either see your wo
 <h3><span class="header-section-number">9.3.8</span> Make your app the default index page<a href="server-admin.html#make-your-app-the-default-index-page" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You probably don’t want visitors to your site to specify that they want port 3838, so now we’re going to tell nginx to send visitors directly to your app.
 First, we’re going to edit the nginx config file.</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb159-1"><a href="server-admin.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nano /etc/nginx/sites-available/default</span>
-<span id="cb159-2"><a href="server-admin.html#cb159-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb159-3"><a href="server-admin.html#cb159-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Comment out (#) any other active server config lines, and add this…</span></span>
-<span id="cb159-4"><a href="server-admin.html#cb159-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb159-5"><a href="server-admin.html#cb159-5" aria-hidden="true" tabindex="-1"></a><span class="ex">server</span> {</span>
-<span id="cb159-6"><a href="server-admin.html#cb159-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">listen</span> 80<span class="kw">;</span></span>
-<span id="cb159-7"><a href="server-admin.html#cb159-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb159-8"><a href="server-admin.html#cb159-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">location</span> / {</span>
-<span id="cb159-9"><a href="server-admin.html#cb159-9" aria-hidden="true" tabindex="-1"></a>        <span class="ex">proxy_pass</span> http://127.0.0.1:3838/<span class="kw">;</span></span>
-<span id="cb159-10"><a href="server-admin.html#cb159-10" aria-hidden="true" tabindex="-1"></a>        <span class="ex">proxy_redirect</span> http://127.0.0.1:3838/ <span class="va">$scheme</span>://<span class="va">$host</span>/<span class="kw">;</span></span>
-<span id="cb159-11"><a href="server-admin.html#cb159-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># note, the following 3 lines added 2016-07-11, see updates section</span></span>
-<span id="cb159-12"><a href="server-admin.html#cb159-12" aria-hidden="true" tabindex="-1"></a>        <span class="ex">proxy_http_version</span> 1.1<span class="kw">;</span></span>
-<span id="cb159-13"><a href="server-admin.html#cb159-13" aria-hidden="true" tabindex="-1"></a>        <span class="ex">proxy_set_header</span> Upgrade <span class="va">$http_upgrade</span><span class="kw">;</span></span>
-<span id="cb159-14"><a href="server-admin.html#cb159-14" aria-hidden="true" tabindex="-1"></a>        <span class="ex">proxy_set_header</span> Connection <span class="st">&quot;upgrade&quot;</span><span class="kw">;</span></span>
-<span id="cb159-15"><a href="server-admin.html#cb159-15" aria-hidden="true" tabindex="-1"></a>     <span class="er">}</span></span>
-<span id="cb159-16"><a href="server-admin.html#cb159-16" aria-hidden="true" tabindex="-1"></a>    <span class="er">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb160-1"><a href="server-admin.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nano /etc/nginx/sites-available/default</span>
+<span id="cb160-2"><a href="server-admin.html#cb160-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb160-3"><a href="server-admin.html#cb160-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Comment out (#) any other active server config lines, and add this…</span></span>
+<span id="cb160-4"><a href="server-admin.html#cb160-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb160-5"><a href="server-admin.html#cb160-5" aria-hidden="true" tabindex="-1"></a><span class="ex">server</span> {</span>
+<span id="cb160-6"><a href="server-admin.html#cb160-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">listen</span> 80<span class="kw">;</span></span>
+<span id="cb160-7"><a href="server-admin.html#cb160-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb160-8"><a href="server-admin.html#cb160-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">location</span> / {</span>
+<span id="cb160-9"><a href="server-admin.html#cb160-9" aria-hidden="true" tabindex="-1"></a>        <span class="ex">proxy_pass</span> http://127.0.0.1:3838/<span class="kw">;</span></span>
+<span id="cb160-10"><a href="server-admin.html#cb160-10" aria-hidden="true" tabindex="-1"></a>        <span class="ex">proxy_redirect</span> http://127.0.0.1:3838/ <span class="va">$scheme</span>://<span class="va">$host</span>/<span class="kw">;</span></span>
+<span id="cb160-11"><a href="server-admin.html#cb160-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># note, the following 3 lines added 2016-07-11, see updates section</span></span>
+<span id="cb160-12"><a href="server-admin.html#cb160-12" aria-hidden="true" tabindex="-1"></a>        <span class="ex">proxy_http_version</span> 1.1<span class="kw">;</span></span>
+<span id="cb160-13"><a href="server-admin.html#cb160-13" aria-hidden="true" tabindex="-1"></a>        <span class="ex">proxy_set_header</span> Upgrade <span class="va">$http_upgrade</span><span class="kw">;</span></span>
+<span id="cb160-14"><a href="server-admin.html#cb160-14" aria-hidden="true" tabindex="-1"></a>        <span class="ex">proxy_set_header</span> Connection <span class="st">&quot;upgrade&quot;</span><span class="kw">;</span></span>
+<span id="cb160-15"><a href="server-admin.html#cb160-15" aria-hidden="true" tabindex="-1"></a>     <span class="er">}</span></span>
+<span id="cb160-16"><a href="server-admin.html#cb160-16" aria-hidden="true" tabindex="-1"></a>    <span class="er">}</span></span></code></pre></div>
 <p>Next, we’re going to update the Shiny server config file</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb160-1"><a href="server-admin.html#cb160-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb160-2"><a href="server-admin.html#cb160-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nano /etc/shiny-server/shiny-server.conf</span>
-<span id="cb160-3"><a href="server-admin.html#cb160-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb160-4"><a href="server-admin.html#cb160-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Add the following (if it’s not already there, which it may well be):</span></span>
-<span id="cb160-5"><a href="server-admin.html#cb160-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb160-6"><a href="server-admin.html#cb160-6" aria-hidden="true" tabindex="-1"></a><span class="ex">server{</span></span>
-<span id="cb160-7"><a href="server-admin.html#cb160-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">listen</span> 3838 127.0.0.1<span class="kw">;</span></span>
-<span id="cb160-8"><a href="server-admin.html#cb160-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb160-9"><a href="server-admin.html#cb160-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">location</span> / {</span>
-<span id="cb160-10"><a href="server-admin.html#cb160-10" aria-hidden="true" tabindex="-1"></a>      <span class="ex">site_dir</span> /srv/shiny-server<span class="kw">;</span></span>
-<span id="cb160-11"><a href="server-admin.html#cb160-11" aria-hidden="true" tabindex="-1"></a>      <span class="ex">log_dir</span> /var/log/shiny-server<span class="kw">;</span></span>
-<span id="cb160-12"><a href="server-admin.html#cb160-12" aria-hidden="true" tabindex="-1"></a>      <span class="ex">directory_index</span> on<span class="kw">;</span></span>
-<span id="cb160-13"><a href="server-admin.html#cb160-13" aria-hidden="true" tabindex="-1"></a>    <span class="er">}</span></span>
-<span id="cb160-14"><a href="server-admin.html#cb160-14" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb161-1"><a href="server-admin.html#cb161-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-2"><a href="server-admin.html#cb161-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nano /etc/shiny-server/shiny-server.conf</span>
+<span id="cb161-3"><a href="server-admin.html#cb161-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-4"><a href="server-admin.html#cb161-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Add the following (if it’s not already there, which it may well be):</span></span>
+<span id="cb161-5"><a href="server-admin.html#cb161-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-6"><a href="server-admin.html#cb161-6" aria-hidden="true" tabindex="-1"></a><span class="ex">server{</span></span>
+<span id="cb161-7"><a href="server-admin.html#cb161-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">listen</span> 3838 127.0.0.1<span class="kw">;</span></span>
+<span id="cb161-8"><a href="server-admin.html#cb161-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-9"><a href="server-admin.html#cb161-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">location</span> / {</span>
+<span id="cb161-10"><a href="server-admin.html#cb161-10" aria-hidden="true" tabindex="-1"></a>      <span class="ex">site_dir</span> /srv/shiny-server<span class="kw">;</span></span>
+<span id="cb161-11"><a href="server-admin.html#cb161-11" aria-hidden="true" tabindex="-1"></a>      <span class="ex">log_dir</span> /var/log/shiny-server<span class="kw">;</span></span>
+<span id="cb161-12"><a href="server-admin.html#cb161-12" aria-hidden="true" tabindex="-1"></a>      <span class="ex">directory_index</span> on<span class="kw">;</span></span>
+<span id="cb161-13"><a href="server-admin.html#cb161-13" aria-hidden="true" tabindex="-1"></a>    <span class="er">}</span></span>
+<span id="cb161-14"><a href="server-admin.html#cb161-14" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code></pre></div>
 <p>Go to your floating IP in the browser, without the 3838, and all should be well.</p>
 </div>
 <div id="getting-a-user-friendly-domain-name" class="section level3 hasAnchor" number="9.3.9">
@@ -581,57 +581,57 @@ Your first step here is obviously to buy a domain name from one of the many prov
 <h3><span class="header-section-number">9.3.10</span> Appendix 1 – Password protecting your site<a href="server-admin.html#appendix-1-password-protecting-your-site" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You may want to add a basic password to your site. This is easily accomplished (though there are more robust password protection mechanisms out there, if you’re dealing with potentially sensitive data).</p>
 <p>First, make sure you have Apache2-utils installed:</p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb161-1"><a href="server-admin.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="co">#First, make sure you have Apache2-utils installed:</span></span>
-<span id="cb161-2"><a href="server-admin.html#cb161-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install apache2-utils</span>
-<span id="cb161-3"><a href="server-admin.html#cb161-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb161-4"><a href="server-admin.html#cb161-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Now, stop nginx and shiny:</span></span>
-<span id="cb161-5"><a href="server-admin.html#cb161-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> service nginx stop</span>
-<span id="cb161-6"><a href="server-admin.html#cb161-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> stop shiny-server</span>
-<span id="cb161-7"><a href="server-admin.html#cb161-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb161-8"><a href="server-admin.html#cb161-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Next, you’ll need to go back into that Nginx config file, with </span></span>
-<span id="cb161-9"><a href="server-admin.html#cb161-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nano /etc/nginx/sites-available/default</span>
-<span id="cb161-10"><a href="server-admin.html#cb161-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb161-11"><a href="server-admin.html#cb161-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the following two lines in the &quot;location&quot; section</span></span>
-<span id="cb161-12"><a href="server-admin.html#cb161-12" aria-hidden="true" tabindex="-1"></a><span class="ex">location</span> / {</span>
-<span id="cb161-13"><a href="server-admin.html#cb161-13" aria-hidden="true" tabindex="-1"></a>      <span class="ex">proxy_pass</span> http://127.0.0.1:3838/<span class="kw">;</span></span>
-<span id="cb161-14"><a href="server-admin.html#cb161-14" aria-hidden="true" tabindex="-1"></a>      <span class="ex">proxy_redirect</span> http://127.0.0.1:3838/ <span class="va">$scheme</span>://<span class="va">$host</span>/<span class="kw">;</span></span>
-<span id="cb161-15"><a href="server-admin.html#cb161-15" aria-hidden="true" tabindex="-1"></a>      <span class="ex">auth_basic</span> <span class="st">&quot;Username and Password are required&quot;</span><span class="kw">;</span> </span>
-<span id="cb161-16"><a href="server-admin.html#cb161-16" aria-hidden="true" tabindex="-1"></a>      <span class="ex">auth_basic_user_file</span> /etc/nginx/.htpasswd<span class="kw">;</span></span>
-<span id="cb161-17"><a href="server-admin.html#cb161-17" aria-hidden="true" tabindex="-1"></a>    <span class="er">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb162-1"><a href="server-admin.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="co">#First, make sure you have Apache2-utils installed:</span></span>
+<span id="cb162-2"><a href="server-admin.html#cb162-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install apache2-utils</span>
+<span id="cb162-3"><a href="server-admin.html#cb162-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb162-4"><a href="server-admin.html#cb162-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Now, stop nginx and shiny:</span></span>
+<span id="cb162-5"><a href="server-admin.html#cb162-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> service nginx stop</span>
+<span id="cb162-6"><a href="server-admin.html#cb162-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> stop shiny-server</span>
+<span id="cb162-7"><a href="server-admin.html#cb162-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb162-8"><a href="server-admin.html#cb162-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Next, you’ll need to go back into that Nginx config file, with </span></span>
+<span id="cb162-9"><a href="server-admin.html#cb162-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nano /etc/nginx/sites-available/default</span>
+<span id="cb162-10"><a href="server-admin.html#cb162-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb162-11"><a href="server-admin.html#cb162-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the following two lines in the &quot;location&quot; section</span></span>
+<span id="cb162-12"><a href="server-admin.html#cb162-12" aria-hidden="true" tabindex="-1"></a><span class="ex">location</span> / {</span>
+<span id="cb162-13"><a href="server-admin.html#cb162-13" aria-hidden="true" tabindex="-1"></a>      <span class="ex">proxy_pass</span> http://127.0.0.1:3838/<span class="kw">;</span></span>
+<span id="cb162-14"><a href="server-admin.html#cb162-14" aria-hidden="true" tabindex="-1"></a>      <span class="ex">proxy_redirect</span> http://127.0.0.1:3838/ <span class="va">$scheme</span>://<span class="va">$host</span>/<span class="kw">;</span></span>
+<span id="cb162-15"><a href="server-admin.html#cb162-15" aria-hidden="true" tabindex="-1"></a>      <span class="ex">auth_basic</span> <span class="st">&quot;Username and Password are required&quot;</span><span class="kw">;</span> </span>
+<span id="cb162-16"><a href="server-admin.html#cb162-16" aria-hidden="true" tabindex="-1"></a>      <span class="ex">auth_basic_user_file</span> /etc/nginx/.htpasswd<span class="kw">;</span></span>
+<span id="cb162-17"><a href="server-admin.html#cb162-17" aria-hidden="true" tabindex="-1"></a>    <span class="er">}</span></span></code></pre></div>
 <p>Once that’s done, you’ll need to edit Shiny Server’s conf file so it only serves to loaclhost. Otherwise users would be able to creep around your authentication by going to port 3838.</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb162-1"><a href="server-admin.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nano /etc/shiny-server/shiny-server.conf</span>
-<span id="cb162-2"><a href="server-admin.html#cb162-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb162-3"><a href="server-admin.html#cb162-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Copy and paste the below to your shiny-server.conf.</span></span>
-<span id="cb162-4"><a href="server-admin.html#cb162-4" aria-hidden="true" tabindex="-1"></a><span class="ex">server{</span></span>
-<span id="cb162-5"><a href="server-admin.html#cb162-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">listen</span> 3838 127.0.0.1<span class="kw">;</span></span>
-<span id="cb162-6"><a href="server-admin.html#cb162-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb162-7"><a href="server-admin.html#cb162-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">location</span> / {</span>
-<span id="cb162-8"><a href="server-admin.html#cb162-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">site_dir</span> /srv/shiny-server<span class="kw">;</span></span>
-<span id="cb162-9"><a href="server-admin.html#cb162-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">log_dir</span> /var/log/shiny-server<span class="kw">;</span></span>
-<span id="cb162-10"><a href="server-admin.html#cb162-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">directory_index</span> on<span class="kw">;</span></span>
-<span id="cb162-11"><a href="server-admin.html#cb162-11" aria-hidden="true" tabindex="-1"></a>    <span class="er">}</span></span>
-<span id="cb162-12"><a href="server-admin.html#cb162-12" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb163-1"><a href="server-admin.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nano /etc/shiny-server/shiny-server.conf</span>
+<span id="cb163-2"><a href="server-admin.html#cb163-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb163-3"><a href="server-admin.html#cb163-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Copy and paste the below to your shiny-server.conf.</span></span>
+<span id="cb163-4"><a href="server-admin.html#cb163-4" aria-hidden="true" tabindex="-1"></a><span class="ex">server{</span></span>
+<span id="cb163-5"><a href="server-admin.html#cb163-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">listen</span> 3838 127.0.0.1<span class="kw">;</span></span>
+<span id="cb163-6"><a href="server-admin.html#cb163-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb163-7"><a href="server-admin.html#cb163-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">location</span> / {</span>
+<span id="cb163-8"><a href="server-admin.html#cb163-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">site_dir</span> /srv/shiny-server<span class="kw">;</span></span>
+<span id="cb163-9"><a href="server-admin.html#cb163-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">log_dir</span> /var/log/shiny-server<span class="kw">;</span></span>
+<span id="cb163-10"><a href="server-admin.html#cb163-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">directory_index</span> on<span class="kw">;</span></span>
+<span id="cb163-11"><a href="server-admin.html#cb163-11" aria-hidden="true" tabindex="-1"></a>    <span class="er">}</span></span>
+<span id="cb163-12"><a href="server-admin.html#cb163-12" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code></pre></div>
 <p>You’re now ready to create the username and password visitors must enter to view your site.</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb163-1"><a href="server-admin.html#cb163-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb163-2"><a href="server-admin.html#cb163-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /etc/nginx</span>
-<span id="cb163-3"><a href="server-admin.html#cb163-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> htpasswd <span class="at">-c</span> /etc/nginx/.htpasswd USERNAME</span>
-<span id="cb163-4"><a href="server-admin.html#cb163-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb163-5"><a href="server-admin.html#cb163-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Restart Nginx and Shiny and you’re good to go.</span></span>
-<span id="cb163-6"><a href="server-admin.html#cb163-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> service nginx start</span>
-<span id="cb163-7"><a href="server-admin.html#cb163-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> start shiny-server</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb164-1"><a href="server-admin.html#cb164-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-2"><a href="server-admin.html#cb164-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /etc/nginx</span>
+<span id="cb164-3"><a href="server-admin.html#cb164-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> htpasswd <span class="at">-c</span> /etc/nginx/.htpasswd USERNAME</span>
+<span id="cb164-4"><a href="server-admin.html#cb164-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-5"><a href="server-admin.html#cb164-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Restart Nginx and Shiny and you’re good to go.</span></span>
+<span id="cb164-6"><a href="server-admin.html#cb164-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> service nginx start</span>
+<span id="cb164-7"><a href="server-admin.html#cb164-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> start shiny-server</span></code></pre></div>
 </div>
 <div id="appendix-2-setting-up-a-swap-file" class="section level3 hasAnchor" number="9.3.11">
 <h3><span class="header-section-number">9.3.11</span> APPENDIX 2 – Setting up a swap file<a href="server-admin.html#appendix-2-setting-up-a-swap-file" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If your instance grinds to a halt while compiling R packages, you’ve most likely run out of memory and will need to set up a swap file. Just enter the following commands:</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb164-1"><a href="server-admin.html#cb164-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb164-2"><a href="server-admin.html#cb164-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> fallocate <span class="at">-l</span> 2G /swapfile</span>
-<span id="cb164-3"><a href="server-admin.html#cb164-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dd if=/dev/zero of=/swapfile bs=1024 count=1048576</span>
-<span id="cb164-4"><a href="server-admin.html#cb164-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chmod 600 /swapfile</span>
-<span id="cb164-5"><a href="server-admin.html#cb164-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mkswap /swapfile</span>
-<span id="cb164-6"><a href="server-admin.html#cb164-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> swapon /swapfile</span>
-<span id="cb164-7"><a href="server-admin.html#cb164-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb164-8"><a href="server-admin.html#cb164-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Finally, make sure everything as it should be by running:</span></span>
-<span id="cb164-9"><a href="server-admin.html#cb164-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> free <span class="at">-h</span></span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb165-1"><a href="server-admin.html#cb165-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-2"><a href="server-admin.html#cb165-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> fallocate <span class="at">-l</span> 2G /swapfile</span>
+<span id="cb165-3"><a href="server-admin.html#cb165-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dd if=/dev/zero of=/swapfile bs=1024 count=1048576</span>
+<span id="cb165-4"><a href="server-admin.html#cb165-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chmod 600 /swapfile</span>
+<span id="cb165-5"><a href="server-admin.html#cb165-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mkswap /swapfile</span>
+<span id="cb165-6"><a href="server-admin.html#cb165-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> swapon /swapfile</span>
+<span id="cb165-7"><a href="server-admin.html#cb165-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-8"><a href="server-admin.html#cb165-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Finally, make sure everything as it should be by running:</span></span>
+<span id="cb165-9"><a href="server-admin.html#cb165-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> free <span class="at">-h</span></span></code></pre></div>
 
 </div>
 </div>
