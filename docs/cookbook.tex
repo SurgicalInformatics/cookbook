@@ -131,7 +131,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2023-08-30}
+\date{2023-09-05}
 
 \begin{document}
 \maketitle
@@ -1013,12 +1013,12 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 
 \begin{verbatim}
 ##         date isoweek isoweek_date
-## 1 2020-12-03      49   2020-11-30
-## 2 2022-04-24      16   2022-04-18
-## 3 2020-03-29      13   2020-03-23
-## 4 2021-06-11      23   2021-06-07
-## 5 2021-05-02      17   2021-04-26
-## 6 2020-09-06      36   2020-08-31
+## 1 2020-02-29       9   2020-02-24
+## 2 2021-04-26      17   2021-04-26
+## 3 2021-03-06       9   2021-03-01
+## 4 2021-04-28      17   2021-04-26
+## 5 2020-11-22      47   2020-11-16
+## 6 2021-04-13      15   2021-04-12
 \end{verbatim}
 
 \hypertarget{labelling-tables-and-figures-in-markdown-chunks}{%
@@ -3212,6 +3212,7 @@ If your instance grinds to a halt while compiling R packages, you've most likely
 
 \begin{verbatim}
 redcap_token = ABC10000000000000000000000001DFG
+redcap_uri = "https://redcap.cir.ed.ac.uk/usher/api/"
 \end{verbatim}
 
 \begin{enumerate}
@@ -3225,68 +3226,31 @@ redcap_token = ABC10000000000000000000000001DFG
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{pulled\_data }\OtherTok{=}\NormalTok{ RCurl}\SpecialCharTok{::}\FunctionTok{postForm}\NormalTok{(}\AttributeTok{uri=}\StringTok{\textquotesingle{}https://redcap.yourURL.com/api/\textquotesingle{}}\NormalTok{,}
-                        \AttributeTok{token=}\FunctionTok{Sys.getenv}\NormalTok{(redcap\_token),}
-                        \AttributeTok{content=}\StringTok{\textquotesingle{}record\textquotesingle{}}\NormalTok{,}
-                        \AttributeTok{format=}\StringTok{\textquotesingle{}csv\textquotesingle{}}\NormalTok{,}
-                        \AttributeTok{rawOrLabel=}\StringTok{\textquotesingle{}raw\textquotesingle{}}\NormalTok{,}
-                        \AttributeTok{rawOrLabelHeaders=}\StringTok{\textquotesingle{}raw\textquotesingle{}}\NormalTok{,}
-                        \AttributeTok{exportCheckboxLabel=}\StringTok{\textquotesingle{}false\textquotesingle{}}\NormalTok{,}
-                        \AttributeTok{returnFormat=}\StringTok{\textquotesingle{}csv\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
-    \FunctionTok{read\_csv}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-The above code works well for the vast majority of projects. If, however, the project is huge then you'll need to pull data in batches using \texttt{redcap\_read()} from \texttt{library(REDCapR)}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Packages}
-\FunctionTok{library}\NormalTok{(RCurl)}
 \FunctionTok{library}\NormalTok{(tidyverse)}
-\FunctionTok{library}\NormalTok{(REDCapR)}
-
-\CommentTok{\# Functions for safe api pull}
-\NormalTok{rate }\OtherTok{=} \FunctionTok{rate\_backoff}\NormalTok{(}\AttributeTok{pause\_cap =} \DecValTok{60}\SpecialCharTok{*}\DecValTok{5}\NormalTok{, }\AttributeTok{max\_times =} \DecValTok{10}\NormalTok{)}
-\NormalTok{insistent\_postForm }\OtherTok{=}\NormalTok{ purrr}\SpecialCharTok{::}\FunctionTok{insistently}\NormalTok{(postForm, rate)}
-\NormalTok{insistent\_redcap\_read }\OtherTok{=}\NormalTok{ purrr}\SpecialCharTok{::}\FunctionTok{insistently}\NormalTok{(redcap\_read, rate)}
-\NormalTok{batch }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(.vector, }\AttributeTok{.n =} \DecValTok{200}\NormalTok{)\{}
-  \FunctionTok{split}\NormalTok{(.vector, }\FunctionTok{ceiling}\NormalTok{(}\FunctionTok{seq\_along}\NormalTok{(.vector)}\SpecialCharTok{/}\NormalTok{.n))}
-\NormalTok{\}}
-
-\CommentTok{\# Get subjid}
-\NormalTok{subjid }\OtherTok{=} \FunctionTok{insistent\_postForm}\NormalTok{(}
-  \AttributeTok{uri=}\StringTok{\textquotesingle{}https://ncov.medsci.ox.ac.uk/api/\textquotesingle{}}\NormalTok{,}
-  \AttributeTok{token=}\FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{"redcap\_token"}\NormalTok{),}
-  \AttributeTok{content=}\StringTok{\textquotesingle{}record\textquotesingle{}}\NormalTok{,}
-  \CommentTok{\#report\_id=\textquotesingle{}999\textquotesingle{},}
-  \StringTok{\textquotesingle{}fields[0]\textquotesingle{}}\OtherTok{=}\StringTok{\textquotesingle{}subjid\textquotesingle{}}\NormalTok{,}
-  \AttributeTok{format=}\StringTok{\textquotesingle{}csv\textquotesingle{}}\NormalTok{,}
-  \AttributeTok{type=}\StringTok{\textquotesingle{}flat\textquotesingle{}}\NormalTok{,}
-  \AttributeTok{rawOrLabel=}\StringTok{\textquotesingle{}raw\textquotesingle{}}\NormalTok{,}
-  \AttributeTok{rawOrLabelHeaders=}\StringTok{\textquotesingle{}raw\textquotesingle{}}\NormalTok{,}
-  \AttributeTok{exportCheckboxLabel=}\StringTok{\textquotesingle{}false\textquotesingle{}}\NormalTok{,}
-  \AttributeTok{exportSurveyFields=}\StringTok{\textquotesingle{}false\textquotesingle{}}\NormalTok{,}
-  \AttributeTok{exportDataAccessGroups=}\StringTok{\textquotesingle{}false\textquotesingle{}}\NormalTok{,}
-  \AttributeTok{returnFormat=}\StringTok{\textquotesingle{}json\textquotesingle{}}
-\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{read\_csv}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{distinct}\NormalTok{(subjid) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{pull}\NormalTok{(subjid)}
-
-\CommentTok{\# Get data in batches}
-\NormalTok{data }\OtherTok{=} \FunctionTok{batch}\NormalTok{(subjid) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{map\_df}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \FunctionTok{insistent\_redcap\_read}\NormalTok{(}
-    \AttributeTok{redcap\_uri =} \StringTok{"https://ncov.medsci.ox.ac.uk/api/"}\NormalTok{,}
-    \AttributeTok{export\_data\_access\_groups =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{token =} \FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{"redcap\_token"}\NormalTok{),}
-    \AttributeTok{records =}\NormalTok{ .x,}
-    \AttributeTok{guess\_type =} \ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{$}\NormalTok{data}
-\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{type\_convert}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{as\_tibble}\NormalTok{()}
+\NormalTok{patient\_data\_orig }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\StringTok{"token"}\OtherTok{=}\FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{"redcap\_token"}\NormalTok{),}
+                          \AttributeTok{content=}\StringTok{\textquotesingle{}records\textquotesingle{}}\NormalTok{,}
+                          \AttributeTok{action=}\StringTok{\textquotesingle{}export\textquotesingle{}}\NormalTok{,}
+                          \AttributeTok{format=}\StringTok{\textquotesingle{}csv\textquotesingle{}}\NormalTok{,}
+                          \AttributeTok{type=}\StringTok{\textquotesingle{}flat\textquotesingle{}}\NormalTok{,}
+                          \AttributeTok{csvDelimiter=}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{,}
+                          \AttributeTok{rawOrLabel=}\StringTok{\textquotesingle{}label\textquotesingle{}}\NormalTok{,}
+                          \AttributeTok{rawOrLabelHeaders=}\StringTok{\textquotesingle{}raw\textquotesingle{}}\NormalTok{,}
+                          \AttributeTok{exportCheckboxLabel=}\StringTok{\textquotesingle{}true\textquotesingle{}}\NormalTok{,}
+                          \AttributeTok{exportSurveyFields=}\StringTok{\textquotesingle{}false\textquotesingle{}}\NormalTok{,}
+                          \AttributeTok{exportDataAccessGroups=}\StringTok{\textquotesingle{}false\textquotesingle{}}\NormalTok{,}
+                          \AttributeTok{returnFormat=}\StringTok{\textquotesingle{}json\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  httr}\SpecialCharTok{::}\FunctionTok{POST}\NormalTok{(}\FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{"redcap\_uri"}\NormalTok{), }\AttributeTok{body =}\NormalTok{ ., }\AttributeTok{encode =} \StringTok{"form"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  httr}\SpecialCharTok{::}\FunctionTok{content}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
+
+\texttt{httr::content()} runs \texttt{readr::read\_csv()} to process the result of the API call. So any arguments that you might need to pass to \texttt{read\_csv()}, can be passed in there, e.g.:
+
+\begin{verbatim}
+httr::content(guess_max = Inf, col_types = cols(.default = "c"))
+\end{verbatim}
+
+The above code works well for the vast majority of projects. If, however, the project is huge then you'll need to pull data in batches using \texttt{redcap\_read()} from \texttt{library(REDCapR)}: \url{https://github.com/SurgicalInformatics/cocin_ccp/blob/master/01c_data_pull.R}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}

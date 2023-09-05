@@ -6,76 +6,41 @@
 
 2.  Put the API token in your .Renviron file and Restart R. Example format:
 
-```{=html}
-<!-- -->
 ```
-    redcap_token = ABC10000000000000000000000001DFG
+redcap_token = ABC10000000000000000000000001DFG
+redcap_uri = "https://redcap.cir.ed.ac.uk/usher/api/"
+```
 
 3.  Go to the API playground in REDCap (left-hand menu inside a project) and from API Method select "Export Records".
 
 4.  Scroll down and look at the R code example. Now, we've not found that copying this exact example works very well for us. But looking at the format can be useful if you've made custom selections at the top, e.g., to pull specific records or variables. In most cases though, you can ignore the example and copy these lines:
 
 ```{r, eval = FALSE}
-pulled_data = RCurl::postForm(uri='https://redcap.yourURL.com/api/',
-                        token=Sys.getenv(redcap_token),
-                        content='record',
-                        format='csv',
-                        rawOrLabel='raw',
-                        rawOrLabelHeaders='raw',
-                        exportCheckboxLabel='false',
-                        returnFormat='csv') %>% 
-    read_csv()
-```
-
-The above code works well for the vast majority of projects. If, however, the project is huge then you'll need to pull data in batches using `redcap_read()` from `library(REDCapR)`:
-
-```{r, eval = FALSE}
-# Packages
-library(RCurl)
 library(tidyverse)
-library(REDCapR)
+patient_data_orig <- list("token"=Sys.getenv("redcap_token"),
+                          content='records',
+                          action='export',
+                          format='csv',
+                          type='flat',
+                          csvDelimiter='',
+                          rawOrLabel='label',
+                          rawOrLabelHeaders='raw',
+                          exportCheckboxLabel='true',
+                          exportSurveyFields='false',
+                          exportDataAccessGroups='false',
+                          returnFormat='json') %>% 
+  httr::POST(Sys.getenv("redcap_uri"), body = ., encode = "form") %>% 
+  httr::content()
+```
 
-# Functions for safe api pull
-rate = rate_backoff(pause_cap = 60*5, max_times = 10)
-insistent_postForm = purrr::insistently(postForm, rate)
-insistent_redcap_read = purrr::insistently(redcap_read, rate)
-batch = function(.vector, .n = 200){
-  split(.vector, ceiling(seq_along(.vector)/.n))
-}
-
-# Get subjid
-subjid = insistent_postForm(
-  uri='https://ncov.medsci.ox.ac.uk/api/',
-  token=Sys.getenv("redcap_token"),
-  content='record',
-  #report_id='999',
-  'fields[0]'='subjid',
-  format='csv',
-  type='flat',
-  rawOrLabel='raw',
-  rawOrLabelHeaders='raw',
-  exportCheckboxLabel='false',
-  exportSurveyFields='false',
-  exportDataAccessGroups='false',
-  returnFormat='json'
-  ) %>% 
-  read_csv() %>% 
-  distinct(subjid) %>% 
-  pull(subjid)
-
-# Get data in batches
-data = batch(subjid) %>% 
-  map_df(~ insistent_redcap_read(
-    redcap_uri = "https://ncov.medsci.ox.ac.uk/api/",
-    export_data_access_groups = TRUE,
-    token = Sys.getenv("redcap_token"),
-    records = .x,
-    guess_type = FALSE)$data
-  ) %>% 
-  type_convert() %>% 
-  as_tibble()
+`httr::content()` runs `readr::read_csv()` to process the result of the API call. So any arguments that you might need to pass to `read_csv()`, can be passed in there, e.g.:
 
 ```
+httr::content(guess_max = Inf, col_types = cols(.default = "c"))
+```
+
+The above code works well for the vast majority of projects. If, however, the project is huge then you'll need to pull data in batches using `redcap_read()` from `library(REDCapR)`: https://github.com/SurgicalInformatics/cocin_ccp/blob/master/01c_data_pull.R
+
 
 5.  `rawOrLabel='raw'` vs `rawOrLabel='label'`. Pulling raw data will give you categorical variables in their raw coding, e.g., `1, 2` instead of `"Male", "Female"`. Pulling 'labels' will give you the latter, but their factor levels will be ordered alphabetically (as the information on which one was 1 and which one 2 is lost/not pulled). If I'm working with a small dataset with categorical variables that only have a couple of levels each then I find it easier to pull 'labels' and use `fct_relevel()` to order them as necessary. In most cases, however, you'll want to use the exact same ordering that's been set-up on the database. To do this, you'll have to pull 'raw' and apply what's called a REDCap's factoring script.
 

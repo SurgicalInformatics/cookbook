@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.25)  30 AUG 2023 14:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.25)  5 SEP 2023 10:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -943,106 +943,110 @@ Underfull \hbox (badness 3872) in paragraph at lines 2901--2901
 Chapter 10.
 [85
 
-] [86]
-<img/redcap_factoring_file.png, id=1052, 751.80875pt x 440.64626pt>
+]
+<img/redcap_factoring_file.png, id=1049, 751.80875pt x 440.64626pt>
 File: img/redcap_factoring_file.png Graphic file (type png)
 <use img/redcap_factoring_file.png>
-Package pdftex.def Info: img/redcap_factoring_file.png  used on input line 3309
+Package pdftex.def Info: img/redcap_factoring_file.png  used on input line 3273
 .
 (pdftex.def)             Requested size: 751.84131pt x 440.66533pt.
 
-Overfull \hbox (406.84131pt too wide) in paragraph at lines 3309--3310
+Overfull \hbox (406.84131pt too wide) in paragraph at lines 3273--3274
 [][] 
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[87] [88 <./img/redcap_factoring_file.png>]
-<img/regexp_end_of_line.png, id=1066, 419.31656pt x 60.225pt>
+[86] [87 <./img/redcap_factoring_file.png>]
+<img/regexp_end_of_line.png, id=1064, 419.31656pt x 60.225pt>
 File: img/regexp_end_of_line.png Graphic file (type png)
 <use img/regexp_end_of_line.png>
-Package pdftex.def Info: img/regexp_end_of_line.png  used on input line 3384.
+Package pdftex.def Info: img/regexp_end_of_line.png  used on input line 3348.
 (pdftex.def)             Requested size: 419.32831pt x 60.22667pt.
 
-Overfull \hbox (74.32831pt too wide) in paragraph at lines 3384--3385
+Overfull \hbox (74.32831pt too wide) in paragraph at lines 3348--3349
 [][] 
  []
 
-[89 <./img/regexp_end_of_line.png>]
-Overfull \hbox (50.9885pt too wide) in paragraph at lines 3403--3403
+[88 <./img/regexp_end_of_line.png>]
+Overfull \hbox (50.9885pt too wide) in paragraph at lines 3367--3367
 []\T1/lmr/bx/n/14.4 Alternative to the fac-tor-ing script: \T1/lmtt/b/n/14.4 re
 dcap_label()
  []
 
-<img/1d_barcode.png, id=1074, 806.26219pt x 399.74344pt>
+<img/1d_barcode.png, id=1072, 806.26219pt x 399.74344pt>
 File: img/1d_barcode.png Graphic file (type png)
 <use img/1d_barcode.png>
-Package pdftex.def Info: img/1d_barcode.png  used on input line 3420.
+Package pdftex.def Info: img/1d_barcode.png  used on input line 3384.
 (pdftex.def)             Requested size: 806.29712pt x 399.76074pt.
 
-Overfull \hbox (461.29712pt too wide) in paragraph at lines 3420--3421
+Overfull \hbox (461.29712pt too wide) in paragraph at lines 3384--3385
 [][] 
  []
 
-[90]
-<img/qr_code.png, id=1083, 804.75656pt x 401.24907pt>
+
+Overfull \hbox (138.82997pt too wide) has occurred while \output is active
+\T1/lmr/m/sl/10 10.3.  ALTERNATIVE TO THE FACTORING SCRIPT: \T1/lmtt/m/sl/10 RE
+DCAP_LABEL() \T1/lmr/m/sl/10 FROM \T1/lmtt/m/sl/10 LIBRARY(COLLABORATORR) \T1/l
+mr/m/n/10 89
+ []
+
+[89]
+<img/qr_code.png, id=1081, 804.75656pt x 401.24907pt>
 File: img/qr_code.png Graphic file (type png)
 <use img/qr_code.png>
-Package pdftex.def Info: img/qr_code.png  used on input line 3424.
+Package pdftex.def Info: img/qr_code.png  used on input line 3388.
 (pdftex.def)             Requested size: 804.80371pt x 401.27255pt.
 
-Overfull \hbox (459.80371pt too wide) in paragraph at lines 3424--3425
+Overfull \hbox (459.80371pt too wide) in paragraph at lines 3388--3389
 [][] 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[91 <./img/1d_barcode.png>]
-<img/redcap_layout.png, id=1089, 580.41844pt x 386.94562pt>
+[90 <./img/1d_barcode.png>]
+<img/redcap_layout.png, id=1086, 580.41844pt x 386.94562pt>
 File: img/redcap_layout.png Graphic file (type png)
 <use img/redcap_layout.png>
-Package pdftex.def Info: img/redcap_layout.png  used on input line 3428.
+Package pdftex.def Info: img/redcap_layout.png  used on input line 3392.
 (pdftex.def)             Requested size: 580.42587pt x 386.95056pt.
 
-Overfull \hbox (235.42587pt too wide) in paragraph at lines 3428--3429
+Overfull \hbox (235.42587pt too wide) in paragraph at lines 3392--3393
 [][] 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[92 <./img/qr_code.png>]
-<img/barcode_appearance.png, id=1095, 557.83406pt x 606.01407pt>
+[91 <./img/qr_code.png>]
+<img/barcode_appearance.png, id=1093, 557.83406pt x 606.01407pt>
 File: img/barcode_appearance.png Graphic file (type png)
 <use img/barcode_appearance.png>
-Package pdftex.def Info: img/barcode_appearance.png  used on input line 3432.
+Package pdftex.def Info: img/barcode_appearance.png  used on input line 3396.
 (pdftex.def)             Requested size: 506.2764pt x 550.00339pt.
 
-Overfull \hbox (161.2764pt too wide) in paragraph at lines 3432--3433
+Overfull \hbox (161.2764pt too wide) in paragraph at lines 3396--3397
 [][] 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[93 <./img/redcap_layout.png>] [94 <./img/barcode_appearance.png>]
-Chapter 11.
-[95
+[92 <./img/redcap_layout.png>] [93 <./img/barcode_appearance.png>] [94
 
 ]
+Chapter 11.
+[95]
 Overfull \hbox (32.74652pt too wide) has occurred while \output is active
 \T1/lmr/m/n/10 96 \T1/lmr/m/sl/10 CHAPTER 11.  WORKING WITH DIGITAL PATHOLOGY D
 ATA AND PYTHON
  []
 
 [96] [97]
-Underfull \vbox (badness 10000) detected at line 3654
+Underfull \vbox (badness 10000) detected at line 3618
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3654
+Underfull \vbox (badness 10000) detected at line 3618
  []
 
 
@@ -1052,11 +1056,11 @@ ATA AND PYTHON
  []
 
 [98]
-Underfull \vbox (badness 10000) detected at line 3654
+Underfull \vbox (badness 10000) detected at line 3618
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3654
+Underfull \vbox (badness 10000) detected at line 3618
  []
 
 [99]
@@ -1073,14 +1077,14 @@ DATA AND PYTHON
 
 [102]
 Chapter 12.
-<img/zotero_add_on_install.png, id=1155, 797.379pt x 502.87875pt>
+<img/zotero_add_on_install.png, id=1157, 797.379pt x 502.87875pt>
 File: img/zotero_add_on_install.png Graphic file (type png)
 <use img/zotero_add_on_install.png>
-Package pdftex.def Info: img/zotero_add_on_install.png  used on input line 3802
+Package pdftex.def Info: img/zotero_add_on_install.png  used on input line 3766
 .
 (pdftex.def)             Requested size: 797.37706pt x 502.87752pt.
 
-Overfull \hbox (452.37706pt too wide) in paragraph at lines 3802--3802
+Overfull \hbox (452.37706pt too wide) in paragraph at lines 3766--3766
 [][] 
  []
 
@@ -1090,63 +1094,63 @@ Underfull \vbox (badness 1102) has occurred while \output is active []
 [103
 
 ] [104 <./img/zotero_add_on_install.png>] [105]
-<img/zotfile_preferences.png, id=1187, 963.6pt x 510.10574pt>
+<img/zotfile_preferences.png, id=1189, 963.6pt x 510.10574pt>
 File: img/zotfile_preferences.png Graphic file (type png)
 <use img/zotfile_preferences.png>
-Package pdftex.def Info: img/zotfile_preferences.png  used on input line 3841.
+Package pdftex.def Info: img/zotfile_preferences.png  used on input line 3805.
 (pdftex.def)             Requested size: 963.61235pt x 510.11227pt.
 
-Overfull \hbox (618.61235pt too wide) in paragraph at lines 3841--3841
+Overfull \hbox (618.61235pt too wide) in paragraph at lines 3805--3805
 [][] 
  []
 
 
-Underfull \hbox (badness 1163) in paragraph at lines 3844--3845
+Underfull \hbox (badness 1163) in paragraph at lines 3808--3809
 []\T1/lmr/m/n/10 Next the \T1/lmr/bx/n/10 Re-nam-ing Rules \T1/lmr/m/n/10 tab c
 an be con-fig-ured to pro-vide sen-si-ble
  []
 
 
-Overfull \hbox (51.52661pt too wide) in paragraph at lines 3844--3845
+Overfull \hbox (51.52661pt too wide) in paragraph at lines 3808--3809
 \T1/lmtt/m/n/10 Fairfield_2019_Gallstone_Disease_and_the_Risk_of_Cardiovascular
 _Disease.pdf\T1/lmr/m/n/10 .
  []
 
-<img/zotfile_renaming.png, id=1188, 964.20226pt x 513.117pt>
+<img/zotfile_renaming.png, id=1190, 964.20226pt x 513.117pt>
 File: img/zotfile_renaming.png Graphic file (type png)
 <use img/zotfile_renaming.png>
-Package pdftex.def Info: img/zotfile_renaming.png  used on input line 3847.
+Package pdftex.def Info: img/zotfile_renaming.png  used on input line 3811.
 (pdftex.def)             Requested size: 964.28818pt x 513.16272pt.
 
-Overfull \hbox (619.28818pt too wide) in paragraph at lines 3847--3847
+Overfull \hbox (619.28818pt too wide) in paragraph at lines 3811--3811
 [][] 
  []
 
 [106] [107 <./img/zotfile_preferences.png>] [108 <./img/zotfile_renaming.png>]
-Underfull \hbox (badness 1888) in paragraph at lines 3889--3891
+Underfull \hbox (badness 1888) in paragraph at lines 3853--3855
 []\T1/lmr/bx/n/10 Better Bib-Tex: \T1/lmr/m/n/10 + In this sec-tion set the Ci-
 ta-tion Key for-mat to
  []
 
 
-Overfull \hbox (98.44357pt too wide) in paragraph at lines 3889--3891
+Overfull \hbox (98.44357pt too wide) in paragraph at lines 3853--3855
 \T1/lmr/m/n/10 [auth:lower:alphanum]\T1/lmr/m/it/10 [year:alphanum]\T1/lmr/m/n/
 10 [veryshorttitle:lower:alphanum]_[journal:lower:clean:alphanum]
  []
 
 
-Underfull \hbox (badness 3219) in paragraph at lines 3889--3891
+Underfull \hbox (badness 3219) in paragraph at lines 3853--3855
 \T1/lmr/m/n/10 fair-field_2019_gallstones_scientificreports or har-ri-son_2012_
 hospital_bmj.
  []
 
-<img/zotero_citation_key.png, id=1206, 962.99776pt x 511.9125pt>
+<img/zotero_citation_key.png, id=1208, 962.99776pt x 511.9125pt>
 File: img/zotero_citation_key.png Graphic file (type png)
 <use img/zotero_citation_key.png>
-Package pdftex.def Info: img/zotero_citation_key.png  used on input line 3895.
+Package pdftex.def Info: img/zotero_citation_key.png  used on input line 3859.
 (pdftex.def)             Requested size: 962.9954pt x 511.91125pt.
 
-Overfull \hbox (617.9954pt too wide) in paragraph at lines 3895--3895
+Overfull \hbox (617.9954pt too wide) in paragraph at lines 3859--3859
 [][] 
  []
 
@@ -1154,12 +1158,12 @@ Overfull \hbox (617.9954pt too wide) in paragraph at lines 3895--3895
 114
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 4028.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3992.
 [115]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 4028.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 3992.
 (./cookbook.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 4028.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 4028.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 3992.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 3992.
 
 Package rerunfilecheck Info: File `cookbook.out' has not changed.
 (rerunfilecheck)             Checksum: A9772C4A45407F330DFF5389FBC5A49C;13259.
@@ -1167,7 +1171,7 @@ Package rerunfilecheck Info: File `cookbook.out' has not changed.
 Here is how much of TeX's memory you used:
  13625 strings out of 482823
  196400 string characters out of 5956025
- 456377 words of memory out of 5000000
+ 457377 words of memory out of 5000000
  28254 multiletter control sequences out of 15000+600000
  603310 words of font info for 85 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -1184,10 +1188,10 @@ mtk10.pfb></home/rots/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtko10.pfb></h
 ome/rots/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></home/rots/.Tiny
 TeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb></home/rots/.TinyTeX/texmf-dis
 t/fonts/type1/public/lm/lmtto10.pfb>
-Output written on cookbook.pdf (115 pages, 2240469 bytes).
+Output written on cookbook.pdf (115 pages, 2242213 bytes).
 PDF statistics:
- 1395 PDF objects out of 1440 (max. 8388607)
- 1209 compressed objects within 13 object streams
+ 1397 PDF objects out of 1440 (max. 8388607)
+ 1211 compressed objects within 13 object streams
  455 named destinations out of 1000 (max. 500000)
  642 words of extra memory for PDF output out of 10000 (max. 10000000)
 
