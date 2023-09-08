@@ -131,7 +131,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2023-09-05}
+\date{2023-09-08}
 
 \begin{document}
 \maketitle
@@ -1013,12 +1013,12 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 
 \begin{verbatim}
 ##         date isoweek isoweek_date
-## 1 2020-02-29       9   2020-02-24
-## 2 2021-04-26      17   2021-04-26
-## 3 2021-03-06       9   2021-03-01
-## 4 2021-04-28      17   2021-04-26
-## 5 2020-11-22      47   2020-11-16
-## 6 2021-04-13      15   2021-04-12
+## 1 2021-10-15      41   2021-10-11
+## 2 2022-04-11      15   2022-04-11
+## 3 2021-03-17      11   2021-03-15
+## 4 2020-11-08      45   2020-11-02
+## 5 2022-03-02       9   2022-02-28
+## 6 2021-10-03      39   2021-09-27
 \end{verbatim}
 
 \hypertarget{labelling-tables-and-figures-in-markdown-chunks}{%
@@ -1207,6 +1207,57 @@ Final method here probably makes most sense: `
 \begin{verbatim}
 ## [1] 0.9384781
 \end{verbatim}
+
+\hypertarget{formating-thousands-automatically}{%
+\section{Formating thousands automatically}\label{formating-thousands-automatically}}
+
+Works in R Markdown and Quarto.
+
+Before: There are \ensuremath{1.2345\times 10^{4}} patients in this dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{inline\_hook }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(x) \{}
+  \ControlFlowTok{if}\NormalTok{ (}\FunctionTok{is.numeric}\NormalTok{(x)) \{}
+    \FunctionTok{format}\NormalTok{(x,}\AttributeTok{big.mark =} \StringTok{","}\NormalTok{)}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ x}
+\NormalTok{\}}
+\NormalTok{knitr}\SpecialCharTok{::}\NormalTok{knit\_hooks}\SpecialCharTok{$}\FunctionTok{set}\NormalTok{(}\AttributeTok{inline =}\NormalTok{ inline\_hook)}
+\end{Highlighting}
+\end{Shaded}
+
+After: There are 12,345 patients in this dataset.
+
+This only works on numbers entered by inline R.
+
+\hypertarget{datatable-function}{%
+\section{DataTable function}\label{datatable-function}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydt }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(df, }\AttributeTok{pagelength =} \DecValTok{20}\NormalTok{)\{}
+\NormalTok{  DT}\SpecialCharTok{::}\FunctionTok{datatable}\NormalTok{(df,}
+                \AttributeTok{rownames =} \ConstantTok{FALSE}\NormalTok{,}
+                \AttributeTok{extensions =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Buttons\textquotesingle{}}\NormalTok{),}
+                \AttributeTok{filter =} \StringTok{"top"}\NormalTok{,}
+                \AttributeTok{options =} \FunctionTok{list}\NormalTok{(}
+                  \AttributeTok{pageLength =}\NormalTok{ pagelength,}
+                  \AttributeTok{autoWidth =} \ConstantTok{TRUE}\NormalTok{,}
+                  \AttributeTok{scrollX =} \ConstantTok{TRUE}\NormalTok{,}
+                  \AttributeTok{searchHighlight =} \ConstantTok{TRUE}\NormalTok{))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Usage:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{palmerpenguins}\SpecialCharTok{::}\NormalTok{penguins }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mydt}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{data-manipulation}{%
 \chapter{Data manipulation}\label{data-manipulation}}

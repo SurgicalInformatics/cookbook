@@ -23,7 +23,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2023-09-05" />
+<meta name="date" content="2023-09-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,26 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.24.2/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/dt-ext-buttons-1.11.3/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="libs/dt-ext-buttons-1.11.3/js/dataTables.buttons.min.js"></script>
+<script src="libs/dt-ext-buttons-1.11.3/js/buttons.html5.min.js"></script>
+<script src="libs/dt-ext-buttons-1.11.3/js/buttons.colVis.min.js"></script>
+<script src="libs/dt-ext-buttons-1.11.3/js/buttons.print.min.js"></script>
+<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="libs/dt-plugin-searchhighlight-1.11.3/source.css" rel="stylesheet" />
+<script src="libs/dt-plugin-searchhighlight-1.11.3/jquery.highlight.js"></script>
+<script src="libs/dt-plugin-searchhighlight-1.11.3/source.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -213,6 +233,8 @@ div.csl-indent {
 <li class="chapter" data-level="2.8" data-path="snippets.html"><a href="snippets.html#join-tables-and-overwrite-values-that-are-often-missing"><i class="fa fa-check"></i><b>2.8</b> Join tables and overwrite values (that are often missing)</a></li>
 <li class="chapter" data-level="2.9" data-path="snippets.html"><a href="snippets.html#read-in-multiple-files"><i class="fa fa-check"></i><b>2.9</b> Read in multiple files</a></li>
 <li class="chapter" data-level="2.10" data-path="snippets.html"><a href="snippets.html#averaging-multiple-aucs-say-from-imputed-datasets"><i class="fa fa-check"></i><b>2.10</b> Averaging multiple AUCs (say from imputed datasets)</a></li>
+<li class="chapter" data-level="2.11" data-path="snippets.html"><a href="snippets.html#formating-thousands-automatically"><i class="fa fa-check"></i><b>2.11</b> Formating thousands automatically</a></li>
+<li class="chapter" data-level="2.12" data-path="snippets.html"><a href="snippets.html#datatable-function"><i class="fa fa-check"></i><b>2.12</b> DataTable function</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>3</b> Data manipulation</a>
 <ul>
@@ -944,12 +966,12 @@ I often want days as a numeric, not a lubridate type object.</p>
 <span id="cb47-4"><a href="snippets.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date, isoweek, isoweek_date) <span class="sc">%&gt;%</span> </span>
 <span id="cb47-5"><a href="snippets.html#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div>
 <pre><code>##         date isoweek isoweek_date
-## 1 2021-07-30      30   2021-07-26
-## 2 2021-12-22      51   2021-12-20
-## 3 2020-12-26      52   2020-12-21
-## 4 2021-01-22       3   2021-01-18
-## 5 2020-08-20      34   2020-08-17
-## 6 2020-01-23       4   2020-01-20</code></pre>
+## 1 2020-04-12      15   2020-04-06
+## 2 2021-11-30      48   2021-11-29
+## 3 2022-05-12      19   2022-05-09
+## 4 2020-07-06      28   2020-07-06
+## 5 2020-06-21      25   2020-06-15
+## 6 2021-03-12      10   2021-03-08</code></pre>
 </div>
 </div>
 <div id="labelling-tables-and-figures-in-markdown-chunks" class="section level2 hasAnchor" number="2.7">
@@ -1048,6 +1070,39 @@ I often want days as a numeric, not a lubridate type object.</p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="snippets.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">mean</span>(<span class="fu">log</span>(auc<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>auc)))) <span class="sc">/</span>   <span class="co"># Mean on the above scale. </span></span>
 <span id="cb67-2"><a href="snippets.html#cb67-2" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="fu">mean</span>(<span class="fu">log</span>(auc<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>auc)))))</span></code></pre></div>
 <pre><code>## [1] 0.9384781</code></pre>
+</div>
+<div id="formating-thousands-automatically" class="section level2 hasAnchor" number="2.11">
+<h2><span class="header-section-number">2.11</span> Formating thousands automatically<a href="snippets.html#formating-thousands-automatically" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Works in R Markdown and Quarto.</p>
+<p>Before: There are 1.2345^{4} patients in this dataset.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="snippets.html#cb69-1" aria-hidden="true" tabindex="-1"></a>inline_hook <span class="ot">=</span> <span class="cf">function</span>(x) {</span>
+<span id="cb69-2"><a href="snippets.html#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.numeric</span>(x)) {</span>
+<span id="cb69-3"><a href="snippets.html#cb69-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">format</span>(x,<span class="at">big.mark =</span> <span class="st">&quot;,&quot;</span>)</span>
+<span id="cb69-4"><a href="snippets.html#cb69-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> x</span>
+<span id="cb69-5"><a href="snippets.html#cb69-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb69-6"><a href="snippets.html#cb69-6" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>knit_hooks<span class="sc">$</span><span class="fu">set</span>(<span class="at">inline =</span> inline_hook)</span></code></pre></div>
+<p>After: There are 12,345 patients in this dataset.</p>
+<p>This only works on numbers entered by inline R.</p>
+</div>
+<div id="datatable-function" class="section level2 hasAnchor" number="2.12">
+<h2><span class="header-section-number">2.12</span> DataTable function<a href="snippets.html#datatable-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="snippets.html#cb70-1" aria-hidden="true" tabindex="-1"></a>mydt <span class="ot">=</span> <span class="cf">function</span>(df, <span class="at">pagelength =</span> <span class="dv">20</span>){</span>
+<span id="cb70-2"><a href="snippets.html#cb70-2" aria-hidden="true" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(df,</span>
+<span id="cb70-3"><a href="snippets.html#cb70-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">rownames =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb70-4"><a href="snippets.html#cb70-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">extensions =</span> <span class="fu">c</span>(<span class="st">&#39;Buttons&#39;</span>),</span>
+<span id="cb70-5"><a href="snippets.html#cb70-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">filter =</span> <span class="st">&quot;top&quot;</span>,</span>
+<span id="cb70-6"><a href="snippets.html#cb70-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">options =</span> <span class="fu">list</span>(</span>
+<span id="cb70-7"><a href="snippets.html#cb70-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">pageLength =</span> pagelength,</span>
+<span id="cb70-8"><a href="snippets.html#cb70-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">autoWidth =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb70-9"><a href="snippets.html#cb70-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">scrollX =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb70-10"><a href="snippets.html#cb70-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">searchHighlight =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb70-11"><a href="snippets.html#cb70-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Usage:</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="snippets.html#cb71-1" aria-hidden="true" tabindex="-1"></a>palmerpenguins<span class="sc">::</span>penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb71-2"><a href="snippets.html#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb71-3"><a href="snippets.html#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mydt</span>()</span></code></pre></div>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-308de19cde4006987f75" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-308de19cde4006987f75">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;Adelie&quot;,&quot;Chinstrap&quot;,&quot;Gentoo&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;Biscoe&quot;,&quot;Dream&quot;,&quot;Torgersen&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"36.7\" data-max=\"40.3\" data-scale=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"17.4\" data-max=\"19.3\" data-scale=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"181\" data-max=\"195\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"3250\" data-max=\"3800\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;female&quot;,&quot;male&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","extensions":["Buttons"],"data":[["Adelie","Adelie","Adelie","Adelie","Adelie"],["Torgersen","Torgersen","Torgersen","Torgersen","Torgersen"],[39.1,39.5,40.3,null,36.7],[18.7,17.4,18,null,19.3],[181,186,195,null,193],[3750,3800,3250,null,3450],["male","female","female",null,"female"],[2007,2007,2007,2007,2007]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>species<\/th>\n      <th>island<\/th>\n      <th>bill_length_mm<\/th>\n      <th>bill_depth_mm<\/th>\n      <th>flipper_length_mm<\/th>\n      <th>body_mass_g<\/th>\n      <th>sex<\/th>\n      <th>year<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"autoWidth":true,"scrollX":true,"searchHighlight":true,"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,7]}],"order":[],"orderClasses":false,"orderCellsTop":true,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 </div>
 </div>
@@ -1099,7 +1154,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["cookbook.pdf", "cookbook.epub"],
+"download": ["cookbook.pdf"],
 "search": {
 "engine": "fuse",
 "options": null

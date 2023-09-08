@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.25)  5 SEP 2023 10:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.25)  8 SEP 2023 09:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -543,24 +543,24 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 3.
 [3]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 8
-8.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 9
+0.
 (/home/rots/.TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-Underfull \hbox (badness 1478) in paragraph at lines 122--122
+) [4]
+Underfull \hbox (badness 1478) in paragraph at lines 124--124
  [][] [][]\T1/lmr/m/n/10 Alternative to the fac-tor-ing script: \T1/lmtt/m/n/10
  redcap_label() \T1/lmr/m/n/10 from 
  []
 
-[4])
+)
 \tf@toc=\write5
 \openout5 = `cookbook.toc'.
 
 [5] [6
 
 ]
-<img/surgical_informatics_minibanner.png, id=377, 1119.18124pt x 439.6425pt>
+<img/surgical_informatics_minibanner.png, id=387, 1119.18124pt x 439.6425pt>
 File: img/surgical_informatics_minibanner.png Graphic file (type png)
 <use img/surgical_informatics_minibanner.png>
 Package pdftex.def Info: img/surgical_informatics_minibanner.png  used on input
@@ -581,7 +581,7 @@ LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line
 (/home/rots/.TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-<01-intro_files/figure-latex/nice-fig-1.pdf, id=405, 464.73625pt x 351.3125pt>
+<01-intro_files/figure-latex/nice-fig-1.pdf, id=415, 464.73625pt x 351.3125pt>
 File: 01-intro_files/figure-latex/nice-fig-1.pdf Graphic file (type pdf)
 <use 01-intro_files/figure-latex/nice-fig-1.pdf>
 Package pdftex.def Info: 01-intro_files/figure-latex/nice-fig-1.pdf  used on in
@@ -716,62 +716,56 @@ Overfull \hbox (32.9989pt too wide) in paragraph at lines 1198--1198
  11.5129155[] 
  []
 
-[30]
-Overfull \hbox (7.39975pt too wide) has occurred while \output is active
-\T1/lmr/m/sl/10 2.10.  AVERAGING MULTIPLE AUCS (SAY FROM IMPUTED DATASETS) \T1/
-lmr/m/n/10 31
- []
-
-[31] [32
+[30] [31] [32
 
 ]
 Chapter 3.
 [33] [34]
-Underfull \vbox (badness 10000) detected at line 1362
+Underfull \vbox (badness 10000) detected at line 1413
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1362
+Underfull \vbox (badness 10000) detected at line 1413
  []
 
 [35]
-Overfull \hbox (64.49881pt too wide) in paragraph at lines 1372--1372
+Overfull \hbox (64.49881pt too wide) in paragraph at lines 1423--1423
 []\T1/lmtt/m/n/10 ##   criteria                             n n_exclude pct_all
  pct_exclude_step[] 
  []
 
 
-Overfull \hbox (6.74898pt too wide) in paragraph at lines 1372--1372
+Overfull \hbox (6.74898pt too wide) in paragraph at lines 1423--1423
 []\T1/lmtt/m/n/10 ##   <fct>                            <int>     <int> <chr>  
  <chr>[] 
  []
 
 
-Overfull \hbox (1.499pt too wide) in paragraph at lines 1372--1372
+Overfull \hbox (1.499pt too wide) in paragraph at lines 1423--1423
 []\T1/lmtt/m/n/10 ## 1 "Original dataset"                 929        NA 100.0% 
  <NA>[] 
  []
 
 
-Overfull \hbox (6.74898pt too wide) in paragraph at lines 1372--1372
+Overfull \hbox (6.74898pt too wide) in paragraph at lines 1423--1423
 []\T1/lmtt/m/n/10 ## 2 "  with age over 50 years"         732       197 78.8%  
  21.2%[] 
  []
 
 
-Overfull \hbox (6.74898pt too wide) in paragraph at lines 1372--1372
+Overfull \hbox (6.74898pt too wide) in paragraph at lines 1423--1423
 []\T1/lmtt/m/n/10 ## 3 "  is male"                        385       347 41.4%  
  47.4%[] 
  []
 
 
-Overfull \hbox (1.499pt too wide) in paragraph at lines 1372--1372
+Overfull \hbox (1.499pt too wide) in paragraph at lines 1423--1423
 []\T1/lmtt/m/n/10 ## 4 "  obstruction data not missing"   375        10 40.4%  
  2.6%[] 
  []
 
 [36]
-Overfull \hbox (43.49887pt too wide) in paragraph at lines 1436--1436
+Overfull \hbox (43.49887pt too wide) in paragraph at lines 1487--1487
 []\T1/lmtt/m/n/10 ## # i 3 variables: important_a <chr>, important_b <chr>, wha
 tever_c <chr>[] 
  []
@@ -789,36 +783,36 @@ Chapter 4.
 ] [46]
 Chapter 5.
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-944.
+995.
 (/home/rots/.TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [47
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 1962--1964
+Underfull \hbox (badness 10000) in paragraph at lines 2013--2015
 \T1/lmr/m/n/10 uk / information -[] services / computing / desktop -[] personal
  / vpn / vpn -[] service -[]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1962--1964
+Underfull \hbox (badness 10000) in paragraph at lines 2013--2015
 
  []
 
 [48] [49] [50] [51] [52] [53] [54] [55]
-Overfull \hbox (6.38794pt too wide) in paragraph at lines 2286--2287
+Overfull \hbox (6.38794pt too wide) in paragraph at lines 2337--2338
 \T1/lmr/m/n/10 tory which may be \T1/lmtt/m/n/10 /exports/applications/apps/SL7
 /R/3.5.3/lib64/R/etc/\T1/lmr/m/n/10 .
  []
 
 [56] [57] [58] [59]
-Overfull \hbox (106.49869pt too wide) in paragraph at lines 2428--2428
+Overfull \hbox (106.49869pt too wide) in paragraph at lines 2479--2479
 []\T1/lmtt/m/n/10 conda config --add envs_dirs /exports/cmvm/eddie/edmed/groups
 /SurgInfGrp/anaconda/envs[] 
  []
 
 
-Overfull \hbox (106.49869pt too wide) in paragraph at lines 2428--2428
+Overfull \hbox (106.49869pt too wide) in paragraph at lines 2479--2479
 []\T1/lmtt/m/n/10 conda config --add pkgs_dirs /exports/cmvm/eddie/edmed/groups
 /SurgInfGrp/anaconda/pkgs[] 
  []
@@ -827,97 +821,97 @@ Overfull \hbox (106.49869pt too wide) in paragraph at lines 2428--2428
 
 ]
 Chapter 6.
-<06-plotting_files/figure-latex/gghighlight-1.pdf, id=825, 455.7025pt x 315.177
+<06-plotting_files/figure-latex/gghighlight-1.pdf, id=841, 455.7025pt x 315.177
 5pt>
 File: 06-plotting_files/figure-latex/gghighlight-1.pdf Graphic file (type pdf)
 <use 06-plotting_files/figure-latex/gghighlight-1.pdf>
 Package pdftex.def Info: 06-plotting_files/figure-latex/gghighlight-1.pdf  used
- on input line 2500.
+ on input line 2551.
 (pdftex.def)             Requested size: 345.00937pt x 238.61882pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [63]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 2503.
-<06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf, id=831, 453.695pt x 313.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 2554.
+<06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf, id=847, 453.695pt x 313.
 17pt>
 File: 06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type p
 df)
 <use 06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf>
 Package pdftex.def Info: 06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf  
-used on input line 2517.
+used on input line 2568.
 (pdftex.def)             Requested size: 344.9987pt x 238.14069pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [64 <./06-plotting_files/figure-latex/gghighlight-1.pdf>]
-<06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf, id=848, 453.695pt x 313.
+<06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf, id=864, 453.695pt x 313.
 17pt>
 File: 06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf Graphic file (type p
 df)
 <use 06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf>
 Package pdftex.def Info: 06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf  
-used on input line 2531.
+used on input line 2582.
 (pdftex.def)             Requested size: 344.9987pt x 238.14069pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [65 <./06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf>]
-<06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf, id=861, 453.695pt x 313.
+<06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf, id=877, 453.695pt x 313.
 17pt>
 File: 06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf Graphic file (type p
 df)
 <use 06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf>
 Package pdftex.def Info: 06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf  
-used on input line 2549.
+used on input line 2600.
 (pdftex.def)             Requested size: 344.9987pt x 238.14069pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [66 <./06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf>]
-<06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf, id=873, 199.74625pt x 13
+<06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf, id=889, 199.74625pt x 13
 6.51pt>
 File: 06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type p
 df)
 <use 06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf>
 Package pdftex.def Info: 06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf  
-used on input line 2578.
+used on input line 2629.
 (pdftex.def)             Requested size: 199.7549pt x 136.5159pt.
 [67 <./06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf>]
-<img/barplot_5x4.png, id=887, 361.35pt x 289.08pt>
+<img/barplot_5x4.png, id=903, 361.35pt x 289.08pt>
 File: img/barplot_5x4.png Graphic file (type png)
 <use img/barplot_5x4.png>
-Package pdftex.def Info: img/barplot_5x4.png  used on input line 2596.
+Package pdftex.def Info: img/barplot_5x4.png  used on input line 2647.
 (pdftex.def)             Requested size: 172.49767pt x 137.99812pt.
-<img/barplot_10x8.png, id=888, 722.7pt x 578.16pt>
+<img/barplot_10x8.png, id=904, 722.7pt x 578.16pt>
 File: img/barplot_10x8.png Graphic file (type png)
 <use img/barplot_10x8.png>
-Package pdftex.def Info: img/barplot_10x8.png  used on input line 2597.
+Package pdftex.def Info: img/barplot_10x8.png  used on input line 2648.
 (pdftex.def)             Requested size: 172.49214pt x 137.99371pt.
 
-Overfull \hbox (2.21202pt too wide) in paragraph at lines 2596--2598
+Overfull \hbox (2.21202pt too wide) in paragraph at lines 2647--2649
 [][] [] 
  []
 
 [68 <./06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf> <./img/barplot_5x4
 .png> <./img/barplot_10x8.png>]
-<06-plotting_files/figure-latex/dag_big_nodes_part_1-1.pdf, id=901, 457.71pt x 
-313.17pt>
+<06-plotting_files/figure-latex/dag_big_nodes_part_1-1.pdf, id=917, 459.7175pt 
+x 313.17pt>
 File: 06-plotting_files/figure-latex/dag_big_nodes_part_1-1.pdf Graphic file (t
 ype pdf)
 <use 06-plotting_files/figure-latex/dag_big_nodes_part_1-1.pdf>
 Package pdftex.def Info: 06-plotting_files/figure-latex/dag_big_nodes_part_1-1.
-pdf  used on input line 2613.
-(pdftex.def)             Requested size: 345.01372pt x 236.062pt.
-<06-plotting_files/figure-latex/dag_big_nodes_part_2-1.pdf, id=902, 457.71pt x 
-313.17pt>
+pdf  used on input line 2664.
+(pdftex.def)             Requested size: 345.01875pt x 235.0346pt.
+<06-plotting_files/figure-latex/dag_big_nodes_part_2-1.pdf, id=918, 459.7175pt 
+x 313.17pt>
 File: 06-plotting_files/figure-latex/dag_big_nodes_part_2-1.pdf Graphic file (t
 ype pdf)
 <use 06-plotting_files/figure-latex/dag_big_nodes_part_2-1.pdf>
 Package pdftex.def Info: 06-plotting_files/figure-latex/dag_big_nodes_part_2-1.
-pdf  used on input line 2633.
-(pdftex.def)             Requested size: 345.01372pt x 236.062pt.
+pdf  used on input line 2684.
+(pdftex.def)             Requested size: 345.01875pt x 235.0346pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -935,7 +929,7 @@ Chapter 9.
 [77
 
 ]
-Underfull \hbox (badness 3872) in paragraph at lines 2901--2901
+Underfull \hbox (badness 3872) in paragraph at lines 2952--2952
 []\T1/lmr/bx/n/14.4 Shiny server open-source setup - UoE
  []
 
@@ -944,41 +938,41 @@ Chapter 10.
 [85
 
 ]
-<img/redcap_factoring_file.png, id=1049, 751.80875pt x 440.64626pt>
+<img/redcap_factoring_file.png, id=1065, 751.80875pt x 440.64626pt>
 File: img/redcap_factoring_file.png Graphic file (type png)
 <use img/redcap_factoring_file.png>
-Package pdftex.def Info: img/redcap_factoring_file.png  used on input line 3273
+Package pdftex.def Info: img/redcap_factoring_file.png  used on input line 3324
 .
 (pdftex.def)             Requested size: 751.84131pt x 440.66533pt.
 
-Overfull \hbox (406.84131pt too wide) in paragraph at lines 3273--3274
+Overfull \hbox (406.84131pt too wide) in paragraph at lines 3324--3325
 [][] 
  []
 
 [86] [87 <./img/redcap_factoring_file.png>]
-<img/regexp_end_of_line.png, id=1064, 419.31656pt x 60.225pt>
+<img/regexp_end_of_line.png, id=1080, 419.31656pt x 60.225pt>
 File: img/regexp_end_of_line.png Graphic file (type png)
 <use img/regexp_end_of_line.png>
-Package pdftex.def Info: img/regexp_end_of_line.png  used on input line 3348.
+Package pdftex.def Info: img/regexp_end_of_line.png  used on input line 3399.
 (pdftex.def)             Requested size: 419.32831pt x 60.22667pt.
 
-Overfull \hbox (74.32831pt too wide) in paragraph at lines 3348--3349
+Overfull \hbox (74.32831pt too wide) in paragraph at lines 3399--3400
 [][] 
  []
 
 [88 <./img/regexp_end_of_line.png>]
-Overfull \hbox (50.9885pt too wide) in paragraph at lines 3367--3367
+Overfull \hbox (50.9885pt too wide) in paragraph at lines 3418--3418
 []\T1/lmr/bx/n/14.4 Alternative to the fac-tor-ing script: \T1/lmtt/b/n/14.4 re
 dcap_label()
  []
 
-<img/1d_barcode.png, id=1072, 806.26219pt x 399.74344pt>
+<img/1d_barcode.png, id=1088, 806.26219pt x 399.74344pt>
 File: img/1d_barcode.png Graphic file (type png)
 <use img/1d_barcode.png>
-Package pdftex.def Info: img/1d_barcode.png  used on input line 3384.
+Package pdftex.def Info: img/1d_barcode.png  used on input line 3435.
 (pdftex.def)             Requested size: 806.29712pt x 399.76074pt.
 
-Overfull \hbox (461.29712pt too wide) in paragraph at lines 3384--3385
+Overfull \hbox (461.29712pt too wide) in paragraph at lines 3435--3436
 [][] 
  []
 
@@ -990,13 +984,13 @@ mr/m/n/10 89
  []
 
 [89]
-<img/qr_code.png, id=1081, 804.75656pt x 401.24907pt>
+<img/qr_code.png, id=1097, 804.75656pt x 401.24907pt>
 File: img/qr_code.png Graphic file (type png)
 <use img/qr_code.png>
-Package pdftex.def Info: img/qr_code.png  used on input line 3388.
+Package pdftex.def Info: img/qr_code.png  used on input line 3439.
 (pdftex.def)             Requested size: 804.80371pt x 401.27255pt.
 
-Overfull \hbox (459.80371pt too wide) in paragraph at lines 3388--3389
+Overfull \hbox (459.80371pt too wide) in paragraph at lines 3439--3440
 [][] 
  []
 
@@ -1004,13 +998,13 @@ Overfull \hbox (459.80371pt too wide) in paragraph at lines 3388--3389
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [90 <./img/1d_barcode.png>]
-<img/redcap_layout.png, id=1086, 580.41844pt x 386.94562pt>
+<img/redcap_layout.png, id=1102, 580.41844pt x 386.94562pt>
 File: img/redcap_layout.png Graphic file (type png)
 <use img/redcap_layout.png>
-Package pdftex.def Info: img/redcap_layout.png  used on input line 3392.
+Package pdftex.def Info: img/redcap_layout.png  used on input line 3443.
 (pdftex.def)             Requested size: 580.42587pt x 386.95056pt.
 
-Overfull \hbox (235.42587pt too wide) in paragraph at lines 3392--3393
+Overfull \hbox (235.42587pt too wide) in paragraph at lines 3443--3444
 [][] 
  []
 
@@ -1018,13 +1012,13 @@ Overfull \hbox (235.42587pt too wide) in paragraph at lines 3392--3393
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [91 <./img/qr_code.png>]
-<img/barcode_appearance.png, id=1093, 557.83406pt x 606.01407pt>
+<img/barcode_appearance.png, id=1109, 557.83406pt x 606.01407pt>
 File: img/barcode_appearance.png Graphic file (type png)
 <use img/barcode_appearance.png>
-Package pdftex.def Info: img/barcode_appearance.png  used on input line 3396.
+Package pdftex.def Info: img/barcode_appearance.png  used on input line 3447.
 (pdftex.def)             Requested size: 506.2764pt x 550.00339pt.
 
-Overfull \hbox (161.2764pt too wide) in paragraph at lines 3396--3397
+Overfull \hbox (161.2764pt too wide) in paragraph at lines 3447--3448
 [][] 
  []
 
@@ -1042,11 +1036,11 @@ ATA AND PYTHON
  []
 
 [96] [97]
-Underfull \vbox (badness 10000) detected at line 3618
+Underfull \vbox (badness 10000) detected at line 3669
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3618
+Underfull \vbox (badness 10000) detected at line 3669
  []
 
 
@@ -1056,11 +1050,11 @@ ATA AND PYTHON
  []
 
 [98]
-Underfull \vbox (badness 10000) detected at line 3618
+Underfull \vbox (badness 10000) detected at line 3669
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3618
+Underfull \vbox (badness 10000) detected at line 3669
  []
 
 [99]
@@ -1077,14 +1071,14 @@ DATA AND PYTHON
 
 [102]
 Chapter 12.
-<img/zotero_add_on_install.png, id=1157, 797.379pt x 502.87875pt>
+<img/zotero_add_on_install.png, id=1174, 797.379pt x 502.87875pt>
 File: img/zotero_add_on_install.png Graphic file (type png)
 <use img/zotero_add_on_install.png>
-Package pdftex.def Info: img/zotero_add_on_install.png  used on input line 3766
+Package pdftex.def Info: img/zotero_add_on_install.png  used on input line 3817
 .
 (pdftex.def)             Requested size: 797.37706pt x 502.87752pt.
 
-Overfull \hbox (452.37706pt too wide) in paragraph at lines 3766--3766
+Overfull \hbox (452.37706pt too wide) in paragraph at lines 3817--3817
 [][] 
  []
 
@@ -1094,63 +1088,63 @@ Underfull \vbox (badness 1102) has occurred while \output is active []
 [103
 
 ] [104 <./img/zotero_add_on_install.png>] [105]
-<img/zotfile_preferences.png, id=1189, 963.6pt x 510.10574pt>
+<img/zotfile_preferences.png, id=1205, 963.6pt x 510.10574pt>
 File: img/zotfile_preferences.png Graphic file (type png)
 <use img/zotfile_preferences.png>
-Package pdftex.def Info: img/zotfile_preferences.png  used on input line 3805.
+Package pdftex.def Info: img/zotfile_preferences.png  used on input line 3856.
 (pdftex.def)             Requested size: 963.61235pt x 510.11227pt.
 
-Overfull \hbox (618.61235pt too wide) in paragraph at lines 3805--3805
+Overfull \hbox (618.61235pt too wide) in paragraph at lines 3856--3856
 [][] 
  []
 
 
-Underfull \hbox (badness 1163) in paragraph at lines 3808--3809
+Underfull \hbox (badness 1163) in paragraph at lines 3859--3860
 []\T1/lmr/m/n/10 Next the \T1/lmr/bx/n/10 Re-nam-ing Rules \T1/lmr/m/n/10 tab c
 an be con-fig-ured to pro-vide sen-si-ble
  []
 
 
-Overfull \hbox (51.52661pt too wide) in paragraph at lines 3808--3809
+Overfull \hbox (51.52661pt too wide) in paragraph at lines 3859--3860
 \T1/lmtt/m/n/10 Fairfield_2019_Gallstone_Disease_and_the_Risk_of_Cardiovascular
 _Disease.pdf\T1/lmr/m/n/10 .
  []
 
-<img/zotfile_renaming.png, id=1190, 964.20226pt x 513.117pt>
+<img/zotfile_renaming.png, id=1206, 964.20226pt x 513.117pt>
 File: img/zotfile_renaming.png Graphic file (type png)
 <use img/zotfile_renaming.png>
-Package pdftex.def Info: img/zotfile_renaming.png  used on input line 3811.
+Package pdftex.def Info: img/zotfile_renaming.png  used on input line 3862.
 (pdftex.def)             Requested size: 964.28818pt x 513.16272pt.
 
-Overfull \hbox (619.28818pt too wide) in paragraph at lines 3811--3811
+Overfull \hbox (619.28818pt too wide) in paragraph at lines 3862--3862
 [][] 
  []
 
 [106] [107 <./img/zotfile_preferences.png>] [108 <./img/zotfile_renaming.png>]
-Underfull \hbox (badness 1888) in paragraph at lines 3853--3855
+Underfull \hbox (badness 1888) in paragraph at lines 3904--3906
 []\T1/lmr/bx/n/10 Better Bib-Tex: \T1/lmr/m/n/10 + In this sec-tion set the Ci-
 ta-tion Key for-mat to
  []
 
 
-Overfull \hbox (98.44357pt too wide) in paragraph at lines 3853--3855
+Overfull \hbox (98.44357pt too wide) in paragraph at lines 3904--3906
 \T1/lmr/m/n/10 [auth:lower:alphanum]\T1/lmr/m/it/10 [year:alphanum]\T1/lmr/m/n/
 10 [veryshorttitle:lower:alphanum]_[journal:lower:clean:alphanum]
  []
 
 
-Underfull \hbox (badness 3219) in paragraph at lines 3853--3855
+Underfull \hbox (badness 3219) in paragraph at lines 3904--3906
 \T1/lmr/m/n/10 fair-field_2019_gallstones_scientificreports or har-ri-son_2012_
 hospital_bmj.
  []
 
-<img/zotero_citation_key.png, id=1208, 962.99776pt x 511.9125pt>
+<img/zotero_citation_key.png, id=1224, 962.99776pt x 511.9125pt>
 File: img/zotero_citation_key.png Graphic file (type png)
 <use img/zotero_citation_key.png>
-Package pdftex.def Info: img/zotero_citation_key.png  used on input line 3859.
+Package pdftex.def Info: img/zotero_citation_key.png  used on input line 3910.
 (pdftex.def)             Requested size: 962.9954pt x 511.91125pt.
 
-Overfull \hbox (617.9954pt too wide) in paragraph at lines 3859--3859
+Overfull \hbox (617.9954pt too wide) in paragraph at lines 3910--3910
 [][] 
  []
 
@@ -1158,40 +1152,45 @@ Overfull \hbox (617.9954pt too wide) in paragraph at lines 3859--3859
 114
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3992.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 4043.
 [115]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 3992.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 4043.
 (./cookbook.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 3992.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 3992.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 4043.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 4043.
 
 Package rerunfilecheck Info: File `cookbook.out' has not changed.
-(rerunfilecheck)             Checksum: A9772C4A45407F330DFF5389FBC5A49C;13259.
+(rerunfilecheck)             Checksum: 027DE6D9C99423119497CB95B81955E7;13635.
  ) 
 Here is how much of TeX's memory you used:
- 13625 strings out of 482823
- 196400 string characters out of 5956025
- 457377 words of memory out of 5000000
- 28254 multiletter control sequences out of 15000+600000
+ 13633 strings out of 482823
+ 196558 string characters out of 5956025
+ 456488 words of memory out of 5000000
+ 28258 multiletter control sequences out of 15000+600000
  603310 words of font info for 85 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  43i,10n,37p,1175b,463s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/home/rots/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/home/rots/.Tin
-yTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}</home/rots/.TinyTeX/texmf-dist/f
-onts/type1/public/lm/lmbx10.pfb></home/rots/.TinyTeX/texmf-dist/fonts/type1/pub
-lic/lm/lmbx12.pfb></home/rots/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.p
-fb></home/rots/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></home/rots/
-.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></home/rots/.TinyTeX/texmf-
-dist/fonts/type1/public/lm/lmri10.pfb></home/rots/.TinyTeX/texmf-dist/fonts/typ
-e1/public/lm/lmro10.pfb></home/rots/.TinyTeX/texmf-dist/fonts/type1/public/lm/l
-mtk10.pfb></home/rots/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtko10.pfb></h
-ome/rots/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></home/rots/.Tiny
-TeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb></home/rots/.TinyTeX/texmf-dis
-t/fonts/type1/public/lm/lmtto10.pfb>
-Output written on cookbook.pdf (115 pages, 2242213 bytes).
+yTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/home/rots/.TinyTeX/texmf-dist/f
+onts/enc/dvips/lm/lm-rm.enc}{/home/rots/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/
+lm-mathsy.enc}{/home/rots/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}
+</home/rots/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></home/rots/.T
+inyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></home/rots/.TinyTeX/texmf-d
+ist/fonts/type1/public/lm/lmmi10.pfb></home/rots/.TinyTeX/texmf-dist/fonts/type
+1/public/lm/lmr10.pfb></home/rots/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr
+12.pfb></home/rots/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></home/r
+ots/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></home/rots/.TinyTeX/tex
+mf-dist/fonts/type1/public/lm/lmri10.pfb></home/rots/.TinyTeX/texmf-dist/fonts/
+type1/public/lm/lmro10.pfb></home/rots/.TinyTeX/texmf-dist/fonts/type1/public/l
+m/lmsy10.pfb></home/rots/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><
+/home/rots/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtko10.pfb></home/rots/.T
+inyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></home/rots/.TinyTeX/texmf-d
+ist/fonts/type1/public/lm/lmtti10.pfb></home/rots/.TinyTeX/texmf-dist/fonts/typ
+e1/public/lm/lmtto10.pfb>
+Output written on cookbook.pdf (115 pages, 2262776 bytes).
 PDF statistics:
- 1397 PDF objects out of 1440 (max. 8388607)
- 1211 compressed objects within 13 object streams
- 455 named destinations out of 1000 (max. 500000)
- 642 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1427 PDF objects out of 1440 (max. 8388607)
+ 1238 compressed objects within 13 object streams
+ 459 named destinations out of 1000 (max. 500000)
+ 658 words of extra memory for PDF output out of 10000 (max. 10000000)
 

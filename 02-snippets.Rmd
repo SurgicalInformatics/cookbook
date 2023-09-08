@@ -538,3 +538,48 @@ log(auc / (1-auc) )             # Put values on scale from 0 (0.5) to Inf (1)
 exp(mean(log(auc/(1-auc)))) /   # Mean on the above scale. 
   (1 + exp(mean(log(auc/(1-auc)))))
 ```
+
+## Formating thousands automatically
+
+Works in R Markdown and Quarto.
+
+Before: There are `r 12345` patients in this dataset.
+
+```{r}
+inline_hook = function(x) {
+  if (is.numeric(x)) {
+    format(x,big.mark = ",")
+  } else x
+}
+knitr::knit_hooks$set(inline = inline_hook)
+
+```
+
+After: There are `r 12345` patients in this dataset.
+
+This only works on numbers entered by inline R. 
+
+## DataTable function
+
+```{r}
+mydt = function(df, pagelength = 20){
+  DT::datatable(df,
+                rownames = FALSE,
+                extensions = c('Buttons'),
+                filter = "top",
+                options = list(
+                  pageLength = pagelength,
+                  autoWidth = TRUE,
+                  scrollX = TRUE,
+                  searchHighlight = TRUE))
+}
+```
+
+Usage:
+
+```{r, eval=knitr::is_html_output()}
+palmerpenguins::penguins %>% 
+  slice(1:5) %>% 
+  mydt()
+```
+
