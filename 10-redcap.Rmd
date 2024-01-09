@@ -4,7 +4,9 @@
 
 1.  REDCap's API can be used to automatically pull records from a REDCap project. Ask your project manager to give you API Export rights and then request an API token via the API page of the project (left hand menu when inside a project). The API option will only appear after the project manager can given you API rights.
 
-2.  Put the API token in your .Renviron file and Restart R. Example format:
+2.  Put the API token in your .Renviron file and Restart R. The easiest way to edit your .Renviron file is to run this in the Console: `usethis::edit_r_environ()`.
+
+Example format within the .Renviron file:
 
 ```
 redcap_token = ABC10000000000000000000000001DFG
