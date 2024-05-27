@@ -56,39 +56,46 @@ In the __Advanced Settings__ tab it is strongly recommended to select removal of
 Zotero has several configurable settings (accessed through: “Edit → Preferences”). The following settings are generally helpful (left as default if not mentioned):
 
 __General:__
-+ Tick the following:
-    + Automatically attach associated PDFs
-    + Automatically retrieve metadata for PDFs
-    + Automatically rename attachments using parent metadata
-    + Automatically tag items with keywords and subject headings
-    + All options in Group section
-+ Leave the following unticked:
-    + Automatically take snapshots
-    + Rename linked files
+
+- Tick the following:
+    - Automatically attach associated PDFs  
+    - Automatically retrieve metadata for PDFs  
+    - Automatically rename attachments using parent metadata  
+    - Automatically tag items with keywords and subject headings  
+    - All options in Group section  
+- Leave the following unticked:  
+    - Automatically take snapshots  
+    - Rename linked files  
 
 __Sync:__
-+ Enter the account details
-+ Tick sync automatically
-+ Untick sync full text (if you choose to save PDFs then syncing full text will quickly consume the 300MB quota)
+
+- Enter the account details  
+- Tick sync automatically  
+- Untick sync full text (if you choose to save PDFs then syncing full text will quickly consume the 300MB quota)  
 
 __Search:__
-+ Leave unchanged
+
+- Leave unchanged  
 
 __Export:__
-+ Leave unchanged
+
+- Leave unchanged  
 
 __Cite:__
-+ There are several sensible defaults but if there is a new citation style you wish to be able to use in Microsoft Word for example then click “Get additional styles” as there is probably a version that you need already created. You can click the “+” button to add a style from a `.csl` file if you have one already. Finally, if you are desperate for a style that doesn’t already exist then you can select a citation style and click Style Editor and edit the raw `.csl` file. The `.csl` file for use in `.rmd` doesn't need configured here but instead within the YAML of your .rmd file
-+ In the Word Processors subtab (on the main Cite tab), you can install the Microsoft Word add-in to allow Zotero to work in Microsoft Word.
+
+- There are several sensible defaults but if there is a new citation style you wish to be able to use in Microsoft Word for example then click “Get additional styles” as there is probably a version that you need already created. You can click the “+” button to add a style from a `.csl` file if you have one already. Finally, if you are desperate for a style that doesn’t already exist then you can select a citation style and click Style Editor and edit the raw `.csl` file. The `.csl` file for use in `.rmd` doesn't need configured here but instead within the YAML of your .rmd file  
+- In the Word Processors subtab (on the main Cite tab), you can install the Microsoft Word add-in to allow Zotero to work in Microsoft Word.  
 
 __Advanced:__
-+ Change nothing on the General subtab
-+ In the Files and Folders subtab select the path to directory for attachments
-+ Change nothing on the Shortcuts subtab
-+ Change nothing on the Feeds subtab
+
+- Change nothing on the General subtab  
+- In the Files and Folders subtab select the path to directory for attachments  
+- Change nothing on the Shortcuts subtab  
+- Change nothing on the Feeds subtab  
 
 __Better BibTex:__
-+ In this section set the Citation Key format to [auth:lower:alphanum]_[year:alphanum]_[veryshorttitle:lower:alphanum]_[journal:lower:clean:alphanum] (Figure 4). This generates a citation key for each reference in the format of fairfield_2019_gallstones_scientificreports or harrison_2012_hospital_bmj. It always takes the first author’s surname, the year, the first word of the title and the journal abbreviation if known. The clean and alphanum arguments to this field are used to remove unwanted punctuation which can cause citation to fail in LaTeX.
+
+- In this section set the Citation Key format to `[auth:lower:alphanum]_[year:alphanum]_[veryshorttitle:lower:alphanum]_[journal:lower:clean:alphanum]` (Figure 4). This generates a citation key for each reference in the format of fairfield_2019_gallstones_scientificreports or harrison_2012_hospital_bmj. It always takes the first author’s surname, the year, the first word of the title and the journal abbreviation if known. The clean and alphanum arguments to this field are used to remove unwanted punctuation which can cause citation to fail in LaTeX.  
 
 If an author has published an article with the same first word of the title in the same year then the second article appends an "a" to the handle and the third a "b" and so on.
 

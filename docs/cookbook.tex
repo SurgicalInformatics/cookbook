@@ -131,7 +131,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2024-01-09}
+\date{2024-05-27}
 
 \begin{document}
 \maketitle
@@ -612,7 +612,7 @@ Works for a single date or a vector of dates.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 53 80 74
+## [1] 53 80 75
 \end{verbatim}
 
 \begin{Shaded}
@@ -659,7 +659,7 @@ Works for a single date or a vector of dates.
 ##   <chr>      <date>     <chr>  <dbl>
 ## 1 1009701234 1970-09-10 Male      53
 ## 2 1811431232 1943-11-18 Male      80
-## 3 1304496368 1949-04-13 Female    74
+## 3 1304496368 1949-04-13 Female    75
 \end{verbatim}
 
 \hypertarget{chi_valid---logical-test-for-valid-chi}{%
@@ -710,7 +710,7 @@ The final digit of the CHI can be used to test that the number is correct via th
 ##   <chr>      <date>     <chr>  <dbl> <lgl>    
 ## 1 1009701234 1970-09-10 Male      53 FALSE    
 ## 2 1811431232 1943-11-18 Male      80 TRUE     
-## 3 1304496368 1949-04-13 Female    74 TRUE
+## 3 1304496368 1949-04-13 Female    75 TRUE
 \end{verbatim}
 
 \hypertarget{working-with-dates}{%
@@ -1013,12 +1013,12 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 
 \begin{verbatim}
 ##         date isoweek isoweek_date
-## 1 2021-02-02       5   2021-02-01
-## 2 2022-02-17       7   2022-02-14
-## 3 2020-07-21      30   2020-07-20
-## 4 2021-02-06       5   2021-02-01
-## 5 2021-09-30      39   2021-09-27
-## 6 2021-11-16      46   2021-11-15
+## 1 2021-10-11      41   2021-10-11
+## 2 2022-02-11       6   2022-02-07
+## 3 2021-08-19      33   2021-08-16
+## 4 2020-11-28      48   2020-11-23
+## 5 2021-03-07       9   2021-03-01
+## 6 2020-02-24       9   2020-02-24
 \end{verbatim}
 
 \hypertarget{labelling-tables-and-figures-in-markdown-chunks}{%
@@ -3819,7 +3819,7 @@ Set up an online account with Zotero so that your data is available remotely.
 \includegraphics[width=36.78in]{img/zotero_add_on_install} \caption{Installing a Zotero Plug-in from an .xpi File}\label{fig:add-on-install}
 \end{figure}
 
-\href{https://github.com/retorquere/zotero-better-bibtex/releases/tag/v5.1.76}{Better BibTeX} is another plug-in which generates citation keys in a robust and reproducible way which is needed for larger projects (e.g.~PhDs) to avoid duplicate citation handles. An \texttt{.xpi} file can be downloaded from GitHub and installed in the same way.
+\href{https://github.com/retorquere/zotero-better-bibtex/releases/tag/v6.7.202}{Better BibTeX} is another plug-in which generates citation keys in a robust and reproducible way which is needed for larger projects (e.g.~PhDs) to avoid duplicate citation handles. An \texttt{.xpi} file can be downloaded from GitHub and installed in the same way (check \href{https://www.zotero.org/support/plugins}{Zotero Plug-ins} for more recent versions if not installing).
 
 \hypertarget{file-storage-set-up}{%
 \section{File Storage Set-up}\label{file-storage-set-up}}
@@ -3872,39 +3872,96 @@ In the \textbf{Advanced Settings} tab it is strongly recommended to select remov
 Zotero has several configurable settings (accessed through: ``Edit → Preferences''). The following settings are generally helpful (left as default if not mentioned):
 
 \textbf{General:}
-+ Tick the following:
-+ Automatically attach associated PDFs
-+ Automatically retrieve metadata for PDFs
-+ Automatically rename attachments using parent metadata
-+ Automatically tag items with keywords and subject headings
-+ All options in Group section
-+ Leave the following unticked:
-+ Automatically take snapshots
-+ Rename linked files
+
+\begin{itemize}
+\tightlist
+\item
+  Tick the following:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Automatically attach associated PDFs\\
+  \item
+    Automatically retrieve metadata for PDFs\\
+  \item
+    Automatically rename attachments using parent metadata\\
+  \item
+    Automatically tag items with keywords and subject headings\\
+  \item
+    All options in Group section\\
+  \end{itemize}
+\item
+  Leave the following unticked:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Automatically take snapshots\\
+  \item
+    Rename linked files
+  \end{itemize}
+\end{itemize}
 
 \textbf{Sync:}
-+ Enter the account details
-+ Tick sync automatically
-+ Untick sync full text (if you choose to save PDFs then syncing full text will quickly consume the 300MB quota)
+
+\begin{itemize}
+\tightlist
+\item
+  Enter the account details\\
+\item
+  Tick sync automatically\\
+\item
+  Untick sync full text (if you choose to save PDFs then syncing full text will quickly consume the 300MB quota)
+\end{itemize}
 
 \textbf{Search:}
-+ Leave unchanged
+
+\begin{itemize}
+\tightlist
+\item
+  Leave unchanged
+\end{itemize}
 
 \textbf{Export:}
-+ Leave unchanged
+
+\begin{itemize}
+\tightlist
+\item
+  Leave unchanged
+\end{itemize}
 
 \textbf{Cite:}
-+ There are several sensible defaults but if there is a new citation style you wish to be able to use in Microsoft Word for example then click ``Get additional styles'' as there is probably a version that you need already created. You can click the ``+'' button to add a style from a \texttt{.csl} file if you have one already. Finally, if you are desperate for a style that doesn't already exist then you can select a citation style and click Style Editor and edit the raw \texttt{.csl} file. The \texttt{.csl} file for use in \texttt{.rmd} doesn't need configured here but instead within the YAML of your .rmd file
-+ In the Word Processors subtab (on the main Cite tab), you can install the Microsoft Word add-in to allow Zotero to work in Microsoft Word.
+
+\begin{itemize}
+\tightlist
+\item
+  There are several sensible defaults but if there is a new citation style you wish to be able to use in Microsoft Word for example then click ``Get additional styles'' as there is probably a version that you need already created. You can click the ``+'' button to add a style from a \texttt{.csl} file if you have one already. Finally, if you are desperate for a style that doesn't already exist then you can select a citation style and click Style Editor and edit the raw \texttt{.csl} file. The \texttt{.csl} file for use in \texttt{.rmd} doesn't need configured here but instead within the YAML of your .rmd file\\
+\item
+  In the Word Processors subtab (on the main Cite tab), you can install the Microsoft Word add-in to allow Zotero to work in Microsoft Word.
+\end{itemize}
 
 \textbf{Advanced:}
-+ Change nothing on the General subtab
-+ In the Files and Folders subtab select the path to directory for attachments
-+ Change nothing on the Shortcuts subtab
-+ Change nothing on the Feeds subtab
+
+\begin{itemize}
+\tightlist
+\item
+  Change nothing on the General subtab\\
+\item
+  In the Files and Folders subtab select the path to directory for attachments\\
+\item
+  Change nothing on the Shortcuts subtab\\
+\item
+  Change nothing on the Feeds subtab
+\end{itemize}
 
 \textbf{Better BibTex:}
-+ In this section set the Citation Key format to {[}auth:lower:alphanum{]}\emph{{[}year:alphanum{]}}{[}veryshorttitle:lower:alphanum{]}\_{[}journal:lower:clean:alphanum{]} (Figure 4). This generates a citation key for each reference in the format of fairfield\_2019\_gallstones\_scientificreports or harrison\_2012\_hospital\_bmj. It always takes the first author's surname, the year, the first word of the title and the journal abbreviation if known. The clean and alphanum arguments to this field are used to remove unwanted punctuation which can cause citation to fail in LaTeX.
+
+\begin{itemize}
+\tightlist
+\item
+  In this section set the Citation Key format to \texttt{{[}auth:lower:alphanum{]}\_{[}year:alphanum{]}\_{[}veryshorttitle:lower:alphanum{]}\_{[}journal:lower:clean:alphanum{]}} (Figure 4). This generates a citation key for each reference in the format of fairfield\_2019\_gallstones\_scientificreports or harrison\_2012\_hospital\_bmj. It always takes the first author's surname, the year, the first word of the title and the journal abbreviation if known. The clean and alphanum arguments to this field are used to remove unwanted punctuation which can cause citation to fail in LaTeX.
+\end{itemize}
 
 If an author has published an article with the same first word of the title in the same year then the second article appends an ``a'' to the handle and the third a ``b'' and so on.
 

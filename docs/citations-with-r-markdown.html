@@ -23,7 +23,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2024-01-09" />
+<meta name="date" content="2024-05-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -434,7 +434,7 @@ div.csl-indent {
 Figure 12.1: Installing a Zotero Plug-in from an .xpi File
 </p>
 </div>
-<p><a href="https://github.com/retorquere/zotero-better-bibtex/releases/tag/v5.1.76">Better BibTeX</a> is another plug-in which generates citation keys in a robust and reproducible way which is needed for larger projects (e.g. PhDs) to avoid duplicate citation handles. An <code>.xpi</code> file can be downloaded from GitHub and installed in the same way.</p>
+<p><a href="https://github.com/retorquere/zotero-better-bibtex/releases/tag/v6.7.202">Better BibTeX</a> is another plug-in which generates citation keys in a robust and reproducible way which is needed for larger projects (e.g. PhDs) to avoid duplicate citation handles. An <code>.xpi</code> file can be downloaded from GitHub and installed in the same way (check <a href="https://www.zotero.org/support/plugins">Zotero Plug-ins</a> for more recent versions if not installing).</p>
 </div>
 <div id="file-storage-set-up" class="section level2 hasAnchor" number="12.2">
 <h2><span class="header-section-number">12.2</span> File Storage Set-up<a href="citations-with-r-markdown.html#file-storage-set-up" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -479,34 +479,64 @@ Figure 12.3: ZotFile PDF Storage Preferences
 <div id="general-zotero-settings" class="section level3 hasAnchor" number="12.4.2">
 <h3><span class="header-section-number">12.4.2</span> General Zotero Settings<a href="citations-with-r-markdown.html#general-zotero-settings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Zotero has several configurable settings (accessed through: “Edit → Preferences”). The following settings are generally helpful (left as default if not mentioned):</p>
-<p><strong>General:</strong>
-+ Tick the following:
-+ Automatically attach associated PDFs
-+ Automatically retrieve metadata for PDFs
-+ Automatically rename attachments using parent metadata
-+ Automatically tag items with keywords and subject headings
-+ All options in Group section
-+ Leave the following unticked:
-+ Automatically take snapshots
-+ Rename linked files</p>
-<p><strong>Sync:</strong>
-+ Enter the account details
-+ Tick sync automatically
-+ Untick sync full text (if you choose to save PDFs then syncing full text will quickly consume the 300MB quota)</p>
-<p><strong>Search:</strong>
-+ Leave unchanged</p>
-<p><strong>Export:</strong>
-+ Leave unchanged</p>
-<p><strong>Cite:</strong>
-+ There are several sensible defaults but if there is a new citation style you wish to be able to use in Microsoft Word for example then click “Get additional styles” as there is probably a version that you need already created. You can click the “+” button to add a style from a <code>.csl</code> file if you have one already. Finally, if you are desperate for a style that doesn’t already exist then you can select a citation style and click Style Editor and edit the raw <code>.csl</code> file. The <code>.csl</code> file for use in <code>.rmd</code> doesn’t need configured here but instead within the YAML of your .rmd file
-+ In the Word Processors subtab (on the main Cite tab), you can install the Microsoft Word add-in to allow Zotero to work in Microsoft Word.</p>
-<p><strong>Advanced:</strong>
-+ Change nothing on the General subtab
-+ In the Files and Folders subtab select the path to directory for attachments
-+ Change nothing on the Shortcuts subtab
-+ Change nothing on the Feeds subtab</p>
-<p><strong>Better BibTex:</strong>
-+ In this section set the Citation Key format to [auth:lower:alphanum]<em>[year:alphanum]</em>[veryshorttitle:lower:alphanum]_[journal:lower:clean:alphanum] (Figure 4). This generates a citation key for each reference in the format of fairfield_2019_gallstones_scientificreports or harrison_2012_hospital_bmj. It always takes the first author’s surname, the year, the first word of the title and the journal abbreviation if known. The clean and alphanum arguments to this field are used to remove unwanted punctuation which can cause citation to fail in LaTeX.</p>
+<p><strong>General:</strong></p>
+<ul>
+<li>Tick the following:
+<ul>
+<li>Automatically attach associated PDFs<br />
+</li>
+<li>Automatically retrieve metadata for PDFs<br />
+</li>
+<li>Automatically rename attachments using parent metadata<br />
+</li>
+<li>Automatically tag items with keywords and subject headings<br />
+</li>
+<li>All options in Group section<br />
+</li>
+</ul></li>
+<li>Leave the following unticked:
+<ul>
+<li>Automatically take snapshots<br />
+</li>
+<li>Rename linked files</li>
+</ul></li>
+</ul>
+<p><strong>Sync:</strong></p>
+<ul>
+<li>Enter the account details<br />
+</li>
+<li>Tick sync automatically<br />
+</li>
+<li>Untick sync full text (if you choose to save PDFs then syncing full text will quickly consume the 300MB quota)</li>
+</ul>
+<p><strong>Search:</strong></p>
+<ul>
+<li>Leave unchanged</li>
+</ul>
+<p><strong>Export:</strong></p>
+<ul>
+<li>Leave unchanged</li>
+</ul>
+<p><strong>Cite:</strong></p>
+<ul>
+<li>There are several sensible defaults but if there is a new citation style you wish to be able to use in Microsoft Word for example then click “Get additional styles” as there is probably a version that you need already created. You can click the “+” button to add a style from a <code>.csl</code> file if you have one already. Finally, if you are desperate for a style that doesn’t already exist then you can select a citation style and click Style Editor and edit the raw <code>.csl</code> file. The <code>.csl</code> file for use in <code>.rmd</code> doesn’t need configured here but instead within the YAML of your .rmd file<br />
+</li>
+<li>In the Word Processors subtab (on the main Cite tab), you can install the Microsoft Word add-in to allow Zotero to work in Microsoft Word.</li>
+</ul>
+<p><strong>Advanced:</strong></p>
+<ul>
+<li>Change nothing on the General subtab<br />
+</li>
+<li>In the Files and Folders subtab select the path to directory for attachments<br />
+</li>
+<li>Change nothing on the Shortcuts subtab<br />
+</li>
+<li>Change nothing on the Feeds subtab</li>
+</ul>
+<p><strong>Better BibTex:</strong></p>
+<ul>
+<li>In this section set the Citation Key format to <code>[auth:lower:alphanum]_[year:alphanum]_[veryshorttitle:lower:alphanum]_[journal:lower:clean:alphanum]</code> (Figure 4). This generates a citation key for each reference in the format of fairfield_2019_gallstones_scientificreports or harrison_2012_hospital_bmj. It always takes the first author’s surname, the year, the first word of the title and the journal abbreviation if known. The clean and alphanum arguments to this field are used to remove unwanted punctuation which can cause citation to fail in LaTeX.</li>
+</ul>
 <p>If an author has published an article with the same first word of the title in the same year then the second article appends an “a” to the handle and the third a “b” and so on.</p>
 <div class="figure"><span style="display:block;" id="fig:zotfile-citation-key"></span>
 <img src="img/zotero_citation_key.png" alt="ZotFile PDF Storage Preferences" width="1599" />
