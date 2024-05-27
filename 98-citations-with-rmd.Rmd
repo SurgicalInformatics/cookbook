@@ -16,7 +16,7 @@ Set up an online account with Zotero so that your data is available remotely.
 knitr::include_graphics("img/zotero_add_on_install.png")
 ```
 
-[Better BibTeX](https://github.com/retorquere/zotero-better-bibtex/releases/tag/v5.1.76) is another plug-in which generates citation keys in a robust and reproducible way which is needed for larger projects (e.g. PhDs) to avoid duplicate citation handles. An `.xpi` file can be downloaded from GitHub  and installed in the same way.
+[Better BibTeX](https://github.com/retorquere/zotero-better-bibtex/releases/tag/v6.7.202) is another plug-in which generates citation keys in a robust and reproducible way which is needed for larger projects (e.g. PhDs) to avoid duplicate citation handles. An `.xpi` file can be downloaded from GitHub and installed in the same way (check [Zotero Plug-ins](https://www.zotero.org/support/plugins) for more recent versions if not installing).
 
 ## File Storage Set-up
 In addition to Zotero set-up it is a good idea to have a cloud storage service to maintain a library of PDFs without using up Zotero storage capacity. These will also need to be accessible to the `Windows Explorer` or the `Mac Finder` - there are several guides on how to do this for [Google Drive](https://www.howtogeek.com/228989/how-to-use-the-desktop-google-drive-app/) and [DropBox](https://www.dropboxforum.com/t5/Installation-and-desktop-app/How-do-I-put-Dropbox-on-my-File-Explorer-in-Win-10/td-p/313031).
