@@ -131,7 +131,7 @@
 
 \title{The Surgical Informatics Cookbook}
 \author{Surgical Informatics, University of Edinburgh}
-\date{2024-05-27}
+\date{2025-02-27}
 
 \begin{document}
 \maketitle
@@ -612,7 +612,7 @@ Works for a single date or a vector of dates.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 53 80 75
+## [1] 54 81 75
 \end{verbatim}
 
 \begin{Shaded}
@@ -657,8 +657,8 @@ Works for a single date or a vector of dates.
 ## # A tibble: 3 x 4
 ##   chi        dob        gender   age
 ##   <chr>      <date>     <chr>  <dbl>
-## 1 1009701234 1970-09-10 Male      53
-## 2 1811431232 1943-11-18 Male      80
+## 1 1009701234 1970-09-10 Male      54
+## 2 1811431232 1943-11-18 Male      81
 ## 3 1304496368 1949-04-13 Female    75
 \end{verbatim}
 
@@ -708,8 +708,8 @@ The final digit of the CHI can be used to test that the number is correct via th
 ## # A tibble: 3 x 5
 ##   chi        dob        gender   age chi_valid
 ##   <chr>      <date>     <chr>  <dbl> <lgl>    
-## 1 1009701234 1970-09-10 Male      53 FALSE    
-## 2 1811431232 1943-11-18 Male      80 TRUE     
+## 1 1009701234 1970-09-10 Male      54 FALSE    
+## 2 1811431232 1943-11-18 Male      81 TRUE     
 ## 3 1304496368 1949-04-13 Female    75 TRUE
 \end{verbatim}
 
@@ -1013,12 +1013,12 @@ Easiest solution I have found (EMH) is just to work with the first date of each 
 
 \begin{verbatim}
 ##         date isoweek isoweek_date
-## 1 2021-10-11      41   2021-10-11
-## 2 2022-02-11       6   2022-02-07
-## 3 2021-08-19      33   2021-08-16
-## 4 2020-11-28      48   2020-11-23
-## 5 2021-03-07       9   2021-03-01
-## 6 2020-02-24       9   2020-02-24
+## 1 2021-06-17      24   2021-06-14
+## 2 2021-10-04      40   2021-10-04
+## 3 2020-11-01      44   2020-10-26
+## 4 2020-06-09      24   2020-06-08
+## 5 2021-09-27      39   2021-09-27
+## 6 2020-02-04       6   2020-02-03
 \end{verbatim}
 
 \hypertarget{labelling-tables-and-figures-in-markdown-chunks}{%
@@ -2524,6 +2524,50 @@ If you want to have the access to the node after you close your terminal, you ca
 \hypertarget{plotting}{%
 \chapter{Plotting}\label{plotting}}
 
+\hypertarget{plotting-distributions-of-proportions-across-multiple-different-variables}{%
+\section{Plotting distributions of proportions across multiple different variables}\label{plotting-distributions-of-proportions-across-multiple-different-variables}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(finalfit)}
+
+\NormalTok{summary\_factorplot }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(.data, ..., }\AttributeTok{nrow =} \DecValTok{2}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{3}\NormalTok{, }\AttributeTok{expand =} \FloatTok{0.2}\NormalTok{)\{}
+\NormalTok{    plot\_names }\OtherTok{=}\NormalTok{ .data }\SpecialCharTok{\%\textgreater{}\%} 
+        \FunctionTok{select}\NormalTok{(...) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{        finalfit}\SpecialCharTok{::}\FunctionTok{extract\_labels}\NormalTok{()}
+    
+\NormalTok{    purrr}\SpecialCharTok{::}\FunctionTok{map2}\NormalTok{(plot\_names}\SpecialCharTok{$}\NormalTok{vname, plot\_names}\SpecialCharTok{$}\NormalTok{vlabel,}
+                            \SpecialCharTok{\textasciitilde{}}\NormalTok{ .data }\SpecialCharTok{\%\textgreater{}\%} 
+                                \FunctionTok{select}\NormalTok{(}\FunctionTok{all\_of}\NormalTok{(.x)) }\SpecialCharTok{\%\textgreater{}\%} 
+                                \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%T\textgreater{}\%}
+\NormalTok{                                \{N }\OtherTok{\textless{}\textless{}{-}} \FunctionTok{dim}\NormalTok{(.)[}\DecValTok{1}\NormalTok{]\} }\SpecialCharTok{\%\textgreater{}\%} 
+                                \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{everything}\NormalTok{(), fct\_rev)) }\SpecialCharTok{\%\textgreater{}\%} 
+                                \FunctionTok{count}\NormalTok{(}\SpecialCharTok{!!} \FunctionTok{sym}\NormalTok{(.x)) }\SpecialCharTok{\%\textgreater{}\%} 
+                                \FunctionTok{mutate}\NormalTok{(}\AttributeTok{nn =} \FunctionTok{sum}\NormalTok{(n),}
+                                             \AttributeTok{p =} \DecValTok{100}\SpecialCharTok{*}\NormalTok{n}\SpecialCharTok{/}\NormalTok{nn,}
+                                             \AttributeTok{p =} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{round\_tidy}\NormalTok{(p, }\DecValTok{1}\NormalTok{), }\StringTok{"\%"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+                                
+                                \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ n, }\AttributeTok{y =} \SpecialCharTok{!!} \FunctionTok{sym}\NormalTok{(.x))) }\SpecialCharTok{+}
+                                \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{fill =} \StringTok{"navyblue"}\NormalTok{) }\SpecialCharTok{+}
+                                \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ (n}\SpecialCharTok{*}\FloatTok{1.05}\SpecialCharTok{+}\DecValTok{1}\NormalTok{), }\AttributeTok{label =}\NormalTok{ p), }\AttributeTok{hjust =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+                                \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{expansion}\NormalTok{(}\AttributeTok{mult=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, expand))) }\SpecialCharTok{+}
+                                \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"n"}\NormalTok{, }\AttributeTok{y =} \StringTok{""}\NormalTok{) }\SpecialCharTok{+}
+                                \FunctionTok{theme\_classic}\NormalTok{(}\DecValTok{14}\NormalTok{) }\SpecialCharTok{+}
+                                \FunctionTok{ggtitle}\NormalTok{(.y,}
+                                                \FunctionTok{paste0}\NormalTok{(}\StringTok{"N="}\NormalTok{, N))}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{        egg}\SpecialCharTok{::}\FunctionTok{ggarrange}\NormalTok{(}\AttributeTok{plots =}\NormalTok{ ., }\AttributeTok{nrow =}\NormalTok{ nrow, }\AttributeTok{ncol =}\NormalTok{ ncol)}
+\NormalTok{\}}
+
+\NormalTok{colon\_s }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{summary\_factorplot}\NormalTok{(sex.factor, rx.factor, obstruct.factor, }
+\NormalTok{    perfor.factor, adhere.factor, differ.factor)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf}
+
 \hypertarget{gghighlight-example}{%
 \section{GGHighlight Example}\label{gghighlight-example}}
 
@@ -2565,7 +2609,7 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{06-plotting_files/figure-latex/unnamed-chunk-1-1.pdf}
+\includegraphics{06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2579,7 +2623,7 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{06-plotting_files/figure-latex/unnamed-chunk-1-2.pdf}
+\includegraphics{06-plotting_files/figure-latex/unnamed-chunk-2-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2597,7 +2641,7 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{06-plotting_files/figure-latex/unnamed-chunk-1-3.pdf}
+\includegraphics{06-plotting_files/figure-latex/unnamed-chunk-2-3.pdf}
 
 \hypertarget{axis-font-size}{%
 \section{Axis font size}\label{axis-font-size}}
@@ -2626,7 +2670,7 @@ Plotting with gghighlight is pretty awesome allowing you to filter on any variab
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{06-plotting_files/figure-latex/unnamed-chunk-2-1.pdf}
+\includegraphics{06-plotting_files/figure-latex/unnamed-chunk-3-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]

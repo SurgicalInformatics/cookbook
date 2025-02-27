@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Plotting | The Surgical Informatics Cookbook</title>
   <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Plotting | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2024-05-27" />
+<meta name="date" content="2025-02-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -303,10 +303,11 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="6" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>6</b> Plotting</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="plotting.html"><a href="plotting.html#gghighlight-example"><i class="fa fa-check"></i><b>6.1</b> GGHighlight Example</a></li>
-<li class="chapter" data-level="6.2" data-path="plotting.html"><a href="plotting.html#coord_flip-factor-orders"><i class="fa fa-check"></i><b>6.2</b> <code>coord_flip()</code> factor orders</a></li>
-<li class="chapter" data-level="6.3" data-path="plotting.html"><a href="plotting.html#axis-font-size"><i class="fa fa-check"></i><b>6.3</b> Axis font size</a></li>
-<li class="chapter" data-level="6.4" data-path="plotting.html"><a href="plotting.html#shorten-arrows-on-a-dag"><i class="fa fa-check"></i><b>6.4</b> Shorten Arrows on a DAG</a></li>
+<li class="chapter" data-level="6.1" data-path="plotting.html"><a href="plotting.html#plotting-distributions-of-proportions-across-multiple-different-variables"><i class="fa fa-check"></i><b>6.1</b> Plotting distributions of proportions across multiple different variables</a></li>
+<li class="chapter" data-level="6.2" data-path="plotting.html"><a href="plotting.html#gghighlight-example"><i class="fa fa-check"></i><b>6.2</b> GGHighlight Example</a></li>
+<li class="chapter" data-level="6.3" data-path="plotting.html"><a href="plotting.html#coord_flip-factor-orders"><i class="fa fa-check"></i><b>6.3</b> <code>coord_flip()</code> factor orders</a></li>
+<li class="chapter" data-level="6.4" data-path="plotting.html"><a href="plotting.html#axis-font-size"><i class="fa fa-check"></i><b>6.4</b> Axis font size</a></li>
+<li class="chapter" data-level="6.5" data-path="plotting.html"><a href="plotting.html#shorten-arrows-on-a-dag"><i class="fa fa-check"></i><b>6.5</b> Shorten Arrows on a DAG</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="genomics.html"><a href="genomics.html"><i class="fa fa-check"></i><b>7</b> Genomics</a>
 <ul>
@@ -420,111 +421,149 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="plotting" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Plotting<a href="plotting.html#plotting" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="gghighlight-example" class="section level2 hasAnchor" number="6.1">
-<h2><span class="header-section-number">6.1</span> GGHighlight Example<a href="plotting.html#gghighlight-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Plotting with gghighlight is pretty awesome allowing you to filter on any variable. It seems that gghighlight overwrites any ‘colour’ variable you put in the main aes. To get round this and have labels, save as a plot and add geom_label_repel separately.</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="plotting.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gghighlight)</span>
-<span id="cb140-2"><a href="plotting.html#cb140-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<div id="plotting-distributions-of-proportions-across-multiple-different-variables" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Plotting distributions of proportions across multiple different variables<a href="plotting.html#plotting-distributions-of-proportions-across-multiple-different-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="plotting.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb140-2"><a href="plotting.html#cb140-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb140-3"><a href="plotting.html#cb140-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb140-4"><a href="plotting.html#cb140-4" aria-hidden="true" tabindex="-1"></a>mydata<span class="ot">=</span>gapminder</span>
-<span id="cb140-5"><a href="plotting.html#cb140-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb140-6"><a href="plotting.html#cb140-6" aria-hidden="true" tabindex="-1"></a>plot <span class="ot">=</span> mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb140-7"><a href="plotting.html#cb140-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="st">&quot;2002&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb140-8"><a href="plotting.html#cb140-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp, <span class="at">colour=</span>continent)) <span class="sc">+</span></span>
-<span id="cb140-9"><a href="plotting.html#cb140-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb140-10"><a href="plotting.html#cb140-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gghighlight</span>(lifeExp <span class="sc">&gt;</span> <span class="dv">75</span> <span class="sc">&amp;</span> gdpPercap <span class="sc">&lt;</span> <span class="fu">mean</span>(gdpPercap), <span class="at">label_key =</span> country, <span class="at">use_direct_label =</span> <span class="cn">FALSE</span>)<span class="sc">+</span> </span>
-<span id="cb140-11"><a href="plotting.html#cb140-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span> </span>
-<span id="cb140-12"><a href="plotting.html#cb140-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span> <span class="st">&quot;gghighlight: Filter for countries with Life Expectancy &gt;75 and GDP &lt; mean&quot;</span> )  </span>
-<span id="cb140-13"><a href="plotting.html#cb140-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb140-14"><a href="plotting.html#cb140-14" aria-hidden="true" tabindex="-1"></a>plot <span class="sc">+</span> <span class="fu">geom_label_repel</span>(<span class="fu">aes</span>(<span class="at">label=</span> country), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="co">#only needed if you use  use_direct_label = FALSE. This allows you to have a colour legend as well. </span></span></code></pre></div>
+<span id="cb140-4"><a href="plotting.html#cb140-4" aria-hidden="true" tabindex="-1"></a>summary_factorplot <span class="ot">&lt;-</span> <span class="cf">function</span>(.data, ..., <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">expand =</span> <span class="fl">0.2</span>){</span>
+<span id="cb140-5"><a href="plotting.html#cb140-5" aria-hidden="true" tabindex="-1"></a>    plot_names <span class="ot">=</span> .data <span class="sc">%&gt;%</span> </span>
+<span id="cb140-6"><a href="plotting.html#cb140-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">select</span>(...) <span class="sc">%&gt;%</span> </span>
+<span id="cb140-7"><a href="plotting.html#cb140-7" aria-hidden="true" tabindex="-1"></a>        finalfit<span class="sc">::</span><span class="fu">extract_labels</span>()</span>
+<span id="cb140-8"><a href="plotting.html#cb140-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb140-9"><a href="plotting.html#cb140-9" aria-hidden="true" tabindex="-1"></a>    purrr<span class="sc">::</span><span class="fu">map2</span>(plot_names<span class="sc">$</span>vname, plot_names<span class="sc">$</span>vlabel,</span>
+<span id="cb140-10"><a href="plotting.html#cb140-10" aria-hidden="true" tabindex="-1"></a>                            <span class="sc">~</span> .data <span class="sc">%&gt;%</span> </span>
+<span id="cb140-11"><a href="plotting.html#cb140-11" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">select</span>(<span class="fu">all_of</span>(.x)) <span class="sc">%&gt;%</span> </span>
+<span id="cb140-12"><a href="plotting.html#cb140-12" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">drop_na</span>() <span class="sc">%T&gt;%</span></span>
+<span id="cb140-13"><a href="plotting.html#cb140-13" aria-hidden="true" tabindex="-1"></a>                                {N <span class="ot">&lt;&lt;-</span> <span class="fu">dim</span>(.)[<span class="dv">1</span>]} <span class="sc">%&gt;%</span> </span>
+<span id="cb140-14"><a href="plotting.html#cb140-14" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), fct_rev)) <span class="sc">%&gt;%</span> </span>
+<span id="cb140-15"><a href="plotting.html#cb140-15" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">count</span>(<span class="sc">!!</span> <span class="fu">sym</span>(.x)) <span class="sc">%&gt;%</span> </span>
+<span id="cb140-16"><a href="plotting.html#cb140-16" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">mutate</span>(<span class="at">nn =</span> <span class="fu">sum</span>(n),</span>
+<span id="cb140-17"><a href="plotting.html#cb140-17" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">p =</span> <span class="dv">100</span><span class="sc">*</span>n<span class="sc">/</span>nn,</span>
+<span id="cb140-18"><a href="plotting.html#cb140-18" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">p =</span> <span class="fu">paste0</span>(<span class="fu">round_tidy</span>(p, <span class="dv">1</span>), <span class="st">&quot;%&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb140-19"><a href="plotting.html#cb140-19" aria-hidden="true" tabindex="-1"></a>                                </span>
+<span id="cb140-20"><a href="plotting.html#cb140-20" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> <span class="sc">!!</span> <span class="fu">sym</span>(.x))) <span class="sc">+</span></span>
+<span id="cb140-21"><a href="plotting.html#cb140-21" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;navyblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb140-22"><a href="plotting.html#cb140-22" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> (n<span class="sc">*</span><span class="fl">1.05</span><span class="sc">+</span><span class="dv">1</span>), <span class="at">label =</span> p), <span class="at">hjust =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb140-23"><a href="plotting.html#cb140-23" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult=</span><span class="fu">c</span>(<span class="dv">0</span>, expand))) <span class="sc">+</span></span>
+<span id="cb140-24"><a href="plotting.html#cb140-24" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;n&quot;</span>, <span class="at">y =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb140-25"><a href="plotting.html#cb140-25" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">theme_classic</span>(<span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb140-26"><a href="plotting.html#cb140-26" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">ggtitle</span>(.y,</span>
+<span id="cb140-27"><a href="plotting.html#cb140-27" aria-hidden="true" tabindex="-1"></a>                                                <span class="fu">paste0</span>(<span class="st">&quot;N=&quot;</span>, N))</span>
+<span id="cb140-28"><a href="plotting.html#cb140-28" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb140-29"><a href="plotting.html#cb140-29" aria-hidden="true" tabindex="-1"></a>        egg<span class="sc">::</span><span class="fu">ggarrange</span>(<span class="at">plots =</span> ., <span class="at">nrow =</span> nrow, <span class="at">ncol =</span> ncol)</span>
+<span id="cb140-30"><a href="plotting.html#cb140-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb140-31"><a href="plotting.html#cb140-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-32"><a href="plotting.html#cb140-32" aria-hidden="true" tabindex="-1"></a>colon_s <span class="sc">%&gt;%</span> </span>
+<span id="cb140-33"><a href="plotting.html#cb140-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary_factorplot</span>(sex.factor, rx.factor, obstruct.factor, </span>
+<span id="cb140-34"><a href="plotting.html#cb140-34" aria-hidden="true" tabindex="-1"></a>    perfor.factor, adhere.factor, differ.factor)</span></code></pre></div>
+<p><img src="06-plotting_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+</div>
+<div id="gghighlight-example" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> GGHighlight Example<a href="plotting.html#gghighlight-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Plotting with gghighlight is pretty awesome allowing you to filter on any variable. It seems that gghighlight overwrites any ‘colour’ variable you put in the main aes. To get round this and have labels, save as a plot and add geom_label_repel separately.</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="plotting.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gghighlight)</span>
+<span id="cb141-2"><a href="plotting.html#cb141-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb141-3"><a href="plotting.html#cb141-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-4"><a href="plotting.html#cb141-4" aria-hidden="true" tabindex="-1"></a>mydata<span class="ot">=</span>gapminder</span>
+<span id="cb141-5"><a href="plotting.html#cb141-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-6"><a href="plotting.html#cb141-6" aria-hidden="true" tabindex="-1"></a>plot <span class="ot">=</span> mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb141-7"><a href="plotting.html#cb141-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="st">&quot;2002&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb141-8"><a href="plotting.html#cb141-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp, <span class="at">colour=</span>continent)) <span class="sc">+</span></span>
+<span id="cb141-9"><a href="plotting.html#cb141-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb141-10"><a href="plotting.html#cb141-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gghighlight</span>(lifeExp <span class="sc">&gt;</span> <span class="dv">75</span> <span class="sc">&amp;</span> gdpPercap <span class="sc">&lt;</span> <span class="fu">mean</span>(gdpPercap), <span class="at">label_key =</span> country, <span class="at">use_direct_label =</span> <span class="cn">FALSE</span>)<span class="sc">+</span> </span>
+<span id="cb141-11"><a href="plotting.html#cb141-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span> </span>
+<span id="cb141-12"><a href="plotting.html#cb141-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span> <span class="st">&quot;gghighlight: Filter for countries with Life Expectancy &gt;75 and GDP &lt; mean&quot;</span> )  </span>
+<span id="cb141-13"><a href="plotting.html#cb141-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-14"><a href="plotting.html#cb141-14" aria-hidden="true" tabindex="-1"></a>plot <span class="sc">+</span> <span class="fu">geom_label_repel</span>(<span class="fu">aes</span>(<span class="at">label=</span> country), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="co">#only needed if you use  use_direct_label = FALSE. This allows you to have a colour legend as well. </span></span></code></pre></div>
 <p><img src="06-plotting_files/figure-html/gghighlight-1.png" width="672" /></p>
 </div>
-<div id="coord_flip-factor-orders" class="section level2 hasAnchor" number="6.2">
-<h2><span class="header-section-number">6.2</span> <code>coord_flip()</code> factor orders<a href="plotting.html#coord_flip-factor-orders" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="plotting.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb141-2"><a href="plotting.html#cb141-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb141-3"><a href="plotting.html#cb141-3" aria-hidden="true" tabindex="-1"></a><span class="co"># unflipped (yes this plot has no purpose :)</span></span>
-<span id="cb141-4"><a href="plotting.html#cb141-4" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb141-5"><a href="plotting.html#cb141-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> continent, <span class="at">fill =</span> <span class="fu">factor</span>(year))) <span class="sc">+</span> </span>
-<span id="cb141-6"><a href="plotting.html#cb141-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span> </span>
-<span id="cb141-7"><a href="plotting.html#cb141-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Paired&quot;</span>)</span></code></pre></div>
-<p><img src="06-plotting_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="plotting.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="co"># flipped</span></span>
-<span id="cb142-2"><a href="plotting.html#cb142-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb142-3"><a href="plotting.html#cb142-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_rev</span>(continent), <span class="at">fill =</span> <span class="fu">factor</span>(year))) <span class="sc">+</span> </span>
-<span id="cb142-4"><a href="plotting.html#cb142-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span> </span>
-<span id="cb142-5"><a href="plotting.html#cb142-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
-<span id="cb142-6"><a href="plotting.html#cb142-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Paired&quot;</span>, <span class="at">breaks =</span> rev) <span class="sc">+</span> </span>
-<span id="cb142-7"><a href="plotting.html#cb142-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">reverse =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
-<p><img src="06-plotting_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="plotting.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="do">## This is actually the same as the previous plot so is achieving the aim. </span></span>
-<span id="cb143-2"><a href="plotting.html#cb143-2" aria-hidden="true" tabindex="-1"></a><span class="do">## But the unflipped plot isn&#39;t that great given the order of the year</span></span>
-<span id="cb143-3"><a href="plotting.html#cb143-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Hence why wanting to flip</span></span>
-<span id="cb143-4"><a href="plotting.html#cb143-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb143-5"><a href="plotting.html#cb143-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Better flipped</span></span>
-<span id="cb143-6"><a href="plotting.html#cb143-6" aria-hidden="true" tabindex="-1"></a><span class="co"># This way, new fill levels get added on the end</span></span>
-<span id="cb143-7"><a href="plotting.html#cb143-7" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb143-8"><a href="plotting.html#cb143-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_rev</span>(continent), <span class="at">fill =</span> <span class="fu">fct_rev</span>(<span class="fu">factor</span>(year)))) <span class="sc">+</span> </span>
-<span id="cb143-9"><a href="plotting.html#cb143-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span> </span>
-<span id="cb143-10"><a href="plotting.html#cb143-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
-<span id="cb143-11"><a href="plotting.html#cb143-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Paired&quot;</span>, <span class="at">breaks =</span> rev, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="06-plotting_files/figure-html/unnamed-chunk-1-3.png" width="672" /></p>
+<div id="coord_flip-factor-orders" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> <code>coord_flip()</code> factor orders<a href="plotting.html#coord_flip-factor-orders" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="plotting.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb142-2"><a href="plotting.html#cb142-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb142-3"><a href="plotting.html#cb142-3" aria-hidden="true" tabindex="-1"></a><span class="co"># unflipped (yes this plot has no purpose :)</span></span>
+<span id="cb142-4"><a href="plotting.html#cb142-4" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb142-5"><a href="plotting.html#cb142-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> continent, <span class="at">fill =</span> <span class="fu">factor</span>(year))) <span class="sc">+</span> </span>
+<span id="cb142-6"><a href="plotting.html#cb142-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span> </span>
+<span id="cb142-7"><a href="plotting.html#cb142-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Paired&quot;</span>)</span></code></pre></div>
+<p><img src="06-plotting_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="plotting.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="co"># flipped</span></span>
+<span id="cb143-2"><a href="plotting.html#cb143-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb143-3"><a href="plotting.html#cb143-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_rev</span>(continent), <span class="at">fill =</span> <span class="fu">factor</span>(year))) <span class="sc">+</span> </span>
+<span id="cb143-4"><a href="plotting.html#cb143-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span> </span>
+<span id="cb143-5"><a href="plotting.html#cb143-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
+<span id="cb143-6"><a href="plotting.html#cb143-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Paired&quot;</span>, <span class="at">breaks =</span> rev) <span class="sc">+</span> </span>
+<span id="cb143-7"><a href="plotting.html#cb143-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">reverse =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<p><img src="06-plotting_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="plotting.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="do">## This is actually the same as the previous plot so is achieving the aim. </span></span>
+<span id="cb144-2"><a href="plotting.html#cb144-2" aria-hidden="true" tabindex="-1"></a><span class="do">## But the unflipped plot isn&#39;t that great given the order of the year</span></span>
+<span id="cb144-3"><a href="plotting.html#cb144-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Hence why wanting to flip</span></span>
+<span id="cb144-4"><a href="plotting.html#cb144-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-5"><a href="plotting.html#cb144-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Better flipped</span></span>
+<span id="cb144-6"><a href="plotting.html#cb144-6" aria-hidden="true" tabindex="-1"></a><span class="co"># This way, new fill levels get added on the end</span></span>
+<span id="cb144-7"><a href="plotting.html#cb144-7" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
+<span id="cb144-8"><a href="plotting.html#cb144-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_rev</span>(continent), <span class="at">fill =</span> <span class="fu">fct_rev</span>(<span class="fu">factor</span>(year)))) <span class="sc">+</span> </span>
+<span id="cb144-9"><a href="plotting.html#cb144-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span> </span>
+<span id="cb144-10"><a href="plotting.html#cb144-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
+<span id="cb144-11"><a href="plotting.html#cb144-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Paired&quot;</span>, <span class="at">breaks =</span> rev, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="06-plotting_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
 </div>
-<div id="axis-font-size" class="section level2 hasAnchor" number="6.3">
-<h2><span class="header-section-number">6.3</span> Axis font size<a href="plotting.html#axis-font-size" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="plotting.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="co"># OPTION 1: theme(axis.text = element_text(size = 12, colour = &quot;black&quot;))</span></span>
-<span id="cb144-2"><a href="plotting.html#cb144-2" aria-hidden="true" tabindex="-1"></a><span class="co"># OPTION 2: width and height arguments of ggsave()</span></span>
-<span id="cb144-3"><a href="plotting.html#cb144-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb144-4"><a href="plotting.html#cb144-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb144-5"><a href="plotting.html#cb144-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
-<span id="cb144-6"><a href="plotting.html#cb144-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb144-7"><a href="plotting.html#cb144-7" aria-hidden="true" tabindex="-1"></a><span class="co"># made-up example data</span></span>
-<span id="cb144-8"><a href="plotting.html#cb144-8" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">group    =</span> <span class="fu">c</span>(<span class="st">&quot;UMIC&quot;</span>, <span class="st">&quot;LMIC&quot;</span>, <span class="st">&quot;LIC&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">rep</span>(<span class="at">each =</span> <span class="dv">2</span>),</span>
-<span id="cb144-9"><a href="plotting.html#cb144-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">value    =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, </span>
-<span id="cb144-10"><a href="plotting.html#cb144-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">variable =</span> <span class="fu">c</span>(<span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;No&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">rep</span>(<span class="dv">3</span>))</span>
-<span id="cb144-11"><a href="plotting.html#cb144-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb144-12"><a href="plotting.html#cb144-12" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
-<span id="cb144-13"><a href="plotting.html#cb144-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> value, <span class="at">fill =</span> variable)) <span class="sc">+</span></span>
-<span id="cb144-14"><a href="plotting.html#cb144-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="sc">+</span></span>
-<span id="cb144-15"><a href="plotting.html#cb144-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> percent, <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
-<span id="cb144-16"><a href="plotting.html#cb144-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb144-17"><a href="plotting.html#cb144-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># OPTION 1: change font with theme()</span></span>
-<span id="cb144-18"><a href="plotting.html#cb144-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text  =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>),</span>
-<span id="cb144-19"><a href="plotting.html#cb144-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="06-plotting_files/figure-html/unnamed-chunk-2-1.png" width="288" /></p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="plotting.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="co"># OPTION 2: play around with export size. Since PDF will always have max resolution anyway</span></span>
-<span id="cb145-2"><a href="plotting.html#cb145-2" aria-hidden="true" tabindex="-1"></a><span class="co"># but changing width and height modifies text size</span></span>
-<span id="cb145-3"><a href="plotting.html#cb145-3" aria-hidden="true" tabindex="-1"></a>mywidth  <span class="ot">=</span> <span class="dv">5</span></span>
-<span id="cb145-4"><a href="plotting.html#cb145-4" aria-hidden="true" tabindex="-1"></a>myheight <span class="ot">=</span> <span class="dv">4</span></span>
-<span id="cb145-5"><a href="plotting.html#cb145-5" aria-hidden="true" tabindex="-1"></a><span class="co">#ggsave(&quot;barplot_5x4.pdf&quot;, width = mywidth, height = myheight)</span></span>
+<div id="axis-font-size" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Axis font size<a href="plotting.html#axis-font-size" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="plotting.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="co"># OPTION 1: theme(axis.text = element_text(size = 12, colour = &quot;black&quot;))</span></span>
+<span id="cb145-2"><a href="plotting.html#cb145-2" aria-hidden="true" tabindex="-1"></a><span class="co"># OPTION 2: width and height arguments of ggsave()</span></span>
+<span id="cb145-3"><a href="plotting.html#cb145-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-4"><a href="plotting.html#cb145-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb145-5"><a href="plotting.html#cb145-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
 <span id="cb145-6"><a href="plotting.html#cb145-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb145-7"><a href="plotting.html#cb145-7" aria-hidden="true" tabindex="-1"></a>mywidth  <span class="ot">=</span> <span class="dv">10</span></span>
-<span id="cb145-8"><a href="plotting.html#cb145-8" aria-hidden="true" tabindex="-1"></a>myheight <span class="ot">=</span> <span class="dv">8</span></span>
-<span id="cb145-9"><a href="plotting.html#cb145-9" aria-hidden="true" tabindex="-1"></a><span class="co">#ggsave(&quot;barplot_10x8.pdf&quot;, width = mywidth, height = myheight)</span></span></code></pre></div>
+<span id="cb145-7"><a href="plotting.html#cb145-7" aria-hidden="true" tabindex="-1"></a><span class="co"># made-up example data</span></span>
+<span id="cb145-8"><a href="plotting.html#cb145-8" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">group    =</span> <span class="fu">c</span>(<span class="st">&quot;UMIC&quot;</span>, <span class="st">&quot;LMIC&quot;</span>, <span class="st">&quot;LIC&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">rep</span>(<span class="at">each =</span> <span class="dv">2</span>),</span>
+<span id="cb145-9"><a href="plotting.html#cb145-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">value    =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, </span>
+<span id="cb145-10"><a href="plotting.html#cb145-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">variable =</span> <span class="fu">c</span>(<span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;No&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">rep</span>(<span class="dv">3</span>))</span>
+<span id="cb145-11"><a href="plotting.html#cb145-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-12"><a href="plotting.html#cb145-12" aria-hidden="true" tabindex="-1"></a>mydata <span class="sc">%&gt;%</span> </span>
+<span id="cb145-13"><a href="plotting.html#cb145-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> value, <span class="at">fill =</span> variable)) <span class="sc">+</span></span>
+<span id="cb145-14"><a href="plotting.html#cb145-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="sc">+</span></span>
+<span id="cb145-15"><a href="plotting.html#cb145-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> percent, <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb145-16"><a href="plotting.html#cb145-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb145-17"><a href="plotting.html#cb145-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># OPTION 1: change font with theme()</span></span>
+<span id="cb145-18"><a href="plotting.html#cb145-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text  =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb145-19"><a href="plotting.html#cb145-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="06-plotting_files/figure-html/unnamed-chunk-3-1.png" width="288" /></p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="plotting.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="co"># OPTION 2: play around with export size. Since PDF will always have max resolution anyway</span></span>
+<span id="cb146-2"><a href="plotting.html#cb146-2" aria-hidden="true" tabindex="-1"></a><span class="co"># but changing width and height modifies text size</span></span>
+<span id="cb146-3"><a href="plotting.html#cb146-3" aria-hidden="true" tabindex="-1"></a>mywidth  <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb146-4"><a href="plotting.html#cb146-4" aria-hidden="true" tabindex="-1"></a>myheight <span class="ot">=</span> <span class="dv">4</span></span>
+<span id="cb146-5"><a href="plotting.html#cb146-5" aria-hidden="true" tabindex="-1"></a><span class="co">#ggsave(&quot;barplot_5x4.pdf&quot;, width = mywidth, height = myheight)</span></span>
+<span id="cb146-6"><a href="plotting.html#cb146-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-7"><a href="plotting.html#cb146-7" aria-hidden="true" tabindex="-1"></a>mywidth  <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb146-8"><a href="plotting.html#cb146-8" aria-hidden="true" tabindex="-1"></a>myheight <span class="ot">=</span> <span class="dv">8</span></span>
+<span id="cb146-9"><a href="plotting.html#cb146-9" aria-hidden="true" tabindex="-1"></a><span class="co">#ggsave(&quot;barplot_10x8.pdf&quot;, width = mywidth, height = myheight)</span></span></code></pre></div>
 <p>Same plot 5x4 inches vs 10x8 inches:</p>
 <p><img src="img/barplot_5x4.png" width="50%" /><img src="img/barplot_10x8.png" width="50%" /></p>
 </div>
-<div id="shorten-arrows-on-a-dag" class="section level2 hasAnchor" number="6.4">
-<h2><span class="header-section-number">6.4</span> Shorten Arrows on a DAG<a href="plotting.html#shorten-arrows-on-a-dag" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="shorten-arrows-on-a-dag" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Shorten Arrows on a DAG<a href="plotting.html#shorten-arrows-on-a-dag" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Plot 1 with large nodes and arrows not shortened:</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="plotting.html#cb146-1" aria-hidden="true" tabindex="-1"></a>DAG <span class="ot">&lt;-</span> ggdag<span class="sc">::</span><span class="fu">dagify</span>(y <span class="sc">~</span> x)</span>
-<span id="cb146-2"><a href="plotting.html#cb146-2" aria-hidden="true" tabindex="-1"></a>DAG <span class="ot">&lt;-</span> ggdag<span class="sc">::</span><span class="fu">tidy_dagitty</span>(DAG)</span>
-<span id="cb146-3"><a href="plotting.html#cb146-3" aria-hidden="true" tabindex="-1"></a>PLOT1 <span class="ot">&lt;-</span> ggdag<span class="sc">::</span><span class="fu">ggdag</span>(DAG, <span class="at">node_size =</span> <span class="dv">50</span>)</span>
-<span id="cb146-4"><a href="plotting.html#cb146-4" aria-hidden="true" tabindex="-1"></a>PLOT1</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="plotting.html#cb147-1" aria-hidden="true" tabindex="-1"></a>DAG <span class="ot">&lt;-</span> ggdag<span class="sc">::</span><span class="fu">dagify</span>(y <span class="sc">~</span> x)</span>
+<span id="cb147-2"><a href="plotting.html#cb147-2" aria-hidden="true" tabindex="-1"></a>DAG <span class="ot">&lt;-</span> ggdag<span class="sc">::</span><span class="fu">tidy_dagitty</span>(DAG)</span>
+<span id="cb147-3"><a href="plotting.html#cb147-3" aria-hidden="true" tabindex="-1"></a>PLOT1 <span class="ot">&lt;-</span> ggdag<span class="sc">::</span><span class="fu">ggdag</span>(DAG, <span class="at">node_size =</span> <span class="dv">50</span>)</span>
+<span id="cb147-4"><a href="plotting.html#cb147-4" aria-hidden="true" tabindex="-1"></a>PLOT1</span></code></pre></div>
 <p><img src="06-plotting_files/figure-html/dag_big_nodes_part_1-1.png" width="672" /></p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="plotting.html#cb147-1" aria-hidden="true" tabindex="-1"></a>shorten_dag_arrows <span class="ot">&lt;-</span> <span class="cf">function</span>(tidy_dag, shorten_distance){</span>
-<span id="cb147-2"><a href="plotting.html#cb147-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Update underlying ggdag object</span></span>
-<span id="cb147-3"><a href="plotting.html#cb147-3" aria-hidden="true" tabindex="-1"></a>  tidy_dag<span class="sc">$</span>data <span class="ot">=</span> dplyr<span class="sc">::</span><span class="fu">mutate</span>(tidy_dag<span class="sc">$</span>data, <span class="at">slope =</span> (yend <span class="sc">-</span> y) <span class="sc">/</span> (xend <span class="sc">-</span> x), <span class="co"># Calculate slope of line</span></span>
-<span id="cb147-4"><a href="plotting.html#cb147-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">distance =</span> <span class="fu">sqrt</span>((xend<span class="sc">-</span>x)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (yend <span class="sc">-</span> y)<span class="sc">^</span><span class="dv">2</span>), <span class="co"># Calculate total distance of line</span></span>
-<span id="cb147-5"><a href="plotting.html#cb147-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">proportion =</span> shorten_distance<span class="sc">/</span>distance, <span class="co"># Calculate proportion by which to be shortened</span></span>
-<span id="cb147-6"><a href="plotting.html#cb147-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">xend =</span> (<span class="dv">1</span><span class="sc">-</span>proportion)<span class="sc">*</span>xend <span class="sc">+</span> (proportion<span class="sc">*</span>x), <span class="co"># Shorten xend</span></span>
-<span id="cb147-7"><a href="plotting.html#cb147-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">yend =</span> (<span class="dv">1</span><span class="sc">-</span>proportion)<span class="sc">*</span>yend <span class="sc">+</span> (proportion<span class="sc">*</span>y)) <span class="sc">%&gt;%</span> <span class="co"># Shorten yend</span></span>
-<span id="cb147-8"><a href="plotting.html#cb147-8" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>slope, <span class="sc">-</span>distance, <span class="sc">-</span>proportion) <span class="co"># Drop intermediate values</span></span>
-<span id="cb147-9"><a href="plotting.html#cb147-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(tidy_dag)</span>
-<span id="cb147-10"><a href="plotting.html#cb147-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb147-11"><a href="plotting.html#cb147-11" aria-hidden="true" tabindex="-1"></a>DAG <span class="ot">&lt;-</span> <span class="fu">shorten_dag_arrows</span>(DAG, <span class="at">shorten_distance =</span> <span class="fl">0.1</span>)</span>
-<span id="cb147-12"><a href="plotting.html#cb147-12" aria-hidden="true" tabindex="-1"></a>PLOT2 <span class="ot">&lt;-</span> ggdag<span class="sc">::</span><span class="fu">ggdag</span>(DAG, <span class="at">node_size =</span> <span class="dv">50</span>)</span>
-<span id="cb147-13"><a href="plotting.html#cb147-13" aria-hidden="true" tabindex="-1"></a>PLOT2</span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="plotting.html#cb148-1" aria-hidden="true" tabindex="-1"></a>shorten_dag_arrows <span class="ot">&lt;-</span> <span class="cf">function</span>(tidy_dag, shorten_distance){</span>
+<span id="cb148-2"><a href="plotting.html#cb148-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Update underlying ggdag object</span></span>
+<span id="cb148-3"><a href="plotting.html#cb148-3" aria-hidden="true" tabindex="-1"></a>  tidy_dag<span class="sc">$</span>data <span class="ot">=</span> dplyr<span class="sc">::</span><span class="fu">mutate</span>(tidy_dag<span class="sc">$</span>data, <span class="at">slope =</span> (yend <span class="sc">-</span> y) <span class="sc">/</span> (xend <span class="sc">-</span> x), <span class="co"># Calculate slope of line</span></span>
+<span id="cb148-4"><a href="plotting.html#cb148-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">distance =</span> <span class="fu">sqrt</span>((xend<span class="sc">-</span>x)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (yend <span class="sc">-</span> y)<span class="sc">^</span><span class="dv">2</span>), <span class="co"># Calculate total distance of line</span></span>
+<span id="cb148-5"><a href="plotting.html#cb148-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">proportion =</span> shorten_distance<span class="sc">/</span>distance, <span class="co"># Calculate proportion by which to be shortened</span></span>
+<span id="cb148-6"><a href="plotting.html#cb148-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">xend =</span> (<span class="dv">1</span><span class="sc">-</span>proportion)<span class="sc">*</span>xend <span class="sc">+</span> (proportion<span class="sc">*</span>x), <span class="co"># Shorten xend</span></span>
+<span id="cb148-7"><a href="plotting.html#cb148-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">yend =</span> (<span class="dv">1</span><span class="sc">-</span>proportion)<span class="sc">*</span>yend <span class="sc">+</span> (proportion<span class="sc">*</span>y)) <span class="sc">%&gt;%</span> <span class="co"># Shorten yend</span></span>
+<span id="cb148-8"><a href="plotting.html#cb148-8" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>slope, <span class="sc">-</span>distance, <span class="sc">-</span>proportion) <span class="co"># Drop intermediate values</span></span>
+<span id="cb148-9"><a href="plotting.html#cb148-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(tidy_dag)</span>
+<span id="cb148-10"><a href="plotting.html#cb148-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb148-11"><a href="plotting.html#cb148-11" aria-hidden="true" tabindex="-1"></a>DAG <span class="ot">&lt;-</span> <span class="fu">shorten_dag_arrows</span>(DAG, <span class="at">shorten_distance =</span> <span class="fl">0.1</span>)</span>
+<span id="cb148-12"><a href="plotting.html#cb148-12" aria-hidden="true" tabindex="-1"></a>PLOT2 <span class="ot">&lt;-</span> ggdag<span class="sc">::</span><span class="fu">ggdag</span>(DAG, <span class="at">node_size =</span> <span class="dv">50</span>)</span>
+<span id="cb148-13"><a href="plotting.html#cb148-13" aria-hidden="true" tabindex="-1"></a>PLOT2</span></code></pre></div>
 <p><img src="06-plotting_files/figure-html/dag_big_nodes_part_2-1.png" width="672" /></p>
 
 </div>
@@ -549,42 +588,42 @@ div.csl-indent {
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["cookbook.pdf"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["cookbook.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

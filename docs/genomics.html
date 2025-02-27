@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Genomics | The Surgical Informatics Cookbook</title>
   <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Genomics | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2024-05-27" />
+<meta name="date" content="2025-02-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -303,10 +303,11 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="6" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>6</b> Plotting</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="plotting.html"><a href="plotting.html#gghighlight-example"><i class="fa fa-check"></i><b>6.1</b> GGHighlight Example</a></li>
-<li class="chapter" data-level="6.2" data-path="plotting.html"><a href="plotting.html#coord_flip-factor-orders"><i class="fa fa-check"></i><b>6.2</b> <code>coord_flip()</code> factor orders</a></li>
-<li class="chapter" data-level="6.3" data-path="plotting.html"><a href="plotting.html#axis-font-size"><i class="fa fa-check"></i><b>6.3</b> Axis font size</a></li>
-<li class="chapter" data-level="6.4" data-path="plotting.html"><a href="plotting.html#shorten-arrows-on-a-dag"><i class="fa fa-check"></i><b>6.4</b> Shorten Arrows on a DAG</a></li>
+<li class="chapter" data-level="6.1" data-path="plotting.html"><a href="plotting.html#plotting-distributions-of-proportions-across-multiple-different-variables"><i class="fa fa-check"></i><b>6.1</b> Plotting distributions of proportions across multiple different variables</a></li>
+<li class="chapter" data-level="6.2" data-path="plotting.html"><a href="plotting.html#gghighlight-example"><i class="fa fa-check"></i><b>6.2</b> GGHighlight Example</a></li>
+<li class="chapter" data-level="6.3" data-path="plotting.html"><a href="plotting.html#coord_flip-factor-orders"><i class="fa fa-check"></i><b>6.3</b> <code>coord_flip()</code> factor orders</a></li>
+<li class="chapter" data-level="6.4" data-path="plotting.html"><a href="plotting.html#axis-font-size"><i class="fa fa-check"></i><b>6.4</b> Axis font size</a></li>
+<li class="chapter" data-level="6.5" data-path="plotting.html"><a href="plotting.html#shorten-arrows-on-a-dag"><i class="fa fa-check"></i><b>6.5</b> Shorten Arrows on a DAG</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="genomics.html"><a href="genomics.html"><i class="fa fa-check"></i><b>7</b> Genomics</a>
 <ul>
@@ -425,32 +426,32 @@ div.csl-indent {
 <div id="minimising-the-size-of-a-seurat-object" class="section level3 hasAnchor" number="7.1.1">
 <h3><span class="header-section-number">7.1.1</span> Minimising the size of a Seurat Object<a href="genomics.html#minimising-the-size-of-a-seurat-object" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Single cell analyses are ofetn collated in Seurat objects which can be huge. We reduced the size of our Seurat object by pulling the relevant sections using the code below reducing the object to &lt;20% of its original size. This works by only including the sparse matrices. This is not a workable example, but the PBMC dataset could be used if necessary.</p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="genomics.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="co">#library(Seurat)</span></span>
-<span id="cb148-2"><a href="genomics.html#cb148-2" aria-hidden="true" tabindex="-1"></a><span class="co">#library(dplyr)</span></span>
-<span id="cb148-3"><a href="genomics.html#cb148-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-4"><a href="genomics.html#cb148-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-5"><a href="genomics.html#cb148-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Load in the data</span></span>
-<span id="cb148-6"><a href="genomics.html#cb148-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-7"><a href="genomics.html#cb148-7" aria-hidden="true" tabindex="-1"></a>pathtoglobaldata <span class="ot">&lt;-</span><span class="st">&quot;mac_shiny/data/Global_sc_object&quot;</span></span>
-<span id="cb148-8"><a href="genomics.html#cb148-8" aria-hidden="true" tabindex="-1"></a>object_global<span class="ot">&lt;-</span><span class="fu">readRDS</span>(pathtoglobaldata)</span>
-<span id="cb148-9"><a href="genomics.html#cb148-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-10"><a href="genomics.html#cb148-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-11"><a href="genomics.html#cb148-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Get sparse assay data</span></span>
-<span id="cb148-12"><a href="genomics.html#cb148-12" aria-hidden="true" tabindex="-1"></a>sizetest_global<span class="ot">&lt;-</span><span class="fu">GetAssayData</span>(<span class="at">object =</span> object_global, <span class="at">slot =</span> <span class="st">&quot;data&quot;</span>) <span class="co"># counts don’t work, scaled breaks my pc with memory errors, not sure it matters that much</span></span>
-<span id="cb148-13"><a href="genomics.html#cb148-13" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="ot">&lt;-</span> <span class="fu">CreateSeuratObject</span>(sizetest_global)</span>
-<span id="cb148-14"><a href="genomics.html#cb148-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-15"><a href="genomics.html#cb148-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Add in classifications. </span></span>
-<span id="cb148-16"><a href="genomics.html#cb148-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-17"><a href="genomics.html#cb148-17" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">@</span>reductions<span class="sc">$</span>tsne<span class="ot">&lt;-</span>object_global<span class="sc">@</span>reductions<span class="sc">$</span>tsne <span class="co"># reduction embeddings for tsnegraph</span></span>
-<span id="cb148-18"><a href="genomics.html#cb148-18" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">$</span>Phenotype<span class="ot">&lt;-</span> object_global<span class="sc">$</span>Phenotype</span>
-<span id="cb148-19"><a href="genomics.html#cb148-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-20"><a href="genomics.html#cb148-20" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">@</span>meta.data<span class="sc">$</span>final_classification<span class="ot">&lt;-</span> object_global<span class="sc">@</span>meta.data<span class="sc">$</span>final_classification</span>
-<span id="cb148-21"><a href="genomics.html#cb148-21" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">$</span>final_classificaiton<span class="ot">&lt;-</span> object_global<span class="sc">$</span>final_classification <span class="co">#cell classifications</span></span>
-<span id="cb148-22"><a href="genomics.html#cb148-22" aria-hidden="true" tabindex="-1"></a><span class="fu">Idents</span>(<span class="at">object =</span> object_global_small) <span class="ot">&lt;-</span> <span class="st">&quot;final_classificaiton&quot;</span> <span class="co">#set forever</span></span>
-<span id="cb148-23"><a href="genomics.html#cb148-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-24"><a href="genomics.html#cb148-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-25"><a href="genomics.html#cb148-25" aria-hidden="true" tabindex="-1"></a><span class="co">#same</span></span>
-<span id="cb148-26"><a href="genomics.html#cb148-26" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(object_global_small,<span class="st">&quot;mac_shiny/data/global_object_sml&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="genomics.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="co">#library(Seurat)</span></span>
+<span id="cb149-2"><a href="genomics.html#cb149-2" aria-hidden="true" tabindex="-1"></a><span class="co">#library(dplyr)</span></span>
+<span id="cb149-3"><a href="genomics.html#cb149-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-4"><a href="genomics.html#cb149-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-5"><a href="genomics.html#cb149-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Load in the data</span></span>
+<span id="cb149-6"><a href="genomics.html#cb149-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-7"><a href="genomics.html#cb149-7" aria-hidden="true" tabindex="-1"></a>pathtoglobaldata <span class="ot">&lt;-</span><span class="st">&quot;mac_shiny/data/Global_sc_object&quot;</span></span>
+<span id="cb149-8"><a href="genomics.html#cb149-8" aria-hidden="true" tabindex="-1"></a>object_global<span class="ot">&lt;-</span><span class="fu">readRDS</span>(pathtoglobaldata)</span>
+<span id="cb149-9"><a href="genomics.html#cb149-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-10"><a href="genomics.html#cb149-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-11"><a href="genomics.html#cb149-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Get sparse assay data</span></span>
+<span id="cb149-12"><a href="genomics.html#cb149-12" aria-hidden="true" tabindex="-1"></a>sizetest_global<span class="ot">&lt;-</span><span class="fu">GetAssayData</span>(<span class="at">object =</span> object_global, <span class="at">slot =</span> <span class="st">&quot;data&quot;</span>) <span class="co"># counts don’t work, scaled breaks my pc with memory errors, not sure it matters that much</span></span>
+<span id="cb149-13"><a href="genomics.html#cb149-13" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="ot">&lt;-</span> <span class="fu">CreateSeuratObject</span>(sizetest_global)</span>
+<span id="cb149-14"><a href="genomics.html#cb149-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-15"><a href="genomics.html#cb149-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Add in classifications. </span></span>
+<span id="cb149-16"><a href="genomics.html#cb149-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-17"><a href="genomics.html#cb149-17" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">@</span>reductions<span class="sc">$</span>tsne<span class="ot">&lt;-</span>object_global<span class="sc">@</span>reductions<span class="sc">$</span>tsne <span class="co"># reduction embeddings for tsnegraph</span></span>
+<span id="cb149-18"><a href="genomics.html#cb149-18" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">$</span>Phenotype<span class="ot">&lt;-</span> object_global<span class="sc">$</span>Phenotype</span>
+<span id="cb149-19"><a href="genomics.html#cb149-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-20"><a href="genomics.html#cb149-20" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">@</span>meta.data<span class="sc">$</span>final_classification<span class="ot">&lt;-</span> object_global<span class="sc">@</span>meta.data<span class="sc">$</span>final_classification</span>
+<span id="cb149-21"><a href="genomics.html#cb149-21" aria-hidden="true" tabindex="-1"></a>object_global_small<span class="sc">$</span>final_classificaiton<span class="ot">&lt;-</span> object_global<span class="sc">$</span>final_classification <span class="co">#cell classifications</span></span>
+<span id="cb149-22"><a href="genomics.html#cb149-22" aria-hidden="true" tabindex="-1"></a><span class="fu">Idents</span>(<span class="at">object =</span> object_global_small) <span class="ot">&lt;-</span> <span class="st">&quot;final_classificaiton&quot;</span> <span class="co">#set forever</span></span>
+<span id="cb149-23"><a href="genomics.html#cb149-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-24"><a href="genomics.html#cb149-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-25"><a href="genomics.html#cb149-25" aria-hidden="true" tabindex="-1"></a><span class="co">#same</span></span>
+<span id="cb149-26"><a href="genomics.html#cb149-26" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(object_global_small,<span class="st">&quot;mac_shiny/data/global_object_sml&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="nextflow" class="section level2 hasAnchor" number="7.2">
@@ -460,29 +461,6 @@ div.csl-indent {
 <p>For a basic alignment job for RNASeq or DNASeq, you will require a machine with around 200GB memory and 24 cores. Fast scratch space is advantageous (NVMe fast disk is ideal). Fast disk space is needed for the working directory (cached files and staged files) and for the results storage. At least three times the size of the input data is ideal.</p>
 <div id="rnaseq-example-with-sbatch-slurm" class="section level3 hasAnchor" number="7.2.1">
 <h3><span class="header-section-number">7.2.1</span> RNASeq example with sbatch (slurm)<a href="genomics.html#rnaseq-example-with-sbatch-slurm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb149"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb149-1"><a href="genomics.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash --login</span></span>
-<span id="cb149-2"><a href="genomics.html#cb149-2" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb149-3"><a href="genomics.html#cb149-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=single-node-multicore </span><span class="al">###</span><span class="co"> Replace with the name of your job</span></span>
-<span id="cb149-4"><a href="genomics.html#cb149-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mail-user=thomas.drake@glasgow.ac.uk </span><span class="al">###</span><span class="co"> Your email address</span></span>
-<span id="cb149-5"><a href="genomics.html#cb149-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mail-type=</span><span class="re">END</span><span class="co">,FAIL # Conditions when an email is sent</span></span>
-<span id="cb149-6"><a href="genomics.html#cb149-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%x.%j.out </span><span class="al">###</span><span class="co"> output file: &lt;job-name.job-id.out&gt;</span></span>
-<span id="cb149-7"><a href="genomics.html#cb149-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --nodes=1 </span><span class="al">###</span><span class="co"> Keep the job on one computer/node.</span></span>
-<span id="cb149-8"><a href="genomics.html#cb149-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --ntasks=1 </span><span class="al">###</span><span class="co"> single task</span></span>
-<span id="cb149-9"><a href="genomics.html#cb149-9" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=64  </span><span class="al">###</span><span class="co"> each task uses up to 64 cpu cores (defaults to 1 if absent)</span></span>
-<span id="cb149-10"><a href="genomics.html#cb149-10" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=10-00:00:00 </span><span class="al">###</span><span class="co"> WallTime (10 days)</span></span>
-<span id="cb149-11"><a href="genomics.html#cb149-11" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=480G</span></span>
-<span id="cb149-12"><a href="genomics.html#cb149-12" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --partition=compute </span><span class="al">###</span><span class="co"> Partition Name</span></span>
-<span id="cb149-13"><a href="genomics.html#cb149-13" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span></span>
-<span id="cb149-14"><a href="genomics.html#cb149-14" aria-hidden="true" tabindex="-1"></a><span class="fu">hostname</span></span>
-<span id="cb149-15"><a href="genomics.html#cb149-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Set OMP_NUM_THREADS to the same value as --cpus-per-task</span></span>
-<span id="cb149-16"><a href="genomics.html#cb149-16" aria-hidden="true" tabindex="-1"></a><span class="co"># with a fallback option in case it isn&#39;t set.</span></span>
-<span id="cb149-17"><a href="genomics.html#cb149-17" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load nextflow-22.04.0</span>
-<span id="cb149-18"><a href="genomics.html#cb149-18" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load singularity/singularity-3.8.7</span>
-<span id="cb149-19"><a href="genomics.html#cb149-19" aria-hidden="true" tabindex="-1"></a><span class="ex">nextflow</span> run nf-core/rnaseq <span class="at">-w</span> <span class="st">&quot;/nfs/sharedscratch2/users/tdrake/nf_work/&quot;</span> <span class="at">--input</span> <span class="st">&quot;/nfs/sharedscratch2/users/tdrake/sample_sheet_rna_hpc.csv&quot;</span> <span class="at">--genome</span> GRCm38 <span class="at">--remove_ribo_rna</span> <span class="at">-profile</span> singularity <span class="at">--outdir</span> <span class="st">&quot;/nfs/sharedscratch2/users/tdrake/rna_seq_output/&quot;</span></span>
-<span id="cb149-20"><a href="genomics.html#cb149-20" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span></span></code></pre></div>
-</div>
-<div id="dnaseq-example-with-sbatch-slurm" class="section level3 hasAnchor" number="7.2.2">
-<h3><span class="header-section-number">7.2.2</span> DNASeq example with sbatch (slurm)<a href="genomics.html#dnaseq-example-with-sbatch-slurm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb150"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb150-1"><a href="genomics.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash --login</span></span>
 <span id="cb150-2"><a href="genomics.html#cb150-2" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
 <span id="cb150-3"><a href="genomics.html#cb150-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=single-node-multicore </span><span class="al">###</span><span class="co"> Replace with the name of your job</span></span>
@@ -501,11 +479,11 @@ div.csl-indent {
 <span id="cb150-16"><a href="genomics.html#cb150-16" aria-hidden="true" tabindex="-1"></a><span class="co"># with a fallback option in case it isn&#39;t set.</span></span>
 <span id="cb150-17"><a href="genomics.html#cb150-17" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load nextflow-22.04.0</span>
 <span id="cb150-18"><a href="genomics.html#cb150-18" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load singularity/singularity-3.8.7</span>
-<span id="cb150-19"><a href="genomics.html#cb150-19" aria-hidden="true" tabindex="-1"></a><span class="ex">nextflow</span> run nf-core/sarek <span class="at">-w</span> <span class="st">&quot;/nfs/sharedscratch2/users/tdrake/nf_work/&quot;</span> <span class="at">--input</span> <span class="st">&quot;/mnt/data/R09/seq_store/izy_22_2_r_wes_nextflow_sarek/izy_wes_samplesheet.csv&quot;</span>  <span class="at">-profile</span> docker <span class="at">--genome</span> GRCm38 <span class="at">--outdir</span> <span class="st">&quot;/mnt/data/R09/seq_store/izy_22_2_r_wes_nextflow_sarek/&quot;</span> <span class="at">--skip_tools</span> baserecalibrator <span class="at">--tools</span> vep,snpeff,sarek,cnvkit</span>
+<span id="cb150-19"><a href="genomics.html#cb150-19" aria-hidden="true" tabindex="-1"></a><span class="ex">nextflow</span> run nf-core/rnaseq <span class="at">-w</span> <span class="st">&quot;/nfs/sharedscratch2/users/tdrake/nf_work/&quot;</span> <span class="at">--input</span> <span class="st">&quot;/nfs/sharedscratch2/users/tdrake/sample_sheet_rna_hpc.csv&quot;</span> <span class="at">--genome</span> GRCm38 <span class="at">--remove_ribo_rna</span> <span class="at">-profile</span> singularity <span class="at">--outdir</span> <span class="st">&quot;/nfs/sharedscratch2/users/tdrake/rna_seq_output/&quot;</span></span>
 <span id="cb150-20"><a href="genomics.html#cb150-20" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span></span></code></pre></div>
 </div>
-<div id="atacseq-example-with-sbatch-slurm" class="section level3 hasAnchor" number="7.2.3">
-<h3><span class="header-section-number">7.2.3</span> ATACSeq example with sbatch (slurm)<a href="genomics.html#atacseq-example-with-sbatch-slurm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="dnaseq-example-with-sbatch-slurm" class="section level3 hasAnchor" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> DNASeq example with sbatch (slurm)<a href="genomics.html#dnaseq-example-with-sbatch-slurm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb151"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb151-1"><a href="genomics.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash --login</span></span>
 <span id="cb151-2"><a href="genomics.html#cb151-2" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
 <span id="cb151-3"><a href="genomics.html#cb151-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=single-node-multicore </span><span class="al">###</span><span class="co"> Replace with the name of your job</span></span>
@@ -524,8 +502,31 @@ div.csl-indent {
 <span id="cb151-16"><a href="genomics.html#cb151-16" aria-hidden="true" tabindex="-1"></a><span class="co"># with a fallback option in case it isn&#39;t set.</span></span>
 <span id="cb151-17"><a href="genomics.html#cb151-17" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load nextflow-22.04.0</span>
 <span id="cb151-18"><a href="genomics.html#cb151-18" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load singularity/singularity-3.8.7</span>
-<span id="cb151-19"><a href="genomics.html#cb151-19" aria-hidden="true" tabindex="-1"></a><span class="ex">nextflow</span> run nf-core/atacseq <span class="at">-w</span> <span class="st">&quot;/nfs/sharedscratch2/users/tdrake/nf_work/&quot;</span> <span class="at">--input</span> <span class="st">&quot;/nfs/sharedscratch2/users/tdrake/atac_seq_ctnnb_p53_myc/sample_atac.csv&quot;</span> <span class="at">--genome</span> GRCm38 <span class="at">-profile</span> singularity <span class="at">--outdir</span> <span class="st">&quot;/nfs/sharedscratch2/users/tdrake/atac_seq_output_broad/&quot;</span></span>
+<span id="cb151-19"><a href="genomics.html#cb151-19" aria-hidden="true" tabindex="-1"></a><span class="ex">nextflow</span> run nf-core/sarek <span class="at">-w</span> <span class="st">&quot;/nfs/sharedscratch2/users/tdrake/nf_work/&quot;</span> <span class="at">--input</span> <span class="st">&quot;/mnt/data/R09/seq_store/izy_22_2_r_wes_nextflow_sarek/izy_wes_samplesheet.csv&quot;</span>  <span class="at">-profile</span> docker <span class="at">--genome</span> GRCm38 <span class="at">--outdir</span> <span class="st">&quot;/mnt/data/R09/seq_store/izy_22_2_r_wes_nextflow_sarek/&quot;</span> <span class="at">--skip_tools</span> baserecalibrator <span class="at">--tools</span> vep,snpeff,sarek,cnvkit</span>
 <span id="cb151-20"><a href="genomics.html#cb151-20" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span></span></code></pre></div>
+</div>
+<div id="atacseq-example-with-sbatch-slurm" class="section level3 hasAnchor" number="7.2.3">
+<h3><span class="header-section-number">7.2.3</span> ATACSeq example with sbatch (slurm)<a href="genomics.html#atacseq-example-with-sbatch-slurm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb152"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb152-1"><a href="genomics.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash --login</span></span>
+<span id="cb152-2"><a href="genomics.html#cb152-2" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb152-3"><a href="genomics.html#cb152-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=single-node-multicore </span><span class="al">###</span><span class="co"> Replace with the name of your job</span></span>
+<span id="cb152-4"><a href="genomics.html#cb152-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mail-user=thomas.drake@glasgow.ac.uk </span><span class="al">###</span><span class="co"> Your email address</span></span>
+<span id="cb152-5"><a href="genomics.html#cb152-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mail-type=</span><span class="re">END</span><span class="co">,FAIL # Conditions when an email is sent</span></span>
+<span id="cb152-6"><a href="genomics.html#cb152-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%x.%j.out </span><span class="al">###</span><span class="co"> output file: &lt;job-name.job-id.out&gt;</span></span>
+<span id="cb152-7"><a href="genomics.html#cb152-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --nodes=1 </span><span class="al">###</span><span class="co"> Keep the job on one computer/node.</span></span>
+<span id="cb152-8"><a href="genomics.html#cb152-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --ntasks=1 </span><span class="al">###</span><span class="co"> single task</span></span>
+<span id="cb152-9"><a href="genomics.html#cb152-9" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=64  </span><span class="al">###</span><span class="co"> each task uses up to 64 cpu cores (defaults to 1 if absent)</span></span>
+<span id="cb152-10"><a href="genomics.html#cb152-10" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=10-00:00:00 </span><span class="al">###</span><span class="co"> WallTime (10 days)</span></span>
+<span id="cb152-11"><a href="genomics.html#cb152-11" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=480G</span></span>
+<span id="cb152-12"><a href="genomics.html#cb152-12" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --partition=compute </span><span class="al">###</span><span class="co"> Partition Name</span></span>
+<span id="cb152-13"><a href="genomics.html#cb152-13" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span></span>
+<span id="cb152-14"><a href="genomics.html#cb152-14" aria-hidden="true" tabindex="-1"></a><span class="fu">hostname</span></span>
+<span id="cb152-15"><a href="genomics.html#cb152-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Set OMP_NUM_THREADS to the same value as --cpus-per-task</span></span>
+<span id="cb152-16"><a href="genomics.html#cb152-16" aria-hidden="true" tabindex="-1"></a><span class="co"># with a fallback option in case it isn&#39;t set.</span></span>
+<span id="cb152-17"><a href="genomics.html#cb152-17" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load nextflow-22.04.0</span>
+<span id="cb152-18"><a href="genomics.html#cb152-18" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load singularity/singularity-3.8.7</span>
+<span id="cb152-19"><a href="genomics.html#cb152-19" aria-hidden="true" tabindex="-1"></a><span class="ex">nextflow</span> run nf-core/atacseq <span class="at">-w</span> <span class="st">&quot;/nfs/sharedscratch2/users/tdrake/nf_work/&quot;</span> <span class="at">--input</span> <span class="st">&quot;/nfs/sharedscratch2/users/tdrake/atac_seq_ctnnb_p53_myc/sample_atac.csv&quot;</span> <span class="at">--genome</span> GRCm38 <span class="at">-profile</span> singularity <span class="at">--outdir</span> <span class="st">&quot;/nfs/sharedscratch2/users/tdrake/atac_seq_output_broad/&quot;</span></span>
+<span id="cb152-20"><a href="genomics.html#cb152-20" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span></span></code></pre></div>
 
 </div>
 </div>
@@ -550,42 +551,42 @@ div.csl-indent {
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["cookbook.pdf"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["cookbook.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

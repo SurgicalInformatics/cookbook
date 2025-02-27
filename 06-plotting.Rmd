@@ -6,6 +6,46 @@ knitr::opts_chunk$set(
 )
 ```
 
+## Plotting distributions of proportions across multiple different variables
+
+
+```{r}
+library(tidyverse)
+library(finalfit)
+
+summary_factorplot <- function(.data, ..., nrow = 2, ncol = 3, expand = 0.2){
+	plot_names = .data %>% 
+		select(...) %>% 
+		finalfit::extract_labels()
+	
+	purrr::map2(plot_names$vname, plot_names$vlabel,
+							~ .data %>% 
+								select(all_of(.x)) %>% 
+								drop_na() %T>%
+								{N <<- dim(.)[1]} %>% 
+								mutate(across(everything(), fct_rev)) %>% 
+								count(!! sym(.x)) %>% 
+								mutate(nn = sum(n),
+											 p = 100*n/nn,
+											 p = paste0(round_tidy(p, 1), "%")) %>% 
+								
+								ggplot(aes(x = n, y = !! sym(.x))) +
+								geom_col(fill = "navyblue") +
+								geom_text(aes(x = (n*1.05+1), label = p), hjust = 0) +
+								scale_x_continuous(expand = expansion(mult=c(0, expand))) +
+								labs(x = "n", y = "") +
+								theme_classic(14) +
+								ggtitle(.y,
+												paste0("N=", N))
+	) %>% 
+		egg::ggarrange(plots = ., nrow = nrow, ncol = ncol)
+}
+
+colon_s %>% 
+	summary_factorplot(sex.factor, rx.factor, obstruct.factor, 
+	perfor.factor, adhere.factor, differ.factor)
+```
+
 ## GGHighlight Example
 
 Plotting with gghighlight is pretty awesome allowing you to filter on any variable. It seems that gghighlight overwrites any 'colour' variable you put in the main aes. To get round this and have labels, save as a plot and add geom_label_repel separately. 

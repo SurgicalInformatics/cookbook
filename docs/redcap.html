@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 10 REDCap | The Surgical Informatics Cookbook</title>
   <meta name="description" content="All the brilliant bits of code we don’t want to forget." />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 10 REDCap | The Surgical Informatics Cookbook" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Surgical Informatics, University of Edinburgh" />
 
 
-<meta name="date" content="2024-05-27" />
+<meta name="date" content="2025-02-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -303,10 +303,11 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="6" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>6</b> Plotting</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="plotting.html"><a href="plotting.html#gghighlight-example"><i class="fa fa-check"></i><b>6.1</b> GGHighlight Example</a></li>
-<li class="chapter" data-level="6.2" data-path="plotting.html"><a href="plotting.html#coord_flip-factor-orders"><i class="fa fa-check"></i><b>6.2</b> <code>coord_flip()</code> factor orders</a></li>
-<li class="chapter" data-level="6.3" data-path="plotting.html"><a href="plotting.html#axis-font-size"><i class="fa fa-check"></i><b>6.3</b> Axis font size</a></li>
-<li class="chapter" data-level="6.4" data-path="plotting.html"><a href="plotting.html#shorten-arrows-on-a-dag"><i class="fa fa-check"></i><b>6.4</b> Shorten Arrows on a DAG</a></li>
+<li class="chapter" data-level="6.1" data-path="plotting.html"><a href="plotting.html#plotting-distributions-of-proportions-across-multiple-different-variables"><i class="fa fa-check"></i><b>6.1</b> Plotting distributions of proportions across multiple different variables</a></li>
+<li class="chapter" data-level="6.2" data-path="plotting.html"><a href="plotting.html#gghighlight-example"><i class="fa fa-check"></i><b>6.2</b> GGHighlight Example</a></li>
+<li class="chapter" data-level="6.3" data-path="plotting.html"><a href="plotting.html#coord_flip-factor-orders"><i class="fa fa-check"></i><b>6.3</b> <code>coord_flip()</code> factor orders</a></li>
+<li class="chapter" data-level="6.4" data-path="plotting.html"><a href="plotting.html#axis-font-size"><i class="fa fa-check"></i><b>6.4</b> Axis font size</a></li>
+<li class="chapter" data-level="6.5" data-path="plotting.html"><a href="plotting.html#shorten-arrows-on-a-dag"><i class="fa fa-check"></i><b>6.5</b> Shorten Arrows on a DAG</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="genomics.html"><a href="genomics.html"><i class="fa fa-check"></i><b>7</b> Genomics</a>
 <ul>
@@ -433,21 +434,21 @@ redcap_uri = &quot;https://redcap.cir.ed.ac.uk/usher/api/&quot;</code></pre>
 <li><p>Go to the API playground in REDCap (left-hand menu inside a project) and from API Method select “Export Records”.</p></li>
 <li><p>Scroll down and look at the R code example. Now, we’ve not found that copying this exact example works very well for us. But looking at the format can be useful if you’ve made custom selections at the top, e.g., to pull specific records or variables. In most cases though, you can ignore the example and copy these lines:</p></li>
 </ol>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="redcap.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb170-2"><a href="redcap.html#cb170-2" aria-hidden="true" tabindex="-1"></a>patient_data_orig <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;token&quot;</span><span class="ot">=</span><span class="fu">Sys.getenv</span>(<span class="st">&quot;redcap_token&quot;</span>),</span>
-<span id="cb170-3"><a href="redcap.html#cb170-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">content=</span><span class="st">&#39;records&#39;</span>,</span>
-<span id="cb170-4"><a href="redcap.html#cb170-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">action=</span><span class="st">&#39;export&#39;</span>,</span>
-<span id="cb170-5"><a href="redcap.html#cb170-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">format=</span><span class="st">&#39;csv&#39;</span>,</span>
-<span id="cb170-6"><a href="redcap.html#cb170-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">type=</span><span class="st">&#39;flat&#39;</span>,</span>
-<span id="cb170-7"><a href="redcap.html#cb170-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">csvDelimiter=</span><span class="st">&#39;&#39;</span>,</span>
-<span id="cb170-8"><a href="redcap.html#cb170-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">rawOrLabel=</span><span class="st">&#39;label&#39;</span>,</span>
-<span id="cb170-9"><a href="redcap.html#cb170-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">rawOrLabelHeaders=</span><span class="st">&#39;raw&#39;</span>,</span>
-<span id="cb170-10"><a href="redcap.html#cb170-10" aria-hidden="true" tabindex="-1"></a>                          <span class="at">exportCheckboxLabel=</span><span class="st">&#39;true&#39;</span>,</span>
-<span id="cb170-11"><a href="redcap.html#cb170-11" aria-hidden="true" tabindex="-1"></a>                          <span class="at">exportSurveyFields=</span><span class="st">&#39;false&#39;</span>,</span>
-<span id="cb170-12"><a href="redcap.html#cb170-12" aria-hidden="true" tabindex="-1"></a>                          <span class="at">exportDataAccessGroups=</span><span class="st">&#39;false&#39;</span>,</span>
-<span id="cb170-13"><a href="redcap.html#cb170-13" aria-hidden="true" tabindex="-1"></a>                          <span class="at">returnFormat=</span><span class="st">&#39;json&#39;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb170-14"><a href="redcap.html#cb170-14" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">POST</span>(<span class="fu">Sys.getenv</span>(<span class="st">&quot;redcap_uri&quot;</span>), <span class="at">body =</span> ., <span class="at">encode =</span> <span class="st">&quot;form&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb170-15"><a href="redcap.html#cb170-15" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">content</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="redcap.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb171-2"><a href="redcap.html#cb171-2" aria-hidden="true" tabindex="-1"></a>patient_data_orig <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;token&quot;</span><span class="ot">=</span><span class="fu">Sys.getenv</span>(<span class="st">&quot;redcap_token&quot;</span>),</span>
+<span id="cb171-3"><a href="redcap.html#cb171-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">content=</span><span class="st">&#39;records&#39;</span>,</span>
+<span id="cb171-4"><a href="redcap.html#cb171-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">action=</span><span class="st">&#39;export&#39;</span>,</span>
+<span id="cb171-5"><a href="redcap.html#cb171-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">format=</span><span class="st">&#39;csv&#39;</span>,</span>
+<span id="cb171-6"><a href="redcap.html#cb171-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">type=</span><span class="st">&#39;flat&#39;</span>,</span>
+<span id="cb171-7"><a href="redcap.html#cb171-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">csvDelimiter=</span><span class="st">&#39;&#39;</span>,</span>
+<span id="cb171-8"><a href="redcap.html#cb171-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">rawOrLabel=</span><span class="st">&#39;label&#39;</span>,</span>
+<span id="cb171-9"><a href="redcap.html#cb171-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">rawOrLabelHeaders=</span><span class="st">&#39;raw&#39;</span>,</span>
+<span id="cb171-10"><a href="redcap.html#cb171-10" aria-hidden="true" tabindex="-1"></a>                          <span class="at">exportCheckboxLabel=</span><span class="st">&#39;true&#39;</span>,</span>
+<span id="cb171-11"><a href="redcap.html#cb171-11" aria-hidden="true" tabindex="-1"></a>                          <span class="at">exportSurveyFields=</span><span class="st">&#39;false&#39;</span>,</span>
+<span id="cb171-12"><a href="redcap.html#cb171-12" aria-hidden="true" tabindex="-1"></a>                          <span class="at">exportDataAccessGroups=</span><span class="st">&#39;false&#39;</span>,</span>
+<span id="cb171-13"><a href="redcap.html#cb171-13" aria-hidden="true" tabindex="-1"></a>                          <span class="at">returnFormat=</span><span class="st">&#39;json&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb171-14"><a href="redcap.html#cb171-14" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">POST</span>(<span class="fu">Sys.getenv</span>(<span class="st">&quot;redcap_uri&quot;</span>), <span class="at">body =</span> ., <span class="at">encode =</span> <span class="st">&quot;form&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb171-15"><a href="redcap.html#cb171-15" aria-hidden="true" tabindex="-1"></a>  httr<span class="sc">::</span><span class="fu">content</span>()</span></code></pre></div>
 <p><code>httr::content()</code> runs <code>readr::read_csv()</code> to process the result of the API call. So any arguments that you might need to pass to <code>read_csv()</code>, can be passed in there, e.g.:</p>
 <pre><code>httr::content(guess_max = Inf, col_types = cols(.default = &quot;c&quot;))</code></pre>
 <p>The above code works well for the vast majority of projects. If, however, the project is huge then you’ll need to pull data in batches using <code>redcap_read()</code> from <code>library(REDCapR)</code>: <a href="https://github.com/SurgicalInformatics/cocin_ccp/blob/master/01c_data_pull.R" class="uri">https://github.com/SurgicalInformatics/cocin_ccp/blob/master/01c_data_pull.R</a></p>
@@ -552,42 +553,42 @@ rm(data)</code></pre>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["cookbook.pdf"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["cookbook.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>
